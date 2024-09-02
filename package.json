@@ -13,10 +13,9 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^3.0.0",
-    "@nuxt/eslint": "latest",
+    "@nuxt/eslint": "^0.5.5",
     "eslint": "^9.9.0",
     "nuxt": "^3.13.0",
-    "typescript": "^5.5.4",
-    "vue": "latest"
+    "typescript": "^5.5.4"
   }
 }
