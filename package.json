@@ -1,7 +1,8 @@
 {
-  "name": "my-nuxt-layer",
+  "name": "ui-base",
   "type": "module",
   "version": "0.0.1",
+  "homepage": "https://github.com/happydesigns",
   "main": "./nuxt.config.ts",
   "scripts": {
     "dev": "nuxi dev .playground",
