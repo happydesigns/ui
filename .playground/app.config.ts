@@ -1,5 +1,8 @@
 export default defineAppConfig({
-  myLayer: {
-    name: 'My amazing Nuxt layer (overwritten)',
+  meta: {
+    copyright: {
+      name: 'happydesigns',
+      homepage: 'https://happydesigns.de',
+    },
   },
 })

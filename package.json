@@ -2,6 +2,7 @@
   "name": "ui-base",
   "type": "module",
   "version": "0.0.1",
+  "author": "happydesigns",
   "homepage": "https://github.com/happydesigns",
   "main": "./nuxt.config.ts",
   "scripts": {

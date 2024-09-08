@@ -1,14 +1,21 @@
 export default defineAppConfig({
-  myLayer: {
-    name: 'Hello from Nuxt layer',
+  meta: {
+    copyright: {
+      name: 'happydesigns',
+      homepage: 'https://happydesigns.de',
+    },
   },
 })
 
 declare module '@nuxt/schema' {
   interface AppConfigInput {
-    myLayer?: {
-      /** Project name */
-      name?: string
+    meta?: {
+      copyright: {
+        /** The name of the copyright holder. */
+        name?: string
+        /** The homepage url of the copyright holder. */
+        homepage?: string
+      }
     }
   }
 }
