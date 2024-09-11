@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defu } from 'defu'
 import type { FooterLink } from '#ui-pro/types'
 
 interface FooterColumn {
@@ -28,10 +27,11 @@ const copyrightOwner = appConfig.meta.copyright.name
 const year = new Date().getFullYear()
 const copyrightDefault = `Copyright © ${year} ${copyrightOwner}`
 
+const leftColumnCount = (props.columns?.left ?? 0) as number
 const linkColumnCount = (props.columns?.links ?? props.links.length ?? 0) as number
 const rightColumnCount = (props.columns?.right ?? 0) as number
 
-const lgColumnCount = computed(() => Math.max(linkColumnCount, rightColumnCount))
+const lgColumnCount = Math.max(leftColumnCount, linkColumnCount, rightColumnCount)
 const totalColumnCount = ((props.columns?.left ?? 0) + linkColumnCount + (props.columns?.right ?? 0)) as number
 
 const config = computed(() => ({
@@ -51,9 +51,9 @@ const config = computed(() => ({
   },
   footerColumns: {
     wrapper: `xl:grid-cols-${totalColumnCount}`,
-    left: '',
+    left: `lg:grid-cols-${lgColumnCount} xl:grid-cols-none col-span-${leftColumnCount}`,
     center: `xl:col-span-${linkColumnCount}`,
-    right: `lg:grid-cols-${lgColumnCount.value} xl:grid-cols-none col-span-${rightColumnCount}`,
+    right: `lg:grid-cols-${lgColumnCount} xl:grid-cols-none col-span-${rightColumnCount}`,
     label: '',
     list: '',
     base: '',
@@ -74,6 +74,11 @@ const { ui: uiFooterColumns } = useUI('footer.columns', toRef(props.ui?.footerCo
   <UFooter :ui="uiFooter" v-bind="uiAttrs">
     <template #top>
       <UFooterColumns :links="links" :ui="uiFooterColumns">
+        <template #left>
+          <div class="flex flex-col lg:grid grid-flow-col auto-cols-fr gap-8 xl:grid-cols-none" :class="[`grid-cols-${lgColumnCount}`]">
+            <slot name="left" />
+          </div>
+        </template>
         <template #right>
           <div class="flex flex-col lg:grid grid-flow-col auto-cols-fr gap-8 xl:grid-cols-none" :class="[`grid-cols-${lgColumnCount}`]">
             <slot name="right" />

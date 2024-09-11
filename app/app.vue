@@ -70,7 +70,10 @@ const socials = [
 
 <template>
   <HelloWorld />
-  <Footer :links :socials :ui="{ }" :columns="{ right: 1 }">
+  <Footer :links :socials :ui="{ }" :columns="{ left: 1, right: 1 }">
+    <template #left>
+      a
+    </template>
     <template #right>
       a
     </template>
