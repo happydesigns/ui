@@ -75,7 +75,15 @@ const socials = [
       a
     </template>
     <template #right>
-      a
+      b
+    </template>
+    <template #copyright="{ year, copyrightOwner, copyrightHomepage }">
+      <p class="text-gray-500 dark:text-gray-400 text-sm">
+        Copyright © {{ year }}
+        <NuxtLink :to="copyrightHomepage">
+          {{ copyrightOwner }}
+        </NuxtLink>
+      </p>
     </template>
   </Footer>
 </template>

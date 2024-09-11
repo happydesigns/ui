@@ -23,9 +23,8 @@ const props = defineProps<{
 
 const appConfig = useAppConfig()
 const copyrightOwner = appConfig.meta.copyright.name
-
+const copyrightHomepage = appConfig.meta.copyright.homepage
 const year = new Date().getFullYear()
-const copyrightDefault = `Copyright © ${year} ${copyrightOwner}`
 
 const leftColumnCount = (props.columns?.left ?? 0) as number
 const linkColumnCount = (props.columns?.links ?? props.links.length ?? 0) as number
@@ -89,7 +88,15 @@ const { ui: uiFooterColumns } = useUI('footer.columns', toRef(props.ui?.footerCo
 
     <template #left>
       <p class="text-gray-500 dark:text-gray-400 text-sm">
-        {{ copyright ?? copyrightDefault }}
+        <template v-if="$slots.copyright">
+          <slot name="copyright" :year :copyright-homepage :copyright-owner />
+        </template>
+        <template v-else>
+          Copyright © {{ year }}
+          <NuxtLink :to="copyrightHomepage">
+            {{ copyrightOwner }}
+          </NuxtLink>
+        </template>
       </p>
     </template>
 
