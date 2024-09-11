@@ -69,12 +69,15 @@ const socials = [
 </script>
 
 <template>
-  <Footer :links :socials :ui="{ }" :columns="{ left: 1, right: 1 }">
+  <Footer :links :socials :ui="{ }" :columns="{ left: 2, right: 3 }">
     <template #left>
-      a
+      <p>a</p>
+      <p>a</p>
     </template>
     <template #right>
-      b
+      <p>b</p>
+      <p>b</p>
+      <p>b</p>
     </template>
     <template #copyright="{ year, copyrightOwner, copyrightHomepage }">
       <p class="text-gray-500 dark:text-gray-400 text-sm">

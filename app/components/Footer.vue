@@ -74,12 +74,12 @@ const { ui: uiFooterColumns } = useUI('footer.columns', toRef(props.ui?.footerCo
     <template #top>
       <UFooterColumns :links="links" :ui="uiFooterColumns">
         <template #left>
-          <div class="flex flex-col lg:grid grid-flow-col auto-cols-fr gap-8 xl:grid-cols-none" :class="[`grid-cols-${lgColumnCount}`]">
+          <div class="flex flex-col lg:grid grid-flow-col auto-cols-fr gap-8 xl:grid-cols-none" :class="[`lg:grid-cols-${lgColumnCount}`]">
             <slot name="left" />
           </div>
         </template>
         <template #right>
-          <div class="flex flex-col lg:grid grid-flow-col auto-cols-fr gap-8 xl:grid-cols-none" :class="[`grid-cols-${lgColumnCount}`]">
+          <div class="flex flex-col lg:grid grid-flow-col auto-cols-fr gap-8 xl:grid-cols-none" :class="[`lg:grid-cols-${lgColumnCount}`]">
             <slot name="right" />
           </div>
         </template>
