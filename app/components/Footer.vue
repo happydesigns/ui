@@ -18,7 +18,6 @@ const props = defineProps<{
   copyright?: string
   class?: string
   ui?: Partial<typeof config.value>
-  columns?: { left?: number, links?: number, right?: number }
 }>()
 
 const appConfig = useAppConfig()
@@ -26,12 +25,13 @@ const copyrightOwner = appConfig.meta.copyright.name
 const copyrightHomepage = appConfig.meta.copyright.homepage
 const year = new Date().getFullYear()
 
-const leftColumnCount = (props.columns?.left ?? 0) as number
-const linkColumnCount = (props.columns?.links ?? props.links.length ?? 0) as number
-const rightColumnCount = (props.columns?.right ?? 0) as number
+const slots = useSlots()
+const leftColumnCount = slots.left ? slots.left().length : 0
+const linkColumnCount = (props.links.length ?? 0) as number
+const rightColumnCount = slots.right ? slots.right().length : 0
 
 const lgColumnCount = Math.max(leftColumnCount, linkColumnCount, rightColumnCount)
-const totalColumnCount = ((props.columns?.left ?? 0) + linkColumnCount + (props.columns?.right ?? 0)) as number
+const totalColumnCount = leftColumnCount + linkColumnCount + rightColumnCount
 
 const config = computed(() => ({
   footer: {

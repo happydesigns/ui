@@ -69,7 +69,7 @@ const socials = [
 </script>
 
 <template>
-  <Footer :links :socials :ui="{ }" :columns="{ left: 2, right: 3 }">
+  <Footer :links :socials :ui="{ }">
     <template #left>
       <p>a</p>
       <p>a</p>
