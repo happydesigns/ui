@@ -1,7 +1,10 @@
+import type { FooterLink } from '#ui-pro/types'
+import type { FooterSocial } from './app/components/Footer.vue'
+
 export default defineAppConfig({
   meta: {
     copyright: {
-      name: 'happydesigns',
+      holder: 'happydesigns',
       homepage: 'https://happydesigns.de',
     },
   },
@@ -9,12 +12,18 @@ export default defineAppConfig({
 
 declare module '@nuxt/schema' {
   interface AppConfigInput {
-    meta?: {
-      copyright: {
-        /** The name of the copyright holder. */
-        name?: string
-        /** The homepage url of the copyright holder. */
-        homepage?: string
+    app?: {
+      meta?: {
+        copyright?: {
+          /** The name of the copyright holder. */
+          holder?: string
+          /** The homepage url of the copyright holder. */
+          homepage?: string
+        }
+      }
+      footer?: {
+        links?: Array<FooterLink>
+        socials?: Array<FooterSocial>
       }
     }
   }

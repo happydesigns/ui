@@ -6,61 +6,62 @@ interface FooterColumn {
   children: FooterLink[]
 }
 
-interface FooterSocial {
+export interface FooterSocial {
   icon: string
   to: string
   label?: string
 }
 
 const props = defineProps<{
-  links: FooterColumn[]
-  socials: FooterSocial[]
+  links?: FooterColumn[]
+  socials?: FooterSocial[]
   copyright?: string
   class?: string
   ui?: Partial<typeof config.value>
 }>()
 
 const appConfig = useAppConfig()
-const copyrightOwner = appConfig.meta.copyright.name
-const copyrightHomepage = appConfig.meta.copyright.homepage
-const year = new Date().getFullYear()
+const { holder: copyrightHolder, homepage: copyrightHomepage } = appConfig.app.meta.copyright
+const copyrightYear = new Date().getFullYear()
+
+const links = props.links ?? appConfig.app.footer.links
+const socials = props.socials ?? appConfig.app.footer.socials
 
 const slots = useSlots()
 const leftColumnCount = slots.left ? slots.left().length : 0
-const linkColumnCount = (props.links.length ?? 0) as number
+const linkColumnCount = (links.length ?? 0) as number
 const rightColumnCount = slots.right ? slots.right().length : 0
 
 const lgColumnCount = Math.max(leftColumnCount, linkColumnCount, rightColumnCount)
 const totalColumnCount = leftColumnCount + linkColumnCount + rightColumnCount
 
 const config = computed(() => ({
+  wrapper: '~',
   footer: {
-    wrapper: '',
     top: {
-      wrapper: 'border-t border-gray-200 dark:border-gray-800',
-      container: 'py-8 lg:py-12',
+      wrapper: '~ border-t border-gray-200 dark:border-gray-800',
+      container: '~',
     },
     bottom: {
-      wrapper: 'border-t border-gray-200 dark:border-gray-800',
-      container: '!py-6',
+      wrapper: '~ border-t border-gray-200 dark:border-gray-800',
+      container: '~ !py-6',
       left: '~',
       center: '~',
       right: '~',
     },
   },
   footerColumns: {
-    wrapper: `xl:grid-cols-${totalColumnCount}`,
-    left: `lg:grid-cols-${lgColumnCount} xl:grid-cols-none col-span-${leftColumnCount}`,
-    center: `xl:col-span-${linkColumnCount}`,
-    right: `lg:grid-cols-${lgColumnCount} xl:grid-cols-none col-span-${rightColumnCount}`,
-    label: '',
-    list: '',
-    base: '',
-    active: '',
-    inactive: '',
+    wrapper: `~ xl:grid-cols-${totalColumnCount}`,
+    left: `~ lg:grid-cols-${lgColumnCount} xl:grid-cols-none col-span-${leftColumnCount}`,
+    center: `~ xl:col-span-${linkColumnCount}`,
+    right: `~ lg:grid-cols-${lgColumnCount} xl:grid-cols-none col-span-${rightColumnCount}`,
+    label: '~',
+    base: '~',
+    active: '~',
+    inactive: '~',
     externalIcon: {
-      name: '',
-      base: '',
+      name: '~',
+      base: '~',
     },
   },
 }))
@@ -72,14 +73,20 @@ const { ui: uiFooterColumns } = useUI('footer.columns', toRef(props.ui?.footerCo
 <template>
   <UFooter :ui="uiFooter" v-bind="uiAttrs">
     <template #top>
-      <UFooterColumns :links="links" :ui="uiFooterColumns">
+      <UFooterColumns :links :ui="uiFooterColumns">
         <template #left>
-          <div class="flex flex-col lg:grid grid-flow-col auto-cols-fr gap-8 xl:grid-cols-none" :class="[`lg:grid-cols-${lgColumnCount}`]">
+          <div
+            class="flex flex-col lg:grid grid-flow-col auto-cols-fr gap-8 xl:grid-cols-none"
+            :class="[`lg:grid-cols-${lgColumnCount}`]"
+          >
             <slot name="left" />
           </div>
         </template>
         <template #right>
-          <div class="flex flex-col lg:grid grid-flow-col auto-cols-fr gap-8 xl:grid-cols-none" :class="[`lg:grid-cols-${lgColumnCount}`]">
+          <div
+            class="flex flex-col lg:grid grid-flow-col auto-cols-fr gap-8 xl:grid-cols-none"
+            :class="[`lg:grid-cols-${lgColumnCount}`]"
+          >
             <slot name="right" />
           </div>
         </template>
@@ -87,26 +94,26 @@ const { ui: uiFooterColumns } = useUI('footer.columns', toRef(props.ui?.footerCo
     </template>
 
     <template #left>
-      <p class="text-gray-500 dark:text-gray-400 text-sm">
+      <div class="text-gray-500 dark:text-gray-400 text-sm">
         <template v-if="$slots.copyright">
-          <slot name="copyright" :year :copyright-homepage :copyright-owner />
+          <slot name="copyright" :copyright-year :copyright-homepage :copyright-holder />
         </template>
         <template v-else>
-          Copyright © {{ year }}
+          Copyright © {{ copyrightYear }}
           <NuxtLink :to="copyrightHomepage">
-            {{ copyrightOwner }}
+            {{ copyrightHolder }}
           </NuxtLink>
         </template>
-      </p>
+      </div>
     </template>
 
     <template #right>
       <div class="-ml-[0.375rem] flex space-x-4">
         <div v-for="(social, socialIndex) in socials" :key="socialIndex">
           <UButton
+            target="_blank"
             :aria-label="social.label"
             :to="social.to"
-            target="_blank"
             :icon="social.icon"
             v-bind="($ui.button.secondary as any)"
           />
