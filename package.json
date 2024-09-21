@@ -15,14 +15,15 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "@nuxt/ui": "^2.18.4",
-    "@nuxt/ui-pro": "^1.4.1"
+    "@nuxt/ui": "^2.18.5",
+    "@nuxt/ui-pro": "^1.4.2"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^3.2.0",
-    "@nuxt/eslint": "^0.5.5",
-    "eslint": "^9.9.1",
-    "nuxt": "^3.13.1",
-    "typescript": "^5.5.4"
+    "@antfu/eslint-config": "^3.7.1",
+    "@iconify-json/simple-icons": "^1.2.3",
+    "@nuxt/eslint": "^0.5.7",
+    "eslint": "^9.11.0",
+    "nuxt": "^3.13.2",
+    "typescript": "^5.6.2"
   }
 }
