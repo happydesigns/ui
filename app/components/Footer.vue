@@ -21,21 +21,21 @@ const props = defineProps<{
 }>()
 
 const appConfig = useAppConfig()
-const { holder: copyrightHolder, homepage: copyrightHomepage } = appConfig.app.meta.copyright
+const { holder: copyrightHolder, homepage: copyrightHomepage } = appConfig.app?.meta?.copyright ?? {}
 const copyrightYear = new Date().getFullYear()
 
-const links = props.links ?? appConfig.app.footer.links
-const socials = props.socials ?? appConfig.app.footer.socials
+const links = props.links ?? appConfig?.app?.footer?.links ?? []
+const socials = props.socials ?? appConfig?.app?.footer?.socials ?? []
 
 const slots = useSlots()
-const leftColumnCount = slots.left ? slots.left().length : 0
+const leftColumnCount = slots.left ? slots.left({}).length : 0
 const linkColumnCount = (links.length ?? 0) as number
-const rightColumnCount = slots.right ? slots.right().length : 0
+const rightColumnCount = slots.right ? slots.right({}).length : 0
 
 const lgColumnCount = Math.max(leftColumnCount, linkColumnCount, rightColumnCount)
 const totalColumnCount = leftColumnCount + linkColumnCount + rightColumnCount
 
-const config = computed(() => ({
+const config = computed((): { wrapper: string, footer: any, footerColumns: any } => ({
   wrapper: '~',
   footer: {
     top: {

@@ -7,7 +7,7 @@
     </UHeader>
 
     <UMain>
-      Main
+      <NuxtPage />
     </UMain>
 
     <HFooter>

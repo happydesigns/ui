@@ -1,13 +1,15 @@
 {
-  "name": "ui-base",
+  "name": "@happydesigns/ui-base",
   "type": "module",
   "version": "0.0.1",
+  "packageManager": "pnpm@9.15.3",
   "author": "happydesigns",
   "homepage": "https://github.com/happydesigns",
   "main": "./nuxt.config.ts",
   "scripts": {
-    "dev": "nuxi dev .playground",
-    "dev:prepare": "nuxt prepare .playground",
+    "dev": "nuxi dev",
+    "dev:play": "nuxi dev .playground",
+    "prepare": "nuxt prepare && nuxt prepare .playground",
     "build": "nuxt build .playground",
     "generate": "nuxt generate .playground",
     "preview": "nuxt preview .playground",
@@ -15,15 +17,19 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "@nuxt/ui": "^2.18.5",
-    "@nuxt/ui-pro": "^1.4.2"
+    "@iconify-json/heroicons": "^1.2.2",
+    "@iconify-json/simple-icons": "^1.2.18",
+    "@nuxt/ui": "^2.20.0",
+    "@nuxt/ui-pro": "^1.6.0",
+    "nuxt": "^3.15.1"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^3.7.1",
-    "@iconify-json/simple-icons": "^1.2.3",
-    "@nuxt/eslint": "^0.5.7",
-    "eslint": "^9.11.0",
-    "nuxt": "^3.13.2",
-    "typescript": "^5.6.2"
+    "@antfu/eslint-config": "^3.12.1",
+    "@nuxt/eslint": "^0.7.4",
+    "eslint": "^9.17.0",
+    "typescript": "^5.7.2"
+  },
+  "resolutions": {
+    "@happydesigns/ui-base": "workspace:*"
   }
 }

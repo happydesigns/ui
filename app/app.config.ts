@@ -1,11 +1,17 @@
 import type { FooterLink } from '#ui-pro/types'
-import type { FooterSocial } from './app/components/Footer.vue'
+import type { FooterSocial } from './components/Footer.vue'
 
 export default defineAppConfig({
-  meta: {
-    copyright: {
-      holder: 'happydesigns',
-      homepage: 'https://happydesigns.de',
+  app: {
+    meta: {
+      copyright: {
+        holder: 'happydesigns',
+        homepage: 'https://happydesigns.de',
+      },
+    },
+    footer: {
+      links: [],
+      socials: [],
     },
   },
 })
