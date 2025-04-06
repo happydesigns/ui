@@ -1,0 +1,10 @@
+@import "tailwindcss" theme(static);
+@import "@nuxt/ui-pro";
+
+@layer theme {
+  p .iconify {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: --spacing(1);
+  }
+}

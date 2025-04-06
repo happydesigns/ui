@@ -1,124 +1,61 @@
 <script setup lang="ts">
-import type { FooterLink } from '#ui-pro/types'
+import type { ButtonProps } from '@nuxt/ui'
+// import type { FooterProps } from '@nuxt/ui-pro'
+// import { tv } from 'tailwind-variants'
 
-interface FooterColumn {
-  label: string
-  children: FooterLink[]
-}
+// interface AppFooterProps extends /* @vue-ignore */ FooterProps {
+// }
 
-export interface FooterSocial {
-  icon: string
-  to: string
-  label?: string
-}
-
-const props = defineProps<{
-  links?: FooterColumn[]
-  socials?: FooterSocial[]
-  copyright?: string
-  class?: string
-  ui?: Partial<typeof config.value>
-}>()
-
+// const props = defineProps<AppFooterProps>()
 const appConfig = useAppConfig()
-const { holder: copyrightHolder, homepage: copyrightHomepage } = appConfig.app?.meta?.copyright ?? {}
-const copyrightYear = new Date().getFullYear()
+const columns = appConfig?.app?.footer?.links ?? []
 
-const links = props.links ?? appConfig?.app?.footer?.links ?? []
-const socials = props.socials ?? appConfig?.app?.footer?.socials ?? []
+// const footer = tv({
+//   slots: appConfig.uiPro?.footer?.slots || {},
+//   extend: props.ui,
+// })
 
-const slots = useSlots()
-const leftColumnCount = slots.left ? slots.left({}).length : 0
-const linkColumnCount = (links.length ?? 0) as number
-const rightColumnCount = slots.right ? slots.right({}).length : 0
+// const ui = footer({ class: props.class })
 
-const lgColumnCount = Math.max(leftColumnCount, linkColumnCount, rightColumnCount)
-const totalColumnCount = leftColumnCount + linkColumnCount + rightColumnCount
-
-const config = computed((): { wrapper: string, footer: any, footerColumns: any } => ({
-  wrapper: '~',
-  footer: {
-    top: {
-      wrapper: '~ border-t border-gray-200 dark:border-gray-800',
-      container: '~',
-    },
-    bottom: {
-      wrapper: '~ border-t border-gray-200 dark:border-gray-800',
-      container: '~ !py-6',
-      left: '~',
-      center: '~',
-      right: '~',
-    },
+const footerButtons: ButtonProps[] = [
+  {
+    icon: 'i-simple-icons-discord',
+    color: 'neutral',
+    variant: 'ghost',
+    to: 'https://chat.nuxt.dev',
+    target: '_blank',
   },
-  footerColumns: {
-    wrapper: `~ xl:grid-cols-${totalColumnCount}`,
-    left: `~ lg:grid-cols-${lgColumnCount} xl:grid-cols-none col-span-${leftColumnCount}`,
-    center: `~ xl:col-span-${linkColumnCount}`,
-    right: `~ lg:grid-cols-${lgColumnCount} xl:grid-cols-none col-span-${rightColumnCount}`,
-    label: '~',
-    base: '~',
-    active: '~',
-    inactive: '~',
-    externalIcon: {
-      name: '~',
-      base: '~',
-    },
+  {
+    icon: 'i-simple-icons-x',
+    color: 'neutral',
+    variant: 'ghost',
+    to: 'https://x.com/nuxt_js',
+    target: '_blank',
   },
-}))
-
-const { ui: uiFooter, attrs: uiAttrs } = useUI('footer', toRef(props.ui?.footer), config.value.footer, toRef(props.class ?? ''), true)
-const { ui: uiFooterColumns } = useUI('footer.columns', toRef(props.ui?.footerColumns), config.value.footerColumns)
+  {
+    icon: 'i-simple-icons-github',
+    color: 'neutral',
+    variant: 'ghost',
+    to: 'https://github.com/nuxt/nuxt',
+    target: '_blank',
+  },
+]
 </script>
 
 <template>
-  <UFooter :ui="uiFooter" v-bind="uiAttrs">
+  <UFooter>
     <template #top>
-      <UFooterColumns :links :ui="uiFooterColumns">
-        <template #left>
-          <div
-            class="flex flex-col lg:grid grid-flow-col auto-cols-fr gap-8 xl:grid-cols-none"
-            :class="[`lg:grid-cols-${lgColumnCount}`]"
-          >
-            <slot name="left" />
-          </div>
-        </template>
-        <template #right>
-          <div
-            class="flex flex-col lg:grid grid-flow-col auto-cols-fr gap-8 xl:grid-cols-none"
-            :class="[`lg:grid-cols-${lgColumnCount}`]"
-          >
-            <slot name="right" />
-          </div>
-        </template>
-      </UFooterColumns>
+      <UContainer>
+        <HFooterColumns :columns />
+      </UContainer>
     </template>
 
     <template #left>
-      <div class="text-gray-500 dark:text-gray-400 text-sm">
-        <template v-if="$slots.copyright">
-          <slot name="copyright" :copyright-year :copyright-homepage :copyright-holder />
-        </template>
-        <template v-else>
-          Copyright © {{ copyrightYear }}
-          <NuxtLink :to="copyrightHomepage">
-            {{ copyrightHolder }}
-          </NuxtLink>
-        </template>
-      </div>
+      <HFooterCopyright />
     </template>
 
     <template #right>
-      <div class="-ml-[0.375rem] flex space-x-4">
-        <div v-for="(social, socialIndex) in socials" :key="socialIndex">
-          <UButton
-            target="_blank"
-            :aria-label="social.label"
-            :to="social.to"
-            :icon="social.icon"
-            v-bind="($ui.button.secondary as any)"
-          />
-        </div>
-      </div>
+      <HFooterButtons :buttons="footerButtons" />
     </template>
   </UFooter>
 </template>
