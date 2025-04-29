@@ -4,7 +4,9 @@
 @layer theme {
   p .iconify {
     display: inline-block;
-    vertical-align: middle;
     margin-right: --spacing(1);
+    width: 1em !important;
+    height: 1em !important;
+    transform: translateY(-1px);
   }
 }
