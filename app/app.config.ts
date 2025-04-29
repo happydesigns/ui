@@ -1,88 +1,49 @@
-// import type { FooterLink } from '#ui-pro/types'
-// import type { FooterSocial } from './components/Footer2.vue'
+import type { ButtonProps } from '#ui/types'
 
 export default defineAppConfig({
   app: {
     meta: {
-      copyright: {
-        copyrightYear: new Date().getFullYear(),
-        copyrightHolder: 'happydesigns',
-        copyrightHomepage: 'https://happydesigns.de-ui-base',
-      },
-    },
-    footer: {
-      links: [{
-        label: 'Unternehmen',
-        children: [{
-          label: 'Startseite',
-          to: '/',
-        }, {
-          label: 'Über uns',
-          to: '/ueber-uns',
-        }, {
-          label: 'Kontakt',
-          to: '/kontakt',
-        }],
-      }, {
-        label: 'Unsere Leistungen',
-        children: [{
-          label: 'Grabmale',
-          to: '/grabmale',
-        }, {
-          label: 'Restaurierungen',
-          to: '/restaurierungen',
-        }, {
-          label: 'Galerie',
-          to: '/galerie',
-        }],
-      }, {
-        label: 'Rechtliches',
-        children: [{
-          label: 'Impressum',
-          to: '/impressum',
-        }, {
-          label: 'Datenschutz',
-          to: '/datenschutz',
-        }],
-      }],
+      copyright: {},
       socials: [],
     },
-  },
-  uiPro: {
-    footer: {
-      slots: {
-        //     top: 'border-b border-(--ui-border)',
-      },
-      //   variants: {
 
-    //   },
-    },
-    footerColumns: {
-      slots: {
-        root: 'bg-(--ui-bg)',
-        center: 'xl:col-span-3',
-        right: 'xl:col-span-2',
-      },
+    links: {
+      footer: [],
     },
   },
 })
 
-// declare module '@nuxt/schema' {
-//   interface AppConfigInput {
-//     app?: {
-//       meta?: {
-//         copyright?: {
-//           /** The name of the copyright holder. */
-//           holder?: string
-//           /** The homepage url of the copyright holder. */
-//           homepage?: string
-//         }
-//       }
-//       // footer?: {
-//       //   links?: Array<FooterLink>
-//       //   socials?: Array<FooterSocial>
-//       // }
-//     }
-//     uiPro?: UiProConfig
-//   }
-// }
+declare module '@nuxt/schema' {
+  interface AppConfigInput {
+    app?: {
+      meta?: {
+        copyright?: {
+          /** The year in which the copyright was issued */
+          copyrightYear?: number
+          /** The name of the copyright holder */
+          copyrightHolder?: string
+          /** The homepage URL of the copyright holder */
+          copyrightHomepage?: string
+        }
+        /** Social button definitions (e.g. Instagram, Facebook, GitHub) */
+        socials?: ButtonProps[]
+      }
+      /** Link collections for various UI regions (e.g. header, footer) */
+      links?: {
+        footer?: Array<{
+          /** Heading for this column */
+          label: string
+          /** Individual link items */
+          children?: Array<{
+            /** Text of the link */
+            label: string
+            /** `to` prop for `<NuxtLink>` or external URL */
+            to: string
+            /** Optional icon name */
+            icon?: string
+          }>
+        }>
+      }
+    }
+  }
+}
