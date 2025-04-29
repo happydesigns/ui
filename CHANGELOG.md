@@ -1,6 +1,34 @@
 # Changelog
 
 
+## v0.2.0
+
+[compare changes](https://github.com/happydesigns/ui-base/compare/v0.1.0...v0.2.0)
+
+### 🚀 Enhancements
+
+- Update FooterColumns to UI v3 ([3c293f7](https://github.com/happydesigns/ui-base/commit/3c293f7))
+- Remove sample data from app.config ([8cfd8c3](https://github.com/happydesigns/ui-base/commit/8cfd8c3))
+- Improve icon size and position ([4fd46e7](https://github.com/happydesigns/ui-base/commit/4fd46e7))
+- **playground:** Add AppFooter example ([aa50b4f](https://github.com/happydesigns/ui-base/commit/aa50b4f))
+- **playground:** Add footer separator ([669e4b6](https://github.com/happydesigns/ui-base/commit/669e4b6))
+
+### 💅 Refactors
+
+- Update to Nuxt UI v3 ([bdeff9d](https://github.com/happydesigns/ui-base/commit/bdeff9d))
+
+### 🏡 Chore
+
+- Update deps ([06b7ac5](https://github.com/happydesigns/ui-base/commit/06b7ac5))
+- Remove unneeded components ([7a4cf60](https://github.com/happydesigns/ui-base/commit/7a4cf60))
+- Fix .playground setup ([c95d475](https://github.com/happydesigns/ui-base/commit/c95d475))
+- Add changelogen, ni ([29e8fff](https://github.com/happydesigns/ui-base/commit/29e8fff))
+- Update deps ([f0db812](https://github.com/happydesigns/ui-base/commit/f0db812))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.1.0
 
 
