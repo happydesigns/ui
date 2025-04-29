@@ -1,3 +1,5 @@
+import type { ButtonProps } from '#ui/types'
+
 export default defineAppConfig({
   app: {
     meta: {
@@ -6,74 +8,86 @@ export default defineAppConfig({
         copyrightHolder: 'happydesigns',
         copyrightHomepage: 'https://happydesigns.de',
       },
-    },
-    footer: {
-      links: [
-        {
-          label: 'Get started',
-          children: [
-            {
-              label: 'Documentation',
-              icon: 'i-heroicons-book-open',
-              to: '/getting-started',
-            },
-            {
-              label: 'Playground',
-              icon: 'i-simple-icons-stackblitz',
-              to: '/playground',
-            },
-          ],
-        },
-        {
-          label: 'Discover',
-          children: [
-            {
-              label: 'Pro',
-              icon: 'i-heroicons-square-3-stack-3d',
-              to: '/pro',
-            },
-          ],
-        },
-        // {
-        //   label: 'News',
-        //   children: [
-        //     {
-        //       label: 'Roadmap',
-        //       icon: 'i-heroicons-map',
-        //       to: '/roadmap',
-        //     },
-        //     {
-        //       label: 'Releases',
-        //       icon: 'i-heroicons-rocket-launch',
-        //       to: 'https://github.com/nuxt/ui/releases',
-        //       target: '_blank',
-        //       external: true,
-        //     },
-        //   ],
-        // },
-        // {
-        //   label: 'News',
-        //   children: [
-        //     {
-        //       label: 'Roadmap',
-        //       icon: 'i-heroicons-map',
-        //       to: '/roadmap',
-        //     },
-        //     {
-        //       label: 'Releases',
-        //       icon: 'i-heroicons-rocket-launch',
-        //       to: 'https://github.com/nuxt/ui/releases',
-        //       target: '_blank',
-        //       external: true,
-        //     },
-        //   ],
-        // },
-      ],
       socials: [
-        { label: 'Facebook', to: 'https://facebook.com', icon: 'i-simple-icons-facebook' },
-        { label: 'Instagram', to: 'https://instagram.com', icon: 'i-simple-icons-instagram' },
-        { label: 'GitHub', to: 'https://github.com', icon: 'i-simple-icons-github' },
+        {
+          icon: 'i-simple-icons-instagram',
+          color: 'neutral' as const,
+          variant: 'ghost' as const,
+          to: 'https://www.instagram.com/schachfreundeheilbronnbiberach',
+          target: '_blank',
+        },
+        {
+          icon: 'i-simple-icons-facebook',
+          color: 'neutral' as const,
+          variant: 'ghost' as const,
+          to: 'https://www.facebook.com/Schachfreunde.HN.Biberach',
+          target: '_blank',
+        },
+        {
+          icon: 'i-simple-icons-github',
+          color: 'neutral' as const,
+          variant: 'ghost' as const,
+          to: 'https://github.com/sfbiberach',
+          target: '_blank',
+        },
+      ] as ButtonProps[],
+    },
+
+    links: {
+      footer: [
+        {
+          label: 'Unternehmen',
+          children: [
+            {
+              label: 'Startseite',
+              to: '/',
+            },
+            {
+              label: 'Über uns',
+              to: '/ueber-uns',
+            },
+            {
+              label: 'Kontakt',
+              to: '/kontakt',
+            },
+          ],
+        },
+        {
+          label: 'Unsere Leistungen',
+          children: [
+            {
+              label: 'Grabmale',
+              to: '/grabmale',
+            },
+            {
+              label: 'Restaurierungen',
+              to: '/restaurierungen',
+            },
+            {
+              label: 'Galerien',
+              to: '/galerie',
+            },
+          ],
+        },
+        {
+          label: 'Rechtliches',
+          children: [{
+            label: 'Impressum',
+            to: '/impressum',
+          }, {
+            label: 'Datenschutz',
+            to: '/datenschutz',
+          }],
+        },
       ],
+    },
+  },
+
+  uiPro: {
+    footer: {
+      slots: {
+        top: 'border-b border-(--ui-border)',
+      },
     },
   },
 })
