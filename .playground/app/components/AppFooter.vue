@@ -4,6 +4,8 @@ const footerButtons = appConfig?.app?.meta?.socials
 </script>
 
 <template>
+  <USeparator icon="i-simple-icons-nuxtdotjs" class="h-px" />
+
   <UFooter>
     <template #top>
       <UContainer>
