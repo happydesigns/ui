@@ -3,6 +3,7 @@ export default defineNuxtConfig({
   extends: ['..'],
   modules: [
     '@nuxt/eslint',
+    '@nuxt/ui-pro',
   ],
   future: {
     compatibilityVersion: 4,

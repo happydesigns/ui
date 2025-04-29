@@ -9,17 +9,7 @@
   },
   "dependencies": {
     "@iconify-json/heroicons": "^1.2.2",
-    "@nuxt/ui-pro": "^3.0.0",
-    "nuxt": "^3.16.0"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@parcel/watcher",
-      "better-sqlite3",
-      "esbuild",
-      "sharp",
-      "vue-demi",
-      "workerd"
-    ]
+    "@nuxt/ui-pro": "^3.0.2",
+    "nuxt": "^3.16.2"
   }
 }
