@@ -2,6 +2,6 @@
   <div>
     Hello from .playground
 
-    <Snippet path="/snippets/address" :prose="false" />
+    <Snippet path="/snippets/address" />
   </div>
 </template>

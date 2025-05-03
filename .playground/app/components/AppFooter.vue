@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { HFooterColumnHeading } from '#components'
+
 const appConfig = useAppConfig()
 const footerButtons = appConfig?.app?.meta?.socials
 </script>
@@ -11,8 +13,8 @@ const footerButtons = appConfig?.app?.meta?.socials
       <UContainer>
         <HFooterColumns>
           <template #right>
-            <Snippet path="/snippets/address" :prose="false" class="text-sm" />
-            <Snippet path="/snippets/contact" :prose="false" class="text-sm" />
+            <Snippet path="/snippets/address" :components="{ h3: HFooterColumnHeading }" class="text-sm" />
+            <Snippet path="/snippets/contact" :components="{ h3: HFooterColumnHeading }" class="text-sm" />
           </template>
         </HFooterColumns>
       </UContainer>
