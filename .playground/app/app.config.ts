@@ -44,11 +44,11 @@ export default defineAppConfig({
             },
             {
               label: 'Über uns',
-              to: '/ueber-uns',
+              to: '/',
             },
             {
               label: 'Kontakt',
-              to: '/kontakt',
+              to: '/',
             },
           ],
         },
@@ -57,15 +57,15 @@ export default defineAppConfig({
           children: [
             {
               label: 'Grabmale',
-              to: '/grabmale',
+              to: '/',
             },
             {
               label: 'Restaurierungen',
-              to: '/restaurierungen',
+              to: '/',
             },
             {
               label: 'Galerien',
-              to: '/galerie',
+              to: '/',
             },
           ],
         },
@@ -73,10 +73,10 @@ export default defineAppConfig({
           label: 'Rechtliches',
           children: [{
             label: 'Impressum',
-            to: '/impressum',
+            to: '/',
           }, {
             label: 'Datenschutz',
-            to: '/datenschutz',
+            to: '/',
           }],
         },
       ],
