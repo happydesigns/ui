@@ -1,8 +1,9 @@
 <script setup lang="ts" generic="T extends FooterColumnLink">
 import type { FooterColumn, FooterColumnLink, FooterColumnsProps, FooterColumnsSlots } from '@nuxt/ui-pro'
 import { useAppConfig } from '#imports'
+import { tv } from 'tailwind-variants'
 
-interface HFooterColumnProps<T> extends /* @vue-ignore */ FooterColumnsProps<T> {
+interface HFooterColumnProps<T extends FooterColumnLink> extends /* @vue-ignore */ FooterColumnsProps<T> {
   lgCols?: number
   xlCols?: number
 }
@@ -22,17 +23,28 @@ const rightCount = slots.right ? slots.right({}).length : 0
 const lgCount = Math.max(leftCount, centerCount, rightCount)
 const totalCount = leftCount + centerCount + rightCount
 
-const ui = {
-  root: 'grid gap-8 grid-flow-row footer-cols-root',
-  left: 'footer-cols-left',
-  center: 'footer-cols-center',
-  right: 'footer-cols-right',
-}
+const ui = tv({
+  extend: tv({
+    extend: tv({ slots: {
+      root: 'footer-cols-root grid grid-flow-row gap-y-12 gap-x-8',
+      left: 'footer-cols-left',
+      center: 'footer-cols-center',
+      right: 'footer-cols-right',
+    } }),
+    slots: appConfig.uiPro?.footerColumns?.slots || {},
+  }),
+  slots: props.ui || {},
+})()
 </script>
 
 <template>
   <UFooterColumns
-    v-bind="props" :columns="footerColumns" :ui
+    v-bind="props" :columns="footerColumns" :ui="{
+      root: ui.root?.() ?? '',
+      left: ui.left?.() ?? '',
+      center: ui.center?.() ?? '',
+      right: ui.right?.() ?? '',
+    }"
     :style="{
       '--cols-sm': 1,
       '--cols-lg': props.lgCols ?? lgCount,
@@ -52,7 +64,7 @@ const ui = {
 </template>
 
 <style>
-@import "tailwindcss";
+@import "tailwindcss" source("../..");
 
 .footer-cols-left {
   grid-column: span var(--span-left);

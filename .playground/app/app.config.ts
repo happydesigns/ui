@@ -89,5 +89,9 @@ export default defineAppConfig({
         top: 'border-b border-(--ui-border)',
       },
     },
+    footerColumns: {
+      slots: {
+      },
+    },
   },
 })

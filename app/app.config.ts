@@ -11,6 +11,13 @@ export default defineAppConfig({
       footer: [],
     },
   },
+
+  uiPro: {
+    footerColumns: {
+      slots: {},
+      columns: {},
+    },
+  },
 })
 
 declare module '@nuxt/schema' {
