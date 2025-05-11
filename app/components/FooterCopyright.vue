@@ -18,10 +18,12 @@ const copyrightHomepage = props.copyrightHomepage ?? appConfig.app?.meta?.copyri
       <slot name="copyright" :copyright-year :copyright-homepage :copyright-holder />
     </template>
     <template v-else>
-      Copyright © {{ copyrightYear }}
-      <ULink :to="copyrightHomepage" target="_blank">
-        {{ copyrightHolder }}
-      </ULink>
+      <p class="text-muted text-sm">
+        Copyright © {{ copyrightYear }}
+        <ULink :to="copyrightHomepage" target="_blank">
+          {{ copyrightHolder }}
+        </ULink>
+      </p>
     </template>
   </div>
 </template>
