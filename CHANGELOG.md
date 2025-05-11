@@ -1,6 +1,27 @@
 # Changelog
 
 
+## v0.2.1
+
+[compare changes](https://github.com/happydesigns/ui-base/compare/v0.2.0...v0.2.1)
+
+### 🚀 Enhancements
+
+- **footer:** Apply props and appConfig styles ([f73997b](https://github.com/happydesigns/ui-base/commit/f73997b))
+
+### 🩹 Fixes
+
+- Snippet hydration error ([1314458](https://github.com/happydesigns/ui-base/commit/1314458))
+- **playground:** Correct footer links ([1488f11](https://github.com/happydesigns/ui-base/commit/1488f11))
+
+### 🏡 Chore
+
+- Update deps ([ce94e30](https://github.com/happydesigns/ui-base/commit/ce94e30))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.2.0
 
 [compare changes](https://github.com/happydesigns/ui-base/compare/v0.1.0...v0.2.0)
