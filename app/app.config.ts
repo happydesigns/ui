@@ -1,4 +1,5 @@
 import type { ButtonProps } from '#ui/types'
+import type { FooterColumn } from '@nuxt/ui-pro'
 
 export default defineAppConfig({
   app: {
@@ -33,23 +34,11 @@ declare module '@nuxt/schema' {
           copyrightHomepage?: string
         }
         /** Social button definitions (e.g. Instagram, Facebook, GitHub) */
-        socials?: ButtonProps[]
+        socials?: Array<ButtonProps>
       }
       /** Link collections for various UI regions (e.g. header, footer) */
       links?: {
-        footer?: Array<{
-          /** Heading for this column */
-          label: string
-          /** Individual link items */
-          children?: Array<{
-            /** Text of the link */
-            label: string
-            /** `to` prop for `<NuxtLink>` or external URL */
-            to: string
-            /** Optional icon name */
-            icon?: string
-          }>
-        }>
+        footer?: Array<FooterColumn>
       }
     }
   }
