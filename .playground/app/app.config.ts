@@ -86,7 +86,7 @@ export default defineAppConfig({
   uiPro: {
     footer: {
       slots: {
-        top: 'border-b border-(--ui-border)',
+        top: 'border-b border-default',
       },
     },
     footerColumns: {
