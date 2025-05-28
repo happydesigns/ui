@@ -22,9 +22,7 @@ export default defineContentConfig({
         ui: z.object({
           main: z.any().optional(),
           container: z.any().optional(),
-          hero: z.any().optional(),
           page: z.any().optional(),
-          header: z.any().optional(),
           body: z.any().optional(),
           toc: z.any().optional(),
           footer: z.any().optional(),
