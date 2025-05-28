@@ -1,15 +1,5 @@
 <template>
   <UApp>
-    <UHeader>
-      <template #right>
-        <UColorModeButton />
-      </template>
-    </UHeader>
-
-    <UMain>
-      <NuxtPage />
-    </UMain>
-
-    <AppFooter />
+    <NuxtPage />
   </UApp>
 </template>
