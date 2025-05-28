@@ -1,5 +1,5 @@
 import { defineCollection, defineContentConfig, z } from '@nuxt/content'
-import { pageHeroSchema } from './types'
+import { pageHeaderSchema, pageHeroSchema } from './types'
 
 export default defineContentConfig({
   collections: {
@@ -18,7 +18,7 @@ export default defineContentConfig({
           prose: z.boolean().optional(),
         }),
         hero: pageHeroSchema.optional(),
-        header: pageHeroSchema.optional(),
+        header: pageHeaderSchema.optional(),
         ui: z.object({
           main: z.any().optional(),
           container: z.any().optional(),
