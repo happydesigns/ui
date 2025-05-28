@@ -10,8 +10,8 @@ export default defineNuxtConfig({
 
   modules: [
     '@nuxt/eslint',
-    '@nuxt/content',
     '@nuxt/ui-pro',
+    '@nuxt/content',
   ],
 
   eslint: {
