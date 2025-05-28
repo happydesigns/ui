@@ -7,7 +7,7 @@ export default defineContentConfig({
       type: 'page',
       source: 'snippets/**/*.{md,yaml}',
     }),
-    page: defineCollection({
+    content: defineCollection({
       type: 'page',
       source: '**/*.{md,yaml}',
       schema: z.object({
