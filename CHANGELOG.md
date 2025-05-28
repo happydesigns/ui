@@ -1,6 +1,35 @@
 # Changelog
 
 
+## v0.3.0
+
+[compare changes](https://github.com/happydesigns/ui-base/compare/v0.2.1...v0.3.0)
+
+### 🚀 Enhancements
+
+- **footer:** Mute copyright text ([1791c13](https://github.com/happydesigns/ui-base/commit/1791c13))
+- Update schemas for ui components ([5a183ca](https://github.com/happydesigns/ui-base/commit/5a183ca))
+- Add default and content layouts ([2c7d8f5](https://github.com/happydesigns/ui-base/commit/2c7d8f5))
+- **playground:** Use layout, use AppHeader ([ca2185b](https://github.com/happydesigns/ui-base/commit/ca2185b))
+- **playground:** Add sample page for content layout ([d7ef3b0](https://github.com/happydesigns/ui-base/commit/d7ef3b0))
+
+### 🩹 Fixes
+
+- **footer:** Use correct type for footer links ([ffa2f4e](https://github.com/happydesigns/ui-base/commit/ffa2f4e))
+- Use correct schema for content header ([3f4177f](https://github.com/happydesigns/ui-base/commit/3f4177f))
+
+### 💅 Refactors
+
+- Replace css variable with utility class ([a7a6948](https://github.com/happydesigns/ui-base/commit/a7a6948))
+
+### 🏡 Chore
+
+- Register content module after ui ([47b8d1a](https://github.com/happydesigns/ui-base/commit/47b8d1a))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.2.1
 
 [compare changes](https://github.com/happydesigns/ui-base/compare/v0.2.0...v0.2.1)
