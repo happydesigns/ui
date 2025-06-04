@@ -26,8 +26,9 @@ const { containerClass } = usePageLayout(page)
         v-bind="page.hero"
       >
         <template #description>
-          <p>{{ page.hero.description }}</p>
-          <slot name="description" />
+          <slot name="description">
+            <p>{{ page.hero.description }}</p>
+          </slot>
         </template>
       </UPageHero>
       <UPageHeader
