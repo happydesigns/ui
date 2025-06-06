@@ -25,6 +25,7 @@ export default defineAppConfig({
 declare module '@nuxt/schema' {
   interface AppConfigInput {
     app?: {
+      [key: string]: any
       meta?: {
         copyright?: {
           /** The year in which the copyright was issued */
