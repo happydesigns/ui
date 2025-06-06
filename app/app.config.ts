@@ -9,6 +9,7 @@ export default defineAppConfig({
     },
 
     links: {
+      header: [],
       footer: [],
     },
   },
@@ -38,6 +39,7 @@ declare module '@nuxt/schema' {
       }
       /** Link collections for various UI regions (e.g. header, footer) */
       links?: {
+        header?: Array<FooterColumn>
         footer?: Array<FooterColumn>
       }
     }
