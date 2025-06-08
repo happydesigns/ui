@@ -5,7 +5,7 @@ const props = defineProps<{
 
 const route = useRoute()
 const path = computed(() => props.path)
-const { data: page } = await usePageContent(path.value)
+const { data: page } = await usePageContent({ path: path.value })
 
 if (!page.value) {
   throw createError({ statusCode: 404, statusMessage: `Content page ${props.path || route.path} not found`, fatal: true })
