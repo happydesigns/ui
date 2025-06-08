@@ -19,25 +19,24 @@ const { containerClass } = usePageLayout(page)
   <AppHeader />
 
   <UMain v-if="page" :ui="page.ui?.main" class="break-words">
-    <UContainer :ui="{ padding: containerClass, constrained: containerClass, ...page.ui?.container }">
-      <UPageHero
-        v-if="page.hero"
-        :as="page.hero.as"
-        v-bind="page.hero"
-      >
-        <template #description>
-          <slot name="description">
-            <p>{{ page.hero.description }}</p>
-          </slot>
-        </template>
-      </UPageHero>
-      <UPageHeader
-        v-if="page.header"
-        v-bind="page.header"
-      />
+    <UPageHero
+      v-if="page.hero"
+      :as="page.hero.as"
+      v-bind="page.hero"
+    >
+      <template #description>
+        <slot name="description">
+          <p>{{ page.hero.description }}</p>
+        </slot>
+      </template>
+    </UPageHero>
 
-      <!-- Main Page Content -->
+    <UContainer :ui="{ ...page.ui?.container }" :class="[containerClass]">
       <UPage>
+        <UPageHeader
+          v-if="page.header"
+          v-bind="page.header"
+        />
         <UPageBody
           :prose="page.layout?.prose !== false"
           class="pb-32"

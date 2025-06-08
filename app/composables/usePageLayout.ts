@@ -41,7 +41,7 @@ export function usePageLayout(page: Ref<LayoutRelevantPageData | null | undefine
   })
 
   const containerClass = computed(() =>
-    page.value?.layout?.container === false ? '' : undefined,
+    page.value?.layout?.container === false ? 'px-0 max-w-none' : undefined,
   )
 
   return {
