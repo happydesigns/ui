@@ -20,10 +20,4 @@ export default defineNuxtConfig({
       standalone: false,
     },
   },
-
-  future: {
-    compatibilityVersion: 4,
-  },
-
-  compatibilityDate: '2025-02-04',
 })
