@@ -7,8 +7,9 @@
   "homepage": "https://github.com/happydesigns",
   "main": "./nuxt.config.ts",
   "scripts": {
-    "dev": "nuxi dev",
-    "dev:play": "nuxi dev .playground",
+    "dev": "nuxt dev",
+    "dev:play": "nuxt dev .playground",
+    "docs": "nuxt dev docs --extends docus",
     "prepare": "nuxt prepare && nuxt prepare .playground",
     "build": "nuxt build .playground",
     "generate": "nuxt generate .playground",
