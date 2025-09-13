@@ -15,6 +15,9 @@ export default defineAppConfig({
   },
 
   uiPro: {
+    main: {
+      base: 'break-words',
+    },
     footerColumns: {
       slots: {},
       columns: {},

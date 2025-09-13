@@ -1,8 +1,5 @@
 <script setup lang="ts">
-const props = defineProps<{
-  path?: string
-}>()
-
+const props = defineProps<{ path?: string }>()
 const route = useRoute()
 const path = computed(() => props.path)
 const { data: page } = await usePageContent({ path: path.value })
@@ -18,12 +15,8 @@ const { containerClass } = usePageLayout(page)
 <template>
   <AppHeader />
 
-  <UMain v-if="page" :ui="page.ui?.main" class="break-words">
-    <UPageHero
-      v-if="page.hero"
-      :as="page.hero.as"
-      v-bind="page.hero"
-    >
+  <UMain v-if="page">
+    <UPageHero v-if="page.hero" :as="page.hero.as" v-bind="page.hero">
       <template #description>
         <slot name="description">
           <p>{{ page.hero.description }}</p>
@@ -31,23 +24,16 @@ const { containerClass } = usePageLayout(page)
       </template>
     </UPageHero>
 
-    <UContainer :ui="{ ...page.ui?.container }" :class="[containerClass]">
+    <UContainer :class="[containerClass]">
       <UPage>
-        <UPageHeader
-          v-if="page.header"
-          v-bind="page.header"
-        />
-        <UPageBody
-          :prose="page.layout?.prose !== false"
-          class="pb-32"
-          :class="page.ui?.body"
-        >
+        <UPageHeader v-if="page.header" v-bind="page.header" />
+
+        <UPageBody :prose="page.layout?.prose !== false">
           <slot />
         </UPageBody>
 
-        <!-- Table of Contents -->
         <template v-if="page.layout?.toc" #right>
-          <UContentToc :links="page.body?.toc?.links" :ui="page.ui?.toc" class="bg-transparent" title="Inhaltsverzeichnis" />
+          <UContentToc :links="page.body?.toc?.links" title="Inhaltsverzeichnis" />
         </template>
       </UPage>
     </UContainer>
