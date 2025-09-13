@@ -8,7 +8,7 @@
   "main": "./nuxt.config.ts",
   "scripts": {
     "dev": "nuxt dev",
-    "dev:play": "nuxt dev .playground",
+    "play": "nuxt dev .playground",
     "docs": "nuxt dev docs --extends docus",
     "prepare": "nuxt prepare && nuxt prepare .playground",
     "build": "nuxt build .playground",
