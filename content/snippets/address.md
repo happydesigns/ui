@@ -1,7 +1,7 @@
-### Anschrift
+### Address
 
-Bernd Siegel :br
-Steingestaltung
+John Doe :br
+Sample Company
 
-Bahnhofstraße 13 :br
-74861 Neudenau
+Example Street 1 :br
+12345 Sample City
