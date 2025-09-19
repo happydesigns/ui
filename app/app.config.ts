@@ -1,5 +1,5 @@
 import type { ButtonProps } from '#ui/types'
-import type { FooterColumn } from '@nuxt/ui-pro'
+import type { FooterColumn } from '@nuxt/ui'
 
 export default defineAppConfig({
   app: {
@@ -14,7 +14,7 @@ export default defineAppConfig({
     },
   },
 
-  uiPro: {
+  ui: {
     main: {
       base: 'break-words',
     },

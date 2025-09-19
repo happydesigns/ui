@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@iconify-json/heroicons": "^1.2.2",
-    "@nuxt/ui-pro": "^3.3.0",
+    "@nuxt/ui": "4.0.0-alpha.2",
     "nuxt": "^4.0.3"
   }
 }
