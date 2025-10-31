@@ -1,6 +1,45 @@
 # Changelog
 
 
+## v0.4.0
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.3.0...v0.4.0)
+
+### 🚀 Enhancements
+
+- **content:** Overwrite hero description if template is provided ([ff80656](https://github.com/happydesigns/ui/commit/ff80656))
+- **config:** Initialize header links in app config ([5013595](https://github.com/happydesigns/ui/commit/5013595))
+- **content:** Refactor usePageContent to accept options object for path and collection ([dbee9ba](https://github.com/happydesigns/ui/commit/dbee9ba))
+- Add useClipboard composable ([4631dc7](https://github.com/happydesigns/ui/commit/4631dc7))
+- Simplify layouts ([ebc7050](https://github.com/happydesigns/ui/commit/ebc7050))
+- Add samples for layouts ([81b400c](https://github.com/happydesigns/ui/commit/81b400c))
+
+### 🩹 Fixes
+
+- **config:** Add missing index signature to AppConfigInput interface ([ea29c0d](https://github.com/happydesigns/ui/commit/ea29c0d))
+- **content:** Update container class logic and restructure header layout ([3b880a5](https://github.com/happydesigns/ui/commit/3b880a5))
+
+### 📖 Documentation
+
+- Init docus ([885c39d](https://github.com/happydesigns/ui/commit/885c39d))
+
+### 🏡 Chore
+
+- Update deps ([db4db24](https://github.com/happydesigns/ui/commit/db4db24))
+- Update sample data ([5aa99e4](https://github.com/happydesigns/ui/commit/5aa99e4))
+- Update play npm script ([d042ebd](https://github.com/happydesigns/ui/commit/d042ebd))
+- ⚠️  Update deps ([92f2eba](https://github.com/happydesigns/ui/commit/92f2eba))
+- Update deps ([b491306](https://github.com/happydesigns/ui/commit/b491306))
+- Update deps ([f678be4](https://github.com/happydesigns/ui/commit/f678be4))
+
+#### ⚠️ Breaking Changes
+
+- ⚠️  Update deps ([92f2eba](https://github.com/happydesigns/ui/commit/92f2eba))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.3.0
 
 [compare changes](https://github.com/happydesigns/ui-base/compare/v0.2.1...v0.3.0)
