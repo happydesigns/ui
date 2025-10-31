@@ -1,5 +1,5 @@
 import antfu from '@antfu/eslint-config'
-import nuxt from './.playground/.nuxt/eslint.config.mjs'
+import nuxt from './.nuxt/eslint.config.mjs'
 
 export default antfu(
   {},
