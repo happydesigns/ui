@@ -1,5 +1,5 @@
 <script setup lang="ts" generic="T extends FooterColumnLink">
-import type { FooterColumn, FooterColumnLink, FooterColumnsProps, FooterColumnsSlots } from '@nuxt/ui-pro'
+import type { FooterColumn, FooterColumnLink, FooterColumnsProps, FooterColumnsSlots } from '@nuxt/ui'
 import { useAppConfig } from '#imports'
 import { tv } from 'tailwind-variants'
 

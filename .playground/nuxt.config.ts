@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   extends: ['..'],
   modules: [
     '@nuxt/eslint',
-    '@nuxt/ui-pro',
+    '@nuxt/ui',
     '@nuxt/content',
   ],
 })
