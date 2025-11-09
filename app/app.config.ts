@@ -16,7 +16,7 @@ export default defineAppConfig({
 
   ui: {
     main: {
-      base: 'break-words',
+      base: 'wrap-break-word',
     },
     footerColumns: {
       slots: {},
