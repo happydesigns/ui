@@ -3,13 +3,13 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "nuxi dev",
-    "build": "nuxi build",
-    "generate": "nuxi generate"
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "generate": "nuxt generate"
   },
   "dependencies": {
     "@iconify-json/heroicons": "^1.2.3",
-    "@nuxt/ui": "^4.0.0",
-    "nuxt": "^4.1.2"
+    "@nuxt/ui": "^4.1.0",
+    "nuxt": "^4.2.1"
   }
 }

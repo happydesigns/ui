@@ -7,5 +7,6 @@ onlyBuiltDependencies:
   - '@tailwindcss/oxide'
   - better-sqlite3
   - esbuild
+  - rollup
   - unrs-resolver
   - vue-demi
