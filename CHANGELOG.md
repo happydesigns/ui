@@ -1,6 +1,29 @@
 # Changelog
 
 
+## v0.4.1
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.4.0...v0.4.1)
+
+### 🩹 Fixes
+
+- Nuxt UI import path ([b045736](https://github.com/happydesigns/ui/commit/b045736))
+- Broken Nuxt UI styles ([1fd956b](https://github.com/happydesigns/ui/commit/1fd956b))
+
+### 🏡 Chore
+
+- Rename playground project ([77bfe7b](https://github.com/happydesigns/ui/commit/77bfe7b))
+- Import Nuxt ESLint from root project ([37a9edc](https://github.com/happydesigns/ui/commit/37a9edc))
+- Use auto-install-peers over strict-peer-dependencies ([6f42076](https://github.com/happydesigns/ui/commit/6f42076))
+- Update deps ([1ea86e2](https://github.com/happydesigns/ui/commit/1ea86e2))
+- Rename .playground to playground ([f2ad25a](https://github.com/happydesigns/ui/commit/f2ad25a))
+- Lint ([a13a3c6](https://github.com/happydesigns/ui/commit/a13a3c6))
+- Refresh lockfile ([4e9b8c3](https://github.com/happydesigns/ui/commit/4e9b8c3))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.4.0
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.3.0...v0.4.0)
