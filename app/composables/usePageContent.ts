@@ -8,8 +8,7 @@ interface UsePageContentOptions<C extends keyof Collections = 'content'> {
 export function usePageContent<C extends keyof Collections = 'content'>(
   { path, collection = 'content' as C }: UsePageContentOptions<C> = {},
 ) {
-  const route = useRoute()
-  const key = path || route.path
+  const key = path || useRoute().path
   const handler = () => queryCollection(collection).path(key).first()
   return useAsyncData(key, handler, { watch: [() => key] })
 }
