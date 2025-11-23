@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.4.2
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.4.1...v0.4.2)
+
+### 💅 Refactors
+
+- Simplify route handling in usePageContent ([97b7721](https://github.com/happydesigns/ui/commit/97b7721))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.4.1
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.4.0...v0.4.1)
