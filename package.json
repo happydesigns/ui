@@ -7,12 +7,10 @@
   "homepage": "https://github.com/happydesigns",
   "main": "./nuxt.config.ts",
   "scripts": {
-    "dev": "nuxt dev",
-    "play": "nuxt dev playground",
+    "dev": "nuxt dev playground",
     "docs": "nuxt dev docs --extends docus",
     "prepare": "nuxt prepare && nuxt prepare playground",
     "build": "nuxt build playground",
-    "generate": "nuxt generate playground",
     "preview": "nuxt preview playground",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
