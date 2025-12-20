@@ -1,14 +1,19 @@
 import type { Collections } from '@nuxt/content'
+import type { MaybeRefOrGetter } from 'vue'
+import { computed, toValue } from 'vue'
 
-interface UsePageContentOptions<C extends keyof Collections = 'content'> {
-  path?: string
-  collection?: C
+interface UsePageContentOptions<C extends keyof Collections = 'page'> {
+  path?: MaybeRefOrGetter<string | undefined>
+  collection?: MaybeRefOrGetter<C>
 }
 
-export function usePageContent<C extends keyof Collections = 'content'>(
-  { path, collection = 'content' as C }: UsePageContentOptions<C> = {},
+export function usePageContent<C extends keyof Collections = 'page'>(
+  { path, collection }: UsePageContentOptions<C> = {},
 ) {
-  const key = path || useRoute().path
-  const handler = () => queryCollection(collection).path(key).first()
-  return useAsyncData(key, handler, { watch: [() => key] })
+  const route = useRoute()
+  const resolvedPath = computed(() => toValue(path) ?? route.path)
+  const resolvedCollection = computed(() => (toValue(collection) ?? ('page' as C)) as C)
+
+  const handler = () => queryCollection(resolvedCollection.value).path(resolvedPath.value).first()
+  return useAsyncData(handler, { watch: [resolvedPath, resolvedCollection] })
 }

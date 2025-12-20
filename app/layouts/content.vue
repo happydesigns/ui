@@ -1,11 +1,20 @@
 <script setup lang="ts">
-const props = defineProps<{ path?: string }>()
+import type { Collections } from '@nuxt/content'
+
+const props = defineProps<{ path?: string, collection?: keyof Collections }>()
 const route = useRoute()
-const path = computed(() => props.path)
-const { data: page } = await usePageContent({ path: path.value })
+const { data } = await usePageContent({
+  path: () => props.path,
+  collection: () => props.collection ?? ('page' as keyof Collections),
+})
+const page = computed(() => data.value as Collections['page'] | null)
 
 if (!page.value) {
-  throw createError({ statusCode: 404, statusMessage: `Content page ${props.path || route.path} not found`, fatal: true })
+  throw createError({
+    statusCode: 404,
+    statusMessage: `Content page ${props.collection ?? 'page'}:${props.path || route.path} not found`,
+    fatal: true,
+  })
 }
 
 usePageSeo(page)
