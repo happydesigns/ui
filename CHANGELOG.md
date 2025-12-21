@@ -1,6 +1,23 @@
 # Changelog
 
 
+## v0.5.0
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.4.2...v0.5.0)
+
+### 🚀 Enhancements
+
+- Enhance usePageContent with collection options ([f00aaae](https://github.com/happydesigns/ui/commit/f00aaae))
+
+### 🏡 Chore
+
+- Start playground on nr dev ([12fce09](https://github.com/happydesigns/ui/commit/12fce09))
+- Lint ([2064355](https://github.com/happydesigns/ui/commit/2064355))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.4.2
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.4.1...v0.4.2)

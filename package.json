@@ -1,7 +1,7 @@
 {
   "name": "@happydesigns/ui",
   "type": "module",
-  "version": "0.4.2",
+  "version": "0.5.0",
   "packageManager": "pnpm@10.20.0",
   "author": "happydesigns",
   "homepage": "https://github.com/happydesigns",
