@@ -13,7 +13,8 @@ export function usePageContent<C extends keyof Collections = 'page'>(
   const route = useRoute()
   const resolvedPath = computed(() => toValue(path) ?? route.path)
   const resolvedCollection = computed(() => (toValue(collection) ?? ('page' as C)) as C)
+  const key = computed(() => `${String(resolvedCollection.value)}:${resolvedPath.value}`)
 
   const handler = () => queryCollection(resolvedCollection.value).path(resolvedPath.value).first()
-  return useAsyncData(handler, { watch: [resolvedPath, resolvedCollection] })
+  return useAsyncData(key, handler, { watch: [resolvedPath, resolvedCollection] })
 }
