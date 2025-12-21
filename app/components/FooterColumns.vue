@@ -64,8 +64,7 @@ const ui = tv({
 </template>
 
 <style>
-@import "tailwindcss";
-@source "../..";
+@import "tailwindcss" source("../..");
 
 .footer-cols-left {
   grid-column: span var(--span-left);
