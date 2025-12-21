@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v0.5.1
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.5.0...v0.5.1)
+
+### 🩹 Fixes
+
+- Use key in usePageContent ([7ad8b23](https://github.com/happydesigns/ui/commit/7ad8b23))
+- Correct tailwindcss import syntax in FooterColumns.vue ([b260a43](https://github.com/happydesigns/ui/commit/b260a43))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.5.0
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.4.2...v0.5.0)
