@@ -12,7 +12,7 @@ const page = computed(() => data.value as Collections['page'] | null)
 if (!page.value) {
   throw createError({
     statusCode: 404,
-    statusMessage: `Content page ${props.collection ?? 'page'}:${props.path || route.path} not found`,
+    statusMessage: `Content ${props.collection ?? 'page'} ${props.path || route.path} not found`,
     fatal: true,
   })
 }

@@ -12,6 +12,7 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/ui',
     '@nuxt/content',
+    'nuxt-studio',
   ],
 
   eslint: {
@@ -19,5 +20,9 @@ export default defineNuxtConfig({
       stylistic: true,
       standalone: false,
     },
+  },
+
+  studio: {
+    dev: true,
   },
 })

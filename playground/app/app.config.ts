@@ -36,48 +36,17 @@ export default defineAppConfig({
     links: {
       footer: [
         {
-          label: 'Unternehmen',
+          label: 'Layouts',
           children: [
             {
-              label: 'Startseite',
-              to: '/',
+              label: 'Default',
+              to: '/layouts/default',
             },
             {
-              label: 'Über uns',
-              to: '/',
-            },
-            {
-              label: 'Kontakt',
-              to: '/',
+              label: 'Content',
+              to: '/layouts/content',
             },
           ],
-        },
-        {
-          label: 'Unsere Leistungen',
-          children: [
-            {
-              label: 'Grabmale',
-              to: '/',
-            },
-            {
-              label: 'Restaurierungen',
-              to: '/',
-            },
-            {
-              label: 'Galerien',
-              to: '/',
-            },
-          ],
-        },
-        {
-          label: 'Rechtliches',
-          children: [{
-            label: 'Impressum',
-            to: '/',
-          }, {
-            label: 'Datenschutz',
-            to: '/',
-          }],
         },
       ],
     },
