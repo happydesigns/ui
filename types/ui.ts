@@ -20,8 +20,8 @@ const target = z.union([targetEnum, z.string()]).optional()
 const color = colorEnum.optional()
 const variant = variantEnum.optional()
 const reverse = z.boolean().optional()
-const links = z.array(createLinkSchema())
-const features = z.array(createFeatureItemSchema())
+const links = z.array(createLinkSchema()).optional()
+const features = z.array(createFeatureItemSchema()).optional()
 
 function createBaseSchema() {
   return z.object({

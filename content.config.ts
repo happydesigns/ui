@@ -15,9 +15,9 @@ export const pageCollectionConfig = defineCollection({
   schema: z.object({
     layout: z.object({
       metadataComponent: z.enum(['none', 'header', 'hero']).default('header'),
-      container: z.boolean().optional(),
-      toc: z.boolean().optional(),
-      prose: z.boolean().optional(),
+      container: z.boolean().default(true),
+      toc: z.boolean().default(false),
+      prose: z.boolean().default(true),
     }),
     hero: pageHeroSchema.optional(),
     header: pageHeaderSchema.optional(),

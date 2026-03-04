@@ -18,30 +18,36 @@ if (!page.value) {
 }
 
 usePageSeo(page)
-const { containerClass } = usePageLayout(page)
+const { containerClass, headerProps, heroProps, isProse, hasToc } = usePageLayout(page)
 </script>
 
 <template>
   <AppHeader />
 
   <UMain v-if="page">
-    <UPageHero v-if="page.hero" :as="page.hero.as" v-bind="page.hero">
-      <template #description>
+    <UPageHero 
+      v-if="heroProps" 
+      v-bind="heroProps" 
+    >
+      <template v-if="heroProps.description" #description>
         <slot name="description">
-          <p>{{ page.hero.description }}</p>
+          <p>{{ heroProps.description }}</p>
         </slot>
       </template>
     </UPageHero>
 
     <UContainer :class="[containerClass]">
       <UPage>
-        <UPageHeader v-if="page.header" v-bind="page.header" />
+        <UPageHeader 
+          v-if="headerProps" 
+          v-bind="headerProps" 
+        />
 
-        <UPageBody :prose="page.layout?.prose !== false">
+        <UPageBody :prose="isProse">
           <slot />
         </UPageBody>
 
-        <template v-if="page.layout?.toc" #right>
+        <template v-if="hasToc" #right>
           <UContentToc :links="page.body?.toc?.links" title="Inhaltsverzeichnis" />
         </template>
       </UPage>

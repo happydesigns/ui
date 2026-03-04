@@ -29,7 +29,7 @@ hero:
       color: neutral
       size: lg
 layout:
-  metadataComponent: hero
+  metadataComponent: header
   container: true
   toc: true
   prose: true

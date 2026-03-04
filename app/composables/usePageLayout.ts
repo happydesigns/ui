@@ -1,53 +1,54 @@
-interface LayoutRelevantPageData {
-  layout?: {
-    metadataComponent?: string
-    container?: boolean
-  }
-  hero?: {
-    title?: string
-    description?: string
-  }
-  header?: {
-    title?: string
-    description?: string
-  }
+export interface PageWithLayout {
   title?: string
   description?: string
+  layout?: {
+    metadataComponent?: 'none' | 'header' | 'hero'
+    container?: boolean
+    toc?: boolean
+    prose?: boolean
+  }
+  hero?: Record<string, unknown>
+  header?: Record<string, unknown>
 }
 
-export function usePageLayout(page: Ref<LayoutRelevantPageData | null | undefined>) {
-  const metaComponentPreference = computed(() => page.value?.layout?.metadataComponent || 'header')
-  const useHero = computed(() => !!page.value?.hero || metaComponentPreference.value === 'hero')
-  const useHeader = computed(() => !!page.value?.header || metaComponentPreference.value === 'header')
+export function usePageLayout<T extends PageWithLayout>(page: Ref<T | null | undefined>) {
+  const metadata = computed(() => page.value?.layout || {})
 
-  watchEffect(() => {
-    if (page.value) {
-      if (useHero.value) {
-        page.value.hero = {
-          ...page.value.hero,
-          title: page.value.hero?.title || page.value.title,
-          description: page.value.hero?.description || page.value.description,
-        }
-      }
+  const activeComponent = computed(() => metadata.value.metadataComponent || 'header')
 
-      if (useHeader.value) {
-        page.value.header = {
-          ...page.value.header,
-          title: page.value.header?.title || page.value.title,
-          description: page.value.header?.description || page.value.description,
-        }
-      }
+  const heroProps = computed(() => {
+    if (activeComponent.value !== 'hero') return null
+    return {
+      title: page.value?.title,
+      description: page.value?.description,
+      ...page.value?.hero,
     }
   })
 
+  const headerProps = computed(() => {
+    if (activeComponent.value !== 'header') return null
+    return {
+      title: page.value?.title,
+      description: page.value?.description,
+      ...page.value?.header,
+    }
+  })
+
+  const isContainer = computed(() => metadata.value.container !== false)
+  const isProse = computed(() => metadata.value.prose !== false)
+  const hasToc = computed(() => !!metadata.value.toc)
+
   const containerClass = computed(() =>
-    page.value?.layout?.container === false ? 'px-0 max-w-none' : undefined,
+    !isContainer.value ? 'px-0 max-w-none' : undefined,
   )
 
   return {
-    metaComponentPreference,
-    useHero,
-    useHeader,
+    activeComponent,
+    heroProps,
+    headerProps,
     containerClass,
+    isProse,
+    hasToc,
   }
 }
+
