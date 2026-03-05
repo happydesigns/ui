@@ -1,5 +1,5 @@
 import { defineCollection, defineContentConfig, z } from '@nuxt/content'
-import { pageHeaderSchema, pageHeroSchema } from './types'
+import { pageHeaderSchema } from './types'
 
 export const snippetCollectionConfig = defineCollection({
   type: 'page',
@@ -13,22 +13,9 @@ export const pageCollectionConfig = defineCollection({
     prefix: '/',
   },
   schema: z.object({
-    layout: z.object({
-      metadataComponent: z.enum(['none', 'header', 'hero']).default('header'),
-      container: z.boolean().default(true),
-      toc: z.boolean().default(false),
-      prose: z.boolean().default(true),
-    }),
-    hero: pageHeroSchema.optional(),
+    layout: z.enum(['default', 'content', 'fluid']).default('default'),
+    toc: z.boolean().default(true),
     header: pageHeaderSchema.optional(),
-    ui: z.object({
-      main: z.any().optional(),
-      container: z.any().optional(),
-      page: z.any().optional(),
-      body: z.any().optional(),
-      toc: z.any().optional(),
-      footer: z.any().optional(),
-    }),
   }),
 })
 

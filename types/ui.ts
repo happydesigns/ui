@@ -20,19 +20,11 @@ const target = z.union([targetEnum, z.string()]).optional()
 const color = colorEnum.optional()
 const variant = variantEnum.optional()
 const reverse = z.boolean().optional()
-const links = z.array(createLinkSchema()).optional()
-const features = z.array(createFeatureItemSchema()).optional()
 
 function createBaseSchema() {
   return z.object({
     title,
     description,
-  })
-}
-
-function createFeatureItemSchema() {
-  return createBaseSchema().extend({
-    icon,
   })
 }
 
@@ -49,26 +41,17 @@ function createLinkSchema() {
   })
 }
 
-export const pageSectionSchema = createBaseSchema().extend({
-  as,
-  headline,
-  icon,
-  links,
-  features,
-  orientation,
-  reverse,
-  ui: z.object({
-    root: z.string().optional(),
-    container: z.string().optional(),
-    wrapper: z.string().optional(),
-    headline: z.string().optional(),
-    leading: z.string().optional(),
-    leadingIcon: z.string().optional(),
-    title: z.string().optional(),
-    description: z.string().optional(),
-    links: z.string().optional(),
-    features: z.string().optional(),
-  }).optional(),
+const links = z.array(createLinkSchema()).optional()
+
+/**
+ * Clean schema for the Page Header.
+ * Title and Description are optional to allow inheritance from root metadata.
+ */
+export const pageHeaderSchema = z.object({
+  title: title.optional(),
+  description: description.optional(),
+  headline: headline.optional(),
+  links: links.optional(),
 })
 
 export const pageHeroSchema = createBaseSchema().extend({
@@ -77,28 +60,13 @@ export const pageHeroSchema = createBaseSchema().extend({
   links,
   orientation,
   reverse,
-  ui: z.object({
-    root: z.string().optional(),
-    container: z.string().optional(),
-    wrapper: z.string().optional(),
-    headline: z.string().optional(),
-    title: z.string().optional(),
-    description: z.string().optional(),
-    links: z.string().optional(),
-  }).optional(),
 })
 
-export const pageHeaderSchema = createBaseSchema().extend({
+export const pageSectionSchema = createBaseSchema().extend({
   as,
   headline,
+  icon,
   links,
-  ui: z.object({
-    root: z.string().optional(),
-    container: z.string().optional(),
-    wrapper: z.string().optional(),
-    headline: z.string().optional(),
-    title: z.string().optional(),
-    description: z.string().optional(),
-    links: z.string().optional(),
-  }).optional(),
+  orientation,
+  reverse,
 })

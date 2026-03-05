@@ -1,13 +1,20 @@
 <script setup lang="ts">
 import type { Collections } from '@nuxt/content'
+import type { PageWithLayout } from '~/composables/usePageLayout'
 
 const props = defineProps<{ path?: string, collection?: keyof Collections }>()
 const route = useRoute()
+
 const { data } = await usePageContent({
   path: () => props.path,
   collection: () => props.collection ?? ('page' as keyof Collections),
 })
-const page = computed(() => data.value as Collections['page'] | null)
+
+/**
+ * Combines the auto-generated collection type with our layout contract.
+ * This ensures 'body' comes from the collection while 'layout' follows our new architecture.
+ */
+const page = computed(() => data.value as (Collections['page'] & PageWithLayout) | null)
 
 if (!page.value) {
   throw createError({
@@ -18,36 +25,25 @@ if (!page.value) {
 }
 
 usePageSeo(page)
-const { containerClass, headerProps, heroProps, isProse, hasToc } = usePageLayout(page)
+const { containerClass, isProse, hasToc, headerProps } = usePageLayout(page)
 </script>
 
 <template>
   <AppHeader />
 
   <UMain v-if="page">
-    <UPageHero 
-      v-if="heroProps" 
-      v-bind="heroProps" 
-    >
-      <template v-if="heroProps.description" #description>
-        <slot name="description">
-          <p>{{ heroProps.description }}</p>
-        </slot>
-      </template>
-    </UPageHero>
-
     <UContainer :class="[containerClass]">
       <UPage>
-        <UPageHeader 
-          v-if="headerProps" 
-          v-bind="headerProps" 
+        <UPageHeader
+          v-if="headerProps"
+          v-bind="headerProps"
         />
 
         <UPageBody :prose="isProse">
           <slot />
         </UPageBody>
 
-        <template v-if="hasToc" #right>
+        <template v-if="hasToc && page.body?.toc?.links?.length" #right>
           <UContentToc :links="page.body?.toc?.links" title="Inhaltsverzeichnis" />
         </template>
       </UPage>

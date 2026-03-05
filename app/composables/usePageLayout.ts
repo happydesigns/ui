@@ -1,54 +1,58 @@
+import type { Ref } from 'vue'
+
+/**
+ * Interface representing the expected structure of a Content Page with Layout metadata.
+ */
 export interface PageWithLayout {
   title?: string
   description?: string
-  layout?: {
-    metadataComponent?: 'none' | 'header' | 'hero'
-    container?: boolean
-    toc?: boolean
-    prose?: boolean
+  layout?: 'default' | 'content' | 'fluid'
+  toc?: boolean
+  header?: {
+    title?: string
+    description?: string
+    headline?: string
+    links?: any[]
   }
-  hero?: Record<string, unknown>
-  header?: Record<string, unknown>
 }
 
+/**
+ * Computes layout-related states and classes based on the page's layout and frontmatter.
+ *
+ * @param page - A Ref containing the page data from Nuxt Content.
+ */
 export function usePageLayout<T extends PageWithLayout>(page: Ref<T | null | undefined>) {
-  const metadata = computed(() => page.value?.layout || {})
+  const layout = computed(() => page.value?.layout || 'default')
 
-  const activeComponent = computed(() => metadata.value.metadataComponent || 'header')
+  const isProse = computed(() => layout.value !== 'fluid')
 
-  const heroProps = computed(() => {
-    if (activeComponent.value !== 'hero') return null
-    return {
-      title: page.value?.title,
-      description: page.value?.description,
-      ...page.value?.hero,
+  const containerClass = computed(() => {
+    switch (layout.value) {
+      case 'fluid':
+        return 'max-w-none px-0'
+      default:
+        return undefined
     }
   })
+
+  const hasToc = computed(() => page.value?.toc !== false)
 
   const headerProps = computed(() => {
-    if (activeComponent.value !== 'header') return null
+    if (!page.value?.header)
+      return null
+
     return {
-      title: page.value?.title,
-      description: page.value?.description,
-      ...page.value?.header,
+      title: page.value.header.title || page.value.title,
+      description: page.value.header.description || page.value.description,
+      headline: page.value.header.headline,
+      links: page.value.header.links,
     }
   })
 
-  const isContainer = computed(() => metadata.value.container !== false)
-  const isProse = computed(() => metadata.value.prose !== false)
-  const hasToc = computed(() => !!metadata.value.toc)
-
-  const containerClass = computed(() =>
-    !isContainer.value ? 'px-0 max-w-none' : undefined,
-  )
-
   return {
-    activeComponent,
-    heroProps,
-    headerProps,
-    containerClass,
     isProse,
+    containerClass,
     hasToc,
+    headerProps,
   }
 }
-
