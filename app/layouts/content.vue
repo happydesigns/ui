@@ -10,36 +10,32 @@ const { data } = await usePageContent({
   collection: () => props.collection ?? ('page' as keyof Collections),
 })
 
-/**
- * Combines the auto-generated collection type with our layout contract.
- * This ensures 'body' comes from the collection while 'layout' follows our new architecture.
- */
 const page = computed(() => data.value as (Collections['page'] & PageWithLayout) | null)
 
 if (!page.value) {
   throw createError({
     statusCode: 404,
-    statusMessage: `Content ${props.collection ?? 'page'} ${props.path || route.path} not found`,
+    statusMessage: `${props.collection ?? 'page'} ${props.path || route.path} not found`,
     fatal: true,
   })
 }
 
 usePageSeo(page)
-const { containerClass, isProse, hasToc, headerProps } = usePageLayout(page)
+const { hasToc, headerProps } = usePageLayout(page)
 </script>
 
 <template>
   <AppHeader />
 
   <UMain v-if="page">
-    <UContainer :class="[containerClass]">
+    <UContainer>
       <UPage>
         <UPageHeader
           v-if="headerProps"
           v-bind="headerProps"
         />
 
-        <UPageBody :prose="isProse">
+        <UPageBody>
           <slot />
         </UPageBody>
 

@@ -13,7 +13,7 @@ export const pageCollectionConfig = defineCollection({
     prefix: '/',
   },
   schema: z.object({
-    layout: z.enum(['default', 'content', 'fluid']).default('default'),
+    layout: z.enum(['default', 'content']).default('default'),
     toc: z.boolean().default(true),
     header: pageHeaderSchema.optional(),
   }),
