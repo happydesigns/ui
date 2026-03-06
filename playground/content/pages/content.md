@@ -11,7 +11,7 @@ header:
       size: md
   ui: {}
   title: some titled
-layout: default
+layout: content
 toc: true
 ---
 
