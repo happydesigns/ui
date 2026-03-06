@@ -1,7 +1,6 @@
 ---
 title: Features
 description: This demo page shows how to use typed content schemas and Nuxt UI components together.
-layout: content
 header:
   headline: Nuxt Layer Base Demo
   icon: i-lucide-sparkles
@@ -10,6 +9,10 @@ header:
       to: "#features"
       color: secondary
       size: md
+  ui: {}
+  title: some titled
+layout: default
+toc: true
 ---
 
 ## Hero Section

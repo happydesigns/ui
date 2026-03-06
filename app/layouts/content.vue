@@ -22,6 +22,11 @@ if (!page.value) {
 
 usePageSeo(page)
 const { hasToc } = usePageLayout(page)
+
+if (page.value.header) {
+  page.value.header.title = page.value.title
+  page.value.header.description = page.value.description
+}
 </script>
 
 <template>
@@ -33,8 +38,6 @@ const { hasToc } = usePageLayout(page)
         <UPageHeader
           v-if="page.header"
           v-bind="page.header"
-          :title="page.title"
-          :description="page.description"
         />
 
         <UPageBody>
