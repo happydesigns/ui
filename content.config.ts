@@ -14,7 +14,7 @@ export const pageCollectionConfig = defineCollection({
   schema: z.object({
     layout: z.enum(['default', 'content']).default('default'),
     toc: z.boolean().default(true),
-    header: property(z.object({})).inherit('@nuxt/ui/components/PageHero.vue').optional(),
+    header: property(z.object({})).inherit('@nuxt/ui/components/PageHeader.vue').optional(),
   }),
 })
 
