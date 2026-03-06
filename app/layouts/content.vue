@@ -21,7 +21,7 @@ if (!page.value) {
 }
 
 usePageSeo(page)
-const { hasToc, headerProps } = usePageLayout(page)
+const { hasToc } = usePageLayout(page)
 </script>
 
 <template>
@@ -31,8 +31,10 @@ const { hasToc, headerProps } = usePageLayout(page)
     <UContainer>
       <UPage>
         <UPageHeader
-          v-if="headerProps"
-          v-bind="headerProps"
+          v-if="page.header"
+          v-bind="page.header"
+          :title="page.title"
+          :description="page.description"
         />
 
         <UPageBody>

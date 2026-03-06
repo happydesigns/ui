@@ -1,5 +1,4 @@
-import { defineCollection, defineContentConfig, z } from '@nuxt/content'
-import { pageHeaderSchema } from './types'
+import { defineCollection, defineContentConfig, property, z } from '@nuxt/content'
 
 export const snippetCollectionConfig = defineCollection({
   type: 'page',
@@ -15,7 +14,7 @@ export const pageCollectionConfig = defineCollection({
   schema: z.object({
     layout: z.enum(['default', 'content']).default('default'),
     toc: z.boolean().default(true),
-    header: pageHeaderSchema.optional(),
+    header: property(z.object({})).inherit('@nuxt/ui/components/PageHero.vue').optional(),
   }),
 })
 

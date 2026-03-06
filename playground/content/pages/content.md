@@ -12,10 +12,6 @@ header:
       size: md
 ---
 
-# Features
-
-This demo page shows how to use typed content schemas and Nuxt UI components together.
-
 ## Hero Section
 
 - Customizable title, description, icon, and links
