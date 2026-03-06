@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { Collections } from '@nuxt/content'
-import type { PageWithLayout } from '~/composables/usePageLayout'
 
 const props = defineProps<{ path?: string, collection?: keyof Collections }>()
 const route = useRoute()
@@ -10,7 +9,7 @@ const { data } = await usePageContent({
   collection: () => props.collection ?? ('page' as keyof Collections),
 })
 
-const page = computed(() => data.value as (Collections['page'] & PageWithLayout) | null)
+const page = computed(() => data.value as Collections['page'] | null)
 
 if (!page.value) {
   throw createError({
@@ -21,7 +20,7 @@ if (!page.value) {
 }
 
 usePageSeo(page)
-const { hasToc } = usePageLayout(page)
+const hasToc = computed(() => page.value?.toc !== false)
 
 if (page.value.header) {
   page.value.header.title = page.value.title

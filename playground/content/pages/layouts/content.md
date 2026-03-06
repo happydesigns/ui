@@ -2,7 +2,7 @@
 title: Datenschutzerklärung
 description: Informationen über die Datenerhebung, -verarbeitung und -schutzrichtlinien der Webseite.
 header: {}
-layout: default
+layout: content
 toc: true
 ---
 
