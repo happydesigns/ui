@@ -36,7 +36,7 @@ if (page.value.header) {
       <UPage>
         <UPageHeader
           v-if="page.header"
-          v-bind="page.header as any"
+          v-bind="(page.header as any)"
         />
 
         <UPageBody>
