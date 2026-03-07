@@ -1,6 +1,41 @@
 # Changelog
 
 
+## v0.6.0
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.5.1...v0.6.0)
+
+### 🚀 Enhancements
+
+- **content:** Respect layout in content files ([ce1ae81](https://github.com/happydesigns/ui/commit/ce1ae81))
+- **content:** Remove default layout from schema ([f595965](https://github.com/happydesigns/ui/commit/f595965))
+
+### 🩹 Fixes
+
+- **content:** Resolve UPageHeader type mismatch by switching inheritance and adding cast ([d600ca6](https://github.com/happydesigns/ui/commit/d600ca6))
+- Syntax error ([5d0b398](https://github.com/happydesigns/ui/commit/5d0b398))
+
+### 💅 Refactors
+
+- **content:** Improve layout stability and component selection logic ([07bff02](https://github.com/happydesigns/ui/commit/07bff02))
+- **content:** Implement preset-based layout architecture and clean metadata inheritance ([f7766aa](https://github.com/happydesigns/ui/commit/f7766aa))
+- **content:** Simplify layout logic and lock structural constraints ([16bb114](https://github.com/happydesigns/ui/commit/16bb114))
+- **content:** Use property inheritance for header and simplify layout metadata handling ([604284a](https://github.com/happydesigns/ui/commit/604284a))
+- **content:** Manually assign header fallbacks and update playground ([6819db9](https://github.com/happydesigns/ui/commit/6819db9))
+
+### 🏡 Chore
+
+- Update content ([f62a8ce](https://github.com/happydesigns/ui/commit/f62a8ce))
+- Update deps ([b5bec55](https://github.com/happydesigns/ui/commit/b5bec55))
+- **types:** Remove unused UI and index schemas ([feab744](https://github.com/happydesigns/ui/commit/feab744))
+- Remove unused usePageLayout ([5286992](https://github.com/happydesigns/ui/commit/5286992))
+- **playground:** Update content layout to content ([417c99e](https://github.com/happydesigns/ui/commit/417c99e))
+- Update deps ([e1b5a24](https://github.com/happydesigns/ui/commit/e1b5a24))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.5.1
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.5.0...v0.5.1)
