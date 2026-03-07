@@ -1,41 +1,19 @@
 ---
-layout:
-  metadataComponent: hero
-  container: true
-  toc: true
-  prose: true
-hero:
-  title: "Welcome to Nuxt Layer Base"
-  description: "A modern Nuxt starter with typed content schemas and beautiful UI."
-  icon: "i-lucide-rocket"
-  ui:
-    root: "bg-gradient-to-r from-blue-100 to-blue-300 text-blue-900"
-    title: "text-5xl font-bold"
-    description: "mt-4 text-lg"
-  links:
-    - label: "Get Started"
-      to: "/getting-started"
-      color: primary
-      size: xl
-    - label: "Nuxt UI Docs"
-      to: "https://ui.nuxt.com/"
-      color: neutral
-      size: lg
+title: Features
+description: This demo page shows how to use typed content schemas and Nuxt UI components together.
 header:
-  title: "Explore the Features"
-  description: "See how to configure layout, UI, and content schemas."
-  headline: "Nuxt Layer Base Demo"
-  icon: "i-lucide-sparkles"
+  headline: Nuxt Layer Base Demo
+  icon: i-lucide-sparkles
   links:
-    - label: "Features"
+    - label: Features
       to: "#features"
       color: secondary
       size: md
+  ui: {}
+  title: some titled
+layout: content
+toc: true
 ---
-
-# Features
-
-This demo page shows how to use typed content schemas and Nuxt UI components together.
 
 ## Hero Section
 
