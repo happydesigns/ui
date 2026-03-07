@@ -1,73 +1,94 @@
-# Nuxt Layer Starter
+# @happydesigns/ui
 
-Create Nuxt extendable layer with this GitHub template.
+A foundational **Nuxt Layer** providing a consistent UI and content structure for Nuxt applications. Built with Nuxt 4, Nuxt UI 4, and Nuxt Content 3.
 
-## Setup
+## Features
 
-Make sure to install the dependencies:
+- 🎨 **Nuxt UI v4 Integration**: Pre-configured with Tailwind and a set of reusable components.
+- 📝 **Nuxt Content v3 Ready**: Provides pre-defined collections for pages and snippets to jumpstart content-driven sites.
+- 🔌 **Extendable**: Designed as a Nuxt Layer that can be easily extended and customized by consuming projects.
+- 🧱 **Prefixed Components**: Layer components are automatically prefixed with `H` (e.g., `<HFooterButtons />`) to avoid naming collisions.
+- ✨ **Studio Ready**: Integrated with [Nuxt Studio](https://nuxt.studio/) for a seamless content editing experience.
 
-```bash
-pnpm install
-```
+## Installation
 
-## Working on your layer
-
-Your layer is at the root of this repository, it is exactly like a regular Nuxt project, except you can publish it on NPM.
-
-The `playground` directory should help you on trying your layer during development.
-
-Running `pnpm dev` will prepare and boot `playground` directory, which imports your layer itself.
-
-## Distributing your layer
-
-Your Nuxt layer is shaped exactly the same as any other Nuxt project, except you can publish it on NPM.
-
-To do so, you only have to check if `files` in `package.json` are valid, then run:
+Install the package in your Nuxt project:
 
 ```bash
-npm publish --access public
+pnpm add @happydesigns/ui
 ```
 
-Once done, your users will only have to run:
-
-```bash
-npm install --save your-layer
-```
-
-Then add the dependency to their `extends` in `nuxt.config`:
+Add the layer to your `nuxt.config.ts`:
 
 ```ts
-defineNuxtConfig({
-  extends: 'your-layer'
+export default defineNuxtConfig({
+  extends: ['@happydesigns/ui']
 })
 ```
 
-## Development Server
+## Configuration
 
-Start the development server on http://localhost:3000
+This layer provides a type-safe configuration via `app.config.ts`. You can override these values in your project's own `app.config.ts`:
 
-```bash
-pnpm dev
+```ts
+export default defineAppConfig({
+  app: {
+    meta: {
+      copyright: {
+        copyrightYear: 2026,
+        copyrightHolder: 'happydesigns',
+        copyrightHomepage: 'https://happydesigns.de'
+      },
+      socials: [
+        { icon: 'i-simple-icons-github', to: 'https://github.com/happydesigns', target: '_blank' }
+      ]
+    },
+    links: {
+      footer: [
+        { label: 'Privacy Policy', to: '/privacy' },
+        { label: 'Terms of Service', to: '/terms' }
+      ]
+    }
+  }
+})
 ```
 
-## Production
+## Content Configuration
 
-Build the application for production:
+By default, this layer provides a `content.config.ts` that defines two collections: `page` (sourced from `pages/`) and `snippet` (sourced from `snippets/`).
+
+You can use these as-is by following the default directory structure, or you can define your own `content.config.ts` in your main application to extend or completely override these collections:
+
+```ts
+// your-app/content.config.ts
+import { pageCollectionConfig, snippetCollectionConfig } from '@happydesigns/ui/content.config'
+import { defineContentConfig } from '@nuxt/content'
+
+export default defineContentConfig({
+  collections: {
+    // Reuse the layer's configs
+    page: pageCollectionConfig,
+    snippet: snippetCollectionConfig,
+    // Or add your own
+    posts: defineCollection({ })
+  }
+})
+```
+
+## Development
+
+If you want to contribute to the layer or run it locally:
 
 ```bash
+# Install dependencies
+pnpm install
+
+# Prepare types
+pnpm prepare
+
+# Start the playground (dev server)
+pnpm dev
+
+# Build the playground
 pnpm build
 ```
-
-Or statically generate it with:
-
-```bash
-pnpm generate
-```
-
-Locally preview production build:
-
-```bash
-pnpm preview
-```
-
-Checkout the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
