@@ -12,7 +12,7 @@ export const pageCollectionConfig = defineCollection({
     prefix: '/',
   },
   schema: z.object({
-    layout: z.enum(['default', 'content']).default('default'),
+    layout: z.enum(['default', 'content']),
     toc: z.boolean().default(true),
     header: property(z.object({})).inherit('@nuxt/ui/components/PageHeader.vue').optional(),
   }),
