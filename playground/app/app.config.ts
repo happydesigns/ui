@@ -48,6 +48,15 @@ export default defineAppConfig({
             },
           ],
         },
+        {
+          label: 'Articles',
+          children: [
+            {
+              label: 'Example Article',
+              to: '/articles/my-first-article',
+            },
+          ],
+        },
       ],
     },
   },
