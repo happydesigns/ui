@@ -1,31 +1,33 @@
 <script setup lang="ts">
-import type { Collections } from '@nuxt/content'
-
-const props = defineProps<{ path?: string, collection?: keyof Collections }>()
+const props = defineProps<{ path?: string }>()
 const route = useRoute()
 
-const { data } = await usePageContent({
+const { data: page } = await usePageContent({
   path: () => props.path,
-  collection: () => props.collection ?? ('page' as keyof Collections),
+  collection: 'page',
 })
-
-const page = computed(() => data.value as Collections['page'] | null)
 
 if (!page.value) {
   throw createError({
     statusCode: 404,
-    statusMessage: `${props.collection ?? 'page'} ${props.path || route.path} not found`,
+    statusMessage: `page ${props.path || route.path} not found`,
     fatal: true,
   })
 }
 
 usePageSeo(page)
-const hasToc = computed(() => page.value?.toc !== false)
+const renderToc = computed(() => page.value?.toc !== false)
 
-if (page.value.header) {
-  page.value.header.title = page.value.title
-  page.value.header.description = page.value.description
-}
+const header = computed(() => {
+  if (!page.value?.header)
+    return null
+
+  return {
+    ...page.value.header,
+    title: page.value.header.title || page.value.title,
+    description: page.value.header.description || page.value.description,
+  }
+})
 </script>
 
 <template>
@@ -35,16 +37,16 @@ if (page.value.header) {
     <UContainer>
       <UPage>
         <UPageHeader
-          v-if="page.header"
-          v-bind="(page.header as any)"
+          v-if="header"
+          v-bind="(header as any)"
         />
 
         <UPageBody>
           <slot />
         </UPageBody>
 
-        <template v-if="hasToc && page.body?.toc?.links?.length" #right>
-          <UContentToc :links="page.body?.toc?.links" title="Inhaltsverzeichnis" />
+        <template v-if="renderToc && page.body?.toc?.links?.length" #right>
+          <UContentToc :links="page.body?.toc?.links" :title="page.body?.toc?.title || 'Inhaltsverzeichnis'" />
         </template>
       </UPage>
     </UContainer>
