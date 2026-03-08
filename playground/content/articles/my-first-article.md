@@ -1,18 +1,19 @@
 ---
 title: Mein erster Artikel
-description: Ein kurzer Einblick in die Welt der Nuxt-Layer und Content-Entwicklung.
-layout: article
-date: 2026-03-08
 authors:
   - Jan Fröhlich
 category:
   label: Tech
   color: blue
+date: 2026-03-08
+description: Ein kurzer Einblick in die Welt der Nuxt-Layer und Content-Entwicklung.
 header:
   links:
     - label: Dokumentation
       to: https://nuxt.com
       icon: i-heroicons-document-text
+  ui: {}
+toc: true
 ---
 
 ## Einführung

@@ -83,7 +83,7 @@ function formatArticleDate(start?: string, end?: string) {
           </template>
 
           <div v-if="page.authors?.length" class="mt-4 flex flex-wrap gap-4">
-            <HUser v-for="author in page.authors" :key="author" :name="author" />
+            <UUser v-for="author in page.authors" :key="author" :name="author" />
           </div>
         </UPageHeader>
 

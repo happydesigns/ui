@@ -48,6 +48,7 @@ const header = computed(() => {
         <template v-if="renderToc && page.body?.toc?.links?.length" #right>
           <UContentToc :links="page.body?.toc?.links" :title="page.body?.toc?.title || 'Inhaltsverzeichnis'" />
         </template>
+
       </UPage>
     </UContainer>
   </UMain>
