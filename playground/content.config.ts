@@ -1,9 +1,10 @@
 import { defineContentConfig } from '@nuxt/content'
-import { pageCollectionConfig, snippetCollectionConfig } from '../content.config'
+import { articleCollectionConfig, pageCollectionConfig, snippetCollectionConfig } from '../content.config'
 
 export default defineContentConfig({
   collections: {
-    snippet: snippetCollectionConfig,
+    article: articleCollectionConfig,
     page: pageCollectionConfig,
+    snippet: snippetCollectionConfig,
   },
 })
