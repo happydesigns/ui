@@ -7,8 +7,7 @@ const props = defineProps<{
 const appConfig = useAppConfig()
 const route = useRoute()
 
-// Explicitly tie this layout to the 'article' collection
-const { data: page } = await usePageContent<'article'>({
+const { data: page } = await usePageContent({
   path: () => props.path,
   collection: 'article',
 })
@@ -66,7 +65,7 @@ function formatArticleDate(start?: string, end?: string) {
       <UPage>
         <UPageHeader
           v-if="header"
-          v-bind="header"
+          v-bind="(header as any)"
         >
           <template #headline>
             <UBreadcrumb

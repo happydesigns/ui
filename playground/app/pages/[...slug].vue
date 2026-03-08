@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { Collections } from '@nuxt/content'
+
 definePageMeta({
   validate: (route) => {
     const path = route.fullPath
@@ -12,7 +14,17 @@ definePageMeta({
   },
 })
 
-const { data: page } = await usePageContent()
+const route = useRoute()
+const collection = computed(() => {
+  if (route.path.startsWith('/articles/')) {
+    return 'article'
+  }
+  return 'page'
+})
+
+const { data: page } = await usePageContent({
+  collection: () => collection.value as keyof Collections,
+})
 </script>
 
 <template>
