@@ -31,27 +31,32 @@ const header = computed(() => {
 </script>
 
 <template>
-  <AppHeader />
+  <div>
+    <AppHeader />
 
-  <UMain v-if="page">
-    <UContainer>
-      <UPage>
-        <UPageHeader
-          v-if="header"
-          v-bind="(header as any)"
-        />
+    <UMain v-if="page">
+      <UContainer>
+        <UPage>
+          <UPageHeader
+            v-if="header"
+            v-bind="(header as any)"
+          />
 
-        <UPageBody>
-          <slot />
-        </UPageBody>
+          <UPageBody>
+            <slot />
+          </UPageBody>
 
-        <template v-if="renderToc && page.body?.toc?.links?.length" #right>
-          <UContentToc :links="page.body?.toc?.links" :title="page.body?.toc?.title || 'Inhaltsverzeichnis'" />
-        </template>
+          <template #right>
+            <UContentToc
+              v-if="renderToc && page.body?.toc?.links?.length"
+              :links="page.body.toc.links"
+              :title="page.body.toc.title || 'Inhaltsverzeichnis'"
+            />
+          </template>
+        </UPage>
+      </UContainer>
+    </UMain>
 
-      </UPage>
-    </UContainer>
-  </UMain>
-
-  <AppFooter />
+    <AppFooter />
+  </div>
 </template>
