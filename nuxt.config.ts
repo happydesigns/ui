@@ -5,7 +5,6 @@ export default defineNuxtConfig({
     { path: './components', pathPrefix: false, prefix: 'H' },
   ],
 
-  css: ['~/assets/css/main.css'],
   devtools: { enabled: true },
 
   modules: [
