@@ -1,5 +1,20 @@
 import { defineCollection, defineContentConfig, property, z } from '@nuxt/content'
 
+export const socialSchema = z.object({
+  name: z.string(),
+  url: z.string(),
+})
+
+export const userSchema = z.object({
+  name: z.string(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  to: z.string().optional(),
+  avatar: property(z.object({})).inherit('@nuxt/ui/components/Avatar.vue').optional(),
+  socials: z.array(socialSchema).optional(),
+  email: z.string().email().optional(),
+})
+
 export const snippetCollectionConfig = defineCollection({
   type: 'page',
   source: {
@@ -36,10 +51,17 @@ export const pageCollectionConfig = defineCollection({
   }),
 })
 
+export const userCollectionConfig = defineCollection({
+  type: 'data',
+  source: 'users/**/*.{md,yaml}',
+  schema: userSchema,
+})
+
 export default defineContentConfig({
   collections: {
     article: articleCollectionConfig,
     page: pageCollectionConfig,
     snippet: snippetCollectionConfig,
+    user: userCollectionConfig,
   },
 })
