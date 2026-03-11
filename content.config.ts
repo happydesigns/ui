@@ -32,7 +32,7 @@ export const articleCollectionConfig = defineCollection({
     date: z.string().optional(),
     dateEnd: z.string().optional(),
     authors: z.array(z.string()).optional(),
-    category: z.union([z.string(), z.record(z.any())]).optional(),
+    category: z.string().optional(),
     toc: z.boolean().default(true),
     header: property(z.object({})).inherit('@nuxt/ui/components/PageHeader.vue').optional(),
   }),
