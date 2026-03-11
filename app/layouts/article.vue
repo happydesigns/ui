@@ -42,7 +42,8 @@ const header = computed(() => {
 
     <UMain v-if="page">
       <UContainer>
-        <UPage>
+        <!-- Override broken CSS -->
+        <UPage :ui="{ root: 'lg:grid' }">
           <UPageHeader
             v-if="header"
             v-bind="(header as any)"
@@ -58,10 +59,12 @@ const header = computed(() => {
           </UPageBody>
 
           <template #right>
+            <!-- Override broken CSS -->
             <UContentToc
               v-if="renderToc && page.body?.toc?.links?.length"
               :links="page.body.toc.links"
               :title="page.body.toc.title || 'Inhaltsverzeichnis'"
+              :ui="{ trigger: 'lg:hidden' }"
             />
           </template>
         </UPage>
