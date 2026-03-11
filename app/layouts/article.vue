@@ -40,7 +40,7 @@ const header = computed(() => {
 })
 
 const breadcrumbItems = computed(() => {
-  const base = props.breadcrumbs ?? [appConfig.app.article.breadcrumb]
+  const base = props.breadcrumbs ?? appConfig.app.article.breadcrumbs
   return [
     ...base,
     { label: page.value?.title, to: page.value?.path },
