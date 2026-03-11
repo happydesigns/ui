@@ -59,6 +59,24 @@ export default defineAppConfig({
         },
       ],
     },
+
+    date: {
+      locale: 'de',
+      options: {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      },
+    },
+
+    article: {
+      categories: {
+        Nuxt: {
+          label: 'Nuxt',
+          color: 'info',
+        },
+      },
+    },
   },
 
   ui: {

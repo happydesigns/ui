@@ -2,9 +2,7 @@
 title: Mein erster Artikel
 authors:
   - Jan Fröhlich
-category:
-  label: Tech
-  color: blue
+category: Nuxt
 date: 2026-03-08
 description: Ein kurzer Einblick in die Welt der Nuxt-Layer und Content-Entwicklung.
 header:
