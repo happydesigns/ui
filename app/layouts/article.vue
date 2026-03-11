@@ -4,8 +4,6 @@ import formatDate from '~/utils/formatDate'
 
 const props = defineProps<{
   path?: string
-  /** A breadcrumb item to be used as a parent */
-  breadcrumb?: { label: string, to: string, icon?: string }
   /** A full breadcrumb array to be used as base */
   breadcrumbs?: BreadcrumbItem[]
 }>()
@@ -42,7 +40,7 @@ const header = computed(() => {
 })
 
 const breadcrumbItems = computed(() => {
-  const base = props.breadcrumbs ?? [props.breadcrumb ?? appConfig.app.article.breadcrumb]
+  const base = props.breadcrumbs ?? [appConfig.app.article.breadcrumb]
   return [
     ...base,
     { label: page.value?.title, to: page.value?.path },
