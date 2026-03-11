@@ -3,6 +3,9 @@ import formatDate from '~/utils/formatDate'
 
 const props = defineProps<{
   path?: string
+  /** A breadcrumb item to be used as a parent */
+  breadcrumb?: { label: string, to: string, icon?: string }
+  /** A full breadcrumb array to be used as base */
   breadcrumbs?: any[]
 }>()
 
@@ -36,6 +39,14 @@ const header = computed(() => {
     description: page.value.header.description || page.value.description,
   }
 })
+
+const breadcrumbItems = computed(() => {
+  const base = props.breadcrumbs ?? [props.breadcrumb ?? appConfig.app.article.breadcrumb]
+  return [
+    ...base,
+    { label: page.value?.title, to: page.value?.path },
+  ]
+})
 </script>
 
 <template>
@@ -57,10 +68,7 @@ const header = computed(() => {
             <template #headline>
               <UBreadcrumb
                 :ui="{ root: 'max-w-full' }"
-                :items="props.breadcrumbs ?? [
-                  { label: 'Articles', to: '/articles', icon: appConfig.app.icons.article ?? 'i-lucide:newspaper' },
-                  { label: page.title, to: page.path },
-                ]"
+                :items="breadcrumbItems"
               />
               <div class="flex items-center space-x-2">
                 <template v-if="page?.category">
