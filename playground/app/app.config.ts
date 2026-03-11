@@ -70,6 +70,11 @@ export default defineAppConfig({
     },
 
     article: {
+      breadcrumb: {
+        label: 'Blog',
+        to: '/articles',
+        icon: 'i-lucide:book-open',
+      },
       categories: {
         Nuxt: {
           label: 'Nuxt',

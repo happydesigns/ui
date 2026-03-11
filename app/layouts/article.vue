@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { BreadcrumbItem } from '@nuxt/ui'
 import formatDate from '~/utils/formatDate'
 
 const props = defineProps<{
@@ -6,7 +7,7 @@ const props = defineProps<{
   /** A breadcrumb item to be used as a parent */
   breadcrumb?: { label: string, to: string, icon?: string }
   /** A full breadcrumb array to be used as base */
-  breadcrumbs?: any[]
+  breadcrumbs?: BreadcrumbItem[]
 }>()
 
 const appConfig = useAppConfig()

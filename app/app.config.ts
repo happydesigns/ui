@@ -20,6 +20,11 @@ export default defineAppConfig({
 
     article: {
       categories: {} as Record<string, ArticleCategoryBadge>,
+      breadcrumb: {
+        label: 'Articles',
+        to: '/articles',
+        icon: 'i-lucide:newspaper',
+      },
     },
 
     date: {
@@ -69,6 +74,12 @@ declare module '@nuxt/schema' {
       article?: {
         /** A record of article categories mapped by their internal string ID */
         categories?: Record<string, ArticleCategoryBadge>
+        /** The breadcrumb item to be shown as a parent of the article */
+        breadcrumb?: {
+          label: string
+          to: string
+          icon?: string
+        }
       }
       date?: {
         /** The locale used for date formatting (e.g. 'en', 'de') */
