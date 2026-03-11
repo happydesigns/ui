@@ -6,10 +6,5 @@
     "dev": "nuxt dev",
     "build": "nuxt build",
     "generate": "nuxt generate"
-  },
-  "dependencies": {
-    "@iconify-json/heroicons": "^1.2.3",
-    "@nuxt/ui": "^4.5.1",
-    "nuxt": "^4.3.1"
   }
 }
