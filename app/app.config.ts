@@ -1,5 +1,8 @@
-import type { ButtonProps } from '#ui/types'
-import type { FooterColumn } from '@nuxt/ui'
+import type { BadgeProps, ButtonProps, FooterColumn } from '@nuxt/ui'
+
+export interface ArticleCategoryBadge extends Omit<BadgeProps, 'color'> {
+  color?: string
+}
 
 export default defineAppConfig({
   app: {
@@ -11,6 +14,21 @@ export default defineAppConfig({
     links: {
       header: [],
       footer: [],
+    },
+
+    icons: {} as Record<string, string>,
+
+    article: {
+      categories: {} as Record<string, ArticleCategoryBadge>,
+    },
+
+    date: {
+      locale: 'en',
+      options: {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      } as Intl.DateTimeFormatOptions,
     },
   },
 
@@ -45,6 +63,18 @@ declare module '@nuxt/schema' {
       links?: {
         header?: Array<FooterColumn>
         footer?: Array<FooterColumn>
+      }
+      /** A mapping of internal identifier strings to icon strings */
+      icons?: Record<string, string>
+      article?: {
+        /** A record of article categories mapped by their internal string ID */
+        categories?: Record<string, ArticleCategoryBadge>
+      }
+      date?: {
+        /** The locale used for date formatting (e.g. 'en', 'de') */
+        locale?: string
+        /** Options for Intl.DateTimeFormat */
+        options?: Intl.DateTimeFormatOptions
       }
     }
   }
