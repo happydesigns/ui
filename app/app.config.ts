@@ -20,13 +20,7 @@ export default defineAppConfig({
 
     article: {
       categories: {} as Record<string, ArticleCategoryBadge>,
-      breadcrumbs: [
-        {
-          label: 'Articles',
-          to: '/articles',
-          icon: 'i-lucide:newspaper',
-        },
-      ],
+      breadcrumbs: [],
     },
 
     date: {
