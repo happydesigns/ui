@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.6.2
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.6.1...v0.6.2)
+
+### 💅 Refactors
+
+- Export content schemas separately in content.config.ts ([705b2bc](https://github.com/happydesigns/ui/commit/705b2bc))
+
+### 🏡 Chore
+
+- Update deps ([03794a5](https://github.com/happydesigns/ui/commit/03794a5))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.6.1
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.6.0...v0.6.1)
