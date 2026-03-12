@@ -1,6 +1,56 @@
 # Changelog
 
 
+## v0.6.1
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.6.0...v0.6.1)
+
+### 🚀 Enhancements
+
+- **content:** Add article collection configuration ([f9d1ad1](https://github.com/happydesigns/ui/commit/f9d1ad1))
+- **playground:** Add example article link to footer configuration ([cdab739](https://github.com/happydesigns/ui/commit/cdab739))
+- **playground:** Finalize article integration and routing ([a430bd8](https://github.com/happydesigns/ui/commit/a430bd8))
+- **users:** Add user schema ([417bf51](https://github.com/happydesigns/ui/commit/417bf51))
+- Temporarily remove unimplemented breadcrumbs ([2e5ec5b](https://github.com/happydesigns/ui/commit/2e5ec5b))
+- Implement formatDate utility ([5611586](https://github.com/happydesigns/ui/commit/5611586))
+- Add category badge support and configuration ([e06ff54](https://github.com/happydesigns/ui/commit/e06ff54))
+- Improve article layout with breadcrumbs, category, and date ([2fbae78](https://github.com/happydesigns/ui/commit/2fbae78))
+- Add breadcrumb prop to article layout with appConfig fallback ([1ff0669](https://github.com/happydesigns/ui/commit/1ff0669))
+- Make article breadcrumbs configurable via appConfig ([b9a6305](https://github.com/happydesigns/ui/commit/b9a6305))
+- Use breadcrumbs array in appConfig for more flexibility ([9784ace](https://github.com/happydesigns/ui/commit/9784ace))
+
+### 🩹 Fixes
+
+- **content:** Add path prefixes to article and snippet collections to resolve 404s ([d00b134](https://github.com/happydesigns/ui/commit/d00b134))
+- Remove css import in base layer ([d822055](https://github.com/happydesigns/ui/commit/d822055))
+- **styles:** Override broken css ([5221d4c](https://github.com/happydesigns/ui/commit/5221d4c))
+- Prevent breadcrumb merging by setting empty array as default ([6f792c3](https://github.com/happydesigns/ui/commit/6f792c3))
+
+### 💅 Refactors
+
+- **layouts:** Simplify content layout and fix header fallbacks ([7226d85](https://github.com/happydesigns/ui/commit/7226d85))
+- **layouts:** Simplify article layout and tie it to article collection ([8c0e88b](https://github.com/happydesigns/ui/commit/8c0e88b))
+- **layouts:** Improve article layout and fix playground articles routing ([451cdaf](https://github.com/happydesigns/ui/commit/451cdaf))
+- **layouts:** Improve article and content layouts and fix hydration mismatch ([240e9f1](https://github.com/happydesigns/ui/commit/240e9f1))
+- Simplify article category schema ([83591c5](https://github.com/happydesigns/ui/commit/83591c5))
+- Simplify article breadcrumbs by using only breadcrumbs prop ([3244c05](https://github.com/happydesigns/ui/commit/3244c05))
+
+### 📖 Documentation
+
+- Rewrite README and add GEMINI context ([90561d7](https://github.com/happydesigns/ui/commit/90561d7))
+
+### 🏡 Chore
+
+- **release:** V0.6.0 ([31acc19](https://github.com/happydesigns/ui/commit/31acc19))
+- **playground:** Update content config to match layer changes ([2d567c9](https://github.com/happydesigns/ui/commit/2d567c9))
+- Update deps ([f9f0312](https://github.com/happydesigns/ui/commit/f9f0312))
+- Remove duplicate deps ([132a3c9](https://github.com/happydesigns/ui/commit/132a3c9))
+- **playground:** Add example article categories and date configuration ([fbcdc1a](https://github.com/happydesigns/ui/commit/fbcdc1a))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.6.0
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.5.1...v0.6.0)
