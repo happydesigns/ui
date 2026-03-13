@@ -1,11 +1,7 @@
-import { defineCollection, defineContentConfig, property, z } from '@nuxt/content'
+import { defineCollection, defineContentConfig } from '@nuxt/content'
+import { articleSchema, pageSchema, userSchema } from './schemas'
 
-export const socialSchema = z.object({
-  name: z.string(),
-  url: z.string(),
-})
-
-export const snippetCollectionConfig = defineCollection({
+const snippetCollectionConfig = defineCollection({
   type: 'page',
   source: {
     include: 'snippets/**/*.{md,yaml}',
@@ -13,16 +9,7 @@ export const snippetCollectionConfig = defineCollection({
   },
 })
 
-export const articleSchema = z.object({
-  date: z.string().optional(),
-  dateEnd: z.string().optional(),
-  authors: z.array(z.string()).optional(),
-  category: z.string().optional(),
-  toc: z.boolean().default(true),
-  header: property(z.object({})).inherit('@nuxt/ui/components/PageHeader.vue').optional(),
-})
-
-export const articleCollectionConfig = defineCollection({
+const articleCollectionConfig = defineCollection({
   type: 'page',
   source: {
     include: 'articles/**/*.{md,yaml}',
@@ -31,13 +18,7 @@ export const articleCollectionConfig = defineCollection({
   schema: articleSchema,
 })
 
-export const pageSchema = z.object({
-  layout: z.enum(['default', 'content']),
-  toc: z.boolean().default(true),
-  header: property(z.object({})).inherit('@nuxt/ui/components/PageHeader.vue').optional(),
-})
-
-export const pageCollectionConfig = defineCollection({
+const pageCollectionConfig = defineCollection({
   type: 'page',
   source: {
     include: 'pages/**/*.{md,yaml}',
@@ -46,17 +27,7 @@ export const pageCollectionConfig = defineCollection({
   schema: pageSchema,
 })
 
-export const userSchema = z.object({
-  name: z.string(),
-  description: z.string().optional(),
-  username: z.string().optional(),
-  to: z.string().optional(),
-  avatar: property(z.object({})).inherit('@nuxt/ui/components/Avatar.vue').optional(),
-  socials: z.array(socialSchema).optional(),
-  email: z.string().email().optional(),
-})
-
-export const userCollectionConfig = defineCollection({
+const userCollectionConfig = defineCollection({
   type: 'data',
   source: 'users/**/*.{md,yaml}',
   schema: userSchema,

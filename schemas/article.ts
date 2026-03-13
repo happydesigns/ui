@@ -1,0 +1,11 @@
+import { property } from '@nuxt/content'
+import { z } from 'zod'
+
+export const articleSchema = z.object({
+  date: z.string().optional(),
+  dateEnd: z.string().optional(),
+  authors: z.array(z.string()).optional(),
+  category: z.string().optional(),
+  toc: z.boolean().default(true),
+  header: property(z.object({})).inherit('@nuxt/ui/components/PageHeader.vue').optional(),
+})
