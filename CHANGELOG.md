@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.6.3
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.6.2...v0.6.3)
+
+### 💅 Refactors
+
+- **schemas:** Extract schemas to .ts files ([99083d1](https://github.com/happydesigns/ui/commit/99083d1))
+
+### 🏡 Chore
+
+- Move Nuxt to devDependencies ([40c4882](https://github.com/happydesigns/ui/commit/40c4882))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.6.2
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.6.1...v0.6.2)
