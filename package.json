@@ -5,6 +5,10 @@
   "packageManager": "pnpm@10.32.1",
   "author": "happydesigns",
   "homepage": "https://github.com/happydesigns",
+  "exports": {
+    ".": "./nuxt.config.ts",
+    "./schemas": "./schemas/index.ts"
+  },
   "main": "./nuxt.config.ts",
   "scripts": {
     "dev": "nuxt dev playground",
