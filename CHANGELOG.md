@@ -1,6 +1,29 @@
 # Changelog
 
 
+## v0.7.0
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.6.3...v0.7.0)
+
+### 💅 Refactors
+
+- **playground:** Use updated schema imports ([f15f984](https://github.com/happydesigns/ui/commit/f15f984))
+
+### 🏡 Chore
+
+- Add module exports ([5cb114b](https://github.com/happydesigns/ui/commit/5cb114b))
+- Add layer name for imports ([7d111aa](https://github.com/happydesigns/ui/commit/7d111aa))
+- **layers:** Rename layer ([5460e1c](https://github.com/happydesigns/ui/commit/5460e1c))
+- ⚠️  Rename package to @h4designs/ui ([3620e0a](https://github.com/happydesigns/ui/commit/3620e0a))
+
+#### ⚠️ Breaking Changes
+
+- ⚠️  Rename package to @h4designs/ui ([3620e0a](https://github.com/happydesigns/ui/commit/3620e0a))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.6.3
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.6.2...v0.6.3)
