@@ -10,6 +10,12 @@
     "./schemas": "./schemas/index.ts"
   },
   "main": "./nuxt.config.ts",
+  "files": [
+    "app",
+    "schemas",
+    "nuxt.config.ts",
+    "content.config.ts"
+  ],
   "scripts": {
     "dev": "nuxt dev playground",
     "docs": "nuxt dev docs --extends docus",
