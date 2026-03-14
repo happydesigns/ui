@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
 
   $meta: {
-    name: 'happydesigns-ui',
+    name: '@h4designs/ui',
   },
 
   components: [

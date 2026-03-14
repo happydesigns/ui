@@ -1,5 +1,5 @@
 {
-  "name": "@happydesigns/ui",
+  "name": "@h4designs/ui",
   "type": "module",
   "version": "0.6.3",
   "packageManager": "pnpm@10.32.1",
@@ -42,6 +42,6 @@
     "typescript": "^5.9.3"
   },
   "resolutions": {
-    "@happydesigns/ui": "workspace:*"
+    "@h4designs/ui": "workspace:*"
   }
 }
