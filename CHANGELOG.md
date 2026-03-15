@@ -1,6 +1,28 @@
 # Changelog
 
 
+## v0.8.0
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.7.0...v0.8.0)
+
+### 🚀 Enhancements
+
+- **schemas:** ⚠️  Migrate to Zod v4 ([d486f65](https://github.com/happydesigns/ui/commit/d486f65))
+
+### 🏡 Chore
+
+- **release:** V0.7.0 ([41d42fc](https://github.com/happydesigns/ui/commit/41d42fc))
+- **npm:** Add files whitelist ([eac070c](https://github.com/happydesigns/ui/commit/eac070c))
+- Refresh lockfile ([67e20dc](https://github.com/happydesigns/ui/commit/67e20dc))
+
+#### ⚠️ Breaking Changes
+
+- **schemas:** ⚠️  Migrate to Zod v4 ([d486f65](https://github.com/happydesigns/ui/commit/d486f65))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.7.0
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.6.3...v0.7.0)
