@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.8.1
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.8.0...v0.8.1)
+
+### 🩹 Fixes
+
+- **schemas:** Revert to method-chaining syntax for Zod v4 compatibility ([8503a55](https://github.com/happydesigns/ui/commit/8503a55))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.8.0
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.7.0...v0.8.0)
