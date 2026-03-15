@@ -2,6 +2,7 @@
   "name": "@h4designs/ui",
   "type": "module",
   "version": "0.7.0",
+  "private": false,
   "packageManager": "pnpm@10.32.1",
   "author": "happydesigns",
   "homepage": "https://github.com/happydesigns",
@@ -12,9 +13,9 @@
   "main": "./nuxt.config.ts",
   "files": [
     "app",
-    "schemas",
+    "content.config.ts",
     "nuxt.config.ts",
-    "content.config.ts"
+    "schemas"
   ],
   "scripts": {
     "dev": "nuxt dev playground",
