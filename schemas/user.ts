@@ -4,10 +4,10 @@ import { socialSchema } from './common'
 
 export const userSchema = z.object({
   name: z.string(),
-  description: z.optional(z.string()),
-  username: z.optional(z.string()),
-  to: z.optional(z.string()),
-  avatar: z.optional(property(z.object({})).inherit('@nuxt/ui/components/Avatar.vue')),
-  socials: z.optional(z.array(socialSchema)),
-  email: z.optional(z.email()),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  to: z.string().optional(),
+  avatar: property(z.object({})).inherit('@nuxt/ui/components/Avatar.vue').optional(),
+  socials: z.array(socialSchema).optional(),
+  email: z.email().optional(),
 })
