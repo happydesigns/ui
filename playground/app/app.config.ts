@@ -104,6 +104,10 @@ export default defineAppConfig({
         },
         separator: 'oder',
       },
+      surround: {
+        prevLabel: 'Vorheriger',
+        nextLabel: 'Nächster',
+      },
     },
   },
 

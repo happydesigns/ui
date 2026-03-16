@@ -52,9 +52,10 @@ export default defineAppConfig({
         show: true,
         prevIcon: 'i-lucide-arrow-left',
         nextIcon: 'i-lucide-arrow-right',
+        prevLabel: 'Previous',
+        nextLabel: 'Next',
       },
     },
-
     date: {
       locale: 'en',
       options: {
@@ -72,6 +73,18 @@ export default defineAppConfig({
     footerColumns: {
       slots: {},
       columns: {},
+    },
+    contentSurround: {
+      variants: {
+        direction: {
+          left: {
+            link: 'col-start-1',
+          },
+          right: {
+            link: 'col-start-2',
+          },
+        },
+      },
     },
   },
 })
@@ -164,6 +177,10 @@ declare module '@nuxt/schema' {
           prevIcon?: string
           /** The icon to be shown in the next button */
           nextIcon?: string
+          /** The label to be shown in the previous button */
+          prevLabel?: string
+          /** The label to be shown in the next button */
+          nextLabel?: string
         }
       }
       date?: {
