@@ -11,6 +11,7 @@ header:
       to: https://nuxt.com
       icon: i-heroicons-document-text
   ui: {}
+status: published
 toc: true
 ---
 

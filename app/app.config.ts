@@ -48,6 +48,11 @@ export default defineAppConfig({
         },
         separator: 'or',
       },
+      surround: {
+        show: true,
+        prevIcon: 'i-lucide-arrow-left',
+        nextIcon: 'i-lucide-arrow-right',
+      },
     },
 
     date: {
@@ -150,6 +155,15 @@ declare module '@nuxt/schema' {
           }
           /** The separator text between edit and report buttons */
           separator?: string
+        }
+        /** Configuration for the surround navigation in the article layout */
+        surround?: {
+          /** Whether to show the surround navigation */
+          show?: boolean
+          /** The icon to be shown in the previous button */
+          prevIcon?: string
+          /** The icon to be shown in the next button */
+          nextIcon?: string
         }
       }
       date?: {
