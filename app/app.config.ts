@@ -9,6 +9,11 @@ export default defineAppConfig({
     meta: {
       copyright: {},
       socials: [],
+      github: {
+        repo: '',
+        branch: 'main',
+        dir: 'content',
+      },
     },
 
     links: {
@@ -23,13 +28,25 @@ export default defineAppConfig({
       breadcrumbs: [],
       backButton: {
         icon: 'i-ph-arrow-left',
-        label: 'Zurück zum Blog',
+        label: 'Back',
       },
       copyButton: {
         icon: 'i-ph-link-simple-duotone',
-        label: 'URL kopieren',
+        label: 'Copy URL',
         successIcon: 'i-lucide-copy-check',
-        successLabel: 'Link in Zwischenablage kopiert',
+        successLabel: 'Link copied to clipboard',
+      },
+      actionButtons: {
+        edit: {
+          icon: 'i-lucide-pen',
+          label: 'Edit article',
+        },
+        report: {
+          icon: 'i-ph-warning-circle',
+          label: 'Report an issue',
+          link: 'https://github.com/sfbiberach/schachfreunde-biberach.de/issues/new/choose',
+        },
+        separator: 'or',
       },
     },
 
@@ -69,6 +86,15 @@ declare module '@nuxt/schema' {
         }
         /** Social button definitions (e.g. Instagram, Facebook, GitHub) */
         socials?: Array<ButtonProps>
+        /** Configuration for GitHub repository info */
+        github?: {
+          /** The repository identifier (e.g. 'sfbiberach/schachfreunde-biberach.de') */
+          repo?: string
+          /** The branch name (e.g. 'main') */
+          branch?: string
+          /** The directory where the content is stored (e.g. 'content') */
+          dir?: string
+        }
       }
       /** Link collections for various UI regions (e.g. header, footer) */
       links?: {
@@ -103,6 +129,27 @@ declare module '@nuxt/schema' {
           successIcon?: string
           /** The label to be shown in a toast when the copy was successful */
           successLabel?: string
+        }
+        /** Configuration for the action buttons (edit, report) in the article layout */
+        actionButtons?: {
+          /** Configuration for the edit button */
+          edit?: {
+            /** The icon to be shown in the edit button */
+            icon?: string
+            /** The label to be shown in the edit button */
+            label?: string
+          }
+          /** Configuration for the report button */
+          report?: {
+            /** The icon to be shown in the report button */
+            icon?: string
+            /** The label to be shown in the report button */
+            label?: string
+            /** The URL to be shown in the report button */
+            link?: string
+          }
+          /** The separator text between edit and report buttons */
+          separator?: string
         }
       }
       date?: {

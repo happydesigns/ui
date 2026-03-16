@@ -31,6 +31,11 @@ export default defineAppConfig({
           target: '_blank',
         },
       ] as ButtonProps[],
+      github: {
+        repo: 'sfbiberach/schachfreunde-biberach.de',
+        branch: 'main',
+        dir: 'playground/content',
+      },
     },
 
     links: {
@@ -82,6 +87,22 @@ export default defineAppConfig({
           label: 'Nuxt',
           color: 'info',
         },
+      },
+      backButton: {
+        label: 'Zurück zum Blog',
+      },
+      copyButton: {
+        label: 'URL kopieren',
+        successLabel: 'Link in Zwischenablage kopiert',
+      },
+      actionButtons: {
+        edit: {
+          label: 'Artikel bearbeiten',
+        },
+        report: {
+          label: 'Fehler melden',
+        },
+        separator: 'oder',
       },
     },
   },

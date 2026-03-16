@@ -100,6 +100,8 @@ const backLink = computed(() => {
               :back-link="backLink"
               :page="page"
             />
+
+            <HArticleActionSeparator :page="page" />
           </UPageBody>
 
           <template #right>
