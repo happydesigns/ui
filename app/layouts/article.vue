@@ -29,13 +29,13 @@ usePageSeo(page)
 const renderToc = computed(() => page.value?.toc !== false)
 
 const header = computed(() => {
-  if (!page.value?.header)
+  if (!page.value)
     return null
 
   return {
     ...page.value.header,
-    title: page.value.header.title || page.value.title,
-    description: page.value.header.description || page.value.description,
+    title: page.value.header?.title || page.value.title,
+    description: page.value.header?.description || page.value.description,
   }
 })
 
