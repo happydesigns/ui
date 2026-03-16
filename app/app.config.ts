@@ -21,6 +21,16 @@ export default defineAppConfig({
     article: {
       categories: {} as Record<string, ArticleCategoryBadge>,
       breadcrumbs: [],
+      backButton: {
+        icon: 'i-ph-arrow-left',
+        label: 'Zurück zum Blog',
+      },
+      copyButton: {
+        icon: 'i-ph-link-simple-duotone',
+        label: 'URL kopieren',
+        successIcon: 'i-lucide-copy-check',
+        successLabel: 'Link in Zwischenablage kopiert',
+      },
     },
 
     date: {
@@ -76,6 +86,24 @@ declare module '@nuxt/schema' {
           to: string
           icon?: string
         }>
+        /** Configuration for the back button in the article layout */
+        backButton?: {
+          /** The icon to be shown in the back button */
+          icon?: string
+          /** The label to be shown as prefix in the back button */
+          label?: string
+        }
+        /** Configuration for the copy URL button in the article layout */
+        copyButton?: {
+          /** The icon to be shown in the copy button */
+          icon?: string
+          /** The label to be shown in the copy button */
+          label?: string
+          /** The icon to be shown when the copy was successful */
+          successIcon?: string
+          /** The label to be shown in a toast when the copy was successful */
+          successLabel?: string
+        }
       }
       date?: {
         /** The locale used for date formatting (e.g. 'en', 'de') */

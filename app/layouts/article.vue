@@ -39,12 +39,20 @@ const header = computed(() => {
   }
 })
 
+const breadcrumbsBase = computed(() => props.breadcrumbs ?? appConfig.app.article.breadcrumbs)
+
 const breadcrumbItems = computed(() => {
-  const base = props.breadcrumbs ?? appConfig.app.article.breadcrumbs
   return [
-    ...base,
+    ...breadcrumbsBase.value,
     { label: page.value?.title, to: page.value?.path },
   ]
+})
+
+const backLink = computed(() => {
+  if (breadcrumbsBase.value.length === 0)
+    return null
+
+  return breadcrumbsBase.value.at(-1)
 })
 </script>
 
@@ -87,6 +95,11 @@ const breadcrumbItems = computed(() => {
 
           <UPageBody>
             <slot />
+
+            <HArticleFooter
+              :back-link="backLink"
+              :page="page"
+            />
           </UPageBody>
 
           <template #right>
