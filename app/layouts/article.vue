@@ -78,7 +78,12 @@ const backLink = computed(() => {
               </div>
             </template>
             <div class="mt-4 flex flex-wrap items-center gap-6">
-              <UUser v-for="(author, index) in authors" :key="index" v-bind="author" target="_blank" />
+              <UUser
+                v-for="(author, index) in authors"
+                :key="index"
+                v-bind="author"
+                target="_blank"
+              />
               <slot name="header" />
             </div>
           </UPageHeader>

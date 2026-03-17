@@ -70,7 +70,7 @@ export function useArticleList(options: UseArticleListOptions = {}) {
       return {
         ...article,
         resolvedBadge: badge,
-        resolvedAuthors: resolvedAuthors.map(a => ({ ...a, target: '_blank' })),
+        resolvedAuthors: resolvedAuthors,
       }
     }))
 
