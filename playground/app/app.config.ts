@@ -57,6 +57,10 @@ export default defineAppConfig({
           label: 'Articles',
           children: [
             {
+              label: 'Blog Overview',
+              to: '/articles',
+            },
+            {
               label: 'Example Article',
               to: '/articles/my-first-article',
             },
@@ -107,6 +111,9 @@ export default defineAppConfig({
       surround: {
         prevLabel: 'Vorheriger',
         nextLabel: 'Nächster',
+      },
+      list: {
+        labelAll: 'Alle',
       },
     },
   },

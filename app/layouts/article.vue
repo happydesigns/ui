@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { BreadcrumbItem } from '@nuxt/ui'
-import formatDate from '~/utils/formatDate'
 
 const props = defineProps<{
   path?: string
@@ -28,16 +27,7 @@ if (!page.value) {
 usePageSeo(page)
 const renderToc = computed(() => page.value?.toc !== false)
 
-const header = computed(() => {
-  if (!page.value)
-    return null
-
-  return {
-    ...page.value.header,
-    title: page.value.header?.title || page.value.title,
-    description: page.value.header?.description || page.value.description,
-  }
-})
+const header = computed(() => resolvePageHeader(page.value))
 
 const breadcrumbsBase = computed(() => props.breadcrumbs ?? appConfig.app.article.breadcrumbs)
 

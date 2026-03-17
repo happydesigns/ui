@@ -1,7 +1,7 @@
 import type { BadgeProps, ButtonProps, FooterColumn } from '@nuxt/ui'
 
 export interface ArticleCategoryBadge extends Omit<BadgeProps, 'color'> {
-  color?: string
+  color?: BadgeProps['color']
 }
 
 export default defineAppConfig({
@@ -54,6 +54,10 @@ export default defineAppConfig({
         nextIcon: 'i-lucide-arrow-right',
         prevLabel: 'Previous',
         nextLabel: 'Next',
+      },
+      list: {
+        itemsPerPage: 12,
+        labelAll: 'All',
       },
     },
     date: {
@@ -181,6 +185,13 @@ declare module '@nuxt/schema' {
           prevLabel?: string
           /** The label to be shown in the next button */
           nextLabel?: string
+        }
+        /** Configuration for the article list */
+        list?: {
+          /** Items per page */
+          itemsPerPage?: number
+          /** Label for the 'All' category */
+          labelAll?: string
         }
       }
       date?: {

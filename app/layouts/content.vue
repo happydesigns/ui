@@ -18,16 +18,7 @@ if (!page.value) {
 usePageSeo(page)
 const renderToc = computed(() => page.value?.toc !== false)
 
-const header = computed(() => {
-  if (!page.value?.header)
-    return null
-
-  return {
-    ...page.value.header,
-    title: page.value.header.title || page.value.title,
-    description: page.value.header.description || page.value.description,
-  }
-})
+const header = computed(() => resolvePageHeader(page.value))
 </script>
 
 <template>
