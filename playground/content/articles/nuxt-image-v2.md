@@ -244,7 +244,7 @@ Thank you to all the contributors who made this release possible! This includes 
 
 ## 👉 Full release notes
 
-::read-more
+::callout
 ---
 icon: i-simple-icons-github
 target: _blank
