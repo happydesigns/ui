@@ -1,6 +1,50 @@
 # Changelog
 
 
+## v0.8.2
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.8.1...v0.8.2)
+
+### 🚀 Enhancements
+
+- **articles:** Refactor article footer into component and add button configuration ([3ee0166](https://github.com/happydesigns/ui/commit/3ee0166))
+- **articles:** Add article action separator and global github configuration ([ec32790](https://github.com/happydesigns/ui/commit/ec32790))
+- **articles:** Add status field, ArticleSurround component and fix semantic headings ([618053d](https://github.com/happydesigns/ui/commit/618053d))
+- **articles:** Add localized labels for surround navigation and grid positioning ([91e0821](https://github.com/happydesigns/ui/commit/91e0821))
+- **articles:** Add ArticleList component, useArticleList composable, and resolvePageHeader utility ([1902b0b](https://github.com/happydesigns/ui/commit/1902b0b))
+- **users:** Update user schema to use username as unique identifier ([b8b205b](https://github.com/happydesigns/ui/commit/b8b205b))
+- **content:** Add Carousel component and refine article MDC blocks ([43d0f51](https://github.com/happydesigns/ui/commit/43d0f51))
+
+### 🩹 Fixes
+
+- **articles:** Show header if header property is missing ([ca29f30](https://github.com/happydesigns/ui/commit/ca29f30))
+- **articles:** Improve ArticleList component and useArticleList composable ([bd2728d](https://github.com/happydesigns/ui/commit/bd2728d))
+- **config:** Break circular dependency in ArticleCategoryBadge ([f7bac51](https://github.com/happydesigns/ui/commit/f7bac51))
+- **playground:** Remove problematic line in v4.md that breaks CSR ([5cfc279](https://github.com/happydesigns/ui/commit/5cfc279))
+
+### 💅 Refactors
+
+- **users:** Simplify author resolution and remove manual fallbacks ([ee2a5b7](https://github.com/happydesigns/ui/commit/ee2a5b7))
+
+### 🏡 Chore
+
+- **playground:** Update playground with official Nuxt blog posts ([b6d6267](https://github.com/happydesigns/ui/commit/b6d6267))
+- **playground:** Add Nuxt 3.15 blog post ([16b895c](https://github.com/happydesigns/ui/commit/16b895c))
+- **playground:** Fix sample article by using callout instead of read-more ([bee660f](https://github.com/happydesigns/ui/commit/bee660f))
+- **playground:** Replace read-more with manually labeled and iconized callouts ([02bbe7f](https://github.com/happydesigns/ui/commit/02bbe7f))
+
+### 🎨 Styles
+
+- **articles:** Update NavigationMenu to use highlight instead of pill variant ([0d9ef7a](https://github.com/happydesigns/ui/commit/0d9ef7a))
+- **playground:** Improve articles index layout and cleanup configuration ([485c721](https://github.com/happydesigns/ui/commit/485c721))
+- **playground:** Configuration cleanup and UI overrides ([548f226](https://github.com/happydesigns/ui/commit/548f226))
+- **toc:** Remove default 'Inhaltsverzeichnis' title from layouts ([41f927b](https://github.com/happydesigns/ui/commit/41f927b))
+- **playground:** Fix AppFooter alignment issues ([48173ec](https://github.com/happydesigns/ui/commit/48173ec))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.8.1
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.8.0...v0.8.1)
