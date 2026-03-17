@@ -77,7 +77,7 @@ watch(() => route.query, (newQuery) => {
     <div v-if="!props.category" class="border-b border-gray-200 dark:border-gray-800">
       <UNavigationMenu
         :items="categories"
-        variant="pill"
+        highlight
       />
     </div>
 
