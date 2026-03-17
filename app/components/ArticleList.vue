@@ -4,6 +4,8 @@ import formatDate from '~/utils/formatDate'
 const props = defineProps<{
   /** Optional fixed category to filter by */
   category?: string
+  /** The orientation of the blog posts list */
+  orientation?: 'horizontal' | 'vertical'
 }>()
 
 const appConfig = useAppConfig()
@@ -16,12 +18,14 @@ const {
 
 const page = ref(Number(route.query.page) || 1)
 const selectedCategory = ref(props.category || (route.query.category as string) || String(labelAll))
+const resolvedOrientation = computed(() => props.orientation || 'horizontal')
 
 // Fetch articles using the composable
 const { data, status } = await useArticleList({
   page,
   itemsPerPage,
   category: selectedCategory,
+  labelAll,
 })
 
 const categories = computed(() => {
@@ -70,7 +74,7 @@ watch(() => route.query, (newQuery) => {
 
 <template>
   <div class="flex flex-col gap-8">
-    <div v-if="props.category" class="border-b border-gray-200 dark:border-gray-800">
+    <div v-if="!props.category" class="border-b border-gray-200 dark:border-gray-800">
       <UNavigationMenu
         :items="categories"
         variant="pill"
@@ -81,7 +85,11 @@ watch(() => route.query, (newQuery) => {
       <UIcon name="i-lucide-loader-circle" class="size-12 animate-spin text-muted" />
     </div>
 
-    <UBlogPosts v-else-if="data?.articles.length">
+    <UBlogPosts
+      v-else-if="data?.articles.length"
+      :orientation="resolvedOrientation"
+      :ui="{ base: resolvedOrientation === 'horizontal' ? 'sm:grid sm:grid-cols-2 lg:grid-cols-3' : '' }"
+    >
       <UBlogPost
         v-for="article in data.articles"
         :key="article.path"
