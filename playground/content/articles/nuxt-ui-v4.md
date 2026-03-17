@@ -78,9 +78,8 @@ class: '[&>div]:*:my-0 w-full'
 ui:
   preview: p-0
 ---
-:index-example
+<https://nuxt.com/blog/nuxt-ui-v4#build-anything-faster-than-ever>
 ::
-
 ::
 
 ## From design to code, seamlessly
