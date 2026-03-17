@@ -61,8 +61,8 @@ export default defineAppConfig({
               to: '/articles',
             },
             {
-              label: 'Example Article',
-              to: '/articles/my-first-article',
+              label: 'Latest Release (v4.4)',
+              to: '/articles/v4-4',
             },
           ],
         },
@@ -87,9 +87,13 @@ export default defineAppConfig({
         },
       ],
       categories: {
-        Nuxt: {
-          label: 'Nuxt',
+        Release: {
+          label: 'Release',
           color: 'info',
+        },
+        Article: {
+          label: 'Article',
+          color: 'primary',
         },
       },
       backButton: {
