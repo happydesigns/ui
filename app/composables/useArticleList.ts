@@ -1,6 +1,7 @@
+import type { BadgeProps } from '@nuxt/ui'
 import type { Ref } from 'vue'
-import { computed, toValue } from 'vue'
 import type { ArticleCategoryBadge } from '~/app.config'
+import { computed, toValue } from 'vue'
 import resolveUsers from '~/utils/resolveUsers'
 
 export interface UseArticleListOptions {
@@ -42,17 +43,15 @@ export function useArticleList(options: UseArticleListOptions = {}) {
       .limit(itemsPerPage.value)
       .all()
 
-    // console.log(`[useArticleList] Found ${articles.length} articles`)
-
     // Resolve details for each article
     const resolved = await Promise.all(articles.map(async (article) => {
       // Resolve Category Badge directly
       const categoryKey = article.category
-      const categories = appConfig.app?.article?.categories
+      const categories = appConfig.app?.article?.categories || {}
       let badge: ArticleCategoryBadge
 
-      if (categoryKey && categories && categoryKey in categories) {
-        badge = categories[categoryKey]
+      if (categoryKey && categoryKey in categories) {
+        badge = categories[categoryKey] as ArticleCategoryBadge
       }
       else {
         badge = {
@@ -69,8 +68,8 @@ export function useArticleList(options: UseArticleListOptions = {}) {
 
       return {
         ...article,
-        resolvedBadge: badge,
-        resolvedAuthors: resolvedAuthors,
+        resolvedBadge: badge as BadgeProps,
+        resolvedAuthors,
       }
     }))
 

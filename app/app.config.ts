@@ -1,7 +1,10 @@
-import type { BadgeProps, ButtonProps, FooterColumn } from '@nuxt/ui'
+import type { ButtonProps, FooterColumn } from '@nuxt/ui'
 
-export interface ArticleCategoryBadge extends Omit<BadgeProps, 'color'> {
-  color?: BadgeProps['color']
+export interface ArticleCategoryBadge {
+  label?: string
+  color?: string
+  variant?: string
+  icon?: string
 }
 
 export default defineAppConfig({
