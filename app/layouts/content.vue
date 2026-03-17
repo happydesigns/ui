@@ -41,7 +41,7 @@ const header = computed(() => resolvePageHeader(page.value))
             <UContentToc
               v-if="renderToc && page.body?.toc?.links?.length"
               :links="page.body.toc.links"
-              :title="page.body.toc.title || 'Inhaltsverzeichnis'"
+              :title="page.body.toc.title"
             />
           </template>
         </UPage>
