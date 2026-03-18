@@ -10,12 +10,9 @@ export const eventSchema = z.object({
     name: z.string(),
     url: z.string().optional(),
   }).optional(),
-  links: z.array(z.object({
-    label: z.string(),
-    to: z.string(),
-    icon: z.string().optional(),
-    target: z.string().optional(),
-  })).optional(),
+  links: z.array(
+    property(z.object({})).inherit('@nuxt/ui/components/Button.vue'),
+  ).optional(),
   status: z.enum(['published', 'draft', 'archived']).default('published'),
   toc: z.boolean().default(true),
   header: property(z.object({})).inherit('@nuxt/ui/components/PageHeader.vue').optional(),

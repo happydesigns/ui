@@ -114,9 +114,9 @@ const backLink = computed(() => {
             <UButton
               v-for="(link, index) in page.links"
               :key="index"
-              v-bind="link"
               variant="subtle"
               size="sm"
+              v-bind="(link as any)"
             />
             <slot name="header" />
           </div>
