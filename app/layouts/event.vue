@@ -85,6 +85,11 @@ const backLink = computed(() => {
               :items="breadcrumbItems"
             />
             <div class="flex flex-wrap items-center gap-x-3 gap-y-2 text-muted">
+              <template v-if="page?.category">
+                <span class="text-primary-500 dark:text-primary-400 font-medium">{{ page.category }}</span>
+                <span class="hidden sm:inline opacity-50">&middot;</span>
+              </template>
+
               <div class="flex items-center space-x-2">
                 <UIcon name="i-lucide-calendar" class="size-4" />
                 <time>
