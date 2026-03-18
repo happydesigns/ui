@@ -1,18 +1,24 @@
 <script setup lang="ts">
-const { data: page } = await usePageContent()
+const { data: page } = await usePageContent({
+  collection: 'page',
+})
+
+usePageSeo(page)
+const header = computed(() => resolvePageHeader(page.value))
 </script>
 
 <template>
-  <NuxtLayout name="content">
-    <UPage v-if="page">
-      <UPageHeader
-        v-bind="page"
-        class="py-8"
-      />
+  <NuxtLayout>
+    <UPageHero
+      v-if="header"
+      v-bind="(header as any)"
+      orientation="horizontal"
+    />
 
+    <UContainer v-if="page">
       <UPageBody>
         <HArticleGrid collection="event" />
       </UPageBody>
-    </UPage>
+    </UContainer>
   </NuxtLayout>
 </template>
