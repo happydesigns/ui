@@ -1,6 +1,12 @@
-import type { Collections, PageCollections } from '@nuxt/content'
+import type { Collections, PageCollections, SQLOperator } from '@nuxt/content'
 import type { BadgeProps } from '@nuxt/ui'
 import type { ArticleCategoryBadge } from '~/app.config'
+
+export interface ArticleFilter {
+  field: string
+  operator: SQLOperator
+  value?: any
+}
 
 export interface UseArticleListOptions<C extends keyof PageCollections = 'article'> {
   page?: number | Ref<number>
@@ -10,7 +16,7 @@ export interface UseArticleListOptions<C extends keyof PageCollections = 'articl
   labelAll?: string | Ref<string>
   collection?: C | Ref<C>
   /** Additional custom filters */
-  where?: any | Ref<any>
+  where?: ArticleFilter[] | Ref<ArticleFilter[] | undefined>
 }
 
 /**
@@ -47,8 +53,10 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
     }
 
     // Apply additional filters
-    if (where.value) {
-      query = query.where(where.value)
+    if (where.value && Array.isArray(where.value)) {
+      where.value.forEach((filter) => {
+        query = query.where(filter.field as any, filter.operator, filter.value)
+      })
     }
 
     const articles = await query
@@ -95,8 +103,10 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
     }
 
     // Apply additional filters to count query as well
-    if (where.value) {
-      countQuery = countQuery.where(where.value)
+    if (where.value && Array.isArray(where.value)) {
+      where.value.forEach((filter) => {
+        countQuery = countQuery.where(filter.field as any, filter.operator, filter.value)
+      })
     }
 
     const total = await countQuery.count() as number

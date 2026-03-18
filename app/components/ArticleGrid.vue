@@ -1,5 +1,6 @@
 <script setup lang="ts" generic="C extends keyof PageCollections = 'article'">
 import type { PageCollections } from '@nuxt/content'
+import type { ArticleFilter } from '~/composables/useArticleList'
 import formatDate from '~/utils/formatDate'
 
 const {
@@ -16,7 +17,7 @@ const {
   /** The collection to fetch articles from */
   collection?: C
   /** Additional custom filters */
-  where?: any
+  where?: ArticleFilter[]
   /** Optional items per page override */
   itemsPerPage?: number
 }>()
