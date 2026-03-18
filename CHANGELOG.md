@@ -1,6 +1,25 @@
 # Changelog
 
 
+## v0.8.5
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.8.4...v0.8.5)
+
+### 🚀 Enhancements
+
+- Refactor article list into modular components with flexible filtering ([1d3974e](https://github.com/happydesigns/ui/commit/1d3974e))
+- Add backLabel prop to article layout and footer for custom back links ([16d151c](https://github.com/happydesigns/ui/commit/16d151c))
+
+### 🩹 Fixes
+
+- Resolve TypeScript errors in useArticleList and components ([7f1992d](https://github.com/happydesigns/ui/commit/7f1992d))
+- Add unique ID to copy link toast to prevent duplicates ([673411f](https://github.com/happydesigns/ui/commit/673411f))
+- Use ToastProps for clipboard options to resolve type error ([49f1574](https://github.com/happydesigns/ui/commit/49f1574))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.8.4
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.8.3...v0.8.4)
