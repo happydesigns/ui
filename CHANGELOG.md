@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.8.4
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.8.3...v0.8.4)
+
+### 🚀 Enhancements
+
+- Use a single global TOC title in app.config ([c6ac9e8](https://github.com/happydesigns/ui/commit/c6ac9e8))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.8.3
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.8.2...v0.8.3)
