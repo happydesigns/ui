@@ -11,7 +11,7 @@ links:
   - label: Add to Calendar
     to: null
     icon: i-lucide-calendar-plus
-location: Paris, France & Online
+location: "[object Object]"
 status: published
 toc: true
 layout: event

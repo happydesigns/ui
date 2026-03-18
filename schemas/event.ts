@@ -6,7 +6,10 @@ export const eventSchema = z.object({
     start: z.iso.date(),
     end: z.iso.date(),
   }),
-  location: z.string().optional(),
+  location: z.object({
+    name: z.string(),
+    url: z.string().optional(),
+  }).optional(),
   links: z.array(z.object({
     label: z.string(),
     to: z.string(),

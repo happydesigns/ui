@@ -83,17 +83,29 @@ const backLink = computed(() => {
               :ui="{ root: 'max-w-full' }"
               :items="breadcrumbItems"
             />
-            <div class="flex flex-col gap-2">
-              <div class="flex items-center space-x-2 text-muted">
+            <div class="flex flex-wrap items-center gap-x-3 gap-y-2 text-muted">
+              <div class="flex items-center space-x-2">
                 <UIcon name="i-lucide-calendar" class="size-4" />
                 <time>
                   {{ formatDate(page.date.start) }} - {{ formatDate(page.date.end) }}
                 </time>
               </div>
-              <div v-if="page.location" class="flex items-center space-x-2 text-muted">
-                <UIcon name="i-lucide-map-pin" class="size-4" />
-                <span>{{ page.location }}</span>
-              </div>
+
+              <template v-if="page.location?.name">
+                <span class="hidden sm:inline opacity-50">&middot;</span>
+                <div class="flex items-center space-x-2">
+                  <UIcon name="i-lucide-map-pin" class="size-4" />
+                  <NuxtLink
+                    v-if="page.location.url"
+                    :to="page.location.url"
+                    target="_blank"
+                    class="hover:text-primary transition-colors underline decoration-dotted underline-offset-4"
+                  >
+                    {{ page.location.name }}
+                  </NuxtLink>
+                  <span v-else>{{ page.location.name }}</span>
+                </div>
+              </template>
             </div>
           </template>
 
