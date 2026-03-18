@@ -59,42 +59,42 @@ const backLink = computed(() => {
 
     <UMain v-if="page">
       <UContainer>
+        <UPageHeader
+          v-if="header"
+          v-bind="(header as any)"
+          :ui="{
+            headline: 'flex flex-col gap-y-8 items-start',
+            wrapper: 'lg:flex-row',
+          }"
+        >
+          <template #headline>
+            <UBreadcrumb
+              :ui="{ root: 'max-w-full' }"
+              :items="breadcrumbItems"
+            />
+            <div class="flex items-center space-x-2">
+              <template v-if="page?.category">
+                <span>{{ page.category }}</span>
+                <span class="text-muted">&middot;</span>
+              </template>
+              <time v-if="page.date" class="text-muted">
+                {{ [page?.date, page?.dateEnd].filter(Boolean).map(d => formatDate(d)).join(' - ') }}
+              </time>
+            </div>
+          </template>
+          <div class="mt-4 flex flex-wrap items-center gap-6">
+            <UUser
+              v-for="(author, index) in authors"
+              :key="index"
+              v-bind="author"
+              target="_blank"
+            />
+            <slot name="header" />
+          </div>
+        </UPageHeader>
+
         <!-- Override broken CSS -->
         <UPage :ui="{ root: 'lg:grid' }">
-          <UPageHeader
-            v-if="header"
-            v-bind="(header as any)"
-            :ui="{
-              headline: 'flex flex-col gap-y-8 items-start',
-              wrapper: 'lg:flex-row',
-            }"
-          >
-            <template #headline>
-              <UBreadcrumb
-                :ui="{ root: 'max-w-full' }"
-                :items="breadcrumbItems"
-              />
-              <div class="flex items-center space-x-2">
-                <template v-if="page?.category">
-                  <span>{{ page.category }}</span>
-                  <span class="text-muted">&middot;</span>
-                </template>
-                <time v-if="page.date" class="text-muted">
-                  {{ [page?.date, page?.dateEnd].filter(Boolean).map(d => formatDate(d)).join(' - ') }}
-                </time>
-              </div>
-            </template>
-            <div class="mt-4 flex flex-wrap items-center gap-6">
-              <UUser
-                v-for="(author, index) in authors"
-                :key="index"
-                v-bind="author"
-                target="_blank"
-              />
-              <slot name="header" />
-            </div>
-          </UPageHeader>
-
           <UPageBody>
             <slot />
 
