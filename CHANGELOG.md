@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.9.0
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.8.5...v0.9.0)
+
+### 🚀 Enhancements
+
+- ⚠️  Update article schema date field ([e06e6fb](https://github.com/happydesigns/ui/commit/e06e6fb))
+
+#### ⚠️ Breaking Changes
+
+- ⚠️  Update article schema date field ([e06e6fb](https://github.com/happydesigns/ui/commit/e06e6fb))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.8.5
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.8.4...v0.8.5)
