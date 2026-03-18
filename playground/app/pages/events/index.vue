@@ -17,7 +17,11 @@ const header = computed(() => resolvePageHeader(page.value))
 
     <UContainer v-if="page">
       <UPageBody>
-        <HArticleGrid collection="event" />
+        <HArticleGrid collection="event">
+          <template #date="{ article }">
+            <EventGridDate :article="article" />
+          </template>
+        </HArticleGrid>
       </UPageBody>
     </UContainer>
   </NuxtLayout>
