@@ -1,6 +1,7 @@
 <script setup lang="ts" generic="C extends keyof PageCollections = 'event'">
 import type { Collections, PageCollections } from '@nuxt/content'
 import type { BreadcrumbItem } from '@nuxt/ui'
+import type { EventConfig } from '~/app.config'
 
 const {
   path,

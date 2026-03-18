@@ -1,5 +1,6 @@
 <script setup lang="ts" generic="C extends keyof PageCollections = 'article'">
 import type { PageCollections } from '@nuxt/content'
+import type { ArticleConfig } from '~/app.config'
 import type { ArticleFilter } from '~/composables/useArticleList'
 import formatDate from '~/utils/formatDate'
 

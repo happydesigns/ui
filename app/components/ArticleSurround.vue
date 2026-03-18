@@ -1,5 +1,6 @@
 <script setup lang="ts" generic="C extends keyof PageCollections = 'article'">
 import type { ContentNavigationItem, PageCollections } from '@nuxt/content'
+import type { ArticleConfig } from '~/app.config'
 
 const {
   collection = 'article' as C,

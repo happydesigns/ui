@@ -1,6 +1,7 @@
 <script setup lang="ts" generic="C extends keyof PageCollections = 'article'">
 import type { Collections, PageCollections } from '@nuxt/content'
 import type { BreadcrumbItem } from '@nuxt/ui'
+import type { ArticleConfig } from '~/app.config'
 
 const {
   path,
