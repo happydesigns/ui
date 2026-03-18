@@ -1,5 +1,5 @@
 import { defineCollection, defineContentConfig } from '@nuxt/content'
-import { articleSchema, pageSchema, userSchema } from '../schemas'
+import { articleSchema, eventSchema, pageSchema, userSchema } from '../schemas'
 
 const snippetCollectionConfig = defineCollection({
   type: 'page',
@@ -16,6 +16,15 @@ const articleCollectionConfig = defineCollection({
     prefix: '/articles',
   },
   schema: articleSchema,
+})
+
+const eventCollectionConfig = defineCollection({
+  type: 'page',
+  source: {
+    include: 'events/**/*.{md,yaml}',
+    prefix: '/events',
+  },
+  schema: eventSchema,
 })
 
 const pageCollectionConfig = defineCollection({
@@ -36,6 +45,7 @@ const userCollectionConfig = defineCollection({
 export default defineContentConfig({
   collections: {
     article: articleCollectionConfig,
+    event: eventCollectionConfig,
     page: pageCollectionConfig,
     snippet: snippetCollectionConfig,
     user: userCollectionConfig,

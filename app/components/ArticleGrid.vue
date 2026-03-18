@@ -25,12 +25,17 @@ const {
 const appConfig = useAppConfig()
 const route = useRoute()
 
-const {
-  itemsPerPage: configItemsPerPage = 12,
-  labelAll = 'All',
-} = appConfig.app.article?.list || {}
+/** Resolve the configuration for this collection, falling back to article defaults */
+const config = computed(() => {
+  const collectionConfig = (appConfig.app.collections?.[String(collection)] || {}) as ArticleConfig
+  return {
+    ...appConfig.app.article,
+    ...collectionConfig,
+  } as Required<ArticleConfig>
+})
 
-const itemsPerPage = propsItemsPerPage || configItemsPerPage
+const itemsPerPage = propsItemsPerPage || config.value.list?.itemsPerPage || 12
+const labelAll = config.value.list?.labelAll || 'All'
 const page = ref(Number(route.query.page) || 1)
 const selectedCategory = ref(category || (route.query.category as string) || String(labelAll))
 const resolvedOrientation = computed(() => orientation || 'horizontal')

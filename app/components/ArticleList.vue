@@ -24,14 +24,21 @@ const {
 const appConfig = useAppConfig()
 const route = useRoute()
 
-const {
-  labelAll = 'All',
-} = appConfig.app.article?.list || {}
+/** Resolve the configuration for this collection, falling back to article defaults */
+const config = computed(() => {
+  const collectionConfig = (appConfig.app.collections?.[String(collection)] || {}) as ArticleConfig
+  return {
+    ...appConfig.app.article,
+    ...collectionConfig,
+  } as Required<ArticleConfig>
+})
+
+const labelAll = config.value.list?.labelAll || 'All'
 
 const selectedCategory = ref(category || (route.query.category as string) || String(labelAll))
 
 const categories = computed(() => {
-  const cats = appConfig.app.article?.categories || {}
+  const cats = config.value.categories || {}
   const items = [
     { label: String(labelAll), value: String(labelAll) },
     ...Object.keys(cats).map(key => ({

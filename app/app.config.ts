@@ -7,6 +7,85 @@ export interface ArticleCategoryBadge {
   icon?: string
 }
 
+export interface ArticleConfig {
+  /** A record of article categories mapped by their internal string ID */
+  categories?: Record<string, ArticleCategoryBadge>
+  /** The breadcrumb items to be shown as parents of the article */
+  breadcrumbs?: Array<{
+    label: string
+    to: string
+    icon?: string
+  }>
+  /** Configuration for the back button in the article layout */
+  backButton?: {
+    /** The icon to be shown in the back button */
+    icon?: string
+    /** The label to be shown as prefix in the back button */
+    label?: string
+  }
+  /** Configuration for the copy URL button in the article layout */
+  copyButton?: {
+    /** The icon to be shown in the copy button */
+    icon?: string
+    /** The label to be shown in the copy button */
+    label?: string
+    /** The icon to be shown when the copy was successful */
+    successIcon?: string
+    /** The label to be shown in a toast when the copy was successful */
+    successLabel?: string
+  }
+  /** Configuration for the action buttons (edit, report) in the article layout */
+  actionButtons?: {
+    /** Configuration for the edit button */
+    edit?: {
+      /** The icon to be shown in the edit button */
+      icon?: string
+      /** The label to be shown in the edit button */
+      label?: string
+    }
+    /** Configuration for the report button */
+    report?: {
+      /** The icon to be shown in the report button */
+      icon?: string
+      /** The label to be shown in the report button */
+      label?: string
+      /** The URL to be shown in the report button */
+      link?: string
+    }
+    /** The separator text between edit and report buttons */
+    separator?: string
+  }
+  /** Configuration for the surround navigation in the article layout */
+  surround?: {
+    /** Whether to show the surround navigation */
+    show?: boolean
+    /** The icon to be shown in the previous button */
+    prevIcon?: string
+    /** The icon to be shown in the next button */
+    nextIcon?: string
+    /** The label to be shown in the previous button */
+    prevLabel?: string
+    /** The label to be shown in the next button */
+    nextLabel?: string
+  }
+  /** Configuration for the article list */
+  list?: {
+    /** Items per page */
+    itemsPerPage?: number
+    /** Label for the 'All' category */
+    labelAll?: string
+  }
+}
+
+export interface EventConfig {
+  /** The breadcrumb items to be shown as parents of the event */
+  breadcrumbs?: Array<{
+    label: string
+    to: string
+    icon?: string
+  }>
+}
+
 export default defineAppConfig({
   app: {
     meta: {
@@ -30,8 +109,9 @@ export default defineAppConfig({
       title: '',
     },
 
+    /** Default configurations for different layouts */
     article: {
-      categories: {} as Record<string, ArticleCategoryBadge>,
+      categories: {},
       breadcrumbs: [],
       backButton: {
         icon: 'i-ph-arrow-left',
@@ -66,7 +146,15 @@ export default defineAppConfig({
         itemsPerPage: 12,
         labelAll: 'All',
       },
-    },
+    } as ArticleConfig,
+
+    event: {
+      breadcrumbs: [],
+    } as EventConfig,
+
+    /** Collection-specific configurations that override the defaults above */
+    collections: {} as Record<string, ArticleConfig | EventConfig>,
+
     date: {
       locale: 'en',
       options: {
@@ -137,75 +225,12 @@ declare module '@nuxt/schema' {
       }
       /** A mapping of internal identifier strings to icon strings */
       icons?: Record<string, string>
-      article?: {
-        /** A record of article categories mapped by their internal string ID */
-        categories?: Record<string, ArticleCategoryBadge>
-        /** The breadcrumb items to be shown as parents of the article */
-        breadcrumbs?: Array<{
-          label: string
-          to: string
-          icon?: string
-        }>
-        /** Configuration for the back button in the article layout */
-        backButton?: {
-          /** The icon to be shown in the back button */
-          icon?: string
-          /** The label to be shown as prefix in the back button */
-          label?: string
-        }
-        /** Configuration for the copy URL button in the article layout */
-        copyButton?: {
-          /** The icon to be shown in the copy button */
-          icon?: string
-          /** The label to be shown in the copy button */
-          label?: string
-          /** The icon to be shown when the copy was successful */
-          successIcon?: string
-          /** The label to be shown in a toast when the copy was successful */
-          successLabel?: string
-        }
-        /** Configuration for the action buttons (edit, report) in the article layout */
-        actionButtons?: {
-          /** Configuration for the edit button */
-          edit?: {
-            /** The icon to be shown in the edit button */
-            icon?: string
-            /** The label to be shown in the edit button */
-            label?: string
-          }
-          /** Configuration for the report button */
-          report?: {
-            /** The icon to be shown in the report button */
-            icon?: string
-            /** The label to be shown in the report button */
-            label?: string
-            /** The URL to be shown in the report button */
-            link?: string
-          }
-          /** The separator text between edit and report buttons */
-          separator?: string
-        }
-        /** Configuration for the surround navigation in the article layout */
-        surround?: {
-          /** Whether to show the surround navigation */
-          show?: boolean
-          /** The icon to be shown in the previous button */
-          prevIcon?: string
-          /** The icon to be shown in the next button */
-          nextIcon?: string
-          /** The label to be shown in the previous button */
-          prevLabel?: string
-          /** The label to be shown in the next button */
-          nextLabel?: string
-        }
-        /** Configuration for the article list */
-        list?: {
-          /** Items per page */
-          itemsPerPage?: number
-          /** Label for the 'All' category */
-          labelAll?: string
-        }
-      }
+      /** Default configurations for article layouts */
+      article?: ArticleConfig
+      /** Default configurations for event layouts */
+      event?: EventConfig
+      /** Collection-specific configurations */
+      collections?: Record<string, ArticleConfig | EventConfig>
       date?: {
         /** The locale used for date formatting (e.g. 'en', 'de') */
         locale?: string

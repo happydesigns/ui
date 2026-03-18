@@ -1,21 +1,29 @@
 <script setup lang="ts">
 import type { BreadcrumbItem } from '@nuxt/ui'
+import type { ArticleConfig } from '~/app.config'
 
 const props = defineProps<{
   backLink?: BreadcrumbItem | null
   backLabel?: string
   page?: any
+  config?: ArticleConfig
 }>()
 
 const appConfig = useAppConfig()
+
+const resolvedConfig = computed(() => ({
+  ...appConfig.app.article,
+  ...props.config,
+}) as Required<ArticleConfig>)
+
 const { copy } = useClipboard()
 const url = useRequestURL()
 
 function copyLink() {
   copy(`${url.origin}${props.page?.path}`, {
     id: 'article-copy-link',
-    title: appConfig.app.article.copyButton.successLabel,
-    icon: appConfig.app.article.copyButton.successIcon,
+    title: resolvedConfig.value.copyButton?.successLabel,
+    icon: resolvedConfig.value.copyButton?.successIcon,
   })
 }
 </script>
@@ -24,21 +32,21 @@ function copyLink() {
   <div class="flex items-center justify-between mt-12 not-prose">
     <UButton
       v-if="backLink"
-      :icon="appConfig.app.article.backButton.icon"
+      :icon="resolvedConfig.backButton?.icon"
       color="primary"
       variant="ghost"
       :to="backLink.to"
     >
-      {{ backLabel || appConfig.app.article.backButton.label }}
+      {{ backLabel || resolvedConfig.backButton?.label }}
     </UButton>
     <div class="flex justify-end items-center gap-1.5 ml-auto">
       <UButton
-        :icon="appConfig.app.article.copyButton.icon"
+        :icon="resolvedConfig.copyButton?.icon"
         variant="ghost"
         color="neutral"
         @click="copyLink"
       >
-        {{ appConfig.app.article.copyButton.label }}
+        {{ resolvedConfig.copyButton?.label }}
       </UButton>
     </div>
   </div>

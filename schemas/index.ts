@@ -1,4 +1,5 @@
 export * from './article'
 export * from './common'
+export * from './event'
 export * from './page'
 export * from './user'

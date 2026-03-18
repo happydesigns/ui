@@ -26,11 +26,21 @@ export interface UseArticleListOptions<C extends keyof PageCollections = 'articl
 export function useArticleList<C extends keyof PageCollections = 'article'>(options: UseArticleListOptions<C> = {}) {
   const appConfig = useAppConfig()
 
-  const page = computed(() => toValue(options.page) || 1)
-  const itemsPerPage = computed(() => toValue(options.itemsPerPage) || 12)
-  const category = computed(() => toValue(options.category))
-  const labelAll = computed(() => toValue(options.labelAll) || appConfig.app.article?.list?.labelAll || 'All')
   const collection = computed(() => toValue(options.collection) || ('article' as C))
+
+  /** Resolve the configuration for this collection, falling back to article defaults */
+  const config = computed(() => {
+    const collectionConfig = (appConfig.app.collections?.[String(collection.value)] || {}) as ArticleConfig
+    return {
+      ...appConfig.app.article,
+      ...collectionConfig,
+    } as Required<ArticleConfig>
+  })
+
+  const page = computed(() => toValue(options.page) || 1)
+  const itemsPerPage = computed(() => toValue(options.itemsPerPage) || config.value.list?.itemsPerPage || 12)
+  const category = computed(() => toValue(options.category))
+  const labelAll = computed(() => toValue(options.labelAll) || config.value.list?.labelAll || 'All')
   const where = computed(() => toValue(options.where))
 
   // The key must be reactive and stable
@@ -68,7 +78,7 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
     const resolved = await Promise.all(articles.map(async (article) => {
       // Resolve Category Badge directly
       const categoryKey = article.category
-      const categories = appConfig.app?.article?.categories || {}
+      const categories = config.value.categories || {}
       let badge: ArticleCategoryBadge
 
       if (categoryKey && categoryKey in categories) {

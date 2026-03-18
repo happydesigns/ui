@@ -10,7 +10,15 @@ const {
 const appConfig = useAppConfig()
 const route = useRoute()
 
-const config = computed(() => appConfig.app.article.surround)
+/** Resolve the configuration for this collection, falling back to article defaults */
+const config = computed(() => {
+  const collectionConfig = (appConfig.app.collections?.[String(collection)] || {}) as ArticleConfig
+  const baseConfig = appConfig.app.article
+  return {
+    ...baseConfig.surround,
+    ...(collectionConfig.surround || {}),
+  }
+})
 
 const { data: surround } = await useAsyncData(
   `${String(collection)}-surround-${route.path}`,

@@ -1,10 +1,10 @@
-<script setup lang="ts" generic="C extends keyof PageCollections = 'article'">
+<script setup lang="ts" generic="C extends keyof PageCollections = 'event'">
 import type { Collections, PageCollections } from '@nuxt/content'
 import type { BreadcrumbItem } from '@nuxt/ui'
 
 const {
   path,
-  collection = 'article' as C,
+  collection = 'event' as C,
   breadcrumbs,
   backLabel,
 } = defineProps<{
@@ -19,21 +19,19 @@ const {
 const appConfig = useAppConfig()
 const route = useRoute()
 
-const { data: page } = await usePageContent<C, Collections['article']>({
+const { data: page } = await usePageContent<C, Collections['event']>({
   path: () => path,
   collection: () => collection,
 })
 
-/** Resolve the configuration for this collection, falling back to article defaults */
+/** Resolve the configuration for this collection, falling back to event defaults */
 const config = computed(() => {
-  const collectionConfig = (appConfig.app.collections?.[String(collection)] || {}) as ArticleConfig
+  const collectionConfig = (appConfig.app.collections?.[String(collection)] || {}) as EventConfig
   return {
-    ...appConfig.app.article,
+    ...appConfig.app.event,
     ...collectionConfig,
-  } as Required<ArticleConfig>
+  } as Required<EventConfig>
 })
-
-const authors = await resolveUsers(page.value?.authors || [])
 
 if (!page.value) {
   throw createError({
@@ -84,42 +82,41 @@ const backLink = computed(() => {
               :ui="{ root: 'max-w-full' }"
               :items="breadcrumbItems"
             />
-            <div class="flex items-center space-x-2">
-              <template v-if="page?.category">
-                <span>{{ page.category }}</span>
-                <span class="text-muted">&middot;</span>
-              </template>
-              <time v-if="page.date" class="text-muted">
-                {{ formatDate(page.date) }}
-              </time>
+            <div class="flex flex-col gap-2">
+              <div class="flex items-center space-x-2 text-muted">
+                <UIcon name="i-lucide-calendar" class="size-4" />
+                <time>
+                  {{ formatDate(page.date.start) }} - {{ formatDate(page.date.end) }}
+                </time>
+              </div>
+              <div v-if="page.location" class="flex items-center space-x-2 text-muted">
+                <UIcon name="i-lucide-map-pin" class="size-4" />
+                <span>{{ page.location }}</span>
+              </div>
             </div>
           </template>
-          <div class="mt-4 flex flex-wrap items-center gap-6">
-            <UUser
-              v-for="(author, index) in authors"
+
+          <div v-if="page.links?.length" class="mt-4 flex flex-wrap items-center gap-3">
+            <UButton
+              v-for="(link, index) in page.links"
               :key="index"
-              v-bind="author"
-              target="_blank"
+              v-bind="link"
+              variant="subtle"
+              size="sm"
             />
             <slot name="header" />
           </div>
         </UPageHeader>
 
-        <!-- Override broken CSS -->
         <UPage :ui="{ root: 'lg:grid' }">
           <UPageBody>
             <slot />
 
             <HArticleFooter
               :back-link="backLink"
-              :back-label="backLabel || config.backButton?.label"
+              :back-label="backLabel"
               :page="page"
-              :config="config"
             />
-
-            <HArticleActionSeparator :page="page" />
-
-            <HArticleSurround :collection="collection" />
           </UPageBody>
 
           <template #right>
