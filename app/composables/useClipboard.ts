@@ -6,10 +6,16 @@ export function useClipboard() {
 
   const toast = useToast()
 
-  const copy = (source: string, optionsOptions?: ToastProps) => {
+  const copy = (source: string, options?: Partial<ToastProps> & { id?: string | number }) => {
     _copy(source)
-    if (optionsOptions) {
-      toast.add(optionsOptions)
+    if (options) {
+      // Check if toast with this ID already exists to prevent spam
+      if (options.id && toast.toasts.value.some(t => t.id === options.id)) {
+        toast.update(options.id, options)
+      }
+      else {
+        toast.add(options as any)
+      }
     }
   }
 
