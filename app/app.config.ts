@@ -75,6 +75,8 @@ export interface ArticleConfig {
     /** Label for the 'All' category */
     labelAll?: string
   }
+  /** The component to use for rendering the date in lists */
+  dateComponent?: any
 }
 
 export interface EventConfig {

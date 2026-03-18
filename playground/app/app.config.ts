@@ -135,6 +135,7 @@ export default defineAppConfig({
     },
 
     event: {
+      dateComponent: 'EventGridDate',
       breadcrumbs: [
         {
           label: 'Events',

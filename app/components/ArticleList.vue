@@ -91,6 +91,10 @@ watch(() => route.query.category, (newCategory) => {
       :collection="collection"
       :where="where"
       :items-per-page="itemsPerPage"
-    />
+    >
+      <template v-for="(_, name) in $slots" #[name]="slotData">
+        <slot :name="name" v-bind="slotData" />
+      </template>
+    </HArticleGrid>
   </div>
 </template>

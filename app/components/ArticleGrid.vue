@@ -42,6 +42,8 @@ const page = ref(Number(route.query.page) || 1)
 const selectedCategory = ref(category || (route.query.category as string) || String(labelAll))
 const resolvedOrientation = computed(() => orientation || 'horizontal')
 
+const dateComponent = computed(() => config.value.dateComponent || 'HArticleGridDate')
+
 // Fetch articles using the composable
 const { data, status } = await useArticleList({
   page,
@@ -107,14 +109,9 @@ watch(() => route.query, (newQuery) => {
         }"
       >
         <template #date>
-          <time v-if="article.date" class="text-xs text-muted">
-            <template v-if="typeof article.date === 'string'">
-              {{ formatDate(article.date) }}
-            </template>
-            <template v-else-if="typeof article.date === 'object' && article.date.start">
-              {{ formatDateTime(article.date.start) }}
-            </template>
-          </time>
+          <slot name="date" :article="article">
+            <component :is="dateComponent" :article="article" />
+          </slot>
         </template>
       </UBlogPost>
     </UBlogPosts>
