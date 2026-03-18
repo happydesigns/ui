@@ -81,7 +81,7 @@ const backLink = computed(() => {
                 <span class="text-muted">&middot;</span>
               </template>
               <time v-if="page.date" class="text-muted">
-                {{ [page?.date, page?.dateEnd].filter(Boolean).map(d => formatDate(d)).join(' - ') }}
+                {{ formatDate(page.date) }}
               </time>
             </div>
           </template>
