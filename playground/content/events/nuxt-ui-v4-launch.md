@@ -1,5 +1,6 @@
 ---
 title: Nuxt UI v4 Launch Event
+category: Workshop
 date:
   start: 2026-04-15T18:00:00Z
   end: 2026-04-15T21:00:00Z

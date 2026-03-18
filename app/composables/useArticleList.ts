@@ -1,6 +1,6 @@
 import type { Collections, PageCollections, SQLOperator } from '@nuxt/content'
 import type { BadgeProps } from '@nuxt/ui'
-import type { ArticleCategoryBadge, ArticleConfig } from '~/app.config'
+import type { ArticleCategoryBadge, ArticleConfig, EventConfig } from '~/app.config'
 
 export interface ArticleFilter {
   field: string
@@ -28,13 +28,17 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
 
   const collection = computed(() => toValue(options.collection) || ('article' as C))
 
-  /** Resolve the configuration for this collection, falling back to article defaults */
+  /** Resolve the configuration for this collection, falling back to appropriate layout defaults */
   const config = computed(() => {
-    const collectionConfig = (appConfig.app.collections?.[String(collection.value)] || {}) as ArticleConfig
+    const colName = String(collection.value)
+    const collectionConfig = (appConfig.app.collections?.[colName] || {})
+    const isEvent = colName === 'event' || colName.startsWith('event')
+    const baseDefaults = isEvent ? appConfig.app.event : appConfig.app.article
+
     return {
-      ...appConfig.app.article,
+      ...baseDefaults,
       ...collectionConfig,
-    } as Required<ArticleConfig>
+    } as Required<ArticleConfig & EventConfig>
   })
 
   const page = computed(() => toValue(options.page) || 1)
@@ -78,16 +82,18 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
     const resolved = await Promise.all(articles.map(async (article) => {
       // Resolve Category Badge directly
       const categoryKey = article.category
-      const categories = config.value.categories || {}
-      let badge: ArticleCategoryBadge
+      let resolvedBadge: BadgeProps | undefined
 
-      if (categoryKey && categoryKey in categories) {
-        badge = categories[categoryKey] as ArticleCategoryBadge
-      }
-      else {
-        badge = {
-          label: categoryKey ?? '',
-          color: 'primary',
+      if (categoryKey) {
+        const categories = config.value.categories || {}
+        if (categoryKey in categories) {
+          resolvedBadge = categories[categoryKey] as BadgeProps
+        }
+        else {
+          resolvedBadge = {
+            label: categoryKey,
+            color: 'primary',
+          }
         }
       }
 
@@ -99,7 +105,7 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
 
       return {
         ...article,
-        resolvedBadge: badge as BadgeProps,
+        resolvedBadge,
         resolvedAuthors,
       }
     }))

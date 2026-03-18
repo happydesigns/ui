@@ -78,6 +78,8 @@ export interface ArticleConfig {
 }
 
 export interface EventConfig {
+  /** A record of event categories mapped by their internal string ID */
+  categories?: Record<string, ArticleCategoryBadge>
   /** The breadcrumb items to be shown as parents of the event */
   breadcrumbs?: Array<{
     label: string
@@ -149,6 +151,7 @@ export default defineAppConfig({
     } as ArticleConfig,
 
     event: {
+      categories: {},
       breadcrumbs: [],
     } as EventConfig,
 

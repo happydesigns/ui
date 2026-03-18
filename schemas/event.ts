@@ -10,6 +10,7 @@ export const eventSchema = z.object({
     name: z.string(),
     url: z.string().optional(),
   }).optional(),
+  category: z.string().optional(),
   links: z.array(
     property(z.object({})).inherit('@nuxt/ui/components/Button.vue'),
   ).optional(),

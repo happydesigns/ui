@@ -135,8 +135,23 @@ export default defineAppConfig({
     },
 
     event: {
-      dateComponent: 'EventGridDate',
+      dateComponent: 'HEventGridDate',
+      categories: {
+        Workshop: {
+          label: 'Workshop',
+          color: 'info',
+        },
+        Conference: {
+          label: 'Conference',
+          color: 'success',
+        },
+        Meetup: {
+          label: 'Meetup',
+          color: 'warning',
+        },
+      },
       breadcrumbs: [
+
         {
           label: 'Events',
           to: '/events',
