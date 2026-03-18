@@ -2,6 +2,7 @@
 import type { Collections, PageCollections } from '@nuxt/content'
 import type { BreadcrumbItem } from '@nuxt/ui'
 import type { ArticleConfig } from '~/app.config'
+import formatDate from '~/utils/formatDate'
 
 const {
   path,
