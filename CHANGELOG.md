@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.8.3
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.8.2...v0.8.3)
+
+### 🚀 Enhancements
+
+- Implement flexible collection support for layouts and components ([2eb3c79](https://github.com/happydesigns/ui/commit/2eb3c79))
+
+### 🎨 Styles
+
+- Move article header outside of page grid to span full width above content and TOC ([9ce9615](https://github.com/happydesigns/ui/commit/9ce9615))
+
+### ❤️ Contributors
+
+- Jan Fröhlich <jan.froehlich.janf@gmail.com>
+
 ## v0.8.2
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.8.1...v0.8.2)
