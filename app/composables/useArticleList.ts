@@ -1,6 +1,6 @@
 import type { Collections, PageCollections, SQLOperator } from '@nuxt/content'
 import type { BadgeProps } from '@nuxt/ui'
-import type { ArticleCategoryBadge } from '~/app.config'
+import type { ArticleCategoryBadge, ArticleConfig } from '~/app.config'
 
 export interface ArticleFilter {
   field: string
