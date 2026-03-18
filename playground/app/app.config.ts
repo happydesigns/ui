@@ -66,6 +66,19 @@ export default defineAppConfig({
             },
           ],
         },
+        {
+          label: 'Events',
+          children: [
+            {
+              label: 'Events Overview',
+              to: '/events',
+            },
+            {
+              label: 'Nuxt UI v4 Launch',
+              to: '/events/nuxt-ui-v4-launch',
+            },
+          ],
+        },
       ],
     },
 
@@ -119,6 +132,16 @@ export default defineAppConfig({
       list: {
         labelAll: 'Alle',
       },
+    },
+
+    event: {
+      breadcrumbs: [
+        {
+          label: 'Events',
+          to: '/events',
+          icon: 'i-lucide:calendar',
+        },
+      ],
     },
   },
 
