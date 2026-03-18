@@ -3,6 +3,7 @@ import type { PageCollections } from '@nuxt/content'
 import type { ArticleConfig } from '~/app.config'
 import type { ArticleFilter } from '~/composables/useArticleList'
 import formatDate from '~/utils/formatDate'
+import formatDateTime from '~/utils/formatDateTime'
 
 const {
   category,
@@ -106,8 +107,13 @@ watch(() => route.query, (newQuery) => {
         }"
       >
         <template #date>
-          <time v-if="article.date" :datetime="article.date" class="text-xs text-muted">
-            {{ formatDate(article.date) }}
+          <time v-if="article.date" class="text-xs text-muted">
+            <template v-if="typeof article.date === 'string'">
+              {{ formatDate(article.date) }}
+            </template>
+            <template v-else-if="typeof article.date === 'object' && article.date.start">
+              {{ formatDateTime(article.date.start) }}
+            </template>
           </time>
         </template>
       </UBlogPost>
