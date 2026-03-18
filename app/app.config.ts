@@ -86,6 +86,24 @@ export interface EventConfig {
     to: string
     icon?: string
   }>
+  /** Configuration for the back button in the event layout */
+  backButton?: {
+    /** The icon to be shown in the back button */
+    icon?: string
+    /** The label to be shown as prefix in the back button */
+    label?: string
+  }
+  /** Configuration for the copy URL button in the event layout */
+  copyButton?: {
+    /** The icon to be shown in the copy button */
+    icon?: string
+    /** The label to be shown in the copy button */
+    label?: string
+    /** The icon to be shown when the copy was successful */
+    successIcon?: string
+    /** The label to be shown in a toast when the copy was successful */
+    successLabel?: string
+  }
 }
 
 export default defineAppConfig({
@@ -153,6 +171,16 @@ export default defineAppConfig({
     event: {
       categories: {},
       breadcrumbs: [],
+      backButton: {
+        icon: 'i-ph-arrow-left',
+        label: 'Back',
+      },
+      copyButton: {
+        icon: 'i-ph-link-simple-duotone',
+        label: 'Copy URL',
+        successIcon: 'i-lucide-copy-check',
+        successLabel: 'Link copied to clipboard',
+      },
     } as EventConfig,
 
     /** Collection-specific configurations that override the defaults above */

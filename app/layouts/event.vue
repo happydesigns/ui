@@ -133,8 +133,9 @@ const backLink = computed(() => {
 
             <HArticleFooter
               :back-link="backLink"
-              :back-label="backLabel"
+              :back-label="backLabel || config.backButton?.label"
               :page="page"
+              :config="config"
             />
           </UPageBody>
 

@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import type { BreadcrumbItem } from '@nuxt/ui'
-import type { ArticleConfig } from '~/app.config'
+import type { ArticleConfig, EventConfig } from '~/app.config'
 
 const props = defineProps<{
   backLink?: BreadcrumbItem | null
   backLabel?: string
   page?: any
-  config?: ArticleConfig
+  config?: ArticleConfig | EventConfig
 }>()
 
 const appConfig = useAppConfig()
@@ -14,7 +14,7 @@ const appConfig = useAppConfig()
 const resolvedConfig = computed(() => ({
   ...appConfig.app.article,
   ...props.config,
-}) as Required<ArticleConfig>)
+}) as Required<ArticleConfig & EventConfig>)
 
 const { copy } = useClipboard()
 const url = useRequestURL()

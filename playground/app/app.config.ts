@@ -136,6 +136,9 @@ export default defineAppConfig({
 
     event: {
       dateComponent: 'HEventGridDate',
+      backButton: {
+        label: 'Zurück zur Übersicht',
+      },
       categories: {
         Workshop: {
           label: 'Workshop',

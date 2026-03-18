@@ -5,6 +5,9 @@ date:
   start: 2026-04-15T18:00:00Z
   end: 2026-04-15T21:00:00Z
 description: Join us for the official launch of Nuxt UI v4, featuring a deep dive into the new features and architectural changes.
+header:
+  ui: {}
+  links: []
 links:
   - label: Register
     to: https://nuxt.com/ui
