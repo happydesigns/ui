@@ -162,6 +162,13 @@ export default defineAppConfig({
         month: 'short',
         day: 'numeric',
       } as Intl.DateTimeFormatOptions,
+      datetimeOptions: {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+      } as Intl.DateTimeFormatOptions,
     },
   },
 
@@ -234,8 +241,10 @@ declare module '@nuxt/schema' {
       date?: {
         /** The locale used for date formatting (e.g. 'en', 'de') */
         locale?: string
-        /** Options for Intl.DateTimeFormat */
+        /** Options for Intl.DateTimeFormat for dates */
         options?: Intl.DateTimeFormatOptions
+        /** Options for Intl.DateTimeFormat for datetimes */
+        datetimeOptions?: Intl.DateTimeFormatOptions
       }
     }
   }

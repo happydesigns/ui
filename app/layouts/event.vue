@@ -87,7 +87,7 @@ const backLink = computed(() => {
               <div class="flex items-center space-x-2">
                 <UIcon name="i-lucide-calendar" class="size-4" />
                 <time>
-                  {{ formatDate(page.date.start) }} - {{ formatDate(page.date.end) }}
+                  {{ formatDateTime(page.date.start) }} - {{ formatDateTime(page.date.end) }}
                 </time>
               </div>
 
