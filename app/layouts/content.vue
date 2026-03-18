@@ -9,6 +9,7 @@ const {
   collection?: C
 }>()
 
+const appConfig = useAppConfig()
 const route = useRoute()
 
 const { data: page } = await usePageContent<C, Collections['page']>({
@@ -50,7 +51,7 @@ const header = computed(() => resolvePageHeader(page.value))
             <UContentToc
               v-if="renderToc && page.body?.toc?.links?.length"
               :links="page.body.toc.links"
-              :title="page.body.toc.title"
+              :title="page.body.toc.title || appConfig.app.toc?.title"
             />
           </template>
         </UPage>

@@ -26,6 +26,10 @@ export default defineAppConfig({
 
     icons: {} as Record<string, string>,
 
+    toc: {
+      title: '',
+    },
+
     article: {
       categories: {} as Record<string, ArticleCategoryBadge>,
       breadcrumbs: [],
@@ -125,6 +129,11 @@ declare module '@nuxt/schema' {
       links?: {
         header?: Array<FooterColumn>
         footer?: Array<FooterColumn>
+      }
+      /** Configuration for the table of contents */
+      toc?: {
+        /** The default title to be shown in the table of contents */
+        title?: string
       }
       /** A mapping of internal identifier strings to icon strings */
       icons?: Record<string, string>
