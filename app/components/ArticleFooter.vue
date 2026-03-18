@@ -13,6 +13,7 @@ const url = useRequestURL()
 
 function copyLink() {
   copy(`${url.origin}${props.page?.path}`, {
+    id: 'article-copy-link',
     title: appConfig.app.article.copyButton.successLabel,
     icon: appConfig.app.article.copyButton.successIcon,
   })
