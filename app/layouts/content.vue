@@ -1,16 +1,25 @@
-<script setup lang="ts">
-const props = defineProps<{ path?: string }>()
+<script setup lang="ts" generic="C extends keyof PageCollections = 'page'">
+import type { Collections, PageCollections } from '@nuxt/content'
+
+const {
+  path,
+  collection = 'page' as C,
+} = defineProps<{
+  path?: string
+  collection?: C
+}>()
+
 const route = useRoute()
 
-const { data: page } = await usePageContent({
-  path: () => props.path,
-  collection: 'page',
+const { data: page } = await usePageContent<C, Collections['page']>({
+  path: () => path,
+  collection: () => collection,
 })
 
 if (!page.value) {
   throw createError({
     statusCode: 404,
-    statusMessage: `page ${props.path || route.path} not found`,
+    statusMessage: `${String(collection)} ${path || route.path} not found`,
     fatal: true,
   })
 }

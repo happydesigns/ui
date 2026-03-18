@@ -1,36 +1,41 @@
+import type { Collections, PageCollections } from '@nuxt/content'
 import type { BadgeProps } from '@nuxt/ui'
-import type { Ref } from 'vue'
 import type { ArticleCategoryBadge } from '~/app.config'
-import { computed, toValue } from 'vue'
-import resolveUsers from '~/utils/resolveUsers'
 
-export interface UseArticleListOptions {
+export interface UseArticleListOptions<C extends keyof PageCollections = 'article'> {
   page?: number | Ref<number>
   itemsPerPage?: number | Ref<number>
   category?: string | Ref<string | undefined>
   /** The label used for the 'All' category to avoid filtering by it */
   labelAll?: string | Ref<string>
+  collection?: C | Ref<C>
 }
 
 /**
  * Composable to fetch a paginated and filtered list of articles.
  * Includes automatic resolution of authors and category badges.
  */
-export function useArticleList(options: UseArticleListOptions = {}) {
+export function useArticleList<C extends keyof PageCollections = 'article'>(options: UseArticleListOptions<C> = {}) {
   const appConfig = useAppConfig()
 
   const page = computed(() => toValue(options.page) || 1)
   const itemsPerPage = computed(() => toValue(options.itemsPerPage) || 12)
   const category = computed(() => toValue(options.category))
   const labelAll = computed(() => toValue(options.labelAll) || appConfig.app.article?.list?.labelAll || 'All')
+  const collection = computed(() => toValue(options.collection) || ('article' as C))
 
   // The key must be reactive and stable
-  const queryKey = computed(() => `article-list-${page.value}-${itemsPerPage.value}-${category.value || 'all'}-${labelAll.value}`)
+  const queryKey = computed(() => `${String(collection.value)}-list-${page.value}-${itemsPerPage.value}-${category.value || 'all'}-${labelAll.value}`)
 
   return useAsyncData(queryKey.value, async () => {
-    // console.log(`[useArticleList] Fetching articles: page=${page.value}, category=${category.value}, labelAll=${labelAll.value}`)
+    // We cast the query to a version that includes the standard article fields
+    // This avoids 'any' while still allowing the query to work with generic collections
+    type ArticleItem = Collections[C] & Collections['article']
+    type ArticleQueryBuilder = ReturnType<typeof queryCollection<'article'>>
 
-    let query = queryCollection('article')
+    const baseQuery = queryCollection(collection.value) as unknown as ArticleQueryBuilder
+
+    let query = baseQuery
       .where('status', '=', 'published')
       .order('date', 'DESC')
 
@@ -41,7 +46,7 @@ export function useArticleList(options: UseArticleListOptions = {}) {
     const articles = await query
       .skip((page.value - 1) * itemsPerPage.value)
       .limit(itemsPerPage.value)
-      .all()
+      .all() as ArticleItem[]
 
     // Resolve details for each article
     const resolved = await Promise.all(articles.map(async (article) => {
@@ -61,7 +66,7 @@ export function useArticleList(options: UseArticleListOptions = {}) {
       }
 
       // Resolve Authors
-      let resolvedAuthors: any[] = []
+      let resolvedAuthors: Awaited<ReturnType<typeof resolveUsers>> = []
       if (article.authors?.length) {
         resolvedAuthors = await resolveUsers(article.authors)
       }
@@ -74,20 +79,20 @@ export function useArticleList(options: UseArticleListOptions = {}) {
     }))
 
     // Total count for pagination
-    let countQuery = queryCollection('article')
+    let countQuery = baseQuery
       .where('status', '=', 'published')
 
     if (category.value && category.value !== labelAll.value) {
       countQuery = countQuery.where('category', '=', category.value)
     }
 
-    const total = await countQuery.count()
+    const total = await countQuery.count() as number
 
     return {
       articles: resolved,
       total,
     }
   }, {
-    watch: [page, itemsPerPage, category, labelAll],
+    watch: [page, itemsPerPage, category, labelAll, collection],
   })
 }

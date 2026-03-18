@@ -1,8 +1,14 @@
-<script setup lang="ts">
+<script setup lang="ts" generic="C extends keyof PageCollections = 'article'">
+import type { Collections, PageCollections } from '@nuxt/content'
 import type { BreadcrumbItem } from '@nuxt/ui'
 
-const props = defineProps<{
+const {
+  path,
+  collection = 'article' as C,
+  breadcrumbs,
+} = defineProps<{
   path?: string
+  collection?: C
   /** A full breadcrumb array to be used as base */
   breadcrumbs?: BreadcrumbItem[]
 }>()
@@ -10,16 +16,17 @@ const props = defineProps<{
 const appConfig = useAppConfig()
 const route = useRoute()
 
-const { data: page } = await usePageContent({
-  path: () => props.path,
-  collection: 'article',
+const { data: page } = await usePageContent<C, Collections['article']>({
+  path: () => path,
+  collection: () => collection,
 })
+
 const authors = await resolveUsers(page.value?.authors || [])
 
 if (!page.value) {
   throw createError({
     statusCode: 404,
-    statusMessage: `article ${props.path || route.path} not found`,
+    statusMessage: `${String(collection)} ${path || route.path} not found`,
     fatal: true,
   })
 }
@@ -29,7 +36,7 @@ const renderToc = computed(() => page.value?.toc !== false)
 
 const header = computed(() => resolvePageHeader(page.value))
 
-const breadcrumbsBase = computed(() => props.breadcrumbs ?? appConfig.app.article.breadcrumbs)
+const breadcrumbsBase = computed(() => breadcrumbs ?? appConfig.app.article.breadcrumbs)
 
 const breadcrumbItems = computed(() => {
   return [
@@ -98,7 +105,7 @@ const backLink = computed(() => {
 
             <HArticleActionSeparator :page="page" />
 
-            <HArticleSurround />
+            <HArticleSurround :collection="collection" />
           </UPageBody>
 
           <template #right>

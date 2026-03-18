@@ -1,11 +1,18 @@
-<script setup lang="ts">
+<script setup lang="ts" generic="C extends keyof PageCollections = 'article'">
+import type { PageCollections } from '@nuxt/content'
 import formatDate from '~/utils/formatDate'
 
-const props = defineProps<{
+const {
+  category,
+  orientation,
+  collection = 'article' as C,
+} = defineProps<{
   /** Optional fixed category to filter by */
   category?: string
   /** The orientation of the blog posts list */
   orientation?: 'horizontal' | 'vertical'
+  /** The collection to fetch articles from */
+  collection?: C
 }>()
 
 const appConfig = useAppConfig()
@@ -17,8 +24,8 @@ const {
 } = appConfig.app.article?.list || {}
 
 const page = ref(Number(route.query.page) || 1)
-const selectedCategory = ref(props.category || (route.query.category as string) || String(labelAll))
-const resolvedOrientation = computed(() => props.orientation || 'horizontal')
+const selectedCategory = ref(category || (route.query.category as string) || String(labelAll))
+const resolvedOrientation = computed(() => orientation || 'horizontal')
 
 // Fetch articles using the composable
 const { data, status } = await useArticleList({
@@ -26,6 +33,7 @@ const { data, status } = await useArticleList({
   itemsPerPage,
   category: selectedCategory,
   labelAll,
+  collection,
 })
 
 const categories = computed(() => {
@@ -74,7 +82,7 @@ watch(() => route.query, (newQuery) => {
 
 <template>
   <div class="flex flex-col gap-8">
-    <div v-if="!props.category" class="border-b border-gray-200 dark:border-gray-800">
+    <div v-if="!category" class="border-b border-gray-200 dark:border-gray-800">
       <UNavigationMenu
         :items="categories"
         highlight
