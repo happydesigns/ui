@@ -3,6 +3,7 @@ import type { BreadcrumbItem } from '@nuxt/ui'
 
 const props = defineProps<{
   backLink?: BreadcrumbItem | null
+  backLabel?: string
   page?: any
 }>()
 
@@ -27,7 +28,7 @@ function copyLink() {
       variant="ghost"
       :to="backLink.to"
     >
-      {{ appConfig.app.article.backButton.label }}
+      {{ backLabel || appConfig.app.article.backButton.label }}
     </UButton>
     <div class="flex justify-end items-center gap-1.5 ml-auto">
       <UButton

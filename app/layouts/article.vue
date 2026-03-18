@@ -6,11 +6,14 @@ const {
   path,
   collection = 'article' as C,
   breadcrumbs,
+  backLabel,
 } = defineProps<{
   path?: string
   collection?: C
   /** A full breadcrumb array to be used as base */
   breadcrumbs?: BreadcrumbItem[]
+  /** Custom label for the back button in the footer */
+  backLabel?: string
 }>()
 
 const appConfig = useAppConfig()
@@ -100,6 +103,7 @@ const backLink = computed(() => {
 
             <HArticleFooter
               :back-link="backLink"
+              :back-label="backLabel"
               :page="page"
             />
 
