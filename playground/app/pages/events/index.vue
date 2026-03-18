@@ -19,7 +19,7 @@ const header = computed(() => resolvePageHeader(page.value))
       <UPageBody>
         <HArticleGrid collection="event">
           <template #date="{ article }">
-            <EventGridDate :article="article" />
+            <HEventGridDate :article="article" />
           </template>
         </HArticleGrid>
       </UPageBody>

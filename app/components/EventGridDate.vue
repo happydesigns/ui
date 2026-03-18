@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import formatDateTime from '~/utils/formatDateTime'
-
 defineProps<{
   article: any
 }>()
