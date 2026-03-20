@@ -22,7 +22,7 @@ const config = computed(() => appConfig.app.article.actionButtons)
 <template>
   <USeparator class="mt-8">
     <div
-      v-if="editLink || config.report?.link"
+      v-if="editLink || config?.report?.link"
       class="all:flex items-center gap-2 text-sm text-muted"
     >
       <UButton
@@ -31,26 +31,26 @@ const config = computed(() => appConfig.app.article.actionButtons)
         color="neutral"
         :to="editLink"
         target="_blank"
-        :icon="config.edit?.icon"
+        :icon="config?.edit?.icon"
         :ui="{ leadingIcon: 'size-4' }"
       >
-        {{ config.edit?.label }}
+        {{ config?.edit?.label }}
       </UButton>
 
-      <template v-if="editLink && config.report?.link">
-        {{ config.separator }}
+      <template v-if="editLink && config?.report?.link">
+        {{ config?.separator }}
       </template>
 
       <UButton
-        v-if="config.report?.link"
+        v-if="config?.report?.link"
         variant="link"
         color="neutral"
-        :to="config.report.link"
+        :to="config?.report.link"
         target="_blank"
-        :icon="config.report?.icon"
+        :icon="config?.report?.icon"
         :ui="{ leadingIcon: 'size-4' }"
       >
-        {{ config.report?.label }}
+        {{ config?.report?.label }}
       </UButton>
     </div>
   </USeparator>
