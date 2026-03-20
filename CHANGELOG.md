@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.10.2
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.10.1...v0.10.2)
+
+### 🩹 Fixes
+
+- **events:** Add optional chaining to date property access to prevent runtime errors ([39c33bc](https://github.com/happydesigns/ui/commit/39c33bc))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.10.1
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.10.0...v0.10.1)
