@@ -43,7 +43,7 @@ Here's the success state animation, for example:
     :initial="{ opacity: 0, scale: 0.95 }"
     :animate="{ opacity: 1, scale: 1 }"
     :transition="{ duration: 0.3 }"
-    class="flex items-center gap-3 py-2"
+    class="all:flex items-center gap-3 py-2"
     role="status"
     aria-live="polite"
     aria-label="Feedback submitted successfully"
