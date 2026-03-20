@@ -29,7 +29,7 @@ function copyLink() {
 </script>
 
 <template>
-  <div class="flex items-center justify-between mt-12 not-prose">
+  <div class="all:flex items-center justify-between mt-12 not-prose">
     <UButton
       v-if="backLink"
       :icon="resolvedConfig.backButton?.icon"
@@ -39,7 +39,7 @@ function copyLink() {
     >
       {{ backLabel || resolvedConfig.backButton?.label }}
     </UButton>
-    <div class="flex justify-end items-center gap-1.5 ml-auto">
+    <div class="all:flex justify-end items-center gap-1.5 ml-auto">
       <UButton
         :icon="resolvedConfig.copyButton?.icon"
         variant="ghost"

@@ -80,8 +80,8 @@ watch(() => route.query, (newQuery) => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-8">
-    <div v-if="status === 'pending'" class="flex justify-center py-20">
+  <div class="all:flex flex-col gap-8">
+    <div v-if="status === 'pending'" class="all:flex justify-center py-20">
       <UIcon name="i-lucide-loader-circle" class="size-12 animate-spin text-muted" />
     </div>
 
@@ -112,12 +112,12 @@ watch(() => route.query, (newQuery) => {
       </UBlogPost>
     </UBlogPosts>
 
-    <div v-else class="flex flex-col items-center justify-center py-20 text-muted text-center">
+    <div v-else class="all:flex flex-col items-center justify-center py-20 text-muted text-center">
       <UIcon name="i-ph-article-ny-times-light" class="size-12 mb-4 opacity-20" />
       <p>No articles found.</p>
     </div>
 
-    <div v-if="data && data.total > itemsPerPage" class="flex justify-center mt-8">
+    <div v-if="data && data.total > itemsPerPage" class="all:flex justify-center mt-8">
       <UPagination
         v-model:page="page"
         :total="data.total"

@@ -75,7 +75,7 @@ const backLink = computed(() => {
           v-if="header"
           v-bind="(header as any)"
           :ui="{
-            headline: 'flex flex-col gap-y-8 items-start',
+            headline: 'all:flex flex-col gap-y-8 items-start',
             wrapper: 'lg:flex-row',
           }"
         >
@@ -84,13 +84,13 @@ const backLink = computed(() => {
               :ui="{ root: 'max-w-full' }"
               :items="breadcrumbItems"
             />
-            <div class="flex flex-wrap items-center gap-x-3 gap-y-2 text-muted">
+            <div class="all:flex flex-wrap items-center gap-x-3 gap-y-2 text-muted">
               <template v-if="page?.category">
                 <span class="text-primary-500 dark:text-primary-400 font-medium">{{ page.category }}</span>
                 <span class="all:hidden sm:inline opacity-50">&middot;</span>
               </template>
 
-              <div class="flex items-center space-x-2">
+              <div class="all:flex items-center space-x-2">
                 <UIcon name="i-lucide-calendar" class="size-4" />
                 <time>
                   {{ formatDateTime(page.date.start) }} - {{ formatDateTime(page.date.end) }}
@@ -99,7 +99,7 @@ const backLink = computed(() => {
 
               <template v-if="page.location?.name">
                 <span class="all:hidden sm:inline opacity-50">&middot;</span>
-                <div class="flex items-center space-x-2">
+                <div class="all:flex items-center space-x-2">
                   <UIcon name="i-lucide-map-pin" class="size-4" />
                   <NuxtLink
                     v-if="page.location.url"
@@ -115,7 +115,7 @@ const backLink = computed(() => {
             </div>
           </template>
 
-          <div v-if="page.links?.length" class="mt-4 flex flex-wrap items-center gap-3">
+          <div v-if="page.links?.length" class="mt-4 all:flex flex-wrap items-center gap-3">
             <UButton
               v-for="(link, index) in page.links"
               :key="index"
@@ -140,12 +140,10 @@ const backLink = computed(() => {
           </UPageBody>
 
           <template #right>
-            <!-- Override broken CSS -->
             <UContentToc
               v-if="renderToc && page.body?.toc?.links?.length"
               :links="page.body?.toc?.links"
               :title="appConfig.app.toc?.title || page.body?.toc?.title"
-              :ui="{ trigger: 'lg:hidden' }"
             />
           </template>
         </UPage>

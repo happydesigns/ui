@@ -23,7 +23,7 @@ const config = computed(() => appConfig.app.article.actionButtons)
   <USeparator class="mt-8">
     <div
       v-if="editLink || config.report?.link"
-      class="flex items-center gap-2 text-sm text-muted"
+      class="all:flex items-center gap-2 text-sm text-muted"
     >
       <UButton
         v-if="editLink"

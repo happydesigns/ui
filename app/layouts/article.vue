@@ -77,7 +77,7 @@ const backLink = computed(() => {
           v-if="header"
           v-bind="(header as any)"
           :ui="{
-            headline: 'flex flex-col gap-y-8 items-start',
+            headline: 'all:flex flex-col gap-y-8 items-start',
             wrapper: 'lg:flex-row',
           }"
         >
@@ -86,7 +86,7 @@ const backLink = computed(() => {
               :ui="{ root: 'max-w-full' }"
               :items="breadcrumbItems"
             />
-            <div class="flex items-center space-x-2">
+            <div class="all:flex items-center space-x-2">
               <template v-if="page?.category">
                 <span>{{ page.category }}</span>
                 <span class="text-muted">&middot;</span>
@@ -96,7 +96,7 @@ const backLink = computed(() => {
               </time>
             </div>
           </template>
-          <div class="mt-4 flex flex-wrap items-center gap-6">
+          <div class="mt-4 all:flex flex-wrap items-center gap-6">
             <UUser
               v-for="(author, index) in authors"
               :key="index"
@@ -107,8 +107,7 @@ const backLink = computed(() => {
           </div>
         </UPageHeader>
 
-        <!-- Override broken CSS -->
-        <UPage :ui="{ root: 'lg:grid' }">
+        <UPage>
           <UPageBody>
             <slot />
 
@@ -125,12 +124,10 @@ const backLink = computed(() => {
           </UPageBody>
 
           <template #right>
-            <!-- Override broken CSS -->
             <UContentToc
               v-if="renderToc && page.body?.toc?.links?.length"
               :links="page.body?.toc?.links"
               :title="page.body.toc.title || appConfig.app.toc?.title"
-              :ui="{ trigger: 'lg:hidden' }"
             />
           </template>
         </UPage>

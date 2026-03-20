@@ -77,7 +77,7 @@ watch(() => route.query.category, (newCategory) => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-8">
+  <div class="all:flex flex-col gap-8">
     <div v-if="!category" class="border-b border-gray-200 dark:border-gray-800">
       <UNavigationMenu
         :items="categories"

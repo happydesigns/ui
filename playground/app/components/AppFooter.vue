@@ -8,8 +8,7 @@ const footerButtons = appConfig?.app?.meta?.socials
 <template>
   <USeparator icon="i-simple-icons-nuxtdotjs" class="h-px" />
 
-  <!-- Override broken CSS -->
-  <UFooter :ui="{ left: 'lg:justify-start', right: 'lg:justify-end' }">
+  <UFooter>
     <template #top>
       <UContainer>
         <HFooterColumns>

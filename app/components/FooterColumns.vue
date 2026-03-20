@@ -26,7 +26,7 @@ const totalCount = leftCount + centerCount + rightCount
 const ui = tv({
   extend: tv({
     extend: tv({ slots: {
-      root: 'footer-cols-root grid grid-flow-row gap-y-12 gap-x-8',
+      root: 'footer-cols-root all:grid grid-flow-row gap-y-12 gap-x-8',
       left: 'footer-cols-left',
       center: 'footer-cols-center',
       right: 'footer-cols-right',
