@@ -56,24 +56,25 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
     type ArticleItem = Collections[C] & Collections['article']
     type ArticleQueryBuilder = ReturnType<typeof queryCollection<'article'>>
 
-    const baseQuery = queryCollection(collection.value) as unknown as ArticleQueryBuilder
+    const getDataQuery = () => {
+      let query = queryCollection(collection.value) as unknown as ArticleQueryBuilder
+      query = query.where('status', '=', 'published')
 
-    let query = baseQuery
-      .where('status', '=', 'published')
+      if (category.value && category.value !== labelAll.value) {
+        query = query.where('category', '=', category.value)
+      }
+
+      // Apply additional filters
+      if (where.value && Array.isArray(where.value)) {
+        where.value.forEach((filter) => {
+          query = query.where(filter.field as any, filter.operator, filter.value)
+        })
+      }
+      return query
+    }
+
+    const articles = await getDataQuery()
       .order('date', 'DESC')
-
-    if (category.value && category.value !== labelAll.value) {
-      query = query.where('category', '=', category.value)
-    }
-
-    // Apply additional filters
-    if (where.value && Array.isArray(where.value)) {
-      where.value.forEach((filter) => {
-        query = query.where(filter.field as any, filter.operator, filter.value)
-      })
-    }
-
-    const articles = await query
       .skip((page.value - 1) * itemsPerPage.value)
       .limit(itemsPerPage.value)
       .all() as ArticleItem[]
@@ -111,27 +112,13 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
     }))
 
     // Total count for pagination
-    let countQuery = baseQuery
-      .where('status', '=', 'published')
-
-    if (category.value && category.value !== labelAll.value) {
-      countQuery = countQuery.where('category', '=', category.value)
-    }
-
-    // Apply additional filters to count query as well
-    if (where.value && Array.isArray(where.value)) {
-      where.value.forEach((filter) => {
-        countQuery = countQuery.where(filter.field as any, filter.operator, filter.value)
-      })
-    }
-
-    const total = await countQuery.count() as number
+    const total = await getDataQuery().count() as number
 
     return {
       articles: resolved,
       total,
     }
   }, {
-    watch: [page, itemsPerPage, category, labelAll, collection, where],
+    watch: [queryKey],
   })
 }

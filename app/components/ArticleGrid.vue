@@ -3,13 +3,7 @@ import type { PageCollections } from '@nuxt/content'
 import type { ArticleConfig } from '~/app.config'
 import type { ArticleFilter } from '~/composables/useArticleList'
 
-const {
-  category,
-  orientation = 'horizontal',
-  collection = 'article' as C,
-  where,
-  itemsPerPage: propsItemsPerPage,
-} = defineProps<{
+const props = defineProps<{
   /** Optional fixed category to filter by */
   category?: string
   /** The orientation of the blog posts list */
@@ -27,18 +21,27 @@ const route = useRoute()
 
 /** Resolve the configuration for this collection, falling back to article defaults */
 const config = computed(() => {
-  const collectionConfig = (appConfig.app.collections?.[String(collection)] || {}) as ArticleConfig
+  const colName = String(props.collection || 'article')
+  const collectionConfig = (appConfig.app.collections?.[colName] || {}) as ArticleConfig
   return {
     ...appConfig.app.article,
     ...collectionConfig,
   } as Required<ArticleConfig>
 })
 
-const itemsPerPage = propsItemsPerPage || config.value.list?.itemsPerPage || 12
-const labelAll = config.value.list?.labelAll || 'All'
+const itemsPerPage = computed(() => props.itemsPerPage || config.value.list?.itemsPerPage || 12)
+const labelAll = computed(() => config.value.list?.labelAll || 'All')
+
 const page = ref(Number(route.query.page) || 1)
-const selectedCategory = ref(category || (route.query.category as string) || String(labelAll))
-const resolvedOrientation = computed(() => orientation || 'horizontal')
+const selectedCategory = ref(props.category || (route.query.category as string) || String(labelAll.value))
+const resolvedOrientation = computed(() => props.orientation || 'horizontal')
+
+// Update internal state when props change (from ArticleList or parent)
+watch(() => props.category, (newCategory) => {
+  if (newCategory) {
+    selectedCategory.value = newCategory
+  }
+})
 
 // Fetch articles using the composable
 const { data, status } = await useArticleList({
@@ -46,19 +49,25 @@ const { data, status } = await useArticleList({
   itemsPerPage,
   category: selectedCategory,
   labelAll,
-  collection,
-  where,
+  collection: () => props.collection || 'article' as C,
+  where: () => props.where,
 })
 
 // Watchers and lifecycle
 function updateQuery() {
-  const query: Record<string, any> = {}
+  const query: Record<string, any> = { ...route.query }
   if (page.value > 1)
     query.page = page.value
+  else
+    delete query.page
 
   // Only update category in query if we are not in a fixed category mode
-  if (!category && selectedCategory.value !== labelAll)
-    query.category = selectedCategory.value
+  if (!props.category) {
+    if (selectedCategory.value !== labelAll.value)
+      query.category = selectedCategory.value
+    else
+      delete query.category
+  }
 
   navigateTo({ query }, { replace: true })
 }
@@ -73,8 +82,8 @@ watch(page, () => {
 // Sync state with query on back/forward navigation
 watch(() => route.query, (newQuery) => {
   page.value = Number(newQuery.page) || 1
-  if (!category) {
-    selectedCategory.value = (newQuery.category as string) || labelAll
+  if (!props.category) {
+    selectedCategory.value = (newQuery.category as string) || labelAll.value
   }
 })
 </script>
