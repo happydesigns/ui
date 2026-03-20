@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.10.1
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.10.0...v0.10.1)
+
+### 🩹 Fixes
+
+- **events:** Switch to simple dates and only show range if start differs from end ([486bac7](https://github.com/happydesigns/ui/commit/486bac7))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.10.0
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.9.0...v0.10.0)
