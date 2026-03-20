@@ -3,13 +3,7 @@ import type { PageCollections } from '@nuxt/content'
 import type { ArticleConfig } from '~/app.config'
 import type { ArticleFilter } from '~/composables/useArticleList'
 
-const {
-  category,
-  orientation,
-  collection = 'article' as C,
-  where,
-  itemsPerPage,
-} = defineProps<{
+const props = defineProps<{
   /** Optional fixed category to filter by */
   category?: string
   /** The orientation of the blog posts list */
@@ -27,21 +21,22 @@ const route = useRoute()
 
 /** Resolve the configuration for this collection, falling back to article defaults */
 const config = computed(() => {
-  const collectionConfig = (appConfig.app.collections?.[String(collection)] || {}) as ArticleConfig
+  const colName = String(props.collection || 'article')
+  const collectionConfig = (appConfig.app.collections?.[colName] || {}) as ArticleConfig
   return {
     ...appConfig.app.article,
     ...collectionConfig,
   } as Required<ArticleConfig>
 })
 
-const labelAll = config.value.list?.labelAll || 'All'
+const labelAll = computed(() => config.value.list?.labelAll || 'All')
 
-const selectedCategory = ref(category || (route.query.category as string) || String(labelAll))
+const selectedCategory = ref(props.category || (route.query.category as string) || String(labelAll.value))
 
 const categories = computed(() => {
   const cats = config.value.categories || {}
   const items = [
-    { label: String(labelAll), value: String(labelAll) },
+    { label: String(labelAll.value), value: String(labelAll.value) },
     ...Object.keys(cats).map(key => ({
       label: String(cats[key]?.label || key),
       value: String(key),
@@ -60,9 +55,9 @@ const categories = computed(() => {
 
 function updateQuery() {
   const query: Record<string, any> = { ...route.query }
-  query.page = 1 // Reset page on category change
+  delete query.page // Omit page 1 from query
 
-  if (selectedCategory.value !== labelAll)
+  if (selectedCategory.value !== labelAll.value)
     query.category = selectedCategory.value
   else
     delete query.category
@@ -72,13 +67,13 @@ function updateQuery() {
 
 // Sync state with query on back/forward navigation
 watch(() => route.query.category, (newCategory) => {
-  selectedCategory.value = (newCategory as string) || labelAll
+  selectedCategory.value = (newCategory as string) || labelAll.value
 })
 </script>
 
 <template>
-  <div class="flex flex-col gap-8">
-    <div v-if="!category" class="border-b border-gray-200 dark:border-gray-800">
+  <div class="all:flex flex-col gap-8">
+    <div v-if="!props.category" class="border-b border-gray-200 dark:border-gray-800">
       <UNavigationMenu
         :items="categories"
         highlight
@@ -87,10 +82,14 @@ watch(() => route.query.category, (newCategory) => {
 
     <HArticleGrid
       :category="selectedCategory"
-      :orientation="orientation"
-      :collection="collection"
-      :where="where"
-      :items-per-page="itemsPerPage"
-    />
+      :orientation="props.orientation"
+      :collection="props.collection"
+      :where="props.where"
+      :items-per-page="props.itemsPerPage"
+    >
+      <template v-for="(_, name) in $slots" #[name]="slotData">
+        <slot :name="name" v-bind="slotData" />
+      </template>
+    </HArticleGrid>
   </div>
 </template>

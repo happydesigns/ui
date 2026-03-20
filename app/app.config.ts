@@ -78,12 +78,32 @@ export interface ArticleConfig {
 }
 
 export interface EventConfig {
+  /** A record of event categories mapped by their internal string ID */
+  categories?: Record<string, ArticleCategoryBadge>
   /** The breadcrumb items to be shown as parents of the event */
   breadcrumbs?: Array<{
     label: string
     to: string
     icon?: string
   }>
+  /** Configuration for the back button in the event layout */
+  backButton?: {
+    /** The icon to be shown in the back button */
+    icon?: string
+    /** The label to be shown as prefix in the back button */
+    label?: string
+  }
+  /** Configuration for the copy URL button in the event layout */
+  copyButton?: {
+    /** The icon to be shown in the copy button */
+    icon?: string
+    /** The label to be shown in the copy button */
+    label?: string
+    /** The icon to be shown when the copy was successful */
+    successIcon?: string
+    /** The label to be shown in a toast when the copy was successful */
+    successLabel?: string
+  }
 }
 
 export default defineAppConfig({
@@ -149,7 +169,18 @@ export default defineAppConfig({
     } as ArticleConfig,
 
     event: {
+      categories: {},
       breadcrumbs: [],
+      backButton: {
+        icon: 'i-ph-arrow-left',
+        label: 'Back',
+      },
+      copyButton: {
+        icon: 'i-ph-link-simple-duotone',
+        label: 'Copy URL',
+        successIcon: 'i-lucide-copy-check',
+        successLabel: 'Link copied to clipboard',
+      },
     } as EventConfig,
 
     /** Collection-specific configurations that override the defaults above */
@@ -161,6 +192,13 @@ export default defineAppConfig({
         year: 'numeric',
         month: 'short',
         day: 'numeric',
+      } as Intl.DateTimeFormatOptions,
+      datetimeOptions: {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
       } as Intl.DateTimeFormatOptions,
     },
   },
@@ -234,8 +272,10 @@ declare module '@nuxt/schema' {
       date?: {
         /** The locale used for date formatting (e.g. 'en', 'de') */
         locale?: string
-        /** Options for Intl.DateTimeFormat */
+        /** Options for Intl.DateTimeFormat for dates */
         options?: Intl.DateTimeFormatOptions
+        /** Options for Intl.DateTimeFormat for datetimes */
+        datetimeOptions?: Intl.DateTimeFormatOptions
       }
     }
   }

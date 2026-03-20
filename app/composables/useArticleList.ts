@@ -1,6 +1,6 @@
 import type { Collections, PageCollections, SQLOperator } from '@nuxt/content'
 import type { BadgeProps } from '@nuxt/ui'
-import type { ArticleCategoryBadge, ArticleConfig } from '~/app.config'
+import type { ArticleCategoryBadge, ArticleConfig, EventConfig } from '~/app.config'
 
 export interface ArticleFilter {
   field: string
@@ -28,13 +28,17 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
 
   const collection = computed(() => toValue(options.collection) || ('article' as C))
 
-  /** Resolve the configuration for this collection, falling back to article defaults */
+  /** Resolve the configuration for this collection, falling back to appropriate layout defaults */
   const config = computed(() => {
-    const collectionConfig = (appConfig.app.collections?.[String(collection.value)] || {}) as ArticleConfig
+    const colName = String(collection.value)
+    const collectionConfig = (appConfig.app.collections?.[colName] || {})
+    const isEvent = colName === 'event' || colName.startsWith('event')
+    const baseDefaults = isEvent ? appConfig.app.event : appConfig.app.article
+
     return {
-      ...appConfig.app.article,
+      ...baseDefaults,
       ...collectionConfig,
-    } as Required<ArticleConfig>
+    } as Required<ArticleConfig & EventConfig>
   })
 
   const page = computed(() => toValue(options.page) || 1)
@@ -52,24 +56,25 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
     type ArticleItem = Collections[C] & Collections['article']
     type ArticleQueryBuilder = ReturnType<typeof queryCollection<'article'>>
 
-    const baseQuery = queryCollection(collection.value) as unknown as ArticleQueryBuilder
+    const getDataQuery = () => {
+      let query = queryCollection(collection.value) as unknown as ArticleQueryBuilder
+      query = query.where('status', '=', 'published')
 
-    let query = baseQuery
-      .where('status', '=', 'published')
+      if (category.value && category.value !== labelAll.value) {
+        query = query.where('category', '=', category.value)
+      }
+
+      // Apply additional filters
+      if (where.value && Array.isArray(where.value)) {
+        where.value.forEach((filter) => {
+          query = query.where(filter.field as any, filter.operator, filter.value)
+        })
+      }
+      return query
+    }
+
+    const articles = await getDataQuery()
       .order('date', 'DESC')
-
-    if (category.value && category.value !== labelAll.value) {
-      query = query.where('category', '=', category.value)
-    }
-
-    // Apply additional filters
-    if (where.value && Array.isArray(where.value)) {
-      where.value.forEach((filter) => {
-        query = query.where(filter.field as any, filter.operator, filter.value)
-      })
-    }
-
-    const articles = await query
       .skip((page.value - 1) * itemsPerPage.value)
       .limit(itemsPerPage.value)
       .all() as ArticleItem[]
@@ -78,16 +83,18 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
     const resolved = await Promise.all(articles.map(async (article) => {
       // Resolve Category Badge directly
       const categoryKey = article.category
-      const categories = config.value.categories || {}
-      let badge: ArticleCategoryBadge
+      let resolvedBadge: BadgeProps | undefined
 
-      if (categoryKey && categoryKey in categories) {
-        badge = categories[categoryKey] as ArticleCategoryBadge
-      }
-      else {
-        badge = {
-          label: categoryKey ?? '',
-          color: 'primary',
+      if (categoryKey) {
+        const categories = config.value.categories || {}
+        if (categoryKey in categories) {
+          resolvedBadge = categories[categoryKey] as BadgeProps
+        }
+        else {
+          resolvedBadge = {
+            label: categoryKey,
+            color: 'primary',
+          }
         }
       }
 
@@ -99,33 +106,19 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
 
       return {
         ...article,
-        resolvedBadge: badge as BadgeProps,
+        resolvedBadge,
         resolvedAuthors,
       }
     }))
 
     // Total count for pagination
-    let countQuery = baseQuery
-      .where('status', '=', 'published')
-
-    if (category.value && category.value !== labelAll.value) {
-      countQuery = countQuery.where('category', '=', category.value)
-    }
-
-    // Apply additional filters to count query as well
-    if (where.value && Array.isArray(where.value)) {
-      where.value.forEach((filter) => {
-        countQuery = countQuery.where(filter.field as any, filter.operator, filter.value)
-      })
-    }
-
-    const total = await countQuery.count() as number
+    const total = await getDataQuery().count() as number
 
     return {
       articles: resolved,
       total,
     }
   }, {
-    watch: [page, itemsPerPage, category, labelAll, collection, where],
+    watch: [queryKey],
   })
 }
