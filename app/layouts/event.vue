@@ -2,7 +2,7 @@
 import type { Collections, PageCollections } from '@nuxt/content'
 import type { BreadcrumbItem } from '@nuxt/ui'
 import type { EventConfig } from '~/app.config'
-import formatDateTime from '~/utils/formatDateTime'
+import formatDate from '~/utils/formatDate'
 
 const {
   path,
@@ -93,7 +93,10 @@ const backLink = computed(() => {
               <div class="all:flex items-center space-x-2">
                 <UIcon name="i-lucide-calendar" class="size-4" />
                 <time>
-                  {{ formatDateTime(page.date.start) }} - {{ formatDateTime(page.date.end) }}
+                  {{ formatDate(page.date.start) }}
+                  <template v-if="page.date.end && page.date.start !== page.date.end">
+                    - {{ formatDate(page.date.end) }}
+                  </template>
                 </time>
               </div>
 

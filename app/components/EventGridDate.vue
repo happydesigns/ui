@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import formatDateTime from '~/utils/formatDateTime'
+import formatDate from '~/utils/formatDate'
 
 defineProps<{
   article: any
@@ -8,6 +8,9 @@ defineProps<{
 
 <template>
   <time v-if="article.date?.start" class="text-xs text-muted">
-    {{ formatDateTime(article.date.start) }}
+    {{ formatDate(article.date.start) }}
+    <template v-if="article.date.end && article.date.start !== article.date.end">
+      - {{ formatDate(article.date.end) }}
+    </template>
   </time>
 </template>

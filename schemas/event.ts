@@ -3,8 +3,8 @@ import { z } from 'zod/v4'
 
 export const eventSchema = z.object({
   date: z.object({
-    start: z.iso.datetime(),
-    end: z.iso.datetime(),
+    start: z.iso.date(),
+    end: z.iso.date(),
   }),
   location: z.object({
     name: z.string(),

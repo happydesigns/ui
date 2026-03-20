@@ -154,7 +154,6 @@ export default defineAppConfig({
         },
       },
       breadcrumbs: [
-
         {
           label: 'Events',
           to: '/events',
