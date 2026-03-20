@@ -1,5 +1,7 @@
-@import "tailwindcss" theme(static);
+@import "tailwindcss";
 @import "@nuxt/ui";
+
+@custom-variant all (&);
 
 @layer theme {
   p .iconify {

@@ -1,3 +1,9 @@
+import { dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { resolve } from 'pathe'
+
+const currentDir: string = dirname(fileURLToPath(import.meta.url))
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
 
@@ -7,6 +13,10 @@ export default defineNuxtConfig({
 
   components: [
     { path: './components', pathPrefix: false, prefix: 'H' },
+  ],
+
+  css: [
+    resolve(currentDir, './app/assets/css/main.css'),
   ],
 
   devtools: { enabled: true },
