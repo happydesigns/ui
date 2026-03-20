@@ -90,12 +90,12 @@ const backLink = computed(() => {
                 <span class="all:hidden sm:inline opacity-50">&middot;</span>
               </template>
 
-              <div class="all:flex items-center space-x-2">
+              <div v-if="page.date?.start" class="all:flex items-center space-x-2">
                 <UIcon name="i-lucide-calendar" class="size-4" />
                 <time>
-                  {{ formatDate(page.date.start) }}
-                  <template v-if="page.date.end && page.date.start !== page.date.end">
-                    - {{ formatDate(page.date.end) }}
+                  {{ formatDate(page.date?.start) }}
+                  <template v-if="page.date?.end && page.date?.start !== page.date?.end">
+                    - {{ formatDate(page.date?.end) }}
                   </template>
                 </time>
               </div>
