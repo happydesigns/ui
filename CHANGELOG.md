@@ -1,6 +1,60 @@
 # Changelog
 
 
+## v0.10.0
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.9.0...v0.10.0)
+
+### 🚀 Enhancements
+
+- Implement collection-specific configuration system ([7be03f1](https://github.com/happydesigns/ui/commit/7be03f1))
+- Add event listing and pages to playground ([8e2a0ad](https://github.com/happydesigns/ui/commit/8e2a0ad))
+- Improve event location display and support clickable links ([58295f0](https://github.com/happydesigns/ui/commit/58295f0))
+- Use full datetimes for events and add formatDateTime utility ([508b4da](https://github.com/happydesigns/ui/commit/508b4da))
+- Inherit Nuxt UI Button schema for event links ([b7849ac](https://github.com/happydesigns/ui/commit/b7849ac))
+- Support categories for events and hide empty tags ([4a8b8b4](https://github.com/happydesigns/ui/commit/4a8b8b4))
+- Add category display to event layout ([c453518](https://github.com/happydesigns/ui/commit/c453518))
+
+### 🩹 Fixes
+
+- Import missing configuration types in layouts and components ([67a8354](https://github.com/happydesigns/ui/commit/67a8354))
+- Import ArticleConfig in useArticleList composable ([96a9ea6](https://github.com/happydesigns/ui/commit/96a9ea6))
+- Add event collection to layer content config to resolve type errors ([ff2bf86](https://github.com/happydesigns/ui/commit/ff2bf86))
+- Explicitly import date utilities in layouts to resolve TypeScript errors ([fbae5e6](https://github.com/happydesigns/ui/commit/fbae5e6))
+- Support both date strings and range objects in ArticleGrid ([6ac5fa6](https://github.com/happydesigns/ui/commit/6ac5fa6))
+- Add missing import for formatDateTime in EventGridDate ([8b4d194](https://github.com/happydesigns/ui/commit/8b4d194))
+- Ensure event layout uses event-specific footer labels ([ec40836](https://github.com/happydesigns/ui/commit/ec40836))
+- **layouts:** Improvements for article and event layouts ([ff5c576](https://github.com/happydesigns/ui/commit/ff5c576))
+- **blog:** Improve reactivity, pagination and URL management ([02f2031](https://github.com/happydesigns/ui/commit/02f2031))
+- **separator:** Fix TS error by adding optional chaining for config ([036963b](https://github.com/happydesigns/ui/commit/036963b))
+- Remove flex class from article ([48e8d61](https://github.com/happydesigns/ui/commit/48e8d61))
+
+### 💅 Refactors
+
+- ⚠️  Simplify article date schema and remove dateEnd reference ([e74773f](https://github.com/happydesigns/ui/commit/e74773f))
+- Use slots and dynamic components for modular article grid customization ([afbf1ab](https://github.com/happydesigns/ui/commit/afbf1ab))
+- Simplify modular rendering to use standard slots and manual overrides ([67dfaff](https://github.com/happydesigns/ui/commit/67dfaff))
+- Move EventGridDate to layer for reusability ([d4b64b8](https://github.com/happydesigns/ui/commit/d4b64b8))
+- Move EventGridDate to core layer and use prefixed component ([3d0cd54](https://github.com/happydesigns/ui/commit/3d0cd54))
+- Move main.css to layer and include it globally ([a1e529e](https://github.com/happydesigns/ui/commit/a1e529e))
+- Use custom variant to avoid using tw classes ([ff95d3e](https://github.com/happydesigns/ui/commit/ff95d3e))
+
+### 🏡 Chore
+
+- Update dependencies and pnpm-workspace configuration ([d1cd203](https://github.com/happydesigns/ui/commit/d1cd203))
+
+### 🎨 Styles
+
+- Update events index page to match blog index style ([16a7250](https://github.com/happydesigns/ui/commit/16a7250))
+
+#### ⚠️ Breaking Changes
+
+- ⚠️  Simplify article date schema and remove dateEnd reference ([e74773f](https://github.com/happydesigns/ui/commit/e74773f))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.9.0
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.8.5...v0.9.0)
