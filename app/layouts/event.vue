@@ -28,7 +28,7 @@ const { data: page } = await usePageContent<C, Collections['event']>({
 
 /** Resolve the configuration for this collection, falling back to event defaults */
 const config = computed(() => {
-  const collectionConfig = (appConfig.app.collections?.[String(collection)] || {}) as EventConfig
+  const collectionConfig = (appConfig.app.collections?.[collection] || {}) as EventConfig
   return {
     ...appConfig.app.event,
     ...collectionConfig,
@@ -87,7 +87,7 @@ const backLink = computed(() => {
             <div class="flex flex-wrap items-center gap-x-3 gap-y-2 text-muted">
               <template v-if="page?.category">
                 <span class="text-primary-500 dark:text-primary-400 font-medium">{{ page.category }}</span>
-                <span class="hidden sm:inline opacity-50">&middot;</span>
+                <span class="all:hidden sm:inline opacity-50">&middot;</span>
               </template>
 
               <div class="flex items-center space-x-2">
@@ -98,7 +98,7 @@ const backLink = computed(() => {
               </div>
 
               <template v-if="page.location?.name">
-                <span class="hidden sm:inline opacity-50">&middot;</span>
+                <span class="all:hidden sm:inline opacity-50">&middot;</span>
                 <div class="flex items-center space-x-2">
                   <UIcon name="i-lucide-map-pin" class="size-4" />
                   <NuxtLink
@@ -143,8 +143,8 @@ const backLink = computed(() => {
             <!-- Override broken CSS -->
             <UContentToc
               v-if="renderToc && page.body?.toc?.links?.length"
-              :links="page.body.toc.links"
-              :title="page.body.toc.title || appConfig.app.toc?.title"
+              :links="page.body?.toc?.links"
+              :title="appConfig.app.toc?.title || page.body?.toc?.title"
               :ui="{ trigger: 'lg:hidden' }"
             />
           </template>

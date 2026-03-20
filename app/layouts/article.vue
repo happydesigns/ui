@@ -128,7 +128,7 @@ const backLink = computed(() => {
             <!-- Override broken CSS -->
             <UContentToc
               v-if="renderToc && page.body?.toc?.links?.length"
-              :links="page.body.toc.links"
+              :links="page.body?.toc?.links"
               :title="page.body.toc.title || appConfig.app.toc?.title"
               :ui="{ trigger: 'lg:hidden' }"
             />
