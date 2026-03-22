@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.10.3
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.10.2...v0.10.3)
+
+### 🚀 Enhancements
+
+- **articles:** Add sort and status options to useArticleList and components ([8122c43](https://github.com/happydesigns/ui/commit/8122c43))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.10.2
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.10.1...v0.10.2)
