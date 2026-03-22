@@ -17,10 +17,14 @@ export interface UseArticleListOptions<C extends keyof PageCollections = 'articl
   collection?: C | Ref<C>
   /** Additional custom filters */
   where?: ArticleFilter[] | Ref<ArticleFilter[] | undefined>
+  /** Field to sort by. Set to false to disable default sorting. Defaults to { field: 'date', direction: 'DESC' }. */
+  sort?: { field: string, direction: 'ASC' | 'DESC' } | false | Ref<{ field: string, direction: 'ASC' | 'DESC' } | false | undefined>
+  /** Status to filter by. Set to false to disable default status filtering. Defaults to 'published'. */
+  status?: string | false | Ref<string | false | undefined>
 }
 
 /**
- * Composable to fetch a paginated and filtered list of articles.
+ * Composable to fetch a paginated and filtered list of articles or any other collection.
  * Includes automatic resolution of authors and category badges.
  */
 export function useArticleList<C extends keyof PageCollections = 'article'>(options: UseArticleListOptions<C> = {}) {
@@ -46,9 +50,21 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
   const category = computed(() => toValue(options.category))
   const labelAll = computed(() => toValue(options.labelAll) || config.value.list?.labelAll || 'All')
   const where = computed(() => toValue(options.where))
+  const sort = computed(() => {
+    const s = toValue(options.sort)
+    if (s === false)
+      return false
+    return s || { field: 'date', direction: 'DESC' as const }
+  })
+  const status = computed(() => {
+    const s = toValue(options.status)
+    if (s === false)
+      return false
+    return s || 'published'
+  })
 
   // The key must be reactive and stable
-  const queryKey = computed(() => `${String(collection.value)}-list-${page.value}-${itemsPerPage.value}-${category.value || 'all'}-${labelAll.value}-${JSON.stringify(where.value)}`)
+  const queryKey = computed(() => `${String(collection.value)}-list-${page.value}-${itemsPerPage.value}-${category.value || 'all'}-${labelAll.value}-${JSON.stringify(where.value)}-${JSON.stringify(sort.value)}-${status.value}`)
 
   return useAsyncData(queryKey.value, async () => {
     // We cast the query to a version that includes the standard article fields
@@ -58,7 +74,10 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
 
     const getDataQuery = () => {
       let query = queryCollection(collection.value) as unknown as ArticleQueryBuilder
-      query = query.where('status', '=', 'published')
+
+      if (status.value) {
+        query = query.where('status', '=', status.value)
+      }
 
       if (category.value && category.value !== labelAll.value) {
         query = query.where('category', '=', category.value)
@@ -73,8 +92,13 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
       return query
     }
 
-    const articles = await getDataQuery()
-      .order('date', 'DESC')
+    let finalQuery = getDataQuery()
+
+    if (sort.value) {
+      finalQuery = finalQuery.order(sort.value.field as any, sort.value.direction)
+    }
+
+    const articles = await finalQuery
       .skip((page.value - 1) * itemsPerPage.value)
       .limit(itemsPerPage.value)
       .all() as ArticleItem[]

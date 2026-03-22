@@ -12,6 +12,10 @@ const props = defineProps<{
   collection?: C
   /** Additional custom filters */
   where?: ArticleFilter[]
+  /** Field to sort by. Set to false to disable default sorting. */
+  sort?: { field: string, direction: 'ASC' | 'DESC' } | false
+  /** Status to filter by. Set to false to disable default status filtering. */
+  status?: string | false
   /** Optional items per page override */
   itemsPerPage?: number
 }>()
@@ -44,13 +48,15 @@ watch(() => props.category, (newCategory) => {
 })
 
 // Fetch articles using the composable
-const { data, status } = await useArticleList({
+const { data, status: fetchStatus } = await useArticleList({
   page,
   itemsPerPage,
   category: selectedCategory,
   labelAll,
   collection: () => props.collection || 'article' as C,
   where: () => props.where,
+  sort: () => props.sort,
+  status: () => props.status,
 })
 
 // Watchers and lifecycle
@@ -90,7 +96,7 @@ watch(() => route.query, (newQuery) => {
 
 <template>
   <div class="all:flex flex-col gap-8">
-    <div v-if="status === 'pending'" class="all:flex justify-center py-20">
+    <div v-if="fetchStatus === 'pending'" class="all:flex justify-center py-20">
       <UIcon name="i-lucide-loader-circle" class="size-12 animate-spin text-muted" />
     </div>
 

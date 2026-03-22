@@ -12,6 +12,10 @@ const props = defineProps<{
   collection?: C
   /** Additional custom filters */
   where?: ArticleFilter[]
+  /** Field to sort by. Set to false to disable default sorting. */
+  sort?: { field: string, direction: 'ASC' | 'DESC' } | false
+  /** Status to filter by. Set to false to disable default status filtering. */
+  status?: string | false
   /** Optional items per page override */
   itemsPerPage?: number
 }>()
@@ -85,6 +89,8 @@ watch(() => route.query.category, (newCategory) => {
       :orientation="props.orientation"
       :collection="props.collection"
       :where="props.where"
+      :sort="props.sort"
+      :status="props.status"
       :items-per-page="props.itemsPerPage"
     >
       <template v-for="(_, name) in $slots" #[name]="slotData">
