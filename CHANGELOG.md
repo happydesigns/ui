@@ -1,6 +1,25 @@
 # Changelog
 
 
+## v0.10.4
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.10.3...v0.10.4)
+
+### 🩹 Fixes
+
+- **articles:** Support MaybeRefOrGetter in useArticleList options ([ee06792](https://github.com/happydesigns/ui/commit/ee06792))
+- **articles:** Improve useAsyncData key stability in useArticleList ([4c1872c](https://github.com/happydesigns/ui/commit/4c1872c))
+
+### 🏡 Chore
+
+- **playground:** Filter for published articles ([6b1e806](https://github.com/happydesigns/ui/commit/6b1e806))
+- **playground:** Add studio repo ([4fb578f](https://github.com/happydesigns/ui/commit/4fb578f))
+- Add cross-env dependency ([0706cea](https://github.com/happydesigns/ui/commit/0706cea))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.10.3
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.10.2...v0.10.3)
