@@ -1,3 +1,4 @@
+import { computed, toValue, type MaybeRefOrGetter } from 'vue'
 import type { Collections, PageCollections, SQLOperator } from '@nuxt/content'
 import type { BadgeProps } from '@nuxt/ui'
 import type { ArticleCategoryBadge, ArticleConfig, EventConfig } from '~/app.config'
@@ -9,18 +10,18 @@ export interface ArticleFilter {
 }
 
 export interface UseArticleListOptions<C extends keyof PageCollections = 'article'> {
-  page?: number | Ref<number>
-  itemsPerPage?: number | Ref<number>
-  category?: string | Ref<string | undefined>
+  page?: MaybeRefOrGetter<number | undefined>
+  itemsPerPage?: MaybeRefOrGetter<number | undefined>
+  category?: MaybeRefOrGetter<string | undefined>
   /** The label used for the 'All' category to avoid filtering by it */
-  labelAll?: string | Ref<string>
-  collection?: C | Ref<C>
+  labelAll?: MaybeRefOrGetter<string | undefined>
+  collection?: MaybeRefOrGetter<C | undefined>
   /** Additional custom filters */
-  where?: ArticleFilter[] | Ref<ArticleFilter[] | undefined>
+  where?: MaybeRefOrGetter<ArticleFilter[] | undefined>
   /** Field to sort by. Set to false to disable default sorting. Defaults to { field: 'date', direction: 'DESC' }. */
-  sort?: { field: string, direction: 'ASC' | 'DESC' } | false | Ref<{ field: string, direction: 'ASC' | 'DESC' } | false | undefined>
+  sort?: MaybeRefOrGetter<{ field: string, direction: 'ASC' | 'DESC' } | false | undefined>
   /** Status to filter by. Set to false to disable default status filtering. Defaults to 'published'. */
-  status?: string | false | Ref<string | false | undefined>
+  status?: MaybeRefOrGetter<string | false | undefined>
 }
 
 /**
@@ -30,7 +31,7 @@ export interface UseArticleListOptions<C extends keyof PageCollections = 'articl
 export function useArticleList<C extends keyof PageCollections = 'article'>(options: UseArticleListOptions<C> = {}) {
   const appConfig = useAppConfig()
 
-  const collection = computed(() => toValue(options.collection) || ('article' as C))
+  const collection = computed(() => (toValue(options.collection) || ('article' as C)) as C)
 
   /** Resolve the configuration for this collection, falling back to appropriate layout defaults */
   const config = computed(() => {
