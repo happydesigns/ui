@@ -92,18 +92,37 @@ watch(() => route.query, (newQuery) => {
     selectedCategory.value = (newQuery.category as string) || labelAll.value
   }
 })
+
+// Delayed loader to avoid flickering on fast navigations
+const showLoader = ref(false)
+let loaderTimeout: any = null
+
+watch(fetchStatus, (newStatus) => {
+  if (newStatus === 'pending') {
+    loaderTimeout = setTimeout(() => {
+      showLoader.value = true
+    }, 200)
+  }
+  else {
+    clearTimeout(loaderTimeout)
+    showLoader.value = false
+  }
+}, { immediate: true })
 </script>
 
 <template>
   <div class="all:flex flex-col gap-8">
-    <div v-if="fetchStatus === 'pending'" class="all:flex justify-center py-20">
+    <div v-if="showLoader && !data?.articles.length" class="all:flex justify-center py-20">
       <UIcon name="i-lucide-loader-circle" class="size-12 animate-spin text-muted" />
     </div>
 
     <UBlogPosts
       v-else-if="data?.articles.length"
       :orientation="resolvedOrientation"
-      :ui="{ base: resolvedOrientation === 'horizontal' ? 'sm:grid sm:grid-cols-2 lg:grid-cols-3' : '' }"
+      :ui="{
+        base: resolvedOrientation === 'horizontal' ? 'sm:grid sm:grid-cols-2 lg:grid-cols-3' : '',
+      }"
+      :class="{ 'opacity-50 transition-opacity': fetchStatus === 'pending' }"
     >
       <UBlogPost
         v-for="article in data.articles"

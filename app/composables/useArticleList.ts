@@ -143,5 +143,7 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
       articles: resolved,
       total,
     }
+  }, {
+    keepPreviousData: true,
   })
 }
