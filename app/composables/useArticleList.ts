@@ -67,7 +67,7 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
   // The key must be reactive and stable
   const queryKey = computed(() => `${String(collection.value)}-list-${page.value}-${itemsPerPage.value}-${category.value || 'all'}-${labelAll.value}-${JSON.stringify(where.value)}-${JSON.stringify(sort.value)}-${status.value}`)
 
-  return useAsyncData(queryKey.value, async () => {
+  return useAsyncData(queryKey, async () => {
     // We cast the query to a version that includes the standard article fields
     // This avoids 'any' while still allowing the query to work with generic collections
     type ArticleItem = Collections[C] & Collections['article']
@@ -143,7 +143,5 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
       articles: resolved,
       total,
     }
-  }, {
-    watch: [queryKey],
   })
 }
