@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.10.5
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.10.4...v0.10.5)
+
+### 🚀 Enhancements
+
+- **articles:** Improve navigation seamlessness with delayed loader and data retention ([c648af5](https://github.com/happydesigns/ui/commit/c648af5))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.10.4
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.10.3...v0.10.4)
