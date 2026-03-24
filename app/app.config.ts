@@ -108,6 +108,27 @@ export interface EventConfig {
     /** The label to be shown in a toast when the copy was successful */
     successLabel?: string
   }
+  /** Configuration for the action buttons (edit, report) in the event layout */
+  actionButtons?: {
+    /** Configuration for the edit button */
+    edit?: {
+      /** The icon to be shown in the edit button */
+      icon?: string
+      /** The label to be shown in the edit button */
+      label?: string
+    }
+    /** Configuration for the report button */
+    report?: {
+      /** The icon to be shown in the report button */
+      icon?: string
+      /** The label to be shown in the report button */
+      label?: string
+      /** The URL to be shown in the report button */
+      link?: string
+    }
+    /** The separator text between edit and report buttons */
+    separator?: string
+  }
   /** Configuration for the event list */
   list?: {
     /** Items per page */
@@ -210,6 +231,18 @@ export default defineAppConfig({
         label: 'Copy URL',
         successIcon: 'i-lucide-copy-check',
         successLabel: 'Link copied to clipboard',
+      },
+      actionButtons: {
+        edit: {
+          icon: 'i-lucide-pen',
+          label: 'Edit event',
+        },
+        report: {
+          icon: 'i-ph-warning-circle',
+          label: 'Report an issue',
+          link: 'https://github.com/sfbiberach/schachfreunde-biberach.de/issues/new/choose',
+        },
+        separator: 'or',
       },
       list: {
         itemsPerPage: 12,
