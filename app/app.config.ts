@@ -74,6 +74,10 @@ export interface ArticleConfig {
     itemsPerPage?: number
     /** Label for the 'All' category */
     labelAll?: string
+    /** Message to be shown when no articles are found */
+    noResultsMessage?: string
+    /** Icon to be shown when no articles are found */
+    noResultsIcon?: string
   }
 }
 
@@ -103,6 +107,17 @@ export interface EventConfig {
     successIcon?: string
     /** The label to be shown in a toast when the copy was successful */
     successLabel?: string
+  }
+  /** Configuration for the event list */
+  list?: {
+    /** Items per page */
+    itemsPerPage?: number
+    /** Label for the 'All' category */
+    labelAll?: string
+    /** Message to be shown when no events are found */
+    noResultsMessage?: string
+    /** Icon to be shown when no events are found */
+    noResultsIcon?: string
   }
 }
 
@@ -165,6 +180,8 @@ export default defineAppConfig({
       list: {
         itemsPerPage: 12,
         labelAll: 'All',
+        noResultsMessage: 'No articles found.',
+        noResultsIcon: 'i-ph-article-ny-times-light',
       },
     } as ArticleConfig,
 
@@ -180,6 +197,12 @@ export default defineAppConfig({
         label: 'Copy URL',
         successIcon: 'i-lucide-copy-check',
         successLabel: 'Link copied to clipboard',
+      },
+      list: {
+        itemsPerPage: 12,
+        labelAll: 'All',
+        noResultsMessage: 'No events found.',
+        noResultsIcon: 'i-ph-calendar-blank',
       },
     } as EventConfig,
 

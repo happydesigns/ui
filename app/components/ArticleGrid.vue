@@ -23,18 +23,23 @@ const props = defineProps<{
 const appConfig = useAppConfig()
 const route = useRoute()
 
-/** Resolve the configuration for this collection, falling back to article defaults */
+/** Resolve the configuration for this collection, falling back to appropriate layout defaults */
 const config = computed(() => {
   const colName = String(props.collection || 'article')
-  const collectionConfig = (appConfig.app.collections?.[colName] || {}) as ArticleConfig
+  const collectionConfig = (appConfig.app.collections?.[colName] || {})
+  const isEvent = colName === 'event' || colName.startsWith('event')
+  const baseDefaults = isEvent ? appConfig.app.event : appConfig.app.article
+
   return {
-    ...appConfig.app.article,
+    ...baseDefaults,
     ...collectionConfig,
-  } as Required<ArticleConfig>
+  } as Required<ArticleConfig & EventConfig>
 })
 
 const itemsPerPage = computed(() => props.itemsPerPage || config.value.list?.itemsPerPage || 12)
 const labelAll = computed(() => config.value.list?.labelAll || 'All')
+const noResultsMessage = computed(() => config.value.list?.noResultsMessage || 'No items found.')
+const noResultsIcon = computed(() => config.value.list?.noResultsIcon)
 
 const page = ref(Number(route.query.page) || 1)
 const selectedCategory = ref(props.category || (route.query.category as string) || String(labelAll.value))
@@ -147,8 +152,8 @@ watch(fetchStatus, (newStatus) => {
     </UBlogPosts>
 
     <div v-else class="all:flex flex-col items-center justify-center py-20 text-muted text-center">
-      <UIcon name="i-ph-article-ny-times-light" class="size-12 mb-4 opacity-20" />
-      <p>No articles found.</p>
+      <UIcon v-if="noResultsIcon" :name="noResultsIcon" class="size-12 mb-4 opacity-20" />
+      <p>{{ noResultsMessage }}</p>
     </div>
 
     <div v-if="data && data.total > itemsPerPage" class="all:flex justify-center mt-8">
