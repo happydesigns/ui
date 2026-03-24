@@ -75,7 +75,7 @@ function updateQuery() {
       delete query.category
   }
 
-  navigateTo({ query }, { replace: true })
+  navigateTo({ query })
 }
 
 watch(page, () => {

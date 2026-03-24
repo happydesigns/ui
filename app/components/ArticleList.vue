@@ -66,7 +66,7 @@ function updateQuery() {
   else
     delete query.category
 
-  navigateTo({ query }, { replace: true })
+  navigateTo({ query })
 }
 
 // Sync state with query on back/forward navigation
