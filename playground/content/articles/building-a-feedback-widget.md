@@ -1,10 +1,13 @@
 ---
-title: "Building a Privacy-First Feedback Widget"
-description: "A lightweight, privacy-focused widget to gather your feedback on Nuxt documentation, built with Drizzle, NuxtHub database and Motion Vue."
-date: "2025-06-13"
-category: "Article"
-authors: ["hugorcd", "atinux"]
-status: "published"
+title: Building a Privacy-First Feedback Widget
+authors:
+  - hugorcd
+  - atinux
+category: Article
+date: 2025-06-13
+description: A lightweight, privacy-focused widget to gather your feedback on Nuxt documentation, built with Drizzle, NuxtHub database and Motion Vue.
+status: published
+toc: true
 ---
 
 Documentation is at the heart of the Nuxt developer experience. To continuously improve it, we needed a simple and effective way to collect user feedback directly on each page. Here's how we designed and implemented our feedback widget, drawing inspiration from Plausible's privacy-first approach.
@@ -14,15 +17,12 @@ Documentation is at the heart of the Nuxt developer experience. To continuously 
 Currently, users can provide feedback on our documentation by creating GitHub issues or contacting us directly. While these channels are valuable and remain important, they require users to leave their current context and take several steps to share their thoughts.
 
 We wanted something different:
+
 - **Contextual**: Directly integrated into each documentation page
 - **Frictionless**: Maximum 2 clicks to provide feedback
 - **Privacy-respecting**: No personal tracking, GDPR compliant by design
 
-::video{poster="https://res.cloudinary.com/nuxt/video/upload/so_0/v1749746517/nuxt/nuxt-feedback_lh6zyg.jpg" controls class="rounded-lg"}
-  :source{src="https://res.cloudinary.com/nuxt/video/upload/v1749746517/nuxt/nuxt-feedback_lh6zyg.webm" type="video/webm"}
-  :source{src="https://res.cloudinary.com/nuxt/video/upload/v1749746517/nuxt/nuxt-feedback_lh6zyg.mp4" type="video/mp4"}
-  :source{src="https://res.cloudinary.com/nuxt/video/upload/v1749746517/nuxt/nuxt-feedback_lh6zyg.ogg" type="video/ogg"}
-::
+:video{.rounded-lg controls poster="https://res.cloudinary.com/nuxt/video/upload/so_0/v1749746517/nuxt/nuxt-feedback_lh6zyg.jpg"}
 
 ## Technical architecture
 
@@ -100,11 +100,13 @@ export async function generateHash(
 ```
 
 This method generates a unique daily identifier by combining:
+
 - **IP + User-Agent**: Naturally sent with every HTTP request
 - **Domain**: Enables environment isolation
 - **Current date**: Forces daily rotation of identifiers
 
 **Why is this secure?**
+
 - IP and User-Agent are never stored in the database
 - The hash changes daily, preventing long-term tracking
 - Very difficult to reverse engineer original data from the hash

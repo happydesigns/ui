@@ -1,10 +1,13 @@
 ---
-title: "Building an MCP Server for Nuxt"
-description: "How we built the Nuxt MCP server to enable AI assistants to access our documentation through structured data and composable tools."
-date: "2025-11-13"
-category: "Article"
-authors: ["hugorcd", "atinux"]
-status: "published"
+title: Building an MCP Server for Nuxt
+authors:
+  - hugorcd
+  - atinux
+category: Article
+date: 2025-11-13
+description: How we built the Nuxt MCP server to enable AI assistants to access our documentation through structured data and composable tools.
+status: published
+toc: true
 ---
 
 AI assistants are becoming an increasingly important part of the developer experience. To help them provide accurate, up-to-date information about Nuxt, we built an MCP server that exposes our documentation, blog posts, and deployment guides in a structured way. Here's how we did it with the [Nuxt MCP Toolkit](https://mcp-toolkit.nuxt.dev), and how you can build your own.
@@ -39,7 +42,7 @@ Both [Nuxt](https://nuxt.com/mcp) and [Nuxt UI](https://ui.nuxt.com/mcp) now hav
 
 Our MCP server is built directly into nuxt.com using the [Nuxt MCP Toolkit](https://mcp-toolkit.nuxt.dev) module. The module provides automatic discovery of tools, resources, and prompts from your server directory:
 
-```
+```text
 nuxt.com/
 ├── server/
 │   └── mcp/
@@ -111,6 +114,7 @@ WHEN NOT TO USE: If you already know the specific page path, use get_documentati
 ```
 
 Notice a few key things:
+
 - **`defineMcpTool`** is auto-imported, no need to import it manually
 - **`inputSchema`** uses Zod for parameter validation
 - **`cache: '1h'`** enables built-in response caching
@@ -304,10 +308,10 @@ The easiest way to get started is with Cursor's one-click installation:
 
 ::u-button
 ---
-to: "cursor://anysphere.cursor-deeplink/mcp/install?name=nuxt&config=eyJ0eXBlIjoiaHR0cCIsInVybCI6Imh0dHBzOi8vbnV4dC5jb20vbWNwIn0%3D"
-label: Install Nuxt MCP Server in Cursor
 color: neutral
 icon: i-custom-cursor
+label: Install Nuxt MCP Server in Cursor
+to: cursor://anysphere.cursor-deeplink/mcp/install?name=nuxt&config=eyJ0eXBlIjoiaHR0cCIsInVybCI6Imh0dHBzOi8vbnV4dC5jb20vbWNwIn0%3D
 ---
 ::
 

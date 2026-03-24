@@ -1,10 +1,12 @@
 ---
-title: "Nuxt Image v2"
-description: "Nuxt Image v2 is out - with full TypeScript support, IPX v3, and new providers!"
-date: "2025-11-05"
-category: "Release"
-authors: ["danielroe"]
-status: "published"
+title: Nuxt Image v2
+authors:
+  - danielroe
+category: Release
+date: 2025-11-05
+description: Nuxt Image v2 is out - with full TypeScript support, IPX v3, and new providers!
+status: published
+toc: true
 ---
 
 We're excited to announce **Nuxt Image v2**! 🎉 This release focuses on TypeScript support, performance improvements, and better developer experience.
@@ -129,6 +131,7 @@ Both `<NuxtImg>` and `<NuxtPicture>` now have properly typed default slots.
 ```
 
 The slot provides:
+
 - `imgAttrs` - All computed image attributes (sizes, srcset, etc.)
 - `isLoaded` - Whether the placeholder has loaded
 - `src` - The computed image source URL

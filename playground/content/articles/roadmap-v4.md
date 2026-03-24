@@ -1,16 +1,17 @@
 ---
-title: "Roadmap to v4"
-description: "We have some exciting news about the roadmap to Nuxt 4, including a new timeline and what to expect in the next few weeks."
-date: "2025-06-02"
-category: "Release"
-authors: ["danielroe"]
-status: "published"
+title: Roadmap to v4
+authors:
+  - danielroe
+category: Release
+date: 2025-06-02
+description: We have some exciting news about the roadmap to Nuxt 4, including a new timeline and what to expect in the next few weeks.
+status: published
+toc: true
 ---
 
 We originally planned Nuxt 4 for June 2024, but things don't always go according to plan. I think it's appropriate to take a different approach:
 
 👉 **Nuxt 4 entered Release Candidate (RC) stage on July 8, 2025, with a stable release coming soon. Nuxt 5 will come later once Nitro v3 is ready.**
-
 
 ## Why Two Releases?
 
@@ -18,7 +19,7 @@ Honestly, in hindsight I think we should have shipped Nuxt v4 last year. It woul
 
 On the other hand, it has allowed time for testing across countless projects, by opting in to Nuxt 4 breaking changes with a single flag. I think that we should go ahead and ship these changes as Nuxt v4 for two reasons:
 
-1. **People are already using it**. I frequently hear of teams who are using `compatibilityVersion: 4` in production. This option was _intended_ only for testing, but it has proven solid enough for production use. We want to make it official, and give these teams the protection of a stable release.
+1. **People are already using it**. I frequently hear of teams who are using `compatibilityVersion: 4` in production. This option was *intended* only for testing, but it has proven solid enough for production use. We want to make it official, and give these teams the protection of a stable release.
 2. **It will improve the migration**. Having a two-stage migration from v3 -> v4, and then v4 -> v5 will make for a smoother migration. We don't yet have a final list of breaking changes for Nitro v3, and this means we can spend enough time to ensure that the Nitro upgrade is smooth, while not delaying adoption of the Nuxt changes we've planned for the last year.
 
 What's more, going forward we're going to do our best to decouple Nuxt releases from our key dependencies, like Vite or Nitro.
@@ -47,13 +48,13 @@ While Nuxt 4 won't initially include these upgrades, releasing Nuxt v4 and Nitro
 
 ## What About Nuxt 3?
 
-We'll provide ongoing maintenance and support for Nuxt 3 after the first stable release of Nuxt 4 &mdash; and continue supporting both Nuxt 3 and Nuxt 4 after Nuxt 5 has been released. We've intentionally chosen a slightly shorter timetable of _six months_ support for each of these releases because we believe that it will be a straightforward upgrade.
+We'll provide ongoing maintenance and support for Nuxt 3 after the first stable release of Nuxt 4 — and continue supporting both Nuxt 3 and Nuxt 4 after Nuxt 5 has been released. We've intentionally chosen a slightly shorter timetable of *six months* support for each of these releases because we believe that it will be a straightforward upgrade.
 
 (My main aim for the Nuxt 4 upgrade is to ensure that it is as smooth as possible.)
 
 Nevertheless, I'll be closely monitoring to see how successfully and quickly the ecosystem migrates. If there are issues I will absolutely extend that six month ongoing maintenance window. We don't want to leave anyone behind.
 
-For a while, this will mean active backports of features and bugfixes across three versions. But I think it's worth it. And we have &mdash; after all &mdash; been doing this for the last year in preparation for Nuxt 4.
+For a while, this will mean active backports of features and bugfixes across three versions. But I think it's worth it. And we have — after all — been doing this for the last year in preparation for Nuxt 4.
 
 |            |                                                   |
 | ---------- | ------------------------------------------------- |
@@ -69,6 +70,7 @@ Nuxt v4 is now in **Release Candidate (RC)** stage! We'd love early adopters to 
 We are currently in the **release candidate stage**: no more breaking changes are planned — only bug fixes before the stable release.
 
 Release stages for Nuxt 4:
+
 - **Alpha**: experimental features and breaking changes
 - **RC (now)**: stable feature set, final testing before release
 ::
@@ -78,7 +80,7 @@ Here's what you can expect over the next few weeks:
 - We plan to open **upstream PRs for community modules** in the [nuxt/modules](https://github.com/nuxt/modules) registry, and create a migration guide for module authors.
 - We'll create a full **upgrade guide** for Nuxt 3 users, including a list of breaking changes and how to migrate. (The current [upgrade guide](/docs/getting-started/upgrade) explains how to enable compatibility mode, but there are some differences with Nuxt 4.)
 - We'll **only release bugfixes for v3** this month, deferring backporting new features until after the release of v4.
-- We'll **update the docs on [nuxt.com](/)** to allow switching between `3.x`, `4.x` and (soon) `5.x` documentation.
+- We'll **update the docs on** **[nuxt.com](/)** to allow switching between `3.x`, `4.x` and (soon) `5.x` documentation.
 - With the **release candidate now live**, we're focused exclusively on bug fixes. No new features or breaking changes are expected.
 - Once v4 is released, we'll separate the `main` branch to `4.x` to adopt edge releases of `h3` and `nitro` and begin development of Nuxt 5.
 
@@ -86,4 +88,4 @@ Here's what you can expect over the next few weeks:
 You can follow the progress of the remaining work by checking [these remaining tasks](https://github.com/nuxt/nuxt/issues/27027) and [the Nuxt 4 milestone](https://github.com/nuxt/nuxt/milestone/8) on GitHub.
 ::
 
-I'm really excited with this timeline &mdash; and thank you for your patience and trust over the last year!
+I'm really excited with this timeline — and thank you for your patience and trust over the last year!

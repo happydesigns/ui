@@ -1,10 +1,14 @@
 ---
-title: "Nuxt UI v4"
-description: "Nuxt UI v4 unifies Nuxt UI and Nuxt UI Pro into one powerful, completely free library. With over 110 components, 12 templates, and a comprehensive Figma kit, all of this is available for free."
-date: "2025-09-22"
-category: "Release"
-authors: ["benjamincanac", "atinux", "hugorcd"]
-status: "published"
+title: Nuxt UI v4
+authors:
+  - benjamincanac
+  - atinux
+  - hugorcd
+category: Release
+date: 2025-09-22
+description: Nuxt UI v4 unifies Nuxt UI and Nuxt UI Pro into one powerful, completely free library. With over 110 components, 12 templates, and a comprehensive Figma kit, all of this is available for free.
+status: published
+toc: true
 ---
 
 Today, we’re releasing [**Nuxt UI v4**](https://ui.nuxt.com), a major milestone that sets a new standard for our component library. With this release, we are unifying Nuxt UI and Nuxt UI Pro into a single, powerful, and completely free open-source library.
@@ -26,60 +30,59 @@ This is possible because Nuxt UI v4 unifies everything you need into a single `@
 
 The entire Pro suite is now yours. Build with powerful components previously exclusive to our paid users, now free for everyone.
 
-::tabs{class="gap-0"}
+::tabs{.gap-0}
+  :::div{label="index.vue"}
+  ```vue
+  <template>
+    <UApp>
+      <UHeader>
+        <UNavigationMenu :items="navigation" />
+        <template #right>
+          <UColorModeButton />
+          <UButton icon="i-simple-icons-github" />
+        </template>
+      </UHeader>
 
-::div{label="index.vue"}
-```vue
-<template>
-  <UApp>
-    <UHeader>
-      <UNavigationMenu :items="navigation" />
-      <template #right>
-        <UColorModeButton />
-        <UButton icon="i-simple-icons-github" />
-      </template>
-    </UHeader>
-
-    <UPageHero
-      title="Nuxt UI - Starter"
-      description="Nuxt UI is a free and open-source UI library for Nuxt applications. Create beautiful & responsive applications in minutes."
-      :links="heroLinks"
-    />
-
-    <UPageSection
-      title="The freedom to build anything"
-      description="Nuxt UI ships with a comprehensive set of components that cover a wide range of use-cases. Carefully crafted to reduce boilerplate code without sacrificing flexibility."
-      :features="features"
-    />
-
-    <UPageSection title="Pricing">
-      <UPricingPlans :plans="plans" />
-    </UPageSection>
-
-    <UPageSection>
-      <UPageCTA
-        title="Start with Nuxt UI today!"
-        description="Nuxt UI is a free and open-source UI library for Nuxt applications."
-        variant="subtle"
-        :links="ctaLinks"
+      <UPageHero
+        title="Nuxt UI - Starter"
+        description="Nuxt UI is a free and open-source UI library for Nuxt applications. Create beautiful & responsive applications in minutes."
+        :links="heroLinks"
       />
-    </UPageSection>
 
-    <UFooter :items="footerItems" />
-  </UApp>
-</template>
-```
-::
+      <UPageSection
+        title="The freedom to build anything"
+        description="Nuxt UI ships with a comprehensive set of components that cover a wide range of use-cases. Carefully crafted to reduce boilerplate code without sacrificing flexibility."
+        :features="features"
+      />
 
-::code-preview
----
-label: Preview
-class: '[&>div]:*:my-0 w-full'
-ui:
-  preview: p-0
----
-<https://nuxt.com/blog/nuxt-ui-v4#build-anything-faster-than-ever>
-::
+      <UPageSection title="Pricing">
+        <UPricingPlans :plans="plans" />
+      </UPageSection>
+
+      <UPageSection>
+        <UPageCTA
+          title="Start with Nuxt UI today!"
+          description="Nuxt UI is a free and open-source UI library for Nuxt applications."
+          variant="subtle"
+          :links="ctaLinks"
+        />
+      </UPageSection>
+
+      <UFooter :items="footerItems" />
+    </UApp>
+  </template>
+  ```
+  :::
+
+  :::code-preview
+  ---
+  ui:
+    preview: p-0
+  class: "[&>div]:*:my-0 w-full"
+  label: Preview
+  ---
+  <https://nuxt.com/blog/nuxt-ui-v4#build-anything-faster-than-ever>
+  :::
 ::
 
 ## From design to code, seamlessly
@@ -88,7 +91,15 @@ A successful project starts with a solid design system. In v4, we are releasing 
 
 With over **2,000 component variants and design tokens**, you now have a single Figma entry point that contains every component along with detailed explanations about structure and usage. Designers and developers work from the same comprehensive source, making collaboration seamless and ensuring a perfect match between design and implementation.
 
-:u-button{to="https://go.nuxt.com/figma-ui" target="_blank" icon="i-simple-icons-figma" label="Get the Figma Kit →" class="mb-4"}
+::u-button
+---
+class: mb-4
+icon: i-simple-icons-figma
+label: Get the Figma Kit →
+target: _blank
+to: https://go.nuxt.com/figma-ui
+---
+::
 
 ::carousel
 ---
@@ -113,7 +124,7 @@ Check out our [migration guide](https://ui.nuxt.com/getting-started/migration/v4
 
 We've completely overhauled our documentation to make it clearer and more intuitive. We’ve restructured the layout and split complex topics into dedicated pages, ensuring you can find the information you need, faster.
 
-Our documentation is also now fully AI-ready. It's powered by our new **[Model Context Protocol (MCP) server](https://ui.nuxt.com/docs/getting-started/ai/mcp)**, which allows AI tools like Cursor to access component documentation and metadata directly. In addition, we provide **[`LLMs.txt` files](https://ui.nuxt.com/docs/getting-started/ai/llms-txt)**, a structured format that enables any AI assistant to understand our components, theming, and best practices. Your AI tools now have first-class access to our entire library, right inside your editor.
+Our documentation is also now fully AI-ready. It's powered by our new **[Model Context Protocol (MCP) server](https://ui.nuxt.com/docs/getting-started/ai/mcp)**, which allows AI tools like Cursor to access component documentation and metadata directly. In addition, we provide **[`LLMs.txt`](https://ui.nuxt.com/docs/getting-started/ai/llms-txt) [files](https://ui.nuxt.com/docs/getting-started/ai/llms-txt)**, a structured format that enables any AI assistant to understand our components, theming, and best practices. Your AI tools now have first-class access to our entire library, right inside your editor.
 
 ### Ready for the next wave of AI
 
@@ -130,7 +141,6 @@ Your support made this moment possible.
 Get started with Nuxt UI v4 by creating a new project with any of our free templates:
 
 ::code-group
-
 ```bash [Starter]
 npm create nuxt@latest -- -t ui
 ```
@@ -162,7 +172,6 @@ npm create nuxt@latest -- -t github:nuxt-ui-templates/portfolio
 ```bash [Changelog]
 npm create nuxt@latest -- -t github:nuxt-ui-templates/changelog
 ```
-
 ::
 
 Or add it to your existing project:
@@ -179,4 +188,4 @@ We can't wait to see what you build. The future of UI development is free, open,
 
 ---
 
-*Ready to get started? Check out the [documentation](https://ui.nuxt.com) and join our [Discord community](https://discord.nuxt.com) to connect with other developers building amazing things with Nuxt UI.*
+*Ready to get started? Check out the [documentation](https://ui.nuxt.com)* *and join our [Discord community](https://discord.nuxt.com)* *to connect with other developers building amazing things with Nuxt UI.*

@@ -1,10 +1,14 @@
 ---
-title: "Nuxt UI v3"
-description: "Nuxt UI v3 is out! After 1500+ commits, this major redesign brings improved accessibility, Tailwind CSS v4 support, and full Vue compatibility"
-date: "2025-03-12"
-category: "Release"
-authors: ["benjamincanac", "atinux", "hugorcd"]
-status: "published"
+title: Nuxt UI v3
+authors:
+  - benjamincanac
+  - atinux
+  - hugorcd
+category: Release
+date: 2025-03-12
+description: Nuxt UI v3 is out! After 1500+ commits, this major redesign brings improved accessibility, Tailwind CSS v4 support, and full Vue compatibility
+status: published
+toc: true
 ---
 
 We are thrilled to announce the release of Nuxt UI v3, a complete redesign of our UI library that brings significant improvements in accessibility, performance, and developer experience. This major update represents over 1500 commits of hard work, collaboration, and innovation from our team and the community.
@@ -61,15 +65,15 @@ Your applications will feel snappier, build quicker, and load faster for your us
 
 Our new color system includes 7 semantic color aliases:
 
-| Color                             | Default  | Description                                      |
-|-----------------------------------|----------|--------------------------------------------------|
-| :code[primary]{.text-primary}     | `blue`   | Primary color to represent the brand.
-| :code[secondary]{.text-secondary} | `blue`   | Secondary color to complement the primary color.
-| :code[success]{.text-success}     | `green`  | Used for success states.
-| :code[info]{.text-info}           | `blue`   | Used for informational states.
-| :code[warning]{.text-warning}     | `yellow` | Used for warning states.
-| :code[error]{.text-error}         | `red`    | Used for form error validation states.           |
-| `neutral`                         | `slate`  | Neutral color for backgrounds, text, etc.        |
+| Color       | Default  | Description                                      |
+| ----------- | -------- | ------------------------------------------------ |
+| `primary`   | `blue`   | Primary color to represent the brand.            |
+| `secondary` | `blue`   | Secondary color to complement the primary color. |
+| `success`   | `green`  | Used for success states.                         |
+| `info`      | `blue`   | Used for informational states.                   |
+| `warning`   | `yellow` | Used for warning states.                         |
+| `error`     | `red`    | Used for form error validation states.           |
+| `neutral`   | `slate`  | Neutral color for backgrounds, text, etc.        |
 
 This approach makes your codebase more maintainable and your UI more consistent—especially when working in teams. With these semantic tokens, light and dark mode transitions become effortless, as the system automatically handles the appropriate color values for each theme without requiring duplicate class definitions.
 
