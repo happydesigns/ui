@@ -1,6 +1,23 @@
 # Changelog
 
 
+## v0.10.6
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.10.5...v0.10.6)
+
+### 🩹 Fixes
+
+- **ui:** Prevent leading or trailing middot in article and event layouts ([0477c2e](https://github.com/happydesigns/ui/commit/0477c2e))
+- **ui:** Ensure pagination and category state are persisted in browser history ([44238b9](https://github.com/happydesigns/ui/commit/44238b9))
+
+### 🏡 Chore
+
+- **playground:** Normalize content frontmatter and format markdown files ([8776d9d](https://github.com/happydesigns/ui/commit/8776d9d))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.10.5
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.10.4...v0.10.5)
