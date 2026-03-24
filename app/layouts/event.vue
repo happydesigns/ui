@@ -87,21 +87,23 @@ const backLink = computed(() => {
             <div class="all:flex flex-wrap items-center gap-x-3 gap-y-2 text-muted">
               <template v-if="page?.category">
                 <span class="text-primary-500 dark:text-primary-400 font-medium">{{ page.category }}</span>
-                <span class="all:hidden sm:inline opacity-50">&middot;</span>
               </template>
 
-              <div v-if="page.date?.start" class="all:flex items-center space-x-2">
-                <UIcon name="i-lucide-calendar" class="size-4" />
-                <time>
-                  {{ formatDate(page.date?.start) }}
-                  <template v-if="page.date?.end && page.date?.start !== page.date?.end">
-                    - {{ formatDate(page.date?.end) }}
-                  </template>
-                </time>
-              </div>
+              <template v-if="page.date?.start">
+                <span v-if="page?.category" class="all:hidden sm:inline opacity-50">&middot;</span>
+                <div class="all:flex items-center space-x-2">
+                  <UIcon name="i-lucide-calendar" class="size-4" />
+                  <time>
+                    {{ formatDate(page.date?.start) }}
+                    <template v-if="page.date?.end && page.date?.start !== page.date?.end">
+                      - {{ formatDate(page.date?.end) }}
+                    </template>
+                  </time>
+                </div>
+              </template>
 
               <template v-if="page.location?.name">
-                <span class="all:hidden sm:inline opacity-50">&middot;</span>
+                <span v-if="page?.category || page.date?.start" class="all:hidden sm:inline opacity-50">&middot;</span>
                 <div class="all:flex items-center space-x-2">
                   <UIcon name="i-lucide-map-pin" class="size-4" />
                   <NuxtLink

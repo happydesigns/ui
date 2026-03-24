@@ -87,13 +87,13 @@ const backLink = computed(() => {
               :items="breadcrumbItems"
             />
             <div class="all:flex items-center space-x-2">
-              <template v-if="page?.category">
-                <span>{{ page.category }}</span>
-                <span class="text-muted">&middot;</span>
+              <span v-if="page?.category">{{ page.category }}</span>
+              <template v-if="page.date">
+                <span v-if="page?.category" class="text-muted">&middot;</span>
+                <time class="text-muted">
+                  {{ formatDate(page.date) }}
+                </time>
               </template>
-              <time v-if="page.date" class="text-muted">
-                {{ formatDate(page.date) }}
-              </time>
             </div>
           </template>
           <div class="mt-4 all:flex flex-wrap items-center gap-6">
