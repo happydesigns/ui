@@ -11,24 +11,32 @@ const {
 const appConfig = useAppConfig()
 const route = useRoute()
 
-/** Resolve the configuration for this collection, falling back to article defaults */
+/** Resolve the configuration for this collection, falling back to appropriate layout defaults */
 const config = computed(() => {
-  const collectionConfig = (appConfig.app.collections?.[String(collection)] || {}) as ArticleConfig
-  const baseConfig = appConfig.app.article
+  const colName = String(collection)
+  const collectionConfig = (appConfig.app.collections?.[colName] || {})
+  const isEvent = colName === 'event' || colName.startsWith('event')
+  const baseDefaults = isEvent ? appConfig.app.event : appConfig.app.article
+
   return {
-    ...baseConfig.surround,
+    ...baseDefaults.surround,
     ...(collectionConfig.surround || {}),
   }
+})
+
+const isEvent = computed(() => {
+  const colName = String(collection)
+  return colName === 'event' || colName.startsWith('event')
 })
 
 const { data: surround } = await useAsyncData(
   `${String(collection)}-surround-${route.path}`,
   () => {
-    return queryCollectionItemSurroundings(collection as 'article', route.path, {
+    return queryCollectionItemSurroundings(collection as any, route.path, {
       fields: ['title', 'description', 'status'],
     })
       .where('status', '=', 'published')
-      .order('date', 'DESC') as unknown as Promise<ContentNavigationItem[]>
+      .order(isEvent.value ? 'date.start' : 'date', 'DESC') as unknown as Promise<ContentNavigationItem[]>
   },
 )
 </script>

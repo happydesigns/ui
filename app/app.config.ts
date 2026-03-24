@@ -119,6 +119,19 @@ export interface EventConfig {
     /** Icon to be shown when no events are found */
     noResultsIcon?: string
   }
+  /** Configuration for the surround navigation in the event layout */
+  surround?: {
+    /** Whether to show the surround navigation */
+    show?: boolean
+    /** The icon to be shown in the previous button */
+    prevIcon?: string
+    /** The icon to be shown in the next button */
+    nextIcon?: string
+    /** The label to be shown in the previous button */
+    prevLabel?: string
+    /** The label to be shown in the next button */
+    nextLabel?: string
+  }
 }
 
 export default defineAppConfig({
@@ -203,6 +216,13 @@ export default defineAppConfig({
         labelAll: 'All',
         noResultsMessage: 'No events found.',
         noResultsIcon: 'i-ph-calendar-blank',
+      },
+      surround: {
+        show: true,
+        prevIcon: 'i-lucide-arrow-left',
+        nextIcon: 'i-lucide-arrow-right',
+        prevLabel: 'Previous',
+        nextLabel: 'Next',
       },
     } as EventConfig,
 
