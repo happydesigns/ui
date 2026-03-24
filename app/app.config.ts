@@ -7,6 +7,40 @@ export interface ArticleCategoryBadge {
   icon?: string
 }
 
+export interface ContentActionButtons {
+  /** Configuration for the edit button */
+  edit?: {
+    /** The icon to be shown in the edit button */
+    icon?: string
+    /** The label to be shown in the edit button */
+    label?: string
+  }
+  /** Configuration for the report button */
+  report?: {
+    /** The icon to be shown in the report button */
+    icon?: string
+    /** The label to be shown in the report button */
+    label?: string
+    /** The URL to be shown in the report button */
+    link?: string
+  }
+  /** The separator text between edit and report buttons */
+  separator?: string
+}
+
+export interface ContentSurroundConfig {
+  /** Whether to show the surround navigation */
+  show?: boolean
+  /** The icon to be shown in the previous button */
+  prevIcon?: string
+  /** The icon to be shown in the next button */
+  nextIcon?: string
+  /** The label to be shown in the previous button */
+  prevLabel?: string
+  /** The label to be shown in the next button */
+  nextLabel?: string
+}
+
 export interface ArticleConfig {
   /** A record of article categories mapped by their internal string ID */
   categories?: Record<string, ArticleCategoryBadge>
@@ -35,39 +69,9 @@ export interface ArticleConfig {
     successLabel?: string
   }
   /** Configuration for the action buttons (edit, report) in the article layout */
-  actionButtons?: {
-    /** Configuration for the edit button */
-    edit?: {
-      /** The icon to be shown in the edit button */
-      icon?: string
-      /** The label to be shown in the edit button */
-      label?: string
-    }
-    /** Configuration for the report button */
-    report?: {
-      /** The icon to be shown in the report button */
-      icon?: string
-      /** The label to be shown in the report button */
-      label?: string
-      /** The URL to be shown in the report button */
-      link?: string
-    }
-    /** The separator text between edit and report buttons */
-    separator?: string
-  }
+  actionButtons?: ContentActionButtons
   /** Configuration for the surround navigation in the article layout */
-  surround?: {
-    /** Whether to show the surround navigation */
-    show?: boolean
-    /** The icon to be shown in the previous button */
-    prevIcon?: string
-    /** The icon to be shown in the next button */
-    nextIcon?: string
-    /** The label to be shown in the previous button */
-    prevLabel?: string
-    /** The label to be shown in the next button */
-    nextLabel?: string
-  }
+  surround?: ContentSurroundConfig
   /** Configuration for the article list */
   list?: {
     /** Items per page */
@@ -109,26 +113,7 @@ export interface EventConfig {
     successLabel?: string
   }
   /** Configuration for the action buttons (edit, report) in the event layout */
-  actionButtons?: {
-    /** Configuration for the edit button */
-    edit?: {
-      /** The icon to be shown in the edit button */
-      icon?: string
-      /** The label to be shown in the edit button */
-      label?: string
-    }
-    /** Configuration for the report button */
-    report?: {
-      /** The icon to be shown in the report button */
-      icon?: string
-      /** The label to be shown in the report button */
-      label?: string
-      /** The URL to be shown in the report button */
-      link?: string
-    }
-    /** The separator text between edit and report buttons */
-    separator?: string
-  }
+  actionButtons?: ContentActionButtons
   /** Configuration for the event list */
   list?: {
     /** Items per page */
@@ -141,18 +126,7 @@ export interface EventConfig {
     noResultsIcon?: string
   }
   /** Configuration for the surround navigation in the event layout */
-  surround?: {
-    /** Whether to show the surround navigation */
-    show?: boolean
-    /** The icon to be shown in the previous button */
-    prevIcon?: string
-    /** The icon to be shown in the next button */
-    nextIcon?: string
-    /** The label to be shown in the previous button */
-    prevLabel?: string
-    /** The label to be shown in the next button */
-    nextLabel?: string
-  }
+  surround?: ContentSurroundConfig
 }
 
 export default defineAppConfig({

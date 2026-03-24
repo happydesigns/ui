@@ -5,21 +5,21 @@ const appConfig = useAppConfig()
 const route = useRoute()
 
 const config = computed(() => {
-  const collectionConfig = appConfig.app.collections?.article || {}
+  const collectionConfig = appConfig.app.collections?.event || {}
   return {
-    ...appConfig.app.article.surround,
+    ...appConfig.app.event.surround,
     ...(collectionConfig.surround || {}),
   }
 })
 
 const { data: surround } = await useAsyncData(
-  `article-surround-${route.path}`,
+  `event-surround-${route.path}`,
   () => {
-    return queryCollectionItemSurroundings('article', route.path, {
+    return queryCollectionItemSurroundings('event', route.path, {
       fields: ['title', 'description', 'status'],
     })
       .where('status', '=', 'published')
-      .order('date', 'DESC') as unknown as Promise<ContentNavigationItem[]>
+      .order('date.start', 'DESC') as unknown as Promise<ContentNavigationItem[]>
   },
 )
 </script>

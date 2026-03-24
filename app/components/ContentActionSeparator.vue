@@ -1,6 +1,6 @@
 <script setup lang="ts" generic="C extends keyof PageCollections = 'article'">
 import type { PageCollections } from '@nuxt/content'
-import type { ArticleConfig, EventConfig } from '~/app.config'
+import type { ContentActionButtons } from '~/app.config'
 
 const props = defineProps<{
   page?: any
@@ -29,7 +29,7 @@ const config = computed(() => {
   return {
     ...baseDefaults.actionButtons,
     ...(collectionConfig.actionButtons || {}),
-  } as ArticleConfig['actionButtons'] & EventConfig['actionButtons']
+  } as ContentActionButtons
 })
 </script>
 
