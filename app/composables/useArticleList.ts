@@ -1,7 +1,8 @@
-import { computed, toValue, type MaybeRefOrGetter } from 'vue'
 import type { Collections, PageCollections, SQLOperator } from '@nuxt/content'
 import type { BadgeProps } from '@nuxt/ui'
-import type { ArticleCategoryBadge, ArticleConfig, EventConfig } from '~/app.config'
+import type { MaybeRefOrGetter } from 'vue'
+import type { ArticleConfig, EventConfig } from '~/app.config'
+import { computed, toValue } from 'vue'
 
 export interface ArticleFilter {
   field: string

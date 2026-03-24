@@ -6,7 +6,7 @@ export default defineNuxtConfig({
       owner: 'happydesigns',
       repo: 'ui',
       branch: 'main',
-      rootDir: 'playground'
+      rootDir: 'playground',
     },
   },
 })

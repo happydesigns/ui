@@ -4,4 +4,3 @@ export const socialSchema = z.object({
   name: z.string(),
   url: z.url(),
 })
-
