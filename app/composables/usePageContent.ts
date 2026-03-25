@@ -11,8 +11,9 @@ interface UsePageContentOptions<C extends keyof Collections = 'page'> {
 /**
  * Composable to fetch content from a Nuxt Content collection.
  *
- * @param C - The specific collection key
- * @param B - An optional base type to intersect with (e.g. Collections['article'])
+ * @param options - Configuration options for fetching content
+ * @param options.path - Optional path to fetch. Defaults to current route path.
+ * @param options.collection - Optional collection to fetch from. Defaults to 'page'.
  */
 export function usePageContent<C extends keyof Collections = 'page', B = object>(
   { path, collection }: UsePageContentOptions<C> = {},

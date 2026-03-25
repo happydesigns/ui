@@ -28,9 +28,12 @@ const { data: page } = await usePageContent<C, Collections['article']>({
 
 /** Resolve the configuration for this collection, falling back to article defaults */
 const config = computed(() => {
-  const collectionConfig = (appConfig.app.collections?.[String(collection)] || {}) as ArticleConfig
+  const colName = String(collection)
+  const collectionConfig = appConfig.app.collections?.[colName] || {}
+  const baseDefaults = appConfig.app.collections?.article || {}
+
   return {
-    ...appConfig.app.article,
+    ...baseDefaults,
     ...collectionConfig,
   } as Required<ArticleConfig>
 })

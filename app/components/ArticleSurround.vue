@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import type { ContentNavigationItem } from '@nuxt/content'
-
 const appConfig = useAppConfig()
 const route = useRoute()
 
 const config = computed(() => {
   const collectionConfig = appConfig.app.collections?.article || {}
+  const baseDefaults = appConfig.app.collections?.article || {}
   return {
-    ...appConfig.app.article.surround,
+    ...baseDefaults.surround,
     ...(collectionConfig.surround || {}),
   }
 })
@@ -19,7 +18,7 @@ const { data: surround } = await useAsyncData(
       fields: ['title', 'description', 'status'],
     })
       .where('status', '=', 'published')
-      .order('date', 'DESC') as unknown as Promise<ContentNavigationItem[]>
+      .order('date', 'DESC')
   },
 )
 </script>

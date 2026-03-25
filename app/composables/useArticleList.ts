@@ -37,9 +37,9 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
   /** Resolve the configuration for this collection, falling back to appropriate layout defaults */
   const config = computed(() => {
     const colName = String(collection.value)
-    const collectionConfig = (appConfig.app.collections?.[colName] || {})
-    const isEvent = colName === 'event' || colName.startsWith('event')
-    const baseDefaults = isEvent ? appConfig.app.event : appConfig.app.article
+    const collectionConfig = appConfig.app.collections?.[colName] || {}
+    const fallback = collectionConfig.fallback || 'article'
+    const baseDefaults = appConfig.app.collections?.[fallback] || {}
 
     return {
       ...baseDefaults,

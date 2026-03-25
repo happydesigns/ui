@@ -26,9 +26,12 @@ const route = useRoute()
 /** Resolve the configuration for this collection, falling back to article defaults */
 const config = computed(() => {
   const colName = String(props.collection || 'article')
-  const collectionConfig = (appConfig.app.collections?.[colName] || {}) as ArticleConfig
+  const collectionConfig = appConfig.app.collections?.[colName] || {}
+  const fallback = collectionConfig.fallback || 'article'
+  const baseDefaults = appConfig.app.collections?.[fallback] || {}
+
   return {
-    ...appConfig.app.article,
+    ...baseDefaults,
     ...collectionConfig,
   } as Required<ArticleConfig>
 })

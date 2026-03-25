@@ -4,8 +4,9 @@ const route = useRoute()
 
 const config = computed(() => {
   const collectionConfig = appConfig.app.collections?.event || {}
+  const baseDefaults = appConfig.app.collections?.event || {}
   return {
-    ...appConfig.app.event.surround,
+    ...baseDefaults.surround,
     ...(collectionConfig.surround || {}),
   }
 })

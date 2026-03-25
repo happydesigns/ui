@@ -9,7 +9,7 @@ export function useCategoryBadge(category: MaybeRefOrGetter<string | undefined |
 
   return computed(() => {
     const categoryKey = toValue(category)
-    const categories = appConfig.app?.article?.categories
+    const categories = appConfig.app?.collections?.article?.categories
 
     if (categoryKey && categories && categoryKey in categories) {
       return categories[categoryKey]

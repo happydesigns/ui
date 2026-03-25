@@ -28,9 +28,12 @@ const { data: page } = await usePageContent<C, Collections['event']>({
 
 /** Resolve the configuration for this collection, falling back to event defaults */
 const config = computed(() => {
-  const collectionConfig = (appConfig.app.collections?.[collection] || {}) as EventConfig
+  const colName = String(collection)
+  const collectionConfig = appConfig.app.collections?.[colName] || {}
+  const baseDefaults = appConfig.app.collections?.event || {}
+
   return {
-    ...appConfig.app.event,
+    ...baseDefaults,
     ...collectionConfig,
   } as Required<EventConfig>
 })

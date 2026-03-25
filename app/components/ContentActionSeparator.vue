@@ -1,6 +1,6 @@
 <script setup lang="ts" generic="C extends keyof PageCollections = 'article'">
 import type { PageCollections } from '@nuxt/content'
-import type { ContentActionButtons } from '~/app.config'
+import type { ContentActionButtons } from '~/types/config'
 
 const props = defineProps<{
   page?: any
@@ -22,9 +22,9 @@ const editLink = computed(() => {
 
 const config = computed(() => {
   const colName = String(props.collection || 'article')
-  const collectionConfig = (appConfig.app.collections?.[colName] || {})
-  const isEvent = colName === 'event' || colName.startsWith('event')
-  const baseDefaults = isEvent ? appConfig.app.event : appConfig.app.article
+  const collectionConfig = appConfig.app.collections?.[colName] || {}
+  const fallback = collectionConfig.fallback || 'article'
+  const baseDefaults = appConfig.app.collections?.[fallback] || {}
 
   return {
     ...baseDefaults.actionButtons,
