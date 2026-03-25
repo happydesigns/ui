@@ -1,6 +1,36 @@
 # Changelog
 
 
+## v0.11.0
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.10.6...v0.11.0)
+
+### 🚀 Enhancements
+
+- **ui:** Make no results message and icon customizable per collection ([282d479](https://github.com/happydesigns/ui/commit/282d479))
+- **ui:** Implement article surround navigation for event pages ([529969c](https://github.com/happydesigns/ui/commit/529969c))
+- **ui:** Implement generic content action separator and surround components for articles and events ([b92640a](https://github.com/happydesigns/ui/commit/b92640a))
+- **ui:** Refactor content components for better type safety and collection-specific surroundings ([e9568cf](https://github.com/happydesigns/ui/commit/e9568cf))
+
+### 💅 Refactors
+
+- **event:** ⚠️  Flatten date structure to improve sorting and surround navigation ([82ada4a](https://github.com/happydesigns/ui/commit/82ada4a))
+
+### 🏡 Chore
+
+- Lint ([274d44f](https://github.com/happydesigns/ui/commit/274d44f))
+- **playground:** Add mock events for surround testing ([88b8110](https://github.com/happydesigns/ui/commit/88b8110))
+- **playground:** Explicitly sort events page by date DESC ([8718fda](https://github.com/happydesigns/ui/commit/8718fda))
+- Lint events ([a5dfdb8](https://github.com/happydesigns/ui/commit/a5dfdb8))
+
+#### ⚠️ Breaking Changes
+
+- **event:** ⚠️  Flatten date structure to improve sorting and surround navigation ([82ada4a](https://github.com/happydesigns/ui/commit/82ada4a))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.10.6
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.10.5...v0.10.6)
