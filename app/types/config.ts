@@ -39,9 +39,27 @@ export interface ContentSurroundConfig {
   nextLabel?: string
 }
 
+export interface CollectionQueryConfig {
+  /** Fields to fetch */
+  fields?: string[]
+  /** Default sorting */
+  order?: {
+    field: string
+    direction: 'ASC' | 'DESC'
+  }
+  /** Default filters */
+  where?: Array<{
+    field: string
+    operator: any // SQLOperator is not easily available here without importing from @nuxt/content
+    value?: any
+  }>
+}
+
 export interface ArticleConfig {
   /** The fallback collection to use for defaults */
   fallback?: string
+  /** Shared query configuration for lists, grids and surround */
+  query?: CollectionQueryConfig
   /** A record of categories mapped by their internal string ID */
   categories?: Record<string, CategoryBadge>
   /** The breadcrumb items to be shown as parents */

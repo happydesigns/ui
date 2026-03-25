@@ -29,6 +29,11 @@ export default defineAppConfig({
     /** Default configurations for different layouts and specific collections */
     collections: {
       article: {
+        query: {
+          fields: ['title', 'description', 'status', 'date'],
+          order: { field: 'date', direction: 'DESC' },
+          where: [{ field: 'status', operator: '=', value: 'published' }],
+        },
         categories: {},
         breadcrumbs: [],
         backButton: {
@@ -69,6 +74,11 @@ export default defineAppConfig({
       } as ArticleConfig,
 
       event: {
+        query: {
+          fields: ['title', 'description', 'status', 'date', 'dateEnd', 'location'],
+          order: { field: 'date', direction: 'DESC' },
+          where: [{ field: 'status', operator: '=', value: 'published' }],
+        },
         categories: {},
         breadcrumbs: [],
         backButton: {

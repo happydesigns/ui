@@ -148,7 +148,7 @@ const backLink = computed(() => {
 
             <HContentActionSeparator :page="page" :collection="collection" />
 
-            <HEventSurround />
+            <HContentSurround :collection="collection" />
           </UPageBody>
 
           <template #right>
