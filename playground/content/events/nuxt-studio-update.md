@@ -4,11 +4,11 @@ category: Announcement
 date: 2026-03-20
 dateEnd: 2026-03-20
 description: Latest updates and improvements to Nuxt Studio, making content management even easier.
+location:
+  name: Online
 status: published
 toc: true
 layout: event
-location:
-  name: Online
 ---
 
 ## Summary

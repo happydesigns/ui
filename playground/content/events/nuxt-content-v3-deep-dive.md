@@ -4,11 +4,11 @@ category: Webinar
 date: 2026-05-10
 dateEnd: 2026-05-10
 description: A comprehensive look at the new Nuxt Content v3, focusing on the new schema engine and improved performance.
+location:
+  name: Online
 status: published
 toc: true
 layout: event
-location:
-  name: Online
 ---
 
 ## Overview
