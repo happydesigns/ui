@@ -91,75 +91,76 @@ export default defineAppConfig({
       },
     },
 
-    article: {
-      breadcrumbs: [
-        {
-          label: 'Blog',
-          to: '/articles',
-          icon: 'i-lucide:book-open',
+    collections: {
+      article: {
+        breadcrumbs: [
+          {
+            label: 'Blog',
+            to: '/articles',
+            icon: 'i-lucide:book-open',
+          },
+        ],
+        categories: {
+          Release: {
+            label: 'Release',
+            color: 'info',
+          },
+          Article: {
+            label: 'Article',
+            color: 'primary',
+          },
         },
-      ],
-      categories: {
-        Release: {
-          label: 'Release',
-          color: 'info',
+        backButton: {
+          label: 'Zurück zum Blog',
         },
-        Article: {
-          label: 'Article',
-          color: 'primary',
+        copyButton: {
+          label: 'URL kopieren',
+          successLabel: 'Link in Zwischenablage kopiert',
+        },
+        actionButtons: {
+          edit: {
+            label: 'Artikel bearbeiten',
+          },
+          report: {
+            label: 'Fehler melden',
+          },
+          separator: 'oder',
+        },
+        surround: {
+          prevLabel: 'Vorheriger',
+          nextLabel: 'Nächster',
+        },
+        list: {
+          labelAll: 'Alle',
         },
       },
-      backButton: {
-        label: 'Zurück zum Blog',
-      },
-      copyButton: {
-        label: 'URL kopieren',
-        successLabel: 'Link in Zwischenablage kopiert',
-      },
-      actionButtons: {
-        edit: {
-          label: 'Artikel bearbeiten',
-        },
-        report: {
-          label: 'Fehler melden',
-        },
-        separator: 'oder',
-      },
-      surround: {
-        prevLabel: 'Vorheriger',
-        nextLabel: 'Nächster',
-      },
-      list: {
-        labelAll: 'Alle',
-      },
-    },
 
-    event: {
-      dateComponent: 'HEventGridDate',
-      backButton: {
-        label: 'Zurück zur Übersicht',
+      event: {
+        backButton: {
+          label: 'Zurück zur Übersicht',
+        },
+        categories: {
+          Workshop: {
+            label: 'Workshop',
+            color: 'info',
+          },
+          Conference: {
+            label: 'Conference',
+            color: 'success',
+          },
+          Meetup: {
+            label: 'Meetup',
+            color: 'warning',
+          },
+        },
+        breadcrumbs: [
+          {
+            label: 'Events',
+            to: '/events',
+            icon: 'i-lucide:calendar',
+          },
+        ],
       },
-      categories: {
-        Workshop: {
-          label: 'Workshop',
-          color: 'info',
-        },
-        Conference: {
-          label: 'Conference',
-          color: 'success',
-        },
-        Meetup: {
-          label: 'Meetup',
-          color: 'warning',
-        },
-      },
-      breadcrumbs: [
-        {
-          label: 'Events',
-          to: '/events',
-          icon: 'i-lucide:calendar',
-        },
-      ],
     },
   },
 
