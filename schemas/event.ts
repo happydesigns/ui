@@ -2,10 +2,8 @@ import { property } from '@nuxt/content'
 import { z } from 'zod/v4'
 
 export const eventSchema = z.object({
-  date: z.object({
-    start: z.iso.date(),
-    end: z.iso.date(),
-  }).optional(),
+  date: z.iso.date().optional(),
+  dateEnd: z.iso.date().optional(),
   location: z.object({
     name: z.string(),
     url: z.string().optional(),

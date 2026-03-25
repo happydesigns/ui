@@ -7,10 +7,10 @@ defineProps<{
 </script>
 
 <template>
-  <time v-if="article.date?.start" class="text-xs text-muted">
-    {{ formatDate(article.date?.start) }}
-    <template v-if="article.date?.end && article.date?.start !== article.date?.end">
-      - {{ formatDate(article.date?.end) }}
+  <time v-if="article.date" class="text-xs text-muted">
+    {{ formatDate(article.date) }}
+    <template v-if="article.dateEnd && article.date !== article.dateEnd">
+      - {{ formatDate(article.dateEnd) }}
     </template>
   </time>
 </template>

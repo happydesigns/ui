@@ -1,9 +1,8 @@
 ---
 title: Nuxt Studio Update
 category: Announcement
-date:
-  start: 2026-03-20
-  end: 2026-03-20
+date: 2026-03-20
+dateEnd: 2026-03-20
 description: Latest updates and improvements to Nuxt Studio, making content management even easier.
 status: published
 toc: true

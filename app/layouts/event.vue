@@ -89,21 +89,21 @@ const backLink = computed(() => {
                 <span class="text-primary-500 dark:text-primary-400 font-medium">{{ page.category }}</span>
               </template>
 
-              <template v-if="page.date?.start">
+              <template v-if="page.date">
                 <span v-if="page?.category" class="all:hidden sm:inline opacity-50">&middot;</span>
                 <div class="all:flex items-center space-x-2">
                   <UIcon name="i-lucide-calendar" class="size-4" />
                   <time>
-                    {{ formatDate(page.date?.start) }}
-                    <template v-if="page.date?.end && page.date?.start !== page.date?.end">
-                      - {{ formatDate(page.date?.end) }}
+                    {{ formatDate(page.date) }}
+                    <template v-if="page.dateEnd && page.date !== page.dateEnd">
+                      - {{ formatDate(page.dateEnd) }}
                     </template>
                   </time>
                 </div>
               </template>
 
               <template v-if="page.location?.name">
-                <span v-if="page?.category || page.date?.start" class="all:hidden sm:inline opacity-50">&middot;</span>
+                <span v-if="page?.category || page.date" class="all:hidden sm:inline opacity-50">&middot;</span>
                 <div class="all:flex items-center space-x-2">
                   <UIcon name="i-lucide-map-pin" class="size-4" />
                   <NuxtLink

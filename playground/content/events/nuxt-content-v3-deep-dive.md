@@ -1,9 +1,8 @@
 ---
 title: Nuxt Content v3 Deep Dive
 category: Webinar
-date:
-  start: 2026-05-10
-  end: 2026-05-10
+date: 2026-05-10
+dateEnd: 2026-05-10
 description: A comprehensive look at the new Nuxt Content v3, focusing on the new schema engine and improved performance.
 status: published
 toc: true

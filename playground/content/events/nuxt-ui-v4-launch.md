@@ -1,9 +1,8 @@
 ---
 title: Nuxt UI v4 Launch Event
 category: Workshop
-date:
-  start: 2026-04-15
-  end: 2026-04-15
+date: 2026-04-15
+dateEnd: 2026-04-15
 description: Join us for the official launch of Nuxt UI v4, featuring a deep dive into the new features and architectural changes.
 header:
   ui: {}

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import type { ContentNavigationItem } from '@nuxt/content'
-
 const appConfig = useAppConfig()
 const route = useRoute()
 
@@ -16,10 +14,10 @@ const { data: surround } = await useAsyncData(
   `event-surround-${route.path}`,
   () => {
     return queryCollectionItemSurroundings('event', route.path, {
-      fields: ['title', 'description', 'status'],
+      fields: ['title', 'description', 'status', 'date'],
     })
       .where('status', '=', 'published')
-      .order('date.start', 'DESC') as unknown as Promise<ContentNavigationItem[]>
+      .order('date', 'DESC')
   },
 )
 </script>
