@@ -1,7 +1,6 @@
 import type { Collections, PageCollections, SQLOperator } from '@nuxt/content'
 import type { BadgeProps } from '@nuxt/ui'
 import type { MaybeRefOrGetter } from 'vue'
-import type { ArticleConfig, EventConfig } from '~/app.config'
 import { computed, toValue } from 'vue'
 
 export interface ArticleFilter {
@@ -30,22 +29,10 @@ export interface UseArticleListOptions<C extends keyof PageCollections = 'articl
  * Includes automatic resolution of authors and category badges.
  */
 export function useArticleList<C extends keyof PageCollections = 'article'>(options: UseArticleListOptions<C> = {}) {
-  const appConfig = useAppConfig()
-
   const collection = computed(() => (toValue(options.collection) || ('article' as C)) as C)
 
-  /** Resolve the configuration for this collection, falling back to appropriate layout defaults */
-  const config = computed(() => {
-    const colName = String(collection.value)
-    const collectionConfig = appConfig.app.collections?.[colName] || {}
-    const fallback = collectionConfig.fallback || 'article'
-    const baseDefaults = appConfig.app.collections?.[fallback] || {}
-
-    return {
-      ...baseDefaults,
-      ...collectionConfig,
-    } as Required<ArticleConfig & EventConfig>
-  })
+  /** Resolve the configuration for this collection using the smart merger */
+  const config = useCollectionConfig(collection)
 
   const page = computed(() => toValue(options.page) || 1)
   const itemsPerPage = computed(() => toValue(options.itemsPerPage) || config.value.list?.itemsPerPage || 12)

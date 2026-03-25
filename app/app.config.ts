@@ -74,47 +74,18 @@ export default defineAppConfig({
       } as ArticleConfig,
 
       event: {
+        extends: 'article',
         query: {
           fields: ['title', 'description', 'status', 'date', 'dateEnd', 'location'],
-          order: { field: 'date', direction: 'DESC' },
-          where: [{ field: 'status', operator: '=', value: 'published' }],
-        },
-        categories: {},
-        breadcrumbs: [],
-        backButton: {
-          icon: 'i-ph-arrow-left',
-          label: 'Back',
-        },
-        copyButton: {
-          icon: 'i-ph-link-simple-duotone',
-          label: 'Copy URL',
-          successIcon: 'i-lucide-copy-check',
-          successLabel: 'Link copied to clipboard',
         },
         actionButtons: {
           edit: {
-            icon: 'i-lucide-pen',
             label: 'Edit event',
           },
-          report: {
-            icon: 'i-ph-warning-circle',
-            label: 'Report an issue',
-            link: 'https://github.com/sfbiberach/schachfreunde-biberach.de/issues/new/choose',
-          },
-          separator: 'or',
         },
         list: {
-          itemsPerPage: 12,
-          labelAll: 'All',
           noResultsMessage: 'No events found.',
           noResultsIcon: 'i-ph-calendar-blank',
-        },
-        surround: {
-          show: true,
-          prevIcon: 'i-lucide-arrow-left',
-          nextIcon: 'i-lucide-arrow-right',
-          prevLabel: 'Previous',
-          nextLabel: 'Next',
         },
       } as EventConfig,
     } as Record<string, ArticleConfig | EventConfig>,

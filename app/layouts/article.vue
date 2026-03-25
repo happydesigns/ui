@@ -1,7 +1,6 @@
 <script setup lang="ts" generic="C extends keyof PageCollections = 'article'">
 import type { Collections, PageCollections } from '@nuxt/content'
 import type { BreadcrumbItem } from '@nuxt/ui'
-import type { ArticleConfig } from '~/app.config'
 import formatDate from '~/utils/formatDate'
 
 const {
@@ -26,17 +25,8 @@ const { data: page } = await usePageContent<C, Collections['article']>({
   collection: () => collection,
 })
 
-/** Resolve the configuration for this collection, falling back to article defaults */
-const config = computed(() => {
-  const colName = String(collection)
-  const collectionConfig = appConfig.app.collections?.[colName] || {}
-  const baseDefaults = appConfig.app.collections?.article || {}
-
-  return {
-    ...baseDefaults,
-    ...collectionConfig,
-  } as Required<ArticleConfig>
-})
+/** Resolve the configuration for this collection using the smart merger */
+const config = useCollectionConfig(() => collection)
 
 const authors = await resolveUsers(page.value?.authors || [])
 

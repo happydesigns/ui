@@ -1,20 +1,19 @@
 <script setup lang="ts">
 import type { BreadcrumbItem } from '@nuxt/ui'
 import type { ArticleConfig, EventConfig } from '~/app.config'
+import { defu } from 'defu'
 
 const props = defineProps<{
   backLink?: BreadcrumbItem | null
   backLabel?: string
   page?: any
   config?: ArticleConfig | EventConfig
+  collection?: string
 }>()
 
-const appConfig = useAppConfig()
+const baseConfig = useCollectionConfig(() => props.collection || 'article')
 
-const resolvedConfig = computed(() => ({
-  ...appConfig.app.article,
-  ...props.config,
-}) as Required<ArticleConfig & EventConfig>)
+const resolvedConfig = computed(() => defu(props.config || {}, baseConfig.value) as Required<ArticleConfig & EventConfig>)
 
 const { copy } = useClipboard()
 const url = useRequestURL()

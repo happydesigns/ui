@@ -1,7 +1,6 @@
 <script setup lang="ts" generic="C extends keyof PageCollections = 'event'">
 import type { Collections, PageCollections } from '@nuxt/content'
 import type { BreadcrumbItem } from '@nuxt/ui'
-import type { EventConfig } from '~/app.config'
 import formatDate from '~/utils/formatDate'
 
 const {
@@ -26,17 +25,8 @@ const { data: page } = await usePageContent<C, Collections['event']>({
   collection: () => collection,
 })
 
-/** Resolve the configuration for this collection, falling back to event defaults */
-const config = computed(() => {
-  const colName = String(collection)
-  const collectionConfig = appConfig.app.collections?.[colName] || {}
-  const baseDefaults = appConfig.app.collections?.event || {}
-
-  return {
-    ...baseDefaults,
-    ...collectionConfig,
-  } as Required<EventConfig>
-})
+/** Resolve the configuration for this collection using the smart merger */
+const config = useCollectionConfig(() => collection)
 
 if (!page.value) {
   throw createError({

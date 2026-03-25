@@ -1,6 +1,5 @@
 <script setup lang="ts" generic="C extends keyof PageCollections = 'page'">
 import type { PageCollections } from '@nuxt/content'
-import type { ArticleConfig, EventConfig } from '~/app.config'
 
 const props = defineProps<{
   /** The collection to fetch from */
@@ -13,21 +12,10 @@ const props = defineProps<{
   order?: { field: string, direction: 'ASC' | 'DESC' }
 }>()
 
-const appConfig = useAppConfig()
 const route = useRoute()
 
-/** Resolve the configuration for this collection */
-const config = computed(() => {
-  const colName = String(props.collection || 'article')
-  const collectionConfig = appConfig.app.collections?.[colName] || {}
-  const fallback = collectionConfig.fallback || 'article'
-  const baseDefaults = appConfig.app.collections?.[fallback] || {}
-
-  return {
-    ...baseDefaults,
-    ...collectionConfig,
-  } as Required<ArticleConfig & EventConfig>
-})
+/** Resolve the configuration for this collection using the smart merger */
+const config = useCollectionConfig(() => props.collection || 'article')
 
 const { data: surround } = await useAsyncData(
   `surround-${String(props.collection || 'article')}-${route.path}`,

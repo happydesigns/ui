@@ -1,6 +1,5 @@
 <script setup lang="ts" generic="C extends keyof PageCollections = 'article'">
 import type { PageCollections } from '@nuxt/content'
-import type { ArticleConfig } from '~/app.config'
 import type { ArticleFilter } from '~/composables/useArticleList'
 
 const props = defineProps<{
@@ -20,21 +19,10 @@ const props = defineProps<{
   itemsPerPage?: number
 }>()
 
-const appConfig = useAppConfig()
 const route = useRoute()
 
-/** Resolve the configuration for this collection, falling back to article defaults */
-const config = computed(() => {
-  const colName = String(props.collection || 'article')
-  const collectionConfig = appConfig.app.collections?.[colName] || {}
-  const fallback = collectionConfig.fallback || 'article'
-  const baseDefaults = appConfig.app.collections?.[fallback] || {}
-
-  return {
-    ...baseDefaults,
-    ...collectionConfig,
-  } as Required<ArticleConfig>
-})
+/** Resolve the configuration for this collection using the smart merger */
+const config = useCollectionConfig(() => props.collection || 'article')
 
 const labelAll = computed(() => config.value.list?.labelAll || 'All')
 

@@ -1,6 +1,5 @@
 <script setup lang="ts" generic="C extends keyof PageCollections = 'article'">
 import type { PageCollections } from '@nuxt/content'
-import type { ContentActionButtons } from '~/types/config'
 
 const props = defineProps<{
   page?: any
@@ -8,6 +7,9 @@ const props = defineProps<{
 }>()
 
 const appConfig = useAppConfig()
+
+/** Resolve the configuration for this collection using the smart merger */
+const fullConfig = useCollectionConfig(() => props.collection || 'article')
 
 const editLink = computed(() => {
   const { repo, branch, dir } = appConfig.app.meta.github || {}
@@ -20,17 +22,7 @@ const editLink = computed(() => {
   return `https://github.com/` + `${repo}/edit/${branch}/${dir}/${props.page.stem}.${extension}`
 })
 
-const config = computed(() => {
-  const colName = String(props.collection || 'article')
-  const collectionConfig = appConfig.app.collections?.[colName] || {}
-  const fallback = collectionConfig.fallback || 'article'
-  const baseDefaults = appConfig.app.collections?.[fallback] || {}
-
-  return {
-    ...baseDefaults.actionButtons,
-    ...(collectionConfig.actionButtons || {}),
-  } as ContentActionButtons
-})
+const config = computed(() => fullConfig.value.actionButtons)
 </script>
 
 <template>
