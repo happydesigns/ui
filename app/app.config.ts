@@ -1,133 +1,7 @@
 import type { ButtonProps, FooterColumn } from '@nuxt/ui'
+import type { ArticleConfig, EventConfig } from './types/config'
 
-export interface ArticleCategoryBadge {
-  label?: string
-  color?: string
-  variant?: string
-  icon?: string
-}
-
-export interface ContentActionButtons {
-  /** Configuration for the edit button */
-  edit?: {
-    /** The icon to be shown in the edit button */
-    icon?: string
-    /** The label to be shown in the edit button */
-    label?: string
-  }
-  /** Configuration for the report button */
-  report?: {
-    /** The icon to be shown in the report button */
-    icon?: string
-    /** The label to be shown in the report button */
-    label?: string
-    /** The URL to be shown in the report button */
-    link?: string
-  }
-  /** The separator text between edit and report buttons */
-  separator?: string
-}
-
-export interface ContentSurroundConfig {
-  /** Whether to show the surround navigation */
-  show?: boolean
-  /** The icon to be shown in the previous button */
-  prevIcon?: string
-  /** The icon to be shown in the next button */
-  nextIcon?: string
-  /** The label to be shown in the previous button */
-  prevLabel?: string
-  /** The label to be shown in the next button */
-  nextLabel?: string
-}
-
-export interface ArticleConfig {
-  /** A record of article categories mapped by their internal string ID */
-  categories?: Record<string, ArticleCategoryBadge>
-  /** The breadcrumb items to be shown as parents of the article */
-  breadcrumbs?: Array<{
-    label: string
-    to: string
-    icon?: string
-  }>
-  /** Configuration for the back button in the article layout */
-  backButton?: {
-    /** The icon to be shown in the back button */
-    icon?: string
-    /** The label to be shown as prefix in the back button */
-    label?: string
-  }
-  /** Configuration for the copy URL button in the article layout */
-  copyButton?: {
-    /** The icon to be shown in the copy button */
-    icon?: string
-    /** The label to be shown in the copy button */
-    label?: string
-    /** The icon to be shown when the copy was successful */
-    successIcon?: string
-    /** The label to be shown in a toast when the copy was successful */
-    successLabel?: string
-  }
-  /** Configuration for the action buttons (edit, report) in the article layout */
-  actionButtons?: ContentActionButtons
-  /** Configuration for the surround navigation in the article layout */
-  surround?: ContentSurroundConfig
-  /** Configuration for the article list */
-  list?: {
-    /** Items per page */
-    itemsPerPage?: number
-    /** Label for the 'All' category */
-    labelAll?: string
-    /** Message to be shown when no articles are found */
-    noResultsMessage?: string
-    /** Icon to be shown when no articles are found */
-    noResultsIcon?: string
-  }
-}
-
-export interface EventConfig {
-  /** A record of event categories mapped by their internal string ID */
-  categories?: Record<string, ArticleCategoryBadge>
-  /** The breadcrumb items to be shown as parents of the event */
-  breadcrumbs?: Array<{
-    label: string
-    to: string
-    icon?: string
-  }>
-  /** Configuration for the back button in the event layout */
-  backButton?: {
-    /** The icon to be shown in the back button */
-    icon?: string
-    /** The label to be shown as prefix in the back button */
-    label?: string
-  }
-  /** Configuration for the copy URL button in the event layout */
-  copyButton?: {
-    /** The icon to be shown in the copy button */
-    icon?: string
-    /** The label to be shown in the copy button */
-    label?: string
-    /** The icon to be shown when the copy was successful */
-    successIcon?: string
-    /** The label to be shown in a toast when the copy was successful */
-    successLabel?: string
-  }
-  /** Configuration for the action buttons (edit, report) in the event layout */
-  actionButtons?: ContentActionButtons
-  /** Configuration for the event list */
-  list?: {
-    /** Items per page */
-    itemsPerPage?: number
-    /** Label for the 'All' category */
-    labelAll?: string
-    /** Message to be shown when no events are found */
-    noResultsMessage?: string
-    /** Icon to be shown when no events are found */
-    noResultsIcon?: string
-  }
-  /** Configuration for the surround navigation in the event layout */
-  surround?: ContentSurroundConfig
-}
+export * from './types/config'
 
 export default defineAppConfig({
   app: {
@@ -152,89 +26,88 @@ export default defineAppConfig({
       title: '',
     },
 
-    /** Default configurations for different layouts */
-    article: {
-      categories: {},
-      breadcrumbs: [],
-      backButton: {
-        icon: 'i-ph-arrow-left',
-        label: 'Back',
-      },
-      copyButton: {
-        icon: 'i-ph-link-simple-duotone',
-        label: 'Copy URL',
-        successIcon: 'i-lucide-copy-check',
-        successLabel: 'Link copied to clipboard',
-      },
-      actionButtons: {
-        edit: {
-          icon: 'i-lucide-pen',
-          label: 'Edit article',
+    /** Default configurations for different layouts and specific collections */
+    collections: {
+      article: {
+        categories: {},
+        breadcrumbs: [],
+        backButton: {
+          icon: 'i-ph-arrow-left',
+          label: 'Back',
         },
-        report: {
-          icon: 'i-ph-warning-circle',
-          label: 'Report an issue',
-          link: 'https://github.com/sfbiberach/schachfreunde-biberach.de/issues/new/choose',
+        copyButton: {
+          icon: 'i-ph-link-simple-duotone',
+          label: 'Copy URL',
+          successIcon: 'i-lucide-copy-check',
+          successLabel: 'Link copied to clipboard',
         },
-        separator: 'or',
-      },
-      surround: {
-        show: true,
-        prevIcon: 'i-lucide-arrow-left',
-        nextIcon: 'i-lucide-arrow-right',
-        prevLabel: 'Previous',
-        nextLabel: 'Next',
-      },
-      list: {
-        itemsPerPage: 12,
-        labelAll: 'All',
-        noResultsMessage: 'No articles found.',
-        noResultsIcon: 'i-ph-article-ny-times-light',
-      },
-    } as ArticleConfig,
+        actionButtons: {
+          edit: {
+            icon: 'i-lucide-pen',
+            label: 'Edit article',
+          },
+          report: {
+            icon: 'i-ph-warning-circle',
+            label: 'Report an issue',
+            link: 'https://github.com/sfbiberach/schachfreunde-biberach.de/issues/new/choose',
+          },
+          separator: 'or',
+        },
+        surround: {
+          show: true,
+          prevIcon: 'i-lucide-arrow-left',
+          nextIcon: 'i-lucide-arrow-right',
+          prevLabel: 'Previous',
+          nextLabel: 'Next',
+        },
+        list: {
+          itemsPerPage: 12,
+          labelAll: 'All',
+          noResultsMessage: 'No articles found.',
+          noResultsIcon: 'i-ph-article-ny-times-light',
+        },
+      } as ArticleConfig,
 
-    event: {
-      categories: {},
-      breadcrumbs: [],
-      backButton: {
-        icon: 'i-ph-arrow-left',
-        label: 'Back',
-      },
-      copyButton: {
-        icon: 'i-ph-link-simple-duotone',
-        label: 'Copy URL',
-        successIcon: 'i-lucide-copy-check',
-        successLabel: 'Link copied to clipboard',
-      },
-      actionButtons: {
-        edit: {
-          icon: 'i-lucide-pen',
-          label: 'Edit event',
+      event: {
+        categories: {},
+        breadcrumbs: [],
+        backButton: {
+          icon: 'i-ph-arrow-left',
+          label: 'Back',
         },
-        report: {
-          icon: 'i-ph-warning-circle',
-          label: 'Report an issue',
-          link: 'https://github.com/sfbiberach/schachfreunde-biberach.de/issues/new/choose',
+        copyButton: {
+          icon: 'i-ph-link-simple-duotone',
+          label: 'Copy URL',
+          successIcon: 'i-lucide-copy-check',
+          successLabel: 'Link copied to clipboard',
         },
-        separator: 'or',
-      },
-      list: {
-        itemsPerPage: 12,
-        labelAll: 'All',
-        noResultsMessage: 'No events found.',
-        noResultsIcon: 'i-ph-calendar-blank',
-      },
-      surround: {
-        show: true,
-        prevIcon: 'i-lucide-arrow-left',
-        nextIcon: 'i-lucide-arrow-right',
-        prevLabel: 'Previous',
-        nextLabel: 'Next',
-      },
-    } as EventConfig,
-
-    /** Collection-specific configurations that override the defaults above */
-    collections: {} as Record<string, ArticleConfig | EventConfig>,
+        actionButtons: {
+          edit: {
+            icon: 'i-lucide-pen',
+            label: 'Edit event',
+          },
+          report: {
+            icon: 'i-ph-warning-circle',
+            label: 'Report an issue',
+            link: 'https://github.com/sfbiberach/schachfreunde-biberach.de/issues/new/choose',
+          },
+          separator: 'or',
+        },
+        list: {
+          itemsPerPage: 12,
+          labelAll: 'All',
+          noResultsMessage: 'No events found.',
+          noResultsIcon: 'i-ph-calendar-blank',
+        },
+        surround: {
+          show: true,
+          prevIcon: 'i-lucide-arrow-left',
+          nextIcon: 'i-lucide-arrow-right',
+          prevLabel: 'Previous',
+          nextLabel: 'Next',
+        },
+      } as EventConfig,
+    } as Record<string, ArticleConfig | EventConfig>,
 
     date: {
       locale: 'en',
@@ -313,11 +186,7 @@ declare module '@nuxt/schema' {
       }
       /** A mapping of internal identifier strings to icon strings */
       icons?: Record<string, string>
-      /** Default configurations for article layouts */
-      article?: ArticleConfig
-      /** Default configurations for event layouts */
-      event?: EventConfig
-      /** Collection-specific configurations */
+      /** Collection-specific configurations including default 'article' and 'event' layouts */
       collections?: Record<string, ArticleConfig | EventConfig>
       date?: {
         /** The locale used for date formatting (e.g. 'en', 'de') */
