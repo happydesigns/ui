@@ -22,12 +22,12 @@ const props = defineProps<{
 const route = useRoute()
 
 /** Resolve the configuration for this collection using the smart merger */
-const config = useCollectionConfig(() => props.collection || 'article')
+const collectionConfig = useCollectionConfig(() => props.collection)
 
-const itemsPerPage = computed(() => props.itemsPerPage || config.value.list?.itemsPerPage || 12)
-const labelAll = computed(() => config.value.list?.labelAll || 'All')
-const noResultsMessage = computed(() => config.value.list?.noResultsMessage || 'No items found.')
-const noResultsIcon = computed(() => config.value.list?.noResultsIcon)
+const itemsPerPage = computed(() => props.itemsPerPage || collectionConfig.value.list?.itemsPerPage || 12)
+const labelAll = computed(() => collectionConfig.value.list?.labelAll || 'All')
+const noResultsMessage = computed(() => collectionConfig.value.list?.noResultsMessage || 'No items found.')
+const noResultsIcon = computed(() => collectionConfig.value.list?.noResultsIcon)
 
 const page = ref(Number(route.query.page) || 1)
 const selectedCategory = ref(props.category || (route.query.category as string) || String(labelAll.value))

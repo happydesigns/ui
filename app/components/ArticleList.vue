@@ -22,15 +22,14 @@ const props = defineProps<{
 const route = useRoute()
 
 /** Resolve the configuration for this collection using the smart merger */
-const config = useCollectionConfig(() => props.collection || 'article')
+const collectionConfig = useCollectionConfig(() => props.collection)
 
-const labelAll = computed(() => config.value.list?.labelAll || 'All')
+const labelAll = computed(() => collectionConfig.value.list?.labelAll || 'All')
 
 const selectedCategory = ref(props.category || (route.query.category as string) || String(labelAll.value))
 
 const categories = computed(() => {
-  const cats = config.value.categories || {}
-  const items = [
+  const cats = collectionConfig.value.categories || {}  const items = [
     { label: String(labelAll.value), value: String(labelAll.value) },
     ...Object.keys(cats).map(key => ({
       label: String(cats[key]?.label || key),

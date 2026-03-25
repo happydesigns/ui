@@ -15,13 +15,13 @@ const props = defineProps<{
 const route = useRoute()
 
 /** Resolve the configuration for this collection using the smart merger */
-const config = useCollectionConfig(() => props.collection || 'article')
+const collectionConfig = useCollectionConfig(() => props.collection)
 
 const { data: surround } = await useAsyncData(
   `surround-${String(props.collection || 'article')}-${route.path}`,
   () => {
     const colName = (props.collection || 'article') as any
-    const queryConfig = config.value.query || {}
+    const queryConfig = collectionConfig.value.query || {}
 
     const fields = (props.fields || queryConfig.fields || ['title', 'description', 'status']) as any
     const order = props.order || queryConfig.order || { field: 'date', direction: 'DESC' }
@@ -43,11 +43,11 @@ const { data: surround } = await useAsyncData(
 </script>
 
 <template>
-  <div v-if="config.surround?.show && surround?.length" class="mt-12">
+  <div v-if="collectionConfig.surround?.show && surround?.length" class="mt-12">
     <UContentSurround
       :surround="surround"
-      :prev-icon="config.surround.prevIcon"
-      :next-icon="config.surround.nextIcon"
+      :prev-icon="collectionConfig.surround.prevIcon"
+      :next-icon="collectionConfig.surround.nextIcon"
     />
   </div>
 </template>
