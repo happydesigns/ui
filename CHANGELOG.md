@@ -1,6 +1,51 @@
 # Changelog
 
 
+## v0.12.0
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.11.0...v0.12.0)
+
+### 🚀 Enhancements
+
+- ⚠️  Restructure appConfig to use collections for article and event ([c67072c](https://github.com/happydesigns/ui/commit/c67072c))
+- ⚠️  Consolidate surround navigation and introduce shared query configuration ([38ad2e8](https://github.com/happydesigns/ui/commit/38ad2e8))
+- ⚠️  Implement configuration inheritance and smart config merger ([c8bc800](https://github.com/happydesigns/ui/commit/c8bc800))
+
+### 🩹 Fixes
+
+- **playground:** Update configuration and fix lint errors ([734fb24](https://github.com/happydesigns/ui/commit/734fb24))
+- Set default collection to article in article components ([ee72aef](https://github.com/happydesigns/ui/commit/ee72aef))
+- Overwrite arrays in collection config merger ([b216eea](https://github.com/happydesigns/ui/commit/b216eea))
+- **articles:** Default to undefined sort, status ([ad68827](https://github.com/happydesigns/ui/commit/ad68827))
+
+### 💅 Refactors
+
+- Update components and layouts for new collections structure and fallback logic ([bee3c2b](https://github.com/happydesigns/ui/commit/bee3c2b))
+- Rename config to collectionConfig and remove hardcoded fallback ([c9f6715](https://github.com/happydesigns/ui/commit/c9f6715))
+- Rename Content layout components to Article components ([fcafc3f](https://github.com/happydesigns/ui/commit/fcafc3f))
+- Use query defaults in useArticleList and simplify playground ([1abf9a7](https://github.com/happydesigns/ui/commit/1abf9a7))
+
+### 🏡 Chore
+
+- Update pnpm-workspace.yaml ([7b4a743](https://github.com/happydesigns/ui/commit/7b4a743))
+- Reorganize components into subdirectories ([326eec8](https://github.com/happydesigns/ui/commit/326eec8))
+- **playground:** Add justify classes to AppFooter ([f3ab2ea](https://github.com/happydesigns/ui/commit/f3ab2ea))
+- **playground:** Fix article ([75adba3](https://github.com/happydesigns/ui/commit/75adba3))
+
+### 🎨 Styles
+
+- Fix import order in useCollectionConfig ([1d73493](https://github.com/happydesigns/ui/commit/1d73493))
+
+#### ⚠️ Breaking Changes
+
+- ⚠️  Restructure appConfig to use collections for article and event ([c67072c](https://github.com/happydesigns/ui/commit/c67072c))
+- ⚠️  Consolidate surround navigation and introduce shared query configuration ([38ad2e8](https://github.com/happydesigns/ui/commit/38ad2e8))
+- ⚠️  Implement configuration inheritance and smart config merger ([c8bc800](https://github.com/happydesigns/ui/commit/c8bc800))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.11.0
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.10.6...v0.11.0)
