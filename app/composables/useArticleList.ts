@@ -38,18 +38,36 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
   const itemsPerPage = computed(() => toValue(options.itemsPerPage) || config.value.list?.itemsPerPage || 12)
   const category = computed(() => toValue(options.category))
   const labelAll = computed(() => toValue(options.labelAll) || config.value.list?.labelAll || 'All')
-  const where = computed(() => toValue(options.where))
+
+  const queryDefaults = computed(() => config.value.query || {})
+
+  const where = computed(() => {
+    const w = toValue(options.where)
+    if (w)
+      return w
+
+    // Fallback to config where but filter out status if handled separately
+    return queryDefaults.value.where?.filter(f => f.field !== 'status') || []
+  })
+
   const sort = computed(() => {
     const s = toValue(options.sort)
     if (s === false)
       return false
-    return s || { field: 'date', direction: 'DESC' as const }
+    return s || queryDefaults.value.order || { field: 'date', direction: 'DESC' as const }
   })
+
   const status = computed(() => {
     const s = toValue(options.status)
     if (s === false)
       return false
-    return s || 'published'
+
+    if (s)
+      return s
+
+    // Try to find status in config where
+    const statusFilter = queryDefaults.value.where?.find(f => f.field === 'status')
+    return statusFilter?.value || 'published'
   })
 
   // The key must be reactive and stable

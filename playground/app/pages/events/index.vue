@@ -17,7 +17,7 @@ const header = computed(() => resolvePageHeader(page.value))
 
     <UContainer v-if="page">
       <UPageBody>
-        <HArticleGrid collection="event" :sort="{ field: 'date', direction: 'DESC' }">
+        <HArticleGrid collection="event">
           <template #date="{ article }">
             <HEventGridDate :article="article" />
           </template>
