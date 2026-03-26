@@ -2,7 +2,7 @@
 import type { PageCollections } from '@nuxt/content'
 import type { ArticleFilter } from '~/composables/useArticleList'
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   /** Optional fixed category to filter by */
   category?: string
   /** The orientation of the blog posts list */
@@ -17,7 +17,10 @@ const props = defineProps<{
   status?: string | false
   /** Optional items per page override */
   itemsPerPage?: number
-}>()
+}>(), {
+  sort: undefined,
+  status: undefined,
+})
 
 const route = useRoute()
 
