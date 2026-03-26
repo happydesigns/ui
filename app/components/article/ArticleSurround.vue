@@ -1,16 +1,18 @@
 <script setup lang="ts" generic="C extends keyof PageCollections = 'article'">
 import type { PageCollections } from '@nuxt/content'
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   /** The collection to fetch from */
   collection?: C
   /** Optional custom fields to fetch */
   fields?: string[]
   /** Optional custom where filter */
   where?: any[]
-  /** Optional custom order */
-  order?: { field: string, direction: 'ASC' | 'DESC' }
-}>()
+  /** Optional custom order. Set to false to disable default sorting. */
+  order?: { field: string, direction: 'ASC' | 'DESC' } | false
+}>(), {
+  order: undefined,
+})
 
 const route = useRoute()
 
@@ -24,7 +26,7 @@ const { data: surround } = await useAsyncData(
     const queryConfig = collectionConfig.value.query || {}
 
     const fields = (props.fields || queryConfig.fields || ['title', 'description', 'status']) as any
-    const order = props.order || queryConfig.order || { field: 'date', direction: 'DESC' }
+    const order = props.order !== undefined ? props.order : queryConfig.order
     const where = props.where || queryConfig.where || [{ field: 'status', operator: '=', value: 'published' }]
 
     let query = queryCollectionItemSurroundings(colName, route.path, {
@@ -37,7 +39,11 @@ const { data: surround } = await useAsyncData(
       })
     }
 
-    return query.order(order.field as any, order.direction)
+    if (order) {
+      query = query.order(order.field as any, order.direction)
+    }
+
+    return query
   },
 )
 </script>

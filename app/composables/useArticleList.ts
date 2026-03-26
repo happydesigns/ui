@@ -52,9 +52,10 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
 
   const sort = computed(() => {
     const s = toValue(options.sort)
-    if (s === false)
-      return false
-    return s || queryDefaults.value.order || { field: 'date', direction: 'DESC' as const }
+    if (s !== undefined)
+      return s
+
+    return queryDefaults.value.order
   })
 
   const status = computed(() => {

@@ -42,11 +42,11 @@ export interface ContentSurroundConfig {
 export interface CollectionQueryConfig {
   /** Fields to fetch */
   fields?: string[]
-  /** Default sorting */
+  /** Default sorting. Set to false to disable default sorting and use Nuxt Content's default (stem-based) sorting. */
   order?: {
     field: string
     direction: 'ASC' | 'DESC'
-  }
+  } | false
   /** Default filters */
   where?: Array<{
     field: string
