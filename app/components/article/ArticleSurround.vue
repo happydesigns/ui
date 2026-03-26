@@ -1,4 +1,4 @@
-<script setup lang="ts" generic="C extends keyof PageCollections = 'page'">
+<script setup lang="ts" generic="C extends keyof PageCollections = 'article'">
 import type { PageCollections } from '@nuxt/content'
 
 const props = defineProps<{
@@ -15,7 +15,7 @@ const props = defineProps<{
 const route = useRoute()
 
 /** Resolve the configuration for this collection using the smart merger */
-const collectionConfig = useCollectionConfig(() => props.collection)
+const collectionConfig = useCollectionConfig(() => props.collection || 'article' as C)
 
 const { data: surround } = await useAsyncData(
   `surround-${String(props.collection || 'article')}-${route.path}`,

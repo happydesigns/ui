@@ -9,7 +9,7 @@ const props = defineProps<{
 const appConfig = useAppConfig()
 
 /** Resolve the configuration for this collection using the smart merger */
-const collectionConfig = useCollectionConfig(() => props.collection)
+const collectionConfig = useCollectionConfig(() => props.collection || 'article' as C)
 
 const editLink = computed(() => {
   const { repo, branch, dir } = appConfig.app.meta.github || {}

@@ -22,7 +22,7 @@ const props = defineProps<{
 const route = useRoute()
 
 /** Resolve the configuration for this collection using the smart merger */
-const collectionConfig = useCollectionConfig(() => props.collection)
+const collectionConfig = useCollectionConfig(() => props.collection || 'article' as C)
 
 const itemsPerPage = computed(() => props.itemsPerPage || collectionConfig.value.list?.itemsPerPage || 12)
 const labelAll = computed(() => collectionConfig.value.list?.labelAll || 'All')
