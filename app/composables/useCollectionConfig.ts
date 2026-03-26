@@ -1,5 +1,5 @@
-import { createDefu } from 'defu'
 import type { ArticleConfig, EventConfig } from '~/app.config'
+import { createDefu } from 'defu'
 
 /**
  * Custom defu that replaces arrays instead of merging them.
