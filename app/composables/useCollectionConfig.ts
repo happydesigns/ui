@@ -1,5 +1,16 @@
+import { createDefu } from 'defu'
 import type { ArticleConfig, EventConfig } from '~/app.config'
-import { defu } from 'defu'
+
+/**
+ * Custom defu that replaces arrays instead of merging them.
+ * This is the standard way in defu to control array merging behavior.
+ */
+const defuReplace = createDefu((obj, key, value) => {
+  if (Array.isArray(obj[key]) || Array.isArray(value)) {
+    obj[key] = value
+    return true
+  }
+})
 
 /**
  * Resolves a collection configuration by recursively merging extended configurations.
@@ -26,7 +37,8 @@ export function useCollectionConfig(collectionName: MaybeRefOrGetter<string | un
       const baseName = config.extends
 
       if (baseName && baseName !== colName) {
-        return defu(config, resolveConfig(baseName, seen))
+        // We use defuReplace to ensure arrays (like breadcrumbs) are overwritten, not merged
+        return defuReplace(config, resolveConfig(baseName, seen))
       }
 
       return config
