@@ -29,7 +29,8 @@ const labelAll = computed(() => collectionConfig.value.list?.labelAll || 'All')
 const selectedCategory = ref(props.category || (route.query.category as string) || String(labelAll.value))
 
 const categories = computed(() => {
-  const cats = collectionConfig.value.categories || {}  const items = [
+  const cats = collectionConfig.value.categories || {}
+  const items = [
     { label: String(labelAll.value), value: String(labelAll.value) },
     ...Object.keys(cats).map(key => ({
       label: String(cats[key]?.label || key),
