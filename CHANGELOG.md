@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.12.1
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.12.0...v0.12.1)
+
+### 🩹 Fixes
+
+- **articles:** Improve default sorting and status handling ([c92f60f](https://github.com/happydesigns/ui/commit/c92f60f))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.12.0
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.11.0...v0.12.0)
