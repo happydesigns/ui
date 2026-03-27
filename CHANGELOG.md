@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.12.2
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.12.1...v0.12.2)
+
+### 🩹 Fixes
+
+- **styles:** Avoid ContentSurround collapse ([a6c8bf4](https://github.com/happydesigns/ui/commit/a6c8bf4))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.12.1
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.12.0...v0.12.1)
