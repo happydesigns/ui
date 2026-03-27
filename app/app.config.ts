@@ -115,18 +115,6 @@ export default defineAppConfig({
       slots: {},
       columns: {},
     },
-    contentSurround: {
-      variants: {
-        direction: {
-          left: {
-            link: 'col-start-1',
-          },
-          right: {
-            link: 'col-start-2',
-          },
-        },
-      },
-    },
   },
 })
 
