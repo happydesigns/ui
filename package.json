@@ -47,7 +47,9 @@
     "cross-env": "^10.1.0",
     "eslint": "^10.0.3",
     "nuxt": "^4.4.2",
-    "typescript": "^5.9.3"
+    "nuxt-content-traits": "^0.0.2",
+    "typescript": "^5.9.3",
+    "zod": "^4.3.6"
   },
   "resolutions": {
     "@h4designs/ui": "workspace:*"
