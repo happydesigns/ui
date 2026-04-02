@@ -5,7 +5,31 @@ export interface CategoryBadge {
   icon?: string
 }
 
-export interface ContentActionButtons {
+// ---------------------------------------------------------------------------
+// UI Feature Trait config types
+// These belong at the trait level in appConfig.content.traits.*
+// Collections can override them at appConfig.content.collections.[name].*
+// ---------------------------------------------------------------------------
+
+export interface BackButtonTraitConfig {
+  /** The icon to be shown in the back button */
+  icon?: string
+  /** The label to be shown as prefix in the back button */
+  label?: string
+}
+
+export interface CopyButtonTraitConfig {
+  /** The icon to be shown in the copy button */
+  icon?: string
+  /** The label to be shown in the copy button */
+  label?: string
+  /** The icon to be shown when the copy was successful */
+  successIcon?: string
+  /** The label to be shown in a toast when the copy was successful */
+  successLabel?: string
+}
+
+export interface ActionButtonsTraitConfig {
   /** Configuration for the edit button */
   edit?: {
     /** The icon to be shown in the edit button */
@@ -26,7 +50,7 @@ export interface ContentActionButtons {
   separator?: string
 }
 
-export interface ContentSurroundConfig {
+export interface SurroundTraitConfig {
   /** Whether to show the surround navigation */
   show?: boolean
   /** The icon to be shown in the previous button */
@@ -38,6 +62,20 @@ export interface ContentSurroundConfig {
   /** The label to be shown in the next button */
   nextLabel?: string
 }
+
+// ---------------------------------------------------------------------------
+// Legacy aliases kept for backwards compatibility within this layer
+// ---------------------------------------------------------------------------
+
+/** @deprecated Use ActionButtonsTraitConfig */
+export type ContentActionButtons = ActionButtonsTraitConfig
+
+/** @deprecated Use SurroundTraitConfig */
+export type ContentSurroundConfig = SurroundTraitConfig
+
+// ---------------------------------------------------------------------------
+// Collection-level config types
+// ---------------------------------------------------------------------------
 
 export interface CollectionQueryConfig {
   /** Fields to fetch */
@@ -66,28 +104,6 @@ export interface ArticleConfig {
     to: string
     icon?: string
   }>
-  /** Configuration for the back button */
-  backButton?: {
-    /** The icon to be shown in the back button */
-    icon?: string
-    /** The label to be shown as prefix in the back button */
-    label?: string
-  }
-  /** Configuration for the copy URL button */
-  copyButton?: {
-    /** The icon to be shown in the copy button */
-    icon?: string
-    /** The label to be shown in the copy button */
-    label?: string
-    /** The icon to be shown when the copy was successful */
-    successIcon?: string
-    /** The label to be shown in a toast when the copy was successful */
-    successLabel?: string
-  }
-  /** Configuration for the action buttons (edit, report) */
-  actionButtons?: ContentActionButtons
-  /** Configuration for the surround navigation */
-  surround?: ContentSurroundConfig
   /** Configuration for the list view */
   list?: {
     /** Items per page */
@@ -99,6 +115,11 @@ export interface ArticleConfig {
     /** Icon to be shown when no items are found */
     noResultsIcon?: string
   }
+  // Collection-level overrides for trait config (lower priority than content.traits.*)
+  backButton?: BackButtonTraitConfig
+  copyButton?: CopyButtonTraitConfig
+  actionButtons?: ActionButtonsTraitConfig
+  surround?: SurroundTraitConfig
 }
 
 export interface EventConfig extends ArticleConfig {}
