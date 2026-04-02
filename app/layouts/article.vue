@@ -38,7 +38,7 @@ if (!page.value) {
 }
 
 usePageSeo(page)
-const renderToc = computed(() => hasTrait('toc') && page.value?.toc !== false)
+const renderToc = computed(() => hasTrait('toc') && (page.value as any)?.toc !== false)
 
 const header = computed(() => resolvePageHeader(page.value))
 
