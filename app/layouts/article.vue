@@ -15,7 +15,6 @@ const {
   backLabel?: string
 }>()
 
-const appConfig = useAppConfig()
 const route = useRoute()
 
 const { data: page } = await usePageContent<C>({
@@ -38,7 +37,6 @@ if (!page.value) {
 }
 
 usePageSeo(page)
-const renderToc = computed(() => hasTrait('toc') && (page.value as any)?.toc !== false)
 
 const header = computed(() => resolvePageHeader(page.value))
 
@@ -110,11 +108,7 @@ const backLink = computed(() => {
           </UPageBody>
 
           <template #right>
-            <UContentToc
-              v-if="renderToc && page.body?.toc?.links?.length"
-              :links="page.body?.toc?.links"
-              :title="page.body.toc.title || appConfig.app.toc?.title"
-            />
+            <HArticleToc :page="page" :collection="collection" />
           </template>
         </UPage>
       </UContainer>
