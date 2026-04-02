@@ -1,7 +1,6 @@
 <script setup lang="ts" generic="C extends keyof PageCollections = 'event'">
 import type { Collections, PageCollections } from '@nuxt/content'
 import type { BreadcrumbItem } from '@nuxt/ui'
-import formatDate from '~/utils/formatDate'
 
 const {
   path,
@@ -80,55 +79,14 @@ const backLink = computed(() => {
               :ui="{ root: 'max-w-full' }"
               :items="breadcrumbItems"
             />
-            <div class="all:flex flex-wrap items-center gap-x-3 gap-y-2 text-muted">
-              <template v-if="page?.category">
-                <span class="text-primary-500 dark:text-primary-400 font-medium">{{ page.category }}</span>
-              </template>
-
-              <template v-if="page.date">
-                <span v-if="page?.category" class="all:hidden sm:inline opacity-50">&middot;</span>
-                <div class="all:flex items-center space-x-2">
-                  <UIcon name="i-lucide-calendar" class="size-4" />
-                  <time>
-                    {{ formatDate(page.date) }}
-                    <template v-if="page.dateEnd && page.date !== page.dateEnd">
-                      - {{ formatDate(page.dateEnd) }}
-                    </template>
-                  </time>
-                </div>
-              </template>
-
-              <template v-if="page.location?.name">
-                <span v-if="page?.category || page.date" class="all:hidden sm:inline opacity-50">&middot;</span>
-                <div class="all:flex items-center space-x-2">
-                  <UIcon name="i-lucide-map-pin" class="size-4" />
-                  <NuxtLink
-                    v-if="page.location.url"
-                    :to="page.location.url"
-                    target="_blank"
-                    class="hover:text-primary transition-colors underline decoration-dotted underline-offset-4"
-                  >
-                    {{ page.location.name }}
-                  </NuxtLink>
-                  <span v-else>{{ page.location.name }}</span>
-                </div>
-              </template>
-            </div>
+            <HArticleHeadlineMeta :page="page" :collection="collection" />
           </template>
-
-          <div v-if="page.links?.length" class="mt-4 all:flex flex-wrap items-center gap-3">
-            <UButton
-              v-for="(link, index) in page.links"
-              :key="index"
-              variant="subtle"
-              size="sm"
-              v-bind="(link as any)"
-            />
+          <HArticleHeaderBody :page="page" :collection="collection">
             <slot name="header" />
-          </div>
+          </HArticleHeaderBody>
         </UPageHeader>
 
-        <UPage :ui="{ root: 'lg:grid' }">
+        <UPage>
           <UPageBody>
             <slot />
 
@@ -156,7 +114,7 @@ const backLink = computed(() => {
             <UContentToc
               v-if="renderToc && page.body?.toc?.links?.length"
               :links="page.body?.toc?.links"
-              :title="appConfig.app.toc?.title || page.body?.toc?.title"
+              :title="page.body.toc.title || appConfig.app.toc?.title"
             />
           </template>
         </UPage>

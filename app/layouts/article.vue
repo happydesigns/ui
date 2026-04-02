@@ -1,7 +1,6 @@
 <script setup lang="ts" generic="C extends keyof PageCollections = 'article'">
 import type { Collections, PageCollections } from '@nuxt/content'
 import type { BreadcrumbItem } from '@nuxt/ui'
-import formatDate from '~/utils/formatDate'
 
 const {
   path,
@@ -30,8 +29,6 @@ const config = useCollectionConfig(() => collection)
 
 /** Resolve trait membership and merged trait config */
 const { hasTrait } = useCollectionTraits(collection)
-
-const authors = await resolveUsers(page.value?.authors || [])
 
 if (!page.value) {
   throw createError({
@@ -82,25 +79,11 @@ const backLink = computed(() => {
               :ui="{ root: 'max-w-full' }"
               :items="breadcrumbItems"
             />
-            <div class="all:flex items-center space-x-2">
-              <span v-if="page?.category">{{ page.category }}</span>
-              <template v-if="page.date">
-                <span v-if="page?.category" class="text-muted">&middot;</span>
-                <time class="text-muted">
-                  {{ formatDate(page.date) }}
-                </time>
-              </template>
-            </div>
+            <HArticleHeadlineMeta :page="page" :collection="collection" />
           </template>
-          <div class="mt-4 all:flex flex-wrap items-center gap-6">
-            <UUser
-              v-for="(author, index) in authors"
-              :key="index"
-              v-bind="author"
-              target="_blank"
-            />
+          <HArticleHeaderBody :page="page" :collection="collection">
             <slot name="header" />
-          </div>
+          </HArticleHeaderBody>
         </UPageHeader>
 
         <UPage>
