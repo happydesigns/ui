@@ -1,14 +1,15 @@
 <script setup lang="ts">
+import type { PageCollections } from '@nuxt/content'
 import type { BreadcrumbItem } from '@nuxt/ui'
 
 const props = defineProps<{
   backLink?: BreadcrumbItem | null
   backLabel?: string
   page?: any
-  collection?: string
+  collection?: keyof PageCollections
 }>()
 
-const { traitConfig } = useCollectionTraits((props.collection || 'article') as any)
+const { traitConfig } = useCollectionTraits(props.collection || 'article')
 
 const { copy } = useClipboard()
 const url = useRequestURL()

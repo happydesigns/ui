@@ -1,12 +1,13 @@
 <script setup lang="ts">
+import type { PageCollections } from '@nuxt/content'
 import formatDate from '~/utils/formatDate'
 
 const props = defineProps<{
   page?: any
-  collection?: string
+  collection?: keyof PageCollections
 }>()
 
-const { hasTrait } = useCollectionTraits((props.collection || 'article') as any)
+const { hasTrait } = useCollectionTraits(props.collection || 'article')
 </script>
 
 <template>

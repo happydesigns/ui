@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import type { PageCollections } from '@nuxt/content'
+
 const props = defineProps<{
   page?: any
-  collection?: string
+  collection?: keyof PageCollections
 }>()
 
-const { hasTrait } = useCollectionTraits((props.collection || 'article') as any)
+const { hasTrait } = useCollectionTraits(props.collection || 'article')
 
 const authors = hasTrait('authors') ? await resolveUsers(props.page?.authors || []) : []
 </script>

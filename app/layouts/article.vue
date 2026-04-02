@@ -1,5 +1,4 @@
-<script setup lang="ts" generic="C extends keyof PageCollections = 'article'">
-import type { Collections, PageCollections } from '@nuxt/content'
+<script setup lang="ts" generic="C extends 'article' | 'event' = 'article'">
 import type { BreadcrumbItem } from '@nuxt/ui'
 
 const {
@@ -19,7 +18,7 @@ const {
 const appConfig = useAppConfig()
 const route = useRoute()
 
-const { data: page } = await usePageContent<C, Collections['article']>({
+const { data: page } = await usePageContent<C>({
   path: () => path,
   collection: () => collection,
 })
