@@ -56,8 +56,6 @@ export interface CollectionQueryConfig {
 }
 
 export interface ArticleConfig {
-  /** The collection to extend from */
-  extends?: string
   /** Shared query configuration for lists, grids and surround */
   query?: CollectionQueryConfig
   /** A record of categories mapped by their internal string ID */
