@@ -46,6 +46,18 @@ export default defineContentConfig({
         }).optional(),
       }),
     }),
+    surround: defineTrait({
+      schema: z.object({}),
+    }),
+    copyButton: defineTrait({
+      schema: z.object({}),
+    }),
+    actionButtons: defineTrait({
+      schema: z.object({}),
+    }),
+    backButton: defineTrait({
+      schema: z.object({}),
+    }),
     layout: defineTrait({
       schema: z.object({
         layout: z.enum(['default', 'content']).optional(),
@@ -81,7 +93,7 @@ export default defineContentConfig({
         include: 'articles/**/*.{md,yaml}',
         prefix: '/articles',
       },
-      traits: ['dates', 'authors', 'category', 'status', 'seo'],
+      traits: ['dates', 'authors', 'category', 'status', 'seo', 'surround', 'copyButton', 'actionButtons', 'backButton'],
     },
     event: {
       type: 'page',
@@ -89,7 +101,7 @@ export default defineContentConfig({
         include: 'events/**/*.{md,yaml}',
         prefix: '/events',
       },
-      traits: ['dates', 'location', 'category', 'links', 'status', 'seo'],
+      traits: ['dates', 'location', 'category', 'links', 'status', 'seo', 'surround', 'copyButton', 'actionButtons', 'backButton'],
     },
     page: {
       type: 'page',
