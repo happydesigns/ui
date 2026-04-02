@@ -1,4 +1,5 @@
 <script setup lang="ts" generic="C extends 'article' | 'event' = 'event'">
+import type { Collections } from '@nuxt/content'
 import type { BreadcrumbItem } from '@nuxt/ui'
 
 const {
