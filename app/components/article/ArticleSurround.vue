@@ -16,14 +16,13 @@ const props = withDefaults(defineProps<{
 
 const route = useRoute()
 
-/** Resolve the configuration for this collection using the smart merger */
-const collectionConfig = useCollectionConfig(() => props.collection || 'article' as C)
+const { traitConfig } = useCollectionTraits((props.collection || 'article') as any)
 
 const { data: surround } = await useAsyncData(
   `surround-${String(props.collection || 'article')}-${route.path}`,
   () => {
     const colName = (props.collection || 'article') as any
-    const queryConfig = collectionConfig.value.query || {}
+    const queryConfig = traitConfig.value.query || {}
 
     const fields = (props.fields || queryConfig.fields || ['title', 'description', 'status']) as any
     const order = props.order !== undefined ? props.order : queryConfig.order
@@ -49,11 +48,11 @@ const { data: surround } = await useAsyncData(
 </script>
 
 <template>
-  <div v-if="collectionConfig.surround?.show && surround?.length" class="mt-12">
+  <div v-if="traitConfig.surround?.show && surround?.length" class="mt-12">
     <UContentSurround
       :surround="surround"
-      :prev-icon="collectionConfig.surround.prevIcon"
-      :next-icon="collectionConfig.surround.nextIcon"
+      :prev-icon="traitConfig.surround.prevIcon"
+      :next-icon="traitConfig.surround.nextIcon"
     />
   </div>
 </template>

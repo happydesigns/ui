@@ -1,19 +1,14 @@
 <script setup lang="ts">
 import type { BreadcrumbItem } from '@nuxt/ui'
-import type { ArticleConfig, EventConfig } from '~/app.config'
-import { defu } from 'defu'
 
 const props = defineProps<{
   backLink?: BreadcrumbItem | null
   backLabel?: string
   page?: any
-  config?: ArticleConfig | EventConfig
   collection?: string
 }>()
 
-const baseConfig = useCollectionConfig(() => props.collection || 'article')
-
-const resolvedConfig = computed(() => defu(props.config || {}, baseConfig.value) as Required<ArticleConfig & EventConfig>)
+const { traitConfig } = useCollectionTraits((props.collection || 'article') as any)
 
 const { copy } = useClipboard()
 const url = useRequestURL()
@@ -21,8 +16,8 @@ const url = useRequestURL()
 function copyLink() {
   copy(`${url.origin}${props.page?.path}`, {
     id: 'article-copy-link',
-    title: resolvedConfig.value.copyButton?.successLabel,
-    icon: resolvedConfig.value.copyButton?.successIcon,
+    title: traitConfig.value.copyButton?.successLabel,
+    icon: traitConfig.value.copyButton?.successIcon,
   })
 }
 </script>
@@ -31,21 +26,21 @@ function copyLink() {
   <div class="all:flex items-center justify-between mt-12 not-prose">
     <UButton
       v-if="backLink"
-      :icon="resolvedConfig.backButton?.icon"
+      :icon="traitConfig.backButton?.icon"
       color="primary"
       variant="ghost"
       :to="backLink.to"
     >
-      {{ backLabel || resolvedConfig.backButton?.label }}
+      {{ backLabel || traitConfig.backButton?.label }}
     </UButton>
     <div class="all:flex justify-end items-center gap-1.5 ml-auto">
       <UButton
-        :icon="resolvedConfig.copyButton?.icon"
+        :icon="traitConfig.copyButton?.icon"
         variant="ghost"
         color="neutral"
         @click="copyLink"
       >
-        {{ resolvedConfig.copyButton?.label }}
+        {{ traitConfig.copyButton?.label }}
       </UButton>
     </div>
   </div>

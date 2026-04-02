@@ -8,8 +8,7 @@ const props = defineProps<{
 
 const appConfig = useAppConfig()
 
-/** Resolve the configuration for this collection using the smart merger */
-const collectionConfig = useCollectionConfig(() => props.collection || 'article' as C)
+const { traitConfig } = useCollectionTraits((props.collection || 'article') as any)
 
 const editLink = computed(() => {
   const { repo, branch, dir } = appConfig.app.meta.github || {}
@@ -22,7 +21,7 @@ const editLink = computed(() => {
   return `https://github.com/` + `${repo}/edit/${branch}/${dir}/${props.page.stem}.${extension}`
 })
 
-const config = computed(() => collectionConfig.value.actionButtons)
+const config = computed(() => traitConfig.value.actionButtons)
 </script>
 
 <template>
