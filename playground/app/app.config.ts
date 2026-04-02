@@ -93,6 +93,25 @@ export default defineAppConfig({
   },
 
   content: {
+    traits: {
+      copyButton: {
+        label: 'URL kopieren',
+        successLabel: 'Link in Zwischenablage kopiert',
+      },
+      actionButtons: {
+        edit: {
+          label: 'Artikel bearbeiten',
+        },
+        report: {
+          label: 'Fehler melden',
+        },
+        separator: 'oder',
+      },
+      surround: {
+        prevLabel: 'Vorheriger',
+        nextLabel: 'Nächster',
+      },
+    },
     collections: {
       article: {
         breadcrumbs: [
@@ -114,23 +133,6 @@ export default defineAppConfig({
         },
         backButton: {
           label: 'Zurück zum Blog',
-        },
-        copyButton: {
-          label: 'URL kopieren',
-          successLabel: 'Link in Zwischenablage kopiert',
-        },
-        actionButtons: {
-          edit: {
-            label: 'Artikel bearbeiten',
-          },
-          report: {
-            label: 'Fehler melden',
-          },
-          separator: 'oder',
-        },
-        surround: {
-          prevLabel: 'Vorheriger',
-          nextLabel: 'Nächster',
         },
         list: {
           labelAll: 'Alle',
