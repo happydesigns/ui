@@ -26,8 +26,10 @@ if (!page.value) {
 }
 
 usePageSeo(page)
-const renderToc = computed(() => page.value?.toc !== false)
 
+const { hasTrait } = useCollectionTraits(collection)
+
+const renderToc = computed(() => hasTrait('toc') && page.value?.toc !== false)
 const header = computed(() => resolvePageHeader(page.value))
 </script>
 
@@ -39,7 +41,7 @@ const header = computed(() => resolvePageHeader(page.value))
       <UContainer>
         <UPage>
           <UPageHeader
-            v-if="header"
+            v-if="hasTrait('header') && header"
             v-bind="(header as any)"
           />
 

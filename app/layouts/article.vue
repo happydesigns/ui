@@ -42,7 +42,7 @@ if (!page.value) {
 }
 
 usePageSeo(page)
-const renderToc = computed(() => page.value?.toc !== false)
+const renderToc = computed(() => hasTrait('toc') && page.value?.toc !== false)
 
 const header = computed(() => resolvePageHeader(page.value))
 
@@ -70,7 +70,7 @@ const backLink = computed(() => {
     <UMain v-if="page">
       <UContainer>
         <UPageHeader
-          v-if="header"
+          v-if="hasTrait('header') && header"
           v-bind="(header as any)"
           :ui="{
             headline: 'all:flex flex-col gap-y-8 items-start',

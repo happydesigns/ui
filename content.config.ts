@@ -25,10 +25,14 @@ export default defineContentConfig({
         status: z.enum(['published', 'draft', 'archived']).default('published'),
       }),
     }),
-    seo: defineTrait({
+    header: defineTrait({
+      schema: z.object({
+        header: property(z.object({})).inherit('@nuxt/ui/components/PageHeader.vue').optional(),
+      }),
+    }),
+    toc: defineTrait({
       schema: z.object({
         toc: z.boolean().default(true),
-        header: property(z.object({})).inherit('@nuxt/ui/components/PageHeader.vue').optional(),
       }),
     }),
     links: defineTrait({
@@ -93,7 +97,7 @@ export default defineContentConfig({
         include: 'articles/**/*.{md,yaml}',
         prefix: '/articles',
       },
-      traits: ['dates', 'authors', 'category', 'status', 'seo', 'surround', 'copyButton', 'actionButtons', 'backButton'],
+      traits: ['dates', 'authors', 'category', 'status', 'header', 'toc', 'surround', 'copyButton', 'actionButtons', 'backButton'],
     },
     event: {
       type: 'page',
@@ -101,7 +105,7 @@ export default defineContentConfig({
         include: 'events/**/*.{md,yaml}',
         prefix: '/events',
       },
-      traits: ['dates', 'location', 'category', 'links', 'status', 'seo', 'surround', 'copyButton', 'actionButtons', 'backButton'],
+      traits: ['dates', 'location', 'category', 'links', 'status', 'header', 'surround', 'copyButton', 'actionButtons', 'backButton'],
     },
     page: {
       type: 'page',
@@ -109,7 +113,7 @@ export default defineContentConfig({
         include: 'pages/**/*.{md,yaml}',
         prefix: '/',
       },
-      traits: ['layout', 'seo'],
+      traits: ['layout', 'header', 'toc'],
     },
     user: {
       type: 'data',
