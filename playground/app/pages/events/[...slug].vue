@@ -5,7 +5,7 @@ const { data: page } = await usePageContent({
 </script>
 
 <template>
-  <NuxtLayout name="event">
+  <NuxtLayout name="article" collection="event">
     <ContentRenderer v-if="page" :value="page" />
   </NuxtLayout>
 </template>
