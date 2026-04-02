@@ -19,7 +19,7 @@ location:
   url: https://maps.app.goo.gl/RT3zjtjvZXQnpEro8
 status: published
 toc: true
-layout: event
+layout: article
 ---
 
 ## What to expect

@@ -8,7 +8,7 @@ location:
   name: Online
 status: published
 toc: true
-layout: event
+layout: article
 ---
 
 ## Summary
