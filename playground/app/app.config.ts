@@ -90,7 +90,9 @@ export default defineAppConfig({
         day: 'numeric',
       },
     },
+  },
 
+  content: {
     collections: {
       article: {
         breadcrumbs: [
