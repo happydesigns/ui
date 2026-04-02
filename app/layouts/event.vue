@@ -25,13 +25,16 @@ const { data: page } = await usePageContent<C, Collections['event']>({
   collection: () => collection,
 })
 
-/** Resolve the configuration for this collection using the smart merger */
+/** Resolve the configuration for this collection (query, categories, list, breadcrumbs) */
 const config = useCollectionConfig(() => collection)
+
+/** Resolve trait membership and merged trait config */
+const { hasTrait } = useCollectionTraits(collection)
 
 if (!page.value) {
   throw createError({
     statusCode: 404,
-    statusMessage: `${String(collection)} ${path || route.path} not found`,
+    statusMessage: `${collection} ${path || route.path} not found`,
     fatal: true,
   })
 }
@@ -130,15 +133,23 @@ const backLink = computed(() => {
             <slot />
 
             <HArticleFooter
+              v-if="hasTrait('backButton') || hasTrait('copyButton')"
               :back-link="backLink"
-              :back-label="backLabel || config.backButton?.label"
+              :back-label="backLabel"
               :page="page"
-              :config="config"
+              :collection="collection"
             />
 
-            <HArticleActionSeparator :page="page" :collection="collection" />
+            <HArticleActionSeparator
+              v-if="hasTrait('actionButtons')"
+              :page="page"
+              :collection="collection"
+            />
 
-            <HArticleSurround :collection="collection" />
+            <HArticleSurround
+              v-if="hasTrait('surround')"
+              :collection="collection"
+            />
           </UPageBody>
 
           <template #right>
