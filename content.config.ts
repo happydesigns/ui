@@ -1,53 +1,108 @@
-import { defineCollection, defineContentConfig } from '@nuxt/content'
-import { articleCollectionTraits, eventCollectionTraits, pageCollectionTraits, userCollectionTraits } from './schemas'
-
-const snippetCollectionConfig = defineCollection({
-  type: 'page',
-  source: {
-    include: 'snippets/**/*.{md,yaml}',
-    prefix: '/snippets',
-  },
-})
-
-const articleCollectionConfig = defineCollection({
-  type: 'page',
-  source: {
-    include: 'articles/**/*.{md,yaml}',
-    prefix: '/articles',
-  },
-  schema: articleCollectionTraits,
-})
-
-const eventCollectionConfig = defineCollection({
-  type: 'page',
-  source: {
-    include: 'events/**/*.{md,yaml}',
-    prefix: '/events',
-  },
-  schema: eventCollectionTraits,
-})
-
-const pageCollectionConfig = defineCollection({
-  type: 'page',
-  source: {
-    include: 'pages/**/*.{md,yaml}',
-    prefix: '/',
-  },
-  schema: pageCollectionTraits,
-})
-
-const userCollectionConfig = defineCollection({
-  type: 'data',
-  source: 'users/**/*.{md,yaml}',
-  schema: userCollectionTraits,
-})
+import { property } from '@nuxt/content'
+import { defineContentConfig, defineTrait } from 'nuxt-content-traits/utils'
+import { z } from 'zod'
 
 export default defineContentConfig({
+  traits: {
+    dates: defineTrait({
+      schema: z.object({
+        date: z.date().optional(),
+        dateEnd: z.date().optional(),
+      }),
+    }),
+    authors: defineTrait({
+      schema: z.object({
+        authors: z.array(z.string()).optional(),
+      }),
+    }),
+    category: defineTrait({
+      schema: z.object({
+        category: z.string().optional(),
+      }),
+    }),
+    status: defineTrait({
+      schema: z.object({
+        status: z.enum(['published', 'draft', 'archived']).default('published'),
+      }),
+    }),
+    seo: defineTrait({
+      schema: z.object({
+        toc: z.boolean().default(true),
+        header: property(z.object({})).inherit('@nuxt/ui/components/PageHeader.vue').optional(),
+      }),
+    }),
+    links: defineTrait({
+      schema: z.object({
+        links: z.array(
+          property(z.object({})).inherit('@nuxt/ui/components/Button.vue'),
+        ).optional(),
+      }),
+    }),
+    location: defineTrait({
+      schema: z.object({
+        location: z.object({
+          name: z.string(),
+          url: z.string().optional(),
+        }).optional(),
+      }),
+    }),
+    layout: defineTrait({
+      schema: z.object({
+        layout: z.enum(['default', 'content']).optional(),
+      }),
+    }),
+    user: defineTrait({
+      schema: z.object({
+        username: z.string(),
+        name: z.string().optional(),
+        description: z.string().optional(),
+        to: z.string().optional(),
+        avatar: property(z.object({})).inherit('@nuxt/ui/components/Avatar.vue').optional(),
+        socials: z.array(z.object({
+          name: z.string(),
+          url: z.url(),
+        })).optional(),
+        email: z.email().optional(),
+      }),
+    }),
+  },
+
   collections: {
-    article: articleCollectionConfig,
-    event: eventCollectionConfig,
-    page: pageCollectionConfig,
-    snippet: snippetCollectionConfig,
-    user: userCollectionConfig,
+    snippet: {
+      type: 'page',
+      source: {
+        include: 'snippets/**/*.{md,yaml}',
+        prefix: '/snippets',
+      },
+    },
+    article: {
+      type: 'page',
+      source: {
+        include: 'articles/**/*.{md,yaml}',
+        prefix: '/articles',
+      },
+      traits: ['dates', 'authors', 'category', 'status', 'seo'],
+    },
+    event: {
+      type: 'page',
+      source: {
+        include: 'events/**/*.{md,yaml}',
+        prefix: '/events',
+      },
+      traits: ['dates', 'location', 'category', 'links', 'status', 'seo'],
+    },
+    page: {
+      type: 'page',
+      source: {
+        include: 'pages/**/*.{md,yaml}',
+        prefix: '/',
+      },
+      traits: ['layout', 'seo'],
+    },
+    user: {
+      type: 'data',
+      source: 'users/**/*.{md,yaml}',
+      traits: ['user'],
+    },
   },
 })
