@@ -105,7 +105,7 @@ export default defineContentConfig({
         include: 'events/**/*.{md,yaml}',
         prefix: '/events',
       },
-      traits: ['dates', 'location', 'category', 'links', 'status', 'header', 'surround', 'copyButton', 'actionButtons', 'backButton'],
+      traits: ['dates', 'location', 'category', 'links', 'status', 'header', 'toc', 'surround', 'copyButton', 'actionButtons', 'backButton'],
     },
     page: {
       type: 'page',
