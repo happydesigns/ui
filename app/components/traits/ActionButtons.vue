@@ -27,8 +27,8 @@ const reportLink = computed(() => {
 const resolvedButtons = computed(() =>
   (props.config?.buttons ?? []).flatMap((btn) => {
     let to = btn.to
-    if (btn.type === 'github-edit') to = editLink.value
-    else if (btn.type === 'report-github-issue') to = reportLink.value
+    if (btn.type === 'github-edit') to = editLink.value ?? undefined
+    else if (btn.type === 'report-github-issue') to = reportLink.value ?? undefined
     return to ? [{ ...btn, to }] : []
   }),
 )
