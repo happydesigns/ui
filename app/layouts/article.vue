@@ -120,7 +120,7 @@ const backLink = computed(() => {
           </UPageBody>
 
           <template #right>
-            <HContentToc :page="page" :collection="collection" />
+            <HContentToc v-if="hasTrait('toc')" :page="page" />
           </template>
         </UPage>
       </UContainer>

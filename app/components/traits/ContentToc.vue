@@ -1,17 +1,12 @@
 <script setup lang="ts">
-import type { PageCollections } from '@nuxt/content'
-
 const props = defineProps<{
   page?: any
-  collection?: keyof PageCollections
 }>()
 
 const appConfig = useAppConfig()
-const { hasTrait } = useCollectionTraits(props.collection || 'article')
 
 const show = computed(() =>
-  hasTrait('toc')
-  && props.page?.toc !== false
+  props.page?.toc !== false
   && props.page?.body?.toc?.links?.length,
 )
 </script>

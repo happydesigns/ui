@@ -8,17 +8,19 @@ const props = defineProps<{
 
 const { hasTrait } = useCollectionTraits(props.collection || 'article')
 
-const showCategoryDot = computed(() => hasTrait('category') && props.page?.category)
+const showCategory = computed(() => hasTrait('category') && props.page?.category)
+const showDates = computed(() => hasTrait('dates') && props.page?.date)
+const showLocation = computed(() => hasTrait('location') && props.page?.location?.name)
 </script>
 
 <template>
   <div class="all:flex flex-wrap items-center gap-x-3 gap-y-2 text-muted">
-    <HContentCategory :page="page" :collection="collection" />
+    <HContentCategory v-if="showCategory" :page="page" />
 
-    <span v-if="showCategoryDot && hasTrait('dates') && page?.date" class="all:hidden sm:inline opacity-50">&middot;</span>
-    <HContentDates :page="page" :collection="collection" />
+    <span v-if="showCategory && showDates" class="all:hidden sm:inline opacity-50">&middot;</span>
+    <HContentDates v-if="showDates" :page="page" />
 
-    <span v-if="(showCategoryDot || (hasTrait('dates') && page?.date)) && hasTrait('location') && page?.location?.name" class="all:hidden sm:inline opacity-50">&middot;</span>
-    <HContentLocation :page="page" :collection="collection" />
+    <span v-if="(showCategory || showDates) && showLocation" class="all:hidden sm:inline opacity-50">&middot;</span>
+    <HContentLocation v-if="showLocation" :page="page" />
   </div>
 </template>
