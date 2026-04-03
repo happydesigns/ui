@@ -29,24 +29,23 @@ export interface CopyButtonTraitConfig {
   successLabel?: string
 }
 
+export interface ActionButton {
+  /** Built-in type for a dynamic GitHub edit link (URL resolved from app.meta.github + page stem) */
+  type?: 'github-edit'
+  /** Icon name */
+  icon?: string
+  /** Button label */
+  label?: string
+  /** Link target — buttons without a resolved `to` are not rendered */
+  to?: string
+  /** Link target attribute */
+  target?: string
+}
+
 export interface ActionButtonsTraitConfig {
-  /** Configuration for the edit button */
-  edit?: {
-    /** The icon to be shown in the edit button */
-    icon?: string
-    /** The label to be shown in the edit button */
-    label?: string
-  }
-  /** Configuration for the report button */
-  report?: {
-    /** The icon to be shown in the report button */
-    icon?: string
-    /** The label to be shown in the report button */
-    label?: string
-    /** The URL to be shown in the report button */
-    link?: string
-  }
-  /** The separator text between edit and report buttons */
+  /** Ordered list of action buttons to display. Buttons without a resolved `to` are hidden. */
+  buttons?: ActionButton[]
+  /** Separator text rendered between adjacent buttons */
   separator?: string
 }
 

@@ -99,12 +99,10 @@ export default defineAppConfig({
         successLabel: 'Link in Zwischenablage kopiert',
       },
       actionButtons: {
-        edit: {
-          label: 'Artikel bearbeiten',
-        },
-        report: {
-          label: 'Fehler melden',
-        },
+        buttons: [
+          { type: 'github-edit', icon: 'i-lucide-pen', label: 'Artikel bearbeiten', target: '_blank' },
+          { icon: 'i-ph-warning-circle', label: 'Fehler melden', target: '_blank' },
+        ],
         separator: 'oder',
       },
       surround: {

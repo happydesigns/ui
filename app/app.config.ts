@@ -24,14 +24,10 @@ export default defineAppConfig({
         successLabel: 'Link copied to clipboard',
       },
       actionButtons: {
-        edit: {
-          icon: 'i-lucide-pen',
-          label: 'Edit article',
-        },
-        report: {
-          icon: 'i-ph-warning-circle',
-          label: 'Report an issue',
-        },
+        buttons: [
+          { type: 'github-edit', icon: 'i-lucide-pen', label: 'Edit article', target: '_blank' },
+          { icon: 'i-ph-warning-circle', label: 'Report an issue', target: '_blank' },
+        ],
         separator: 'or',
       },
       surround: {
