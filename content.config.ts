@@ -50,6 +50,9 @@ export default defineContentConfig({
         }).optional(),
       }),
     }),
+    separator: defineTrait({
+      schema: z.object({}),
+    }),
     surround: defineTrait({
       schema: z.object({}),
     }),
