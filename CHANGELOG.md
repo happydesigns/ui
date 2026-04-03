@@ -1,6 +1,67 @@
 # Changelog
 
 
+## v0.13.0
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.12.2...v0.13.0)
+
+### 🚀 Enhancements
+
+- Add nuxt-content-traits module and zod dependency ([a81d191](https://github.com/happydesigns/ui/commit/a81d191))
+- **traits:** Add surround, copyButton, actionButtons, backButton UI feature traits ([8dc90dc](https://github.com/happydesigns/ui/commit/8dc90dc))
+- **config:** Add toc trait to event collection ([d96c129](https://github.com/happydesigns/ui/commit/d96c129))
+- **traits:** Add report-github-issue button type and empty default buttons ([4d90822](https://github.com/happydesigns/ui/commit/4d90822))
+- **traits:** Register separator as a content trait ([4b95426](https://github.com/happydesigns/ui/commit/4b95426))
+- **playground:** Add Articles and Events header navigation links ([6bab216](https://github.com/happydesigns/ui/commit/6bab216))
+
+### 🩹 Fixes
+
+- **playground:** Update content.config and app.config for v2 migration ([2d7c01f](https://github.com/happydesigns/ui/commit/2d7c01f))
+- **playground:** Move shared German translations to content.traits ([b4f7218](https://github.com/happydesigns/ui/commit/b4f7218))
+- **layouts:** Restore Collections import in event layout ([ce462fb](https://github.com/happydesigns/ui/commit/ce462fb))
+- **layouts:** Cast page to any for toc access in unified article layout ([e77ebae](https://github.com/happydesigns/ui/commit/e77ebae))
+- **playground:** Pass collection=event to article layout in events page ([d55c05d](https://github.com/happydesigns/ui/commit/d55c05d))
+- **traits:** Resolve null vs undefined type error in ActionButtons ([2154ee3](https://github.com/happydesigns/ui/commit/2154ee3))
+
+### 💅 Refactors
+
+- **schemas:** Restructure into traits and collections ([715e0bf](https://github.com/happydesigns/ui/commit/715e0bf))
+- Migrate to nuxt-content-traits v2 API in content.config.ts ([6da0157](https://github.com/happydesigns/ui/commit/6da0157))
+- **app.config:** Move collection defaults from app to content namespace ([d3d4b6c](https://github.com/happydesigns/ui/commit/d3d4b6c))
+- **useCollectionConfig:** Read from appConfig.content.collections ([3849b0e](https://github.com/happydesigns/ui/commit/3849b0e))
+- **config:** Extract UI feature trait config types and move defaults to content.traits ([b2cda33](https://github.com/happydesigns/ui/commit/b2cda33))
+- **components:** Use useCollectionTraits instead of useCollectionConfig ([e45c2ea](https://github.com/happydesigns/ui/commit/e45c2ea))
+- **layouts:** Gate UI feature components behind hasTrait() checks ([7d9fe74](https://github.com/happydesigns/ui/commit/7d9fe74))
+- **traits:** Split seo trait into header and toc ([f7f0b6a](https://github.com/happydesigns/ui/commit/f7f0b6a))
+- **layouts:** Unify article and event layouts via shared headline components ([aacd0d3](https://github.com/happydesigns/ui/commit/aacd0d3))
+- **layouts:** Tighten collection types across layouts and article components ([07761df](https://github.com/happydesigns/ui/commit/07761df))
+- **layouts:** Remove event layout in favor of unified article layout ([f7f56b3](https://github.com/happydesigns/ui/commit/f7f56b3))
+- **layouts:** Extract TOC into HArticleToc component ([98fd88d](https://github.com/happydesigns/ui/commit/98fd88d))
+- **layouts:** Extract HArticlePage and widen collection type ([3eb9a5d](https://github.com/happydesigns/ui/commit/3eb9a5d))
+- **components:** Move trait-rendering components to components/traits/ ([684dd6c](https://github.com/happydesigns/ui/commit/684dd6c))
+- **components:** Rename Article* traits to Content* and split ArticleFooter ([6427931](https://github.com/happydesigns/ui/commit/6427931))
+- **traits:** Replace ContentEditButton/ReportButton with generic ContentActionButtons ([3401ac2](https://github.com/happydesigns/ui/commit/3401ac2))
+- **traits:** Remove hasTrait from individual trait components ([d02d0d9](https://github.com/happydesigns/ui/commit/d02d0d9))
+- **traits:** Pass config as props instead of resolving collection inside traits ([df0a81a](https://github.com/happydesigns/ui/commit/df0a81a))
+- **ContentActionButtons:** Replace map/filter with flatMap to avoid explicit casting ([3d06634](https://github.com/happydesigns/ui/commit/3d06634))
+- **traits:** Rename actionButtons → separator, ArticleActionSeparator → ArticleSeparator ([f01e759](https://github.com/happydesigns/ui/commit/f01e759))
+- **traits:** Move ArticleSeparator to traits/Separator (not article-specific) ([f89fab1](https://github.com/happydesigns/ui/commit/f89fab1))
+- **traits:** Remove Content prefix from trait components ([5491145](https://github.com/happydesigns/ui/commit/5491145))
+- **traits:** Rename ActionButtons to SeparatorButtons ([0641fe0](https://github.com/happydesigns/ui/commit/0641fe0))
+- **article:** Unify ArticleGridDate and EventGridDate into one component ([4f7c230](https://github.com/happydesigns/ui/commit/4f7c230))
+
+### 🏡 Chore
+
+- **release:** V0.12.2 ([4016901](https://github.com/happydesigns/ui/commit/4016901))
+- Add .claude to .gitignore ([7f19e4d](https://github.com/happydesigns/ui/commit/7f19e4d))
+- Add nuxt-ui agent skill ([2a3fd9a](https://github.com/happydesigns/ui/commit/2a3fd9a))
+- Lint ([2e57ccf](https://github.com/happydesigns/ui/commit/2e57ccf))
+- **playground:** Add image ([2421e91](https://github.com/happydesigns/ui/commit/2421e91))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.12.2
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.12.1...v0.12.2)
