@@ -92,14 +92,14 @@ const backLink = computed(() => {
               v-if="hasTrait('backButton') || hasTrait('copyButton')"
               class="all:flex items-center justify-between mt-12"
             >
-              <HContentBackButton
+              <HBackButton
                 v-if="hasTrait('backButton')"
                 :back-link="backLink"
                 :back-label="backLabel"
                 :config="traitConfig.backButton"
               />
               <div class="all:flex justify-end items-center gap-1.5 ml-auto">
-                <HContentCopyButton
+                <HCopyButton
                   v-if="hasTrait('copyButton')"
                   :page="page"
                   :config="traitConfig.copyButton"
@@ -113,7 +113,7 @@ const backLink = computed(() => {
               :config="traitConfig.separator"
             />
 
-            <HContentSurround
+            <HSurround
               v-if="hasTrait('surround')"
               :collection="collection"
               :config="traitConfig.surround"
@@ -122,7 +122,7 @@ const backLink = computed(() => {
           </UPageBody>
 
           <template #right>
-            <HContentToc v-if="hasTrait('toc')" :page="page" />
+            <HToc v-if="hasTrait('toc')" :page="page" />
           </template>
         </UPage>
       </UContainer>

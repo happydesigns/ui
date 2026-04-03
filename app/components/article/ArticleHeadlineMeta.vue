@@ -15,12 +15,12 @@ const showLocation = computed(() => hasTrait('location') && props.page?.location
 
 <template>
   <div class="all:flex flex-wrap items-center gap-x-3 gap-y-2 text-muted">
-    <HContentCategory v-if="showCategory" :page="page" />
+    <HCategory v-if="showCategory" :page="page" />
 
     <span v-if="showCategory && showDates" class="all:hidden sm:inline opacity-50">&middot;</span>
-    <HContentDates v-if="showDates" :page="page" />
+    <HDates v-if="showDates" :page="page" />
 
     <span v-if="(showCategory || showDates) && showLocation" class="all:hidden sm:inline opacity-50">&middot;</span>
-    <HContentLocation v-if="showLocation" :page="page" />
+    <HLocation v-if="showLocation" :page="page" />
   </div>
 </template>

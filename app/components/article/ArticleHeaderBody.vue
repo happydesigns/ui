@@ -11,8 +11,8 @@ const { hasTrait } = useCollectionTraits(props.collection || 'article')
 
 <template>
   <div class="mt-4 all:flex flex-wrap items-center gap-3">
-    <HContentAuthors v-if="hasTrait('authors')" :page="page" />
-    <HContentLinks v-if="hasTrait('links') && page?.links?.length" :page="page" />
+    <HAuthors v-if="hasTrait('authors')" :page="page" />
+    <HLinks v-if="hasTrait('links') && page?.links?.length" :page="page" />
     <slot />
   </div>
 </template>

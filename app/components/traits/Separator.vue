@@ -10,7 +10,7 @@ defineProps<{
 <template>
   <USeparator class="mt-8">
     <div class="all:flex items-center gap-2 text-sm text-muted">
-      <HContentActionButtons :page="page" :config="config" />
+      <HActionButtons :page="page" :config="config" />
     </div>
   </USeparator>
 </template>
