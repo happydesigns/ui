@@ -2,44 +2,44 @@ import { property } from '@nuxt/content'
 import { defineTrait } from 'nuxt-content-traits/utils'
 import { z } from 'zod'
 
-export const dates = defineTrait({
+export const datesTrait = defineTrait({
   schema: z.object({
     date: z.date().optional(),
     dateEnd: z.date().optional(),
   }),
 })
 
-export const authors = defineTrait({
+export const authorsTrait = defineTrait({
   schema: z.object({
     authors: z.array(z.string()).optional(),
   }),
 })
 
-export const category = defineTrait({
+export const categoryTrait = defineTrait({
   schema: z.object({
     category: z.string().optional(),
   }),
 })
 
-export const status = defineTrait({
+export const statusTrait = defineTrait({
   schema: z.object({
     status: z.enum(['published', 'draft', 'archived']).default('published'),
   }),
 })
 
-export const header = defineTrait({
+export const headerTrait = defineTrait({
   schema: z.object({
     header: property(z.object({})).inherit('@nuxt/ui/components/PageHeader.vue').optional(),
   }),
 })
 
-export const toc = defineTrait({
+export const tocTrait = defineTrait({
   schema: z.object({
     toc: z.boolean().default(true),
   }),
 })
 
-export const links = defineTrait({
+export const linksTrait = defineTrait({
   schema: z.object({
     links: z.array(
       property(z.object({})).inherit('@nuxt/ui/components/Button.vue'),
@@ -47,7 +47,7 @@ export const links = defineTrait({
   }),
 })
 
-export const location = defineTrait({
+export const locationTrait = defineTrait({
   schema: z.object({
     location: z.object({
       name: z.string(),
@@ -56,33 +56,33 @@ export const location = defineTrait({
   }),
 })
 
-export const separator = defineTrait({
+export const separatorTrait = defineTrait({
   schema: z.object({}),
 })
 
-export const surround = defineTrait({
+export const surroundTrait = defineTrait({
   schema: z.object({}),
 })
 
-export const copyButton = defineTrait({
+export const copyButtonTrait = defineTrait({
   schema: z.object({}),
 })
 
-export const separatorButtons = defineTrait({
+export const separatorButtonsTrait = defineTrait({
   schema: z.object({}),
 })
 
-export const backButton = defineTrait({
+export const backButtonTrait = defineTrait({
   schema: z.object({}),
 })
 
-export const layout = defineTrait({
+export const layoutTrait = defineTrait({
   schema: z.object({
     layout: z.enum(['default', 'content']).optional(),
   }),
 })
 
-export const user = defineTrait({
+export const userTrait = defineTrait({
   schema: z.object({
     username: z.string(),
     name: z.string().optional(),
@@ -98,19 +98,19 @@ export const user = defineTrait({
 })
 
 export const traits = {
-  dates,
-  authors,
-  category,
-  status,
-  header,
-  toc,
-  links,
-  location,
-  separator,
-  surround,
-  copyButton,
-  separatorButtons,
-  backButton,
-  layout,
-  user,
+  dates: datesTrait,
+  authors: authorsTrait,
+  category: categoryTrait,
+  status: statusTrait,
+  header: headerTrait,
+  toc: tocTrait,
+  links: linksTrait,
+  location: locationTrait,
+  separator: separatorTrait,
+  surround: surroundTrait,
+  copyButton: copyButtonTrait,
+  separatorButtons: separatorButtonsTrait,
+  backButton: backButtonTrait,
+  layout: layoutTrait,
+  user: userTrait,
 }

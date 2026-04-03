@@ -1,4 +1,4 @@
-export const snippet = {
+export const snippetCollection = {
   type: 'page',
   source: {
     include: 'snippets/**/*.{md,yaml}',
@@ -6,7 +6,7 @@ export const snippet = {
   },
 }
 
-export const article = {
+export const articleCollection = {
   type: 'page',
   source: {
     include: 'articles/**/*.{md,yaml}',
@@ -15,7 +15,7 @@ export const article = {
   traits: ['dates', 'authors', 'category', 'status', 'header', 'toc', 'surround', 'copyButton', 'separator', 'backButton'],
 }
 
-export const event = {
+export const eventCollection = {
   type: 'page',
   source: {
     include: 'events/**/*.{md,yaml}',
@@ -24,7 +24,7 @@ export const event = {
   traits: ['dates', 'location', 'category', 'links', 'status', 'header', 'toc', 'surround', 'copyButton', 'separator', 'backButton'],
 }
 
-export const page = {
+export const pageCollection = {
   type: 'page',
   source: {
     include: 'pages/**/*.{md,yaml}',
@@ -33,10 +33,16 @@ export const page = {
   traits: ['layout', 'header', 'toc'],
 }
 
-export const user = {
+export const userCollection = {
   type: 'data',
   source: 'users/**/*.{md,yaml}',
   traits: ['user'],
 }
 
-export const collections = { snippet, article, event, page, user }
+export const collections = {
+  snippet: snippetCollection,
+  article: articleCollection,
+  event: eventCollection,
+  page: pageCollection,
+  user: userCollection,
+}
