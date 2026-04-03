@@ -59,7 +59,7 @@ export default defineContentConfig({
     copyButton: defineTrait({
       schema: z.object({}),
     }),
-    actionButtons: defineTrait({
+    separatorButtons: defineTrait({
       schema: z.object({}),
     }),
     backButton: defineTrait({

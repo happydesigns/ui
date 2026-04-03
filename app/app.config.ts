@@ -1,10 +1,10 @@
 import type { ButtonProps, FooterColumn } from '@nuxt/ui'
 import type {
-  ActionButtonsTraitConfig,
   ArticleConfig,
   BackButtonTraitConfig,
   CopyButtonTraitConfig,
   EventConfig,
+  SeparatorTraitConfig,
   SurroundTraitConfig,
 } from './types/config'
 
@@ -125,7 +125,7 @@ declare module '@nuxt/schema' {
       traits?: {
         backButton?: BackButtonTraitConfig
         copyButton?: CopyButtonTraitConfig
-        actionButtons?: ActionButtonsTraitConfig
+        separatorButtons?: SeparatorTraitConfig
         surround?: SurroundTraitConfig
       }
       /** Collection-specific configurations including default 'article' and 'event' layouts */
