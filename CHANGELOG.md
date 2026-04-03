@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.13.1
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.13.0...v0.13.1)
+
+### 🚀 Enhancements
+
+- **schemas:** Export traits and collections for app consumption ([eecbe9f](https://github.com/happydesigns/ui/commit/eecbe9f))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.13.0
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.12.2...v0.13.0)
