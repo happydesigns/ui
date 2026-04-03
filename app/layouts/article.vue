@@ -107,7 +107,7 @@ const backLink = computed(() => {
               </div>
             </div>
 
-            <HArticleSeparator
+            <HSeparator
               v-if="hasTrait('separator')"
               :page="page"
               :config="traitConfig.separator"
