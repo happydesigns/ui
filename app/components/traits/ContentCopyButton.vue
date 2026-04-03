@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import type { PageCollections } from '@nuxt/content'
+import type { CopyButtonTraitConfig } from '~/types/config'
 
 const props = defineProps<{
   page?: any
-  collection?: keyof PageCollections
+  config?: CopyButtonTraitConfig
 }>()
-
-const { traitConfig } = useCollectionTraits(props.collection || 'article')
 
 const { copy } = useClipboard()
 const url = useRequestURL()
@@ -14,19 +12,19 @@ const url = useRequestURL()
 function copyLink() {
   copy(`${url.origin}${props.page?.path}`, {
     id: 'article-copy-link',
-    title: traitConfig.value.copyButton?.successLabel,
-    icon: traitConfig.value.copyButton?.successIcon,
+    title: props.config?.successLabel,
+    icon: props.config?.successIcon,
   })
 }
 </script>
 
 <template>
   <UButton
-    :icon="traitConfig.copyButton?.icon"
+    :icon="config?.icon"
     variant="ghost"
     color="neutral"
     @click="copyLink"
   >
-    {{ traitConfig.copyButton?.label }}
+    {{ config?.label }}
   </UButton>
 </template>

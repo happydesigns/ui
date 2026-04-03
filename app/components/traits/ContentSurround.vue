@@ -1,9 +1,14 @@
 <script setup lang="ts" generic="C extends keyof PageCollections = 'article'">
 import type { PageCollections } from '@nuxt/content'
+import type { CollectionQueryConfig, SurroundTraitConfig } from '~/types/config'
 
 const props = withDefaults(defineProps<{
   /** The collection to fetch from */
   collection?: C
+  /** Surround display config */
+  config?: SurroundTraitConfig
+  /** Query config for fields, order and filters */
+  queryConfig?: CollectionQueryConfig
   /** Optional custom fields to fetch */
   fields?: string[]
   /** Optional custom where filter */
@@ -16,21 +21,17 @@ const props = withDefaults(defineProps<{
 
 const route = useRoute()
 
-const { traitConfig } = useCollectionTraits((props.collection || 'article') as any)
-
 const { data: surround } = await useAsyncData(
   `surround-${String(props.collection || 'article')}-${route.path}`,
   () => {
     const colName = (props.collection || 'article') as any
-    const queryConfig = traitConfig.value.query || {}
+    const qc = props.queryConfig || {}
 
-    const fields = (props.fields || queryConfig.fields || ['title', 'description', 'status']) as any
-    const order = props.order !== undefined ? props.order : queryConfig.order
-    const where = props.where || queryConfig.where || [{ field: 'status', operator: '=', value: 'published' }]
+    const fields = (props.fields || qc.fields || ['title', 'description', 'status']) as any
+    const order = props.order !== undefined ? props.order : qc.order
+    const where = props.where || qc.where || [{ field: 'status', operator: '=', value: 'published' }]
 
-    let query = queryCollectionItemSurroundings(colName, route.path, {
-      fields,
-    })
+    let query = queryCollectionItemSurroundings(colName, route.path, { fields })
 
     if (where && Array.isArray(where)) {
       where.forEach((filter) => {
@@ -48,11 +49,11 @@ const { data: surround } = await useAsyncData(
 </script>
 
 <template>
-  <div v-if="traitConfig.surround?.show && surround?.length" class="mt-12">
+  <div v-if="config?.show && surround?.length" class="mt-12">
     <UContentSurround
       :surround="surround"
-      :prev-icon="traitConfig.surround.prevIcon"
-      :next-icon="traitConfig.surround.nextIcon"
+      :prev-icon="config.prevIcon"
+      :next-icon="config.nextIcon"
     />
   </div>
 </template>

@@ -1,15 +1,12 @@
 <script setup lang="ts">
-import type { PageCollections } from '@nuxt/content'
+import type { ActionButton, ActionButtonsTraitConfig } from '~/types/config'
 
 const props = defineProps<{
   page?: any
-  collection?: keyof PageCollections
+  config?: ActionButtonsTraitConfig
 }>()
 
 const appConfig = useAppConfig()
-const { traitConfig } = useCollectionTraits((props.collection || 'article') as any)
-
-const config = computed(() => traitConfig.value.actionButtons)
 
 const editLink = computed(() => {
   const { repo, branch, dir } = appConfig.app.meta.github || {}
@@ -21,9 +18,9 @@ const editLink = computed(() => {
 })
 
 const resolvedButtons = computed(() =>
-  (config.value?.buttons ?? [])
-    .map(btn => btn.type === 'github-edit' ? { ...btn, to: editLink.value } : btn)
-    .filter(btn => btn.to),
+  (props.config?.buttons ?? [])
+    .map(btn => btn.type === 'github-edit' ? { ...btn, to: editLink.value } : btn as ActionButton)
+    .filter((btn): btn is ActionButton & { to: string } => !!btn.to),
 )
 </script>
 

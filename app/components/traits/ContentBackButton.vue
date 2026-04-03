@@ -1,24 +1,22 @@
 <script setup lang="ts">
-import type { PageCollections } from '@nuxt/content'
 import type { BreadcrumbItem } from '@nuxt/ui'
+import type { BackButtonTraitConfig } from '~/types/config'
 
-const props = defineProps<{
+defineProps<{
   backLink?: BreadcrumbItem | null
   backLabel?: string
-  collection?: keyof PageCollections
+  config?: BackButtonTraitConfig
 }>()
-
-const { traitConfig } = useCollectionTraits(props.collection || 'article')
 </script>
 
 <template>
   <UButton
     v-if="backLink"
-    :icon="traitConfig.backButton?.icon"
+    :icon="config?.icon"
     color="primary"
     variant="ghost"
     :to="backLink.to"
   >
-    {{ backLabel || traitConfig.backButton?.label }}
+    {{ backLabel || config?.label }}
   </UButton>
 </template>

@@ -27,7 +27,7 @@ const { data: page } = await usePageContent<C>({
 const config = useCollectionConfig(() => collection)
 
 /** Resolve trait membership and merged trait config */
-const { hasTrait } = useCollectionTraits(collection)
+const { hasTrait, traitConfig } = useCollectionTraits(collection)
 
 if (!page.value) {
   throw createError({
@@ -96,13 +96,13 @@ const backLink = computed(() => {
                 v-if="hasTrait('backButton')"
                 :back-link="backLink"
                 :back-label="backLabel"
-                :collection="collection"
+                :config="traitConfig.backButton"
               />
               <div class="all:flex justify-end items-center gap-1.5 ml-auto">
                 <HContentCopyButton
                   v-if="hasTrait('copyButton')"
                   :page="page"
-                  :collection="collection"
+                  :config="traitConfig.copyButton"
                 />
               </div>
             </div>
@@ -116,6 +116,8 @@ const backLink = computed(() => {
             <HContentSurround
               v-if="hasTrait('surround')"
               :collection="collection"
+              :config="traitConfig.surround"
+              :query-config="traitConfig.query"
             />
           </UPageBody>
 
