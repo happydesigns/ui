@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ActionButton, ActionButtonsTraitConfig } from '~/types/config'
+import type { ActionButtonsTraitConfig } from '~/types/config'
 
 const props = defineProps<{
   page?: any
@@ -18,9 +18,10 @@ const editLink = computed(() => {
 })
 
 const resolvedButtons = computed(() =>
-  (props.config?.buttons ?? [])
-    .map(btn => btn.type === 'github-edit' ? { ...btn, to: editLink.value } : btn as ActionButton)
-    .filter((btn): btn is ActionButton & { to: string } => !!btn.to),
+  (props.config?.buttons ?? []).flatMap((btn) => {
+    const to = btn.type === 'github-edit' ? editLink.value : btn.to
+    return to ? [{ ...btn, to }] : []
+  }),
 )
 </script>
 
