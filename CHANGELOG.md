@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.13.2
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.13.1...v0.13.2)
+
+### 💅 Refactors
+
+- **schemas:** Suffix all trait and collection exports ([ed36b3a](https://github.com/happydesigns/ui/commit/ed36b3a))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.13.1
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.13.0...v0.13.1)
