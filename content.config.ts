@@ -97,7 +97,7 @@ export default defineContentConfig({
         include: 'articles/**/*.{md,yaml}',
         prefix: '/articles',
       },
-      traits: ['dates', 'authors', 'category', 'status', 'header', 'toc', 'surround', 'copyButton', 'actionButtons', 'backButton'],
+      traits: ['dates', 'authors', 'category', 'status', 'header', 'toc', 'surround', 'copyButton', 'separator', 'backButton'],
     },
     event: {
       type: 'page',
@@ -105,7 +105,7 @@ export default defineContentConfig({
         include: 'events/**/*.{md,yaml}',
         prefix: '/events',
       },
-      traits: ['dates', 'location', 'category', 'links', 'status', 'header', 'toc', 'surround', 'copyButton', 'actionButtons', 'backButton'],
+      traits: ['dates', 'location', 'category', 'links', 'status', 'header', 'toc', 'surround', 'copyButton', 'separator', 'backButton'],
     },
     page: {
       type: 'page',

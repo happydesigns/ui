@@ -107,10 +107,10 @@ const backLink = computed(() => {
               </div>
             </div>
 
-            <HArticleActionSeparator
-              v-if="hasTrait('actionButtons')"
+            <HArticleSeparator
+              v-if="hasTrait('separator')"
               :page="page"
-              :collection="collection"
+              :config="traitConfig.separator"
             />
 
             <HContentSurround

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { ActionButtonsTraitConfig } from '~/types/config'
+import type { SeparatorTraitConfig } from '~/types/config'
 
 const props = defineProps<{
   page?: any
-  config?: ActionButtonsTraitConfig
+  config?: SeparatorTraitConfig
 }>()
 
 const appConfig = useAppConfig()

@@ -42,10 +42,10 @@ export interface ActionButton {
   target?: string
 }
 
-export interface ActionButtonsTraitConfig {
-  /** Ordered list of action buttons to display. Buttons without a resolved `to` are hidden. */
+export interface SeparatorTraitConfig {
+  /** Ordered list of buttons to display. Buttons without a resolved `to` are hidden. */
   buttons?: ActionButton[]
-  /** Separator text rendered between adjacent buttons */
+  /** Text rendered between adjacent buttons */
   separator?: string
 }
 
@@ -66,8 +66,8 @@ export interface SurroundTraitConfig {
 // Legacy aliases kept for backwards compatibility within this layer
 // ---------------------------------------------------------------------------
 
-/** @deprecated Use ActionButtonsTraitConfig */
-export type ContentActionButtons = ActionButtonsTraitConfig
+/** @deprecated Use SeparatorTraitConfig */
+export type ContentActionButtons = SeparatorTraitConfig
 
 /** @deprecated Use SurroundTraitConfig */
 export type ContentSurroundConfig = SurroundTraitConfig
@@ -117,7 +117,7 @@ export interface ArticleConfig {
   // Collection-level overrides for trait config (lower priority than content.traits.*)
   backButton?: BackButtonTraitConfig
   copyButton?: CopyButtonTraitConfig
-  actionButtons?: ActionButtonsTraitConfig
+  separator?: SeparatorTraitConfig
   surround?: SurroundTraitConfig
 }
 

@@ -98,7 +98,7 @@ export default defineAppConfig({
         label: 'URL kopieren',
         successLabel: 'Link in Zwischenablage kopiert',
       },
-      actionButtons: {
+      separator: {
         buttons: [
           { type: 'github-edit', icon: 'i-lucide-pen', label: 'Artikel bearbeiten', target: '_blank' },
           { icon: 'i-ph-warning-circle', label: 'Fehler melden', target: '_blank' },
