@@ -24,10 +24,7 @@ export default defineAppConfig({
         successLabel: 'Link copied to clipboard',
       },
       separator: {
-        buttons: [
-          { type: 'github-edit', icon: 'i-lucide-pen', label: 'Edit article', target: '_blank' },
-          { icon: 'i-ph-warning-circle', label: 'Report an issue', target: '_blank' },
-        ],
+        buttons: [],
         separator: 'or',
       },
       surround: {

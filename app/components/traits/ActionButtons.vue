@@ -8,6 +8,8 @@ const props = defineProps<{
 
 const appConfig = useAppConfig()
 
+const githubRepo = computed(() => appConfig.app.meta.github?.repo)
+
 const editLink = computed(() => {
   const { repo, branch, dir } = appConfig.app.meta.github || {}
   if (!repo || !props.page?.stem)
@@ -17,9 +19,16 @@ const editLink = computed(() => {
   return `https://github.com/` + `${repo}/edit/${branch}/${dir}/${props.page.stem}.${extension}`
 })
 
+const reportLink = computed(() => {
+  const repo = githubRepo.value
+  return repo ? `https://github.com/${repo}/issues/new` : null
+})
+
 const resolvedButtons = computed(() =>
   (props.config?.buttons ?? []).flatMap((btn) => {
-    const to = btn.type === 'github-edit' ? editLink.value : btn.to
+    let to = btn.to
+    if (btn.type === 'github-edit') to = editLink.value
+    else if (btn.type === 'report-github-issue') to = reportLink.value
     return to ? [{ ...btn, to }] : []
   }),
 )

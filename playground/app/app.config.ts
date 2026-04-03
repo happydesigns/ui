@@ -101,7 +101,7 @@ export default defineAppConfig({
       separator: {
         buttons: [
           { type: 'github-edit', icon: 'i-lucide-pen', label: 'Artikel bearbeiten', target: '_blank' },
-          { icon: 'i-ph-warning-circle', label: 'Fehler melden', target: '_blank' },
+          { type: 'report-github-issue', icon: 'i-ph-warning-circle', label: 'Fehler melden', target: '_blank' },
         ],
         separator: 'oder',
       },

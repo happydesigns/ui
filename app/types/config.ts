@@ -30,8 +30,8 @@ export interface CopyButtonTraitConfig {
 }
 
 export interface ActionButton {
-  /** Built-in type for a dynamic GitHub edit link (URL resolved from app.meta.github + page stem) */
-  type?: 'github-edit'
+  /** Built-in type for a dynamic GitHub link (URL resolved from app.meta.github) */
+  type?: 'github-edit' | 'report-github-issue'
   /** Icon name */
   icon?: string
   /** Button label */
