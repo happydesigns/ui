@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.13.3
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.13.2...v0.13.3)
+
+### 💅 Refactors
+
+- **schemas:** Use plain objects for individual exports, wrap in convenience records ([acf1695](https://github.com/happydesigns/ui/commit/acf1695))
+
+### 🏡 Chore
+
+- Update lockfile ([a49d0d6](https://github.com/happydesigns/ui/commit/a49d0d6))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.13.2
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.13.1...v0.13.2)
