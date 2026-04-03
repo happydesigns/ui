@@ -27,8 +27,10 @@ const reportLink = computed(() => {
 const resolvedButtons = computed(() =>
   (props.config?.buttons ?? []).flatMap((btn) => {
     let to = btn.to
-    if (btn.type === 'github-edit') to = editLink.value ?? undefined
-    else if (btn.type === 'report-github-issue') to = reportLink.value ?? undefined
+    if (btn.type === 'github-edit')
+      to = editLink.value ?? undefined
+    else if (btn.type === 'report-github-issue')
+      to = reportLink.value ?? undefined
     return to ? [{ ...btn, to }] : []
   }),
 )
@@ -36,7 +38,9 @@ const resolvedButtons = computed(() =>
 
 <template>
   <template v-for="(btn, index) in resolvedButtons" :key="index">
-    <template v-if="index > 0">{{ config?.separator }}</template>
+    <template v-if="index > 0">
+      {{ config?.separator }}
+    </template>
     <UButton
       variant="link"
       color="neutral"
