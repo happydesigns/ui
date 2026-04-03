@@ -88,13 +88,24 @@ const backLink = computed(() => {
           <UPageBody>
             <slot />
 
-            <HArticleFooter
+            <div
               v-if="hasTrait('backButton') || hasTrait('copyButton')"
-              :back-link="backLink"
-              :back-label="backLabel"
-              :page="page"
-              :collection="collection"
-            />
+              class="all:flex items-center justify-between mt-12"
+            >
+              <HContentBackButton
+                v-if="hasTrait('backButton')"
+                :back-link="backLink"
+                :back-label="backLabel"
+                :collection="collection"
+              />
+              <div class="all:flex justify-end items-center gap-1.5 ml-auto">
+                <HContentCopyButton
+                  v-if="hasTrait('copyButton')"
+                  :page="page"
+                  :collection="collection"
+                />
+              </div>
+            </div>
 
             <HArticleActionSeparator
               v-if="hasTrait('actionButtons')"
@@ -102,14 +113,14 @@ const backLink = computed(() => {
               :collection="collection"
             />
 
-            <HArticleSurround
+            <HContentSurround
               v-if="hasTrait('surround')"
               :collection="collection"
             />
           </UPageBody>
 
           <template #right>
-            <HArticleToc :page="page" :collection="collection" />
+            <HContentToc :page="page" :collection="collection" />
           </template>
         </UPage>
       </UContainer>
