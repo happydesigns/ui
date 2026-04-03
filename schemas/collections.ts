@@ -1,5 +1,7 @@
+import { defineCollection } from 'nuxt-content-traits/utils'
+
 export const snippetCollection = {
-  type: 'page',
+  type: 'page' as const,
   source: {
     include: 'snippets/**/*.{md,yaml}',
     prefix: '/snippets',
@@ -7,7 +9,7 @@ export const snippetCollection = {
 }
 
 export const articleCollection = {
-  type: 'page',
+  type: 'page' as const,
   source: {
     include: 'articles/**/*.{md,yaml}',
     prefix: '/articles',
@@ -16,7 +18,7 @@ export const articleCollection = {
 }
 
 export const eventCollection = {
-  type: 'page',
+  type: 'page' as const,
   source: {
     include: 'events/**/*.{md,yaml}',
     prefix: '/events',
@@ -25,7 +27,7 @@ export const eventCollection = {
 }
 
 export const pageCollection = {
-  type: 'page',
+  type: 'page' as const,
   source: {
     include: 'pages/**/*.{md,yaml}',
     prefix: '/',
@@ -34,15 +36,15 @@ export const pageCollection = {
 }
 
 export const userCollection = {
-  type: 'data',
+  type: 'data' as const,
   source: 'users/**/*.{md,yaml}',
   traits: ['user'],
 }
 
 export const collections = {
-  snippet: snippetCollection,
-  article: articleCollection,
-  event: eventCollection,
-  page: pageCollection,
-  user: userCollection,
+  snippet: defineCollection(snippetCollection),
+  article: defineCollection(articleCollection),
+  event: defineCollection(eventCollection),
+  page: defineCollection(pageCollection),
+  user: defineCollection(userCollection),
 }
