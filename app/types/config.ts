@@ -16,6 +16,8 @@ export interface BackButtonTraitConfig {
   icon?: string
   /** The label to be shown as prefix in the back button */
   label?: string
+  /** The link target for the back button. Falls back to the last breadcrumb if not set. */
+  to?: string
 }
 
 export interface CopyButtonTraitConfig {

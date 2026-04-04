@@ -51,6 +51,9 @@ const breadcrumbItems = computed(() => {
 })
 
 const backLink = computed(() => {
+  if (traitConfig.value.backButton?.to)
+    return { to: traitConfig.value.backButton.to }
+
   if (breadcrumbsBase.value.length === 0)
     return null
 
