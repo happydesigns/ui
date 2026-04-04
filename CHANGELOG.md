@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.13.5
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.13.4...v0.13.5)
+
+### 🚀 Enhancements
+
+- **authors:** Open author links in new tab via configurable user trait ([c06ed5a](https://github.com/happydesigns/ui/commit/c06ed5a))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.13.4
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.13.3...v0.13.4)
