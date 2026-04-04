@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.13.4
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.13.3...v0.13.4)
+
+### 🚀 Enhancements
+
+- **backButton:** Add independent `to` link, falling back to breadcrumbs ([18e129d](https://github.com/happydesigns/ui/commit/18e129d))
+
+### 🩹 Fixes
+
+- **separator:** Remove gap when no buttons are configured ([f938ca8](https://github.com/happydesigns/ui/commit/f938ca8))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.13.3
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.13.2...v0.13.3)
