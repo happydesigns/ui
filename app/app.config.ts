@@ -6,6 +6,7 @@ import type {
   EventConfig,
   SeparatorTraitConfig,
   SurroundTraitConfig,
+  UserTraitConfig,
 } from './types/config'
 
 export * from './types/config'
@@ -13,6 +14,9 @@ export * from './types/config'
 export default defineAppConfig({
   content: {
     traits: {
+      user: {
+        target: '_blank',
+      },
       backButton: {
         icon: 'i-ph-arrow-left',
         label: 'Back',
@@ -123,6 +127,7 @@ declare module '@nuxt/schema' {
   interface AppConfigInput {
     content?: {
       traits?: {
+        user?: UserTraitConfig
         backButton?: BackButtonTraitConfig
         copyButton?: CopyButtonTraitConfig
         separatorButtons?: SeparatorTraitConfig

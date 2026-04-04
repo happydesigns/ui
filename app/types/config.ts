@@ -11,6 +11,13 @@ export interface CategoryBadge {
 // Collections can override them at appConfig.content.collections.[name].*
 // ---------------------------------------------------------------------------
 
+export interface UserTraitConfig {
+  /** The link target attribute for user/author links (e.g. '_blank', '_self'). Defaults to '_blank'. */
+  target?: string
+  /** Any additional props to merge into every resolved user object. */
+  [key: string]: any
+}
+
 export interface BackButtonTraitConfig {
   /** The icon to be shown in the back button */
   icon?: string
@@ -117,6 +124,7 @@ export interface ArticleConfig {
     noResultsIcon?: string
   }
   // Collection-level overrides for trait config (lower priority than content.traits.*)
+  user?: UserTraitConfig
   backButton?: BackButtonTraitConfig
   copyButton?: CopyButtonTraitConfig
   separator?: SeparatorTraitConfig
