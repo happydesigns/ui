@@ -1,31 +1,36 @@
 <script setup lang="ts">
-import type { SeparatorTraitConfig } from '~/types/config'
+import type { ActionButton } from '~/types/config'
 
 const props = defineProps<{
-  page?: any
-  config?: SeparatorTraitConfig
+  stem?: string
+  extension?: string
+  buttons?: ActionButton[]
+  separator?: string
 }>()
+
+const { config } = useVariant('separator')
+
+const resolvedButtons = computed(() => props.buttons ?? config.value.separator?.buttons ?? [])
+const resolvedSeparator = computed(() => props.separator ?? config.value.separator?.separator)
 
 const appConfig = useAppConfig()
 
-const githubRepo = computed(() => appConfig.app.meta.github?.repo)
-
 const editLink = computed(() => {
   const { repo, branch, dir } = appConfig.app.meta.github || {}
-  if (!repo || !props.page?.stem)
+  if (!repo || !props.stem)
     return null
 
-  const extension = props.page?.extension || 'md'
-  return `https://github.com/` + `${repo}/edit/${branch}/${dir}/${props.page.stem}.${extension}`
+  const extension = props.extension || 'md'
+  return `https://github.com/${repo}/edit/${branch}/${dir}/${props.stem}.${extension}`
 })
 
 const reportLink = computed(() => {
-  const repo = githubRepo.value
+  const repo = appConfig.app.meta.github?.repo
   return repo ? `https://github.com/${repo}/issues/new` : null
 })
 
-const resolvedButtons = computed(() =>
-  (props.config?.buttons ?? []).flatMap((btn) => {
+const buttons = computed(() =>
+  resolvedButtons.value.flatMap((btn) => {
     let to = btn.to
     if (btn.type === 'github-edit')
       to = editLink.value ?? undefined
@@ -37,19 +42,15 @@ const resolvedButtons = computed(() =>
 </script>
 
 <template>
-  <template v-for="(btn, index) in resolvedButtons" :key="index">
+  <template v-for="(btn, index) in buttons" :key="index">
     <template v-if="index > 0">
-      {{ config?.separator }}
+      {{ resolvedSeparator }}
     </template>
     <UButton
       variant="link"
       color="neutral"
-      :to="btn.to"
-      :target="btn.target"
-      :icon="btn.icon"
       :ui="{ leadingIcon: 'size-4' }"
-    >
-      {{ btn.label }}
-    </UButton>
+      v-bind="btn"
+    />
   </template>
 </template>
