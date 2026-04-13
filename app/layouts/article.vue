@@ -1,4 +1,6 @@
-<script setup lang="ts" generic="C extends 'article' | 'event' = 'article'">
+<script setup lang="ts" generic="C extends keyof PageCollections & ('article' | 'event') = 'article'">
+import type { PageCollections } from '@nuxt/content'
+
 const {
   path,
   collection = 'article' as C,
@@ -61,7 +63,7 @@ const backLink = computed(() => {
       <UContainer>
         <UPageHeader
           v-if="hasHeader && header"
-          v-bind="(header as any)"
+          v-bind="header"
           :ui="{
             headline: 'all:flex flex-col gap-y-8 items-start',
             wrapper: 'lg:flex-row',
