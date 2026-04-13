@@ -1,50 +1,46 @@
-import { defineCollection } from 'nuxt-content-traits/utils'
-
-export const snippetCollection = {
-  type: 'page' as const,
-  source: {
-    include: 'snippets/**/*.{md,yaml}',
-    prefix: '/snippets',
-  },
-}
-
-export const articleCollection = {
-  type: 'page' as const,
-  source: {
-    include: 'articles/**/*.{md,yaml}',
-    prefix: '/articles',
-  },
-  traits: ['dates', 'authors', 'category', 'status', 'header', 'toc', 'surround', 'copyButton', 'separator', 'backButton'],
-}
-
-export const eventCollection = {
-  type: 'page' as const,
-  source: {
-    include: 'events/**/*.{md,yaml}',
-    prefix: '/events',
-  },
-  traits: ['dates', 'location', 'category', 'links', 'status', 'header', 'toc', 'surround', 'copyButton', 'separator', 'backButton'],
-}
-
-export const pageCollection = {
-  type: 'page' as const,
-  source: {
-    include: 'pages/**/*.{md,yaml}',
-    prefix: '/',
-  },
-  traits: ['layout', 'header', 'toc'],
-}
-
-export const userCollection = {
-  type: 'data' as const,
-  source: 'users/**/*.{md,yaml}',
-  traits: ['user'],
-}
+import { mergeVariantSchemas } from '@h4designs/nuxt-variants/schemas'
+import { defineCollection } from '@nuxt/content'
+import { variantSchemas } from './traits'
 
 export const collections = {
-  snippet: defineCollection(snippetCollection),
-  article: defineCollection(articleCollection),
-  event: defineCollection(eventCollection),
-  page: defineCollection(pageCollection),
-  user: defineCollection(userCollection),
+  snippet: defineCollection({
+    type: 'page',
+    source: {
+      include: 'snippets/**/*.{md,yaml}',
+      prefix: '/snippets',
+    },
+  }),
+
+  article: defineCollection({
+    type: 'page',
+    source: {
+      include: 'articles/**/*.{md,yaml}',
+      prefix: '/articles',
+    },
+    schema: mergeVariantSchemas(['article'], variantSchemas),
+  }),
+
+  event: defineCollection({
+    type: 'page',
+    source: {
+      include: 'events/**/*.{md,yaml}',
+      prefix: '/events',
+    },
+    schema: mergeVariantSchemas(['event'], variantSchemas),
+  }),
+
+  page: defineCollection({
+    type: 'page',
+    source: {
+      include: 'pages/**/*.{md,yaml}',
+      prefix: '/',
+    },
+    schema: mergeVariantSchemas(['page'], variantSchemas),
+  }),
+
+  user: defineCollection({
+    type: 'data',
+    source: 'users/**/*.{md,yaml}',
+    schema: mergeVariantSchemas(['user'], variantSchemas),
+  }),
 }

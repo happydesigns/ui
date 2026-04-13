@@ -1,2 +1,2 @@
-export * from './traits'
 export * from './collections'
+export * from './traits'

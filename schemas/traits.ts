@@ -1,5 +1,4 @@
 import { property } from '@nuxt/content'
-import { defineTrait } from 'nuxt-content-traits/utils'
 import { z } from 'zod'
 
 export const datesTrait = {
@@ -56,26 +55,6 @@ export const locationTrait = {
   }),
 }
 
-export const separatorTrait = {
-  schema: z.object({}),
-}
-
-export const surroundTrait = {
-  schema: z.object({}),
-}
-
-export const copyButtonTrait = {
-  schema: z.object({}),
-}
-
-export const separatorButtonsTrait = {
-  schema: z.object({}),
-}
-
-export const backButtonTrait = {
-  schema: z.object({}),
-}
-
 export const layoutTrait = {
   schema: z.object({
     layout: z.enum(['default', 'content']).optional(),
@@ -97,20 +76,15 @@ export const userTrait = {
   }),
 }
 
-export const traits = {
-  dates: defineTrait(datesTrait),
-  authors: defineTrait(authorsTrait),
-  category: defineTrait(categoryTrait),
-  status: defineTrait(statusTrait),
-  header: defineTrait(headerTrait),
-  toc: defineTrait(tocTrait),
-  links: defineTrait(linksTrait),
-  location: defineTrait(locationTrait),
-  separator: defineTrait(separatorTrait),
-  surround: defineTrait(surroundTrait),
-  copyButton: defineTrait(copyButtonTrait),
-  separatorButtons: defineTrait(separatorButtonsTrait),
-  backButton: defineTrait(backButtonTrait),
-  layout: defineTrait(layoutTrait),
-  user: defineTrait(userTrait),
+export const variantSchemas = {
+  dates: datesTrait.schema,
+  authors: authorsTrait.schema,
+  category: categoryTrait.schema,
+  status: statusTrait.schema,
+  header: headerTrait.schema,
+  toc: tocTrait.schema,
+  links: linksTrait.schema,
+  location: locationTrait.schema,
+  layout: layoutTrait.schema,
+  user: userTrait.schema,
 }

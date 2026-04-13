@@ -1,7 +1,6 @@
-import { defineContentConfig } from 'nuxt-content-traits/utils'
-import { collections, traits } from './schemas'
+import { defineContentConfig } from '@nuxt/content'
+import { collections } from './schemas'
 
 export default defineContentConfig({
-  traits,
   collections,
 })
