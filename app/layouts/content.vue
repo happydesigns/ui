@@ -44,7 +44,7 @@ const header = computed(() => resolvePageHeader(page.value))
         <UPage>
           <UPageHeader
             v-if="hasHeader && header"
-            v-bind="(header as any)"
+            v-bind="header"
           />
 
           <UPageBody>
