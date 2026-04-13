@@ -1,5 +1,5 @@
-<script setup lang="ts" generic="C extends keyof PageCollections = 'page'">
-import type { Collections, PageCollections } from '@nuxt/content'
+<script setup lang="ts" generic="C extends 'page' = 'page'">
+import type { Collections } from '@nuxt/content'
 
 const {
   path,
@@ -17,19 +17,21 @@ const { data: page } = await usePageContent<C, Collections['page']>({
   collection: () => collection,
 })
 
+const { has } = useVariant(collection)
+const hasHeader = has('header')
+const hasToc = has('toc')
+
 if (!page.value) {
   throw createError({
     statusCode: 404,
-    statusMessage: `${String(collection)} ${path || route.path} not found`,
+    statusMessage: `${collection} ${path || route.path} not found`,
     fatal: true,
   })
 }
 
 usePageSeo(page)
 
-const { hasTrait } = useCollectionTraits(collection)
-
-const renderToc = computed(() => hasTrait('toc') && page.value?.toc !== false)
+const renderToc = computed(() => hasToc.value && page.value?.toc !== false)
 const header = computed(() => resolvePageHeader(page.value))
 </script>
 
@@ -41,7 +43,7 @@ const header = computed(() => resolvePageHeader(page.value))
       <UContainer>
         <UPage>
           <UPageHeader
-            v-if="hasTrait('header') && header"
+            v-if="hasHeader && header"
             v-bind="(header as any)"
           />
 
