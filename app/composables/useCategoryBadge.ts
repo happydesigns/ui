@@ -9,7 +9,7 @@ export function useCategoryBadge(
   category: MaybeRefOrGetter<string | undefined | null>,
   collection: MaybeRefOrGetter<string> = 'article',
 ) {
-  const config = useCollectionConfig(collection)
+  const { config } = useVariant(collection)
 
   return computed(() => {
     const categoryKey = toValue(category)

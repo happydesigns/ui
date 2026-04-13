@@ -31,9 +31,7 @@ export interface UseArticleListOptions<C extends keyof PageCollections = 'articl
 export function useArticleList<C extends keyof PageCollections = 'article'>(options: UseArticleListOptions<C> = {}) {
   const collection = computed(() => (toValue(options.collection) || ('article' as C)) as C)
 
-  /** Resolve the configuration for this collection using the smart merger */
-  const config = useCollectionConfig(collection)
-  const appConfig = useAppConfig()
+  const { config } = useVariant(collection)
 
   const page = computed(() => toValue(options.page) || 1)
   const itemsPerPage = computed(() => toValue(options.itemsPerPage) || config.value.list?.itemsPerPage || 12)
@@ -134,7 +132,7 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
       // Resolve Authors
       let resolvedAuthors: Awaited<ReturnType<typeof resolveUsers>> = []
       if (article.authors?.length) {
-        const userProps = (config.value as any).user ?? (appConfig.content as any)?.traits?.user ?? {}
+        const userProps = config.value.user ?? {}
         resolvedAuthors = await resolveUsers(article.authors, userProps)
       }
 
