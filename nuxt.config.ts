@@ -23,11 +23,49 @@ export default defineNuxtConfig({
 
   modules: [
     '@nuxt/eslint',
+    '@h4designs/nuxt-variants',
     '@nuxt/ui',
     '@nuxt/content',
-    'nuxt-content-traits',
     'nuxt-studio',
   ],
+
+  variants: {
+    registry: {
+    // Data features — schema only, no config
+      dates: {},
+      authors: {},
+      category: {},
+      status: {},
+      header: {},
+      toc: {},
+      links: {},
+      location: {},
+      layout: {},
+      separatorButtons: {},
+
+      // UI features — config defined in app.config.ts
+      user: {},
+      backButton: {},
+      copyButton: {},
+      separator: {},
+      surround: {},
+
+      // Collection variants — extends chains defined here for graph generation
+      snippet: {},
+      article: {
+        extends: ['dates', 'authors', 'category', 'status', 'header', 'toc', 'surround', 'copyButton', 'separator', 'backButton', 'user'],
+        config: {},
+      },
+      event: {
+        extends: ['dates', 'location', 'category', 'links', 'status', 'header', 'toc', 'surround', 'copyButton', 'separator', 'backButton', 'user'],
+        config: {},
+      },
+      page: {
+        extends: ['layout', 'header', 'toc'],
+        config: {},
+      },
+    },
+  },
 
   eslint: {
     config: {
