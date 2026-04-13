@@ -1,22 +1,26 @@
 <script setup lang="ts">
-import type { BreadcrumbItem } from '@nuxt/ui'
-import type { BackButtonTraitConfig } from '~/types/config'
+import type { RouteLocationRaw } from 'vue-router'
 
-defineProps<{
-  backLink?: BreadcrumbItem | null
-  backLabel?: string
-  config?: BackButtonTraitConfig
+const props = defineProps<{
+  to?: RouteLocationRaw
+  icon?: string
+  label?: string
 }>()
+
+const { config } = useVariant('backButton')
+
+const resolvedIcon = computed(() => props.icon ?? config.value.backButton?.icon)
+const resolvedLabel = computed(() => props.label ?? config.value.backButton?.label)
+const resolvedTo = computed(() => props.to ?? config.value.backButton?.to)
 </script>
 
 <template>
   <UButton
-    v-if="backLink"
-    :icon="config?.icon"
     color="primary"
     variant="ghost"
-    :to="backLink.to"
+    :icon="resolvedIcon"
+    :to="resolvedTo"
   >
-    {{ backLabel || config?.label }}
+    {{ resolvedLabel }}
   </UButton>
 </template>

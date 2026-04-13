@@ -6,11 +6,11 @@ const props = defineProps<{
   collection?: keyof PageCollections
 }>()
 
-const { hasTrait } = useCollectionTraits(props.collection || 'article')
+const { has } = useVariant(() => props.collection || 'article')
 
-const showCategory = computed(() => hasTrait('category') && props.page?.category)
-const showDates = computed(() => hasTrait('dates') && props.page?.date)
-const showLocation = computed(() => hasTrait('location') && props.page?.location?.name)
+const showCategory = computed(() => has('category').value && props.page?.category)
+const showDates = computed(() => has('dates').value && props.page?.date)
+const showLocation = computed(() => has('location').value && props.page?.location?.name)
 </script>
 
 <template>

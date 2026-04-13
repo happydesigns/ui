@@ -1,19 +1,10 @@
-<script setup lang="ts" generic="C extends keyof PageCollections = 'article'">
-import type { PageCollections } from '@nuxt/content'
-import type { BreadcrumbItem } from '@nuxt/ui'
-
+<script setup lang="ts" generic="C extends 'article' | 'event' = 'article'">
 const {
   path,
   collection = 'article' as C,
-  breadcrumbs,
-  backLabel,
 } = defineProps<{
   path?: string
   collection?: C
-  /** A full breadcrumb array to be used as base */
-  breadcrumbs?: BreadcrumbItem[]
-  /** Custom label for the back button in the footer */
-  backLabel?: string
 }>()
 
 const route = useRoute()
@@ -23,11 +14,13 @@ const { data: page } = await usePageContent<C>({
   collection: () => collection,
 })
 
-/** Resolve the configuration for this collection (query, categories, list, breadcrumbs) */
-const config = useCollectionConfig(() => collection)
-
-/** Resolve trait membership and merged trait config */
-const { hasTrait, traitConfig } = useCollectionTraits(collection)
+const { config, has } = useVariant(collection)
+const hasHeader = has('header')
+const hasBackButton = has('backButton')
+const hasCopyButton = has('copyButton')
+const hasSeparator = has('separator')
+const hasSurround = has('surround')
+const hasToc = has('toc')
 
 if (!page.value) {
   throw createError({
@@ -41,7 +34,7 @@ usePageSeo(page)
 
 const header = computed(() => resolvePageHeader(page.value))
 
-const breadcrumbsBase = computed(() => breadcrumbs ?? config.value.breadcrumbs ?? [])
+const breadcrumbsBase = computed(() => config.value.breadcrumbs ?? [])
 
 const breadcrumbItems = computed(() => {
   return [
@@ -51,13 +44,12 @@ const breadcrumbItems = computed(() => {
 })
 
 const backLink = computed(() => {
-  if (traitConfig.value.backButton?.to)
-    return { to: traitConfig.value.backButton.to }
+  const lastBreadcrumb = breadcrumbsBase.value.at(-1)
 
-  if (breadcrumbsBase.value.length === 0)
+  if (!lastBreadcrumb && !config.value?.backButton)
     return null
 
-  return breadcrumbsBase.value.at(-1)
+  return { ...(lastBreadcrumb ?? {}), ...config.value?.backButton }
 })
 </script>
 
@@ -68,7 +60,7 @@ const backLink = computed(() => {
     <UMain v-if="page">
       <UContainer>
         <UPageHeader
-          v-if="hasTrait('header') && header"
+          v-if="hasHeader && header"
           v-bind="(header as any)"
           :ui="{
             headline: 'all:flex flex-col gap-y-8 items-start',
@@ -92,40 +84,40 @@ const backLink = computed(() => {
             <slot />
 
             <div
-              v-if="hasTrait('backButton') || hasTrait('copyButton')"
+              v-if="hasBackButton || hasCopyButton"
               class="all:flex items-center justify-between mt-12"
             >
               <HBackButton
-                v-if="hasTrait('backButton')"
-                :back-link="backLink"
-                :back-label="backLabel"
-                :config="traitConfig.backButton"
+                v-if="hasBackButton && backLink"
+                :to="backLink.to"
+                :label="backLink.label"
+                :icon="backLink.icon"
               />
               <div class="all:flex justify-end items-center gap-1.5 ml-auto">
                 <HCopyButton
-                  v-if="hasTrait('copyButton')"
+                  v-if="hasCopyButton"
                   :page="page"
-                  :config="traitConfig.copyButton"
+                  :config="config.copyButton"
                 />
               </div>
             </div>
 
             <HSeparator
-              v-if="hasTrait('separator')"
+              v-if="hasSeparator"
               :page="page"
-              :config="traitConfig.separator"
+              :config="config.separator"
             />
 
             <HSurround
-              v-if="hasTrait('surround')"
+              v-if="hasSurround"
               :collection="collection"
-              :config="traitConfig.surround"
-              :query-config="traitConfig.query"
+              :config="config.surround"
+              :query-config="config.query"
             />
           </UPageBody>
 
           <template #right>
-            <HToc v-if="hasTrait('toc')" :page="page" />
+            <HToc v-if="hasToc" :page="page" />
           </template>
         </UPage>
       </UContainer>

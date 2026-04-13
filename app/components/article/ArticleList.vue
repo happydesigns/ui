@@ -25,7 +25,7 @@ const props = withDefaults(defineProps<{
 const route = useRoute()
 
 /** Resolve the configuration for this collection using the smart merger */
-const collectionConfig = useCollectionConfig(() => props.collection || 'article' as C)
+const { config: collectionConfig } = useVariant(() => props.collection || 'article')
 
 const labelAll = computed(() => collectionConfig.value.list?.labelAll || 'All')
 
