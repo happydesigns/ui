@@ -1,9 +1,9 @@
 <script setup lang="ts">
 defineProps<{
-  page?: any
+  category?: string
 }>()
 </script>
 
 <template>
-  <span class="text-primary-500 dark:text-primary-400 font-medium">{{ page?.category }}</span>
+  <span class="text-primary-500 dark:text-primary-400 font-medium">{{ category }}</span>
 </template>

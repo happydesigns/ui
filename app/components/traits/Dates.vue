@@ -2,7 +2,8 @@
 import formatDate from '~/utils/formatDate'
 
 defineProps<{
-  page?: any
+  date?: string
+  dateEnd?: string
 }>()
 </script>
 
@@ -10,9 +11,9 @@ defineProps<{
   <div class="all:flex items-center space-x-2">
     <UIcon name="i-lucide-calendar" class="size-4" />
     <time>
-      {{ formatDate(page?.date) }}
-      <template v-if="page?.dateEnd && page?.date !== page?.dateEnd">
-        - {{ formatDate(page.dateEnd) }}
+      {{ formatDate(date) }}
+      <template v-if="dateEnd && date !== dateEnd">
+        - {{ formatDate(dateEnd) }}
       </template>
     </time>
   </div>
