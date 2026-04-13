@@ -6,6 +6,9 @@ packages:
   - ./
   - playground
 
+overrides:
+  semver@6.3.1: 6.3.0
+
 onlyBuiltDependencies:
   - '@parcel/watcher'
   - '@tailwindcss/oxide'
