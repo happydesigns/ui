@@ -1,17 +1,19 @@
 <script setup lang="ts">
-import type { UserTraitConfig } from '~/types/config'
-
 const props = defineProps<{
-  page?: any
-  config?: UserTraitConfig
+  authors?: string[]
+  target?: string
 }>()
 
-const authors = await resolveUsers(props.page?.authors || [], props.config ?? {})
+const { config } = useVariant('user')
+
+const userProps = computed(() => ({ ...(config.value.user ?? {}), ...(props.target ? { target: props.target } : {}) }))
+
+const resolvedAuthors = await resolveUsers(props.authors || [], userProps.value)
 </script>
 
 <template>
   <UUser
-    v-for="(author, index) in authors"
+    v-for="(author, index) in resolvedAuthors"
     :key="index"
     v-bind="author"
   />
