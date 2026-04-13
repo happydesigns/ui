@@ -1,46 +1,40 @@
 import type { ButtonProps, FooterColumn } from '@nuxt/ui'
-import type {
-  ArticleConfig,
-  BackButtonTraitConfig,
-  CopyButtonTraitConfig,
-  EventConfig,
-  SeparatorTraitConfig,
-  SurroundTraitConfig,
-  UserTraitConfig,
-} from './types/config'
 
 export * from './types/config'
 
 export default defineAppConfig({
-  content: {
-    traits: {
-      user: {
-        target: '_blank',
-      },
-      backButton: {
-        icon: 'i-ph-arrow-left',
-        label: 'Back',
-      },
-      copyButton: {
-        icon: 'i-ph-link-simple-duotone',
-        label: 'Copy URL',
-        successIcon: 'i-lucide-copy-check',
-        successLabel: 'Link copied to clipboard',
-      },
-      separator: {
-        buttons: [],
-        separator: 'or',
-      },
-      surround: {
-        show: true,
-        prevIcon: 'i-lucide-arrow-left',
-        nextIcon: 'i-lucide-arrow-right',
-        prevLabel: 'Previous',
-        nextLabel: 'Next',
+  variants: {
+    // UI feature variants — config overrides (extends defined in nuxt.config.ts)
+    user: { config: { user: { target: '_blank' } } },
+    backButton: { config: { backButton: { icon: 'i-ph-arrow-left', label: 'Back' } as Pick<ButtonProps, 'icon' | 'label' | 'to'> } },
+    dates: { config: { helloThere: 'general kenobi' } },
+    copyButton: {
+      config: {
+        copyButton: {
+          icon: 'i-ph-link-simple-duotone',
+          label: 'Copy URL',
+          successIcon: 'i-lucide-copy-check',
+          successLabel: 'Link copied to clipboard',
+        },
       },
     },
-    collections: {
-      article: {
+    separator: { config: { separator: { buttons: [], separator: 'or' } } },
+    surround: {
+      config: {
+        surround: {
+          show: true,
+          prevIcon: 'i-lucide-arrow-left',
+          nextIcon: 'i-lucide-arrow-right',
+          prevLabel: 'Previous',
+          nextLabel: 'Next',
+        },
+      },
+    },
+
+    // Collection variants — runtime config overrides only
+    article: {
+      config: {
+        youShallNot: 'pass',
         query: {
           fields: ['title', 'description', 'status', 'date'],
           order: { field: 'date', direction: 'DESC' },
@@ -54,8 +48,10 @@ export default defineAppConfig({
           noResultsMessage: 'No articles found.',
           noResultsIcon: 'i-ph-article-ny-times-light',
         },
-      } as ArticleConfig,
-      event: {
+      },
+    },
+    event: {
+      config: {
         query: {
           fields: ['title', 'description', 'status', 'date', 'dateEnd', 'location'],
           order: { field: 'date', direction: 'DESC' },
@@ -69,7 +65,7 @@ export default defineAppConfig({
           noResultsMessage: 'No events found.',
           noResultsIcon: 'i-ph-calendar-blank',
         },
-      } as EventConfig,
+      },
     },
   },
 
@@ -125,17 +121,6 @@ export default defineAppConfig({
 
 declare module '@nuxt/schema' {
   interface AppConfigInput {
-    content?: {
-      traits?: {
-        user?: UserTraitConfig
-        backButton?: BackButtonTraitConfig
-        copyButton?: CopyButtonTraitConfig
-        separatorButtons?: SeparatorTraitConfig
-        surround?: SurroundTraitConfig
-      }
-      /** Collection-specific configurations including default 'article' and 'event' layouts */
-      collections?: Record<string, ArticleConfig | EventConfig>
-    }
     app?: {
       [key: string]: any
       meta?: {

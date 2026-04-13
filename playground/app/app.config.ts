@@ -1,6 +1,75 @@
 import type { ButtonProps } from '@nuxt/ui'
 
 export default defineAppConfig({
+  variants: {
+    // Global feature-level overrides (win over nuxt.config defaults for all collections)
+    copyButton: {
+      config: {
+        copyButton: {
+          label: 'URL kopieren',
+          successLabel: 'Link in Zwischenablage kopiert',
+        },
+      },
+    },
+    separator: {
+      config: {
+        separator: {
+          buttons: [
+            { type: 'github-edit', icon: 'i-lucide-pen', label: 'Artikel bearbeiten', target: '_blank' },
+            { type: 'report-github-issue', icon: 'i-ph-warning-circle', label: 'Fehler melden', target: '_blank' },
+          ],
+          separator: '·',
+        },
+      },
+    },
+    surround: {
+      config: {
+        surround: {
+          prevLabel: 'Vorheriger',
+          nextLabel: 'Nächster',
+        },
+      },
+    },
+
+    // Collection-specific overrides
+    article: {
+      config: {
+        backButton: { label: 'Zurück zum Blog' },
+        breadcrumbs: [
+          {
+            label: 'Blog',
+            to: '/articles',
+            icon: 'i-lucide:book-open',
+          },
+        ],
+        categories: {
+          Release: { label: 'Release', color: 'info' },
+          Article: { label: 'Article', color: 'primary' },
+        },
+        list: {
+          labelAll: 'Alle',
+        },
+      },
+    },
+    event: {
+      config: {
+        backButton: { label: 'Zurück zur Übersicht' },
+        categories: {
+          Workshop: { label: 'Workshop', color: 'info' },
+          Conference: { label: 'Conference', color: 'success' },
+          Meetup: { label: 'Meetup', color: 'warning' },
+        },
+        breadcrumbs: [
+          {
+            label: 'Events',
+            to: '/events',
+            icon: 'i-lucide:calendar',
+          },
+        ],
+      },
+    },
+  },
+
   app: {
     meta: {
       copyright: {
@@ -88,80 +157,6 @@ export default defineAppConfig({
         year: 'numeric',
         month: 'short',
         day: 'numeric',
-      },
-    },
-  },
-
-  content: {
-    traits: {
-      copyButton: {
-        label: 'URL kopieren',
-        successLabel: 'Link in Zwischenablage kopiert',
-      },
-      separator: {
-        buttons: [
-          { type: 'github-edit', icon: 'i-lucide-pen', label: 'Artikel bearbeiten', target: '_blank' },
-          { type: 'report-github-issue', icon: 'i-ph-warning-circle', label: 'Fehler melden', target: '_blank' },
-        ],
-        separator: '·',
-      },
-      surround: {
-        prevLabel: 'Vorheriger',
-        nextLabel: 'Nächster',
-      },
-    },
-    collections: {
-      article: {
-        breadcrumbs: [
-          {
-            label: 'Blog',
-            to: '/articles',
-            icon: 'i-lucide:book-open',
-          },
-        ],
-        categories: {
-          Release: {
-            label: 'Release',
-            color: 'info',
-          },
-          Article: {
-            label: 'Article',
-            color: 'primary',
-          },
-        },
-        backButton: {
-          label: 'Zurück zum Blog',
-        },
-        list: {
-          labelAll: 'Alle',
-        },
-      },
-
-      event: {
-        backButton: {
-          label: 'Zurück zur Übersicht',
-        },
-        categories: {
-          Workshop: {
-            label: 'Workshop',
-            color: 'info',
-          },
-          Conference: {
-            label: 'Conference',
-            color: 'success',
-          },
-          Meetup: {
-            label: 'Meetup',
-            color: 'warning',
-          },
-        },
-        breadcrumbs: [
-          {
-            label: 'Events',
-            to: '/events',
-            icon: 'i-lucide:calendar',
-          },
-        ],
       },
     },
   },
