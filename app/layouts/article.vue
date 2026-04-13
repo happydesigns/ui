@@ -94,30 +94,28 @@ const backLink = computed(() => {
                 :icon="backLink.icon"
               />
               <div class="all:flex justify-end items-center gap-1.5 ml-auto">
-                <HCopyButton
-                  v-if="hasCopyButton"
-                  :page="page"
-                  :config="config.copyButton"
-                />
+                <HCopyButton v-if="hasCopyButton" />
               </div>
             </div>
 
             <HSeparator
               v-if="hasSeparator"
-              :page="page"
-              :config="config.separator"
+              :stem="page?.stem"
+              :extension="page?.extension"
             />
 
             <HSurround
               v-if="hasSurround"
               :collection="collection"
-              :config="config.surround"
-              :query-config="config.query"
             />
           </UPageBody>
 
           <template #right>
-            <HToc v-if="hasToc" :page="page" />
+            <HToc
+              v-if="hasToc && page?.toc !== false"
+              :links="page?.body?.toc?.links"
+              :title="page?.body?.toc?.title"
+            />
           </template>
         </UPage>
       </UContainer>
