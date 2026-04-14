@@ -1,4 +1,4 @@
-import { mergeVariantSchemas } from '@h4designs/nuxt-variants/schemas'
+import { mergeVariantSchemas } from '@happydesigns/nuxt-variants/schemas'
 import { defineCollection } from '@nuxt/content'
 import { variantSchemas } from './traits'
 

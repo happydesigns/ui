@@ -1,4 +1,4 @@
-# @h4designs/ui
+# @happydesigns/ui
 
 A foundational **Nuxt Layer** providing a consistent UI and content structure for Nuxt applications. Built with Nuxt 4, Nuxt UI 4, and Nuxt Content 3.
 
@@ -15,14 +15,14 @@ A foundational **Nuxt Layer** providing a consistent UI and content structure fo
 Install the package in your Nuxt project:
 
 ```bash
-pnpm add @h4designs/ui
+pnpm add @happydesigns/ui
 ```
 
 Add the layer to your `nuxt.config.ts`:
 
 ```ts
 export default defineNuxtConfig({
-  extends: ['@h4designs/ui']
+  extends: ['@happydesigns/ui']
 })
 ```
 
@@ -61,7 +61,7 @@ You can use these as-is by following the default directory structure, or you can
 
 ```ts
 // your-app/content.config.ts
-import { pageCollectionConfig, snippetCollectionConfig } from '@h4designs/ui/content.config'
+import { pageCollectionConfig, snippetCollectionConfig } from '@happydesigns/ui/content.config'
 import { defineContentConfig } from '@nuxt/content'
 
 export default defineContentConfig({

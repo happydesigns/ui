@@ -1,5 +1,5 @@
 {
-  "name": "@h4designs/ui",
+  "name": "@happydesigns/ui",
   "type": "module",
   "version": "0.13.5",
   "private": false,
@@ -42,7 +42,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "^8.0.0",
     "@antfu/ni": "^30.0.0",
-    "@h4designs/nuxt-variants": "^0.0.5",
+    "@happydesigns/nuxt-variants": "^0.0.5",
     "@nuxt/eslint": "^1.15.2",
     "changelogen": "^0.6.2",
     "cross-env": "^10.1.0",
@@ -52,6 +52,6 @@
     "zod": "^4.3.6"
   },
   "resolutions": {
-    "@h4designs/ui": "workspace:*"
+    "@happydesigns/ui": "workspace:*"
   }
 }

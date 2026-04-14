@@ -8,7 +8,7 @@ const currentDir: string = dirname(fileURLToPath(import.meta.url))
 export default defineNuxtConfig({
 
   $meta: {
-    name: '@h4designs/ui',
+    name: '@happydesigns/ui',
   },
 
   components: [
@@ -23,7 +23,7 @@ export default defineNuxtConfig({
 
   modules: [
     '@nuxt/eslint',
-    '@h4designs/nuxt-variants',
+    '@happydesigns/nuxt-variants',
     '@nuxt/ui',
     '@nuxt/content',
     'nuxt-studio',

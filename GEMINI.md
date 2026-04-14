@@ -1,10 +1,10 @@
-# Nuxt Layer Base: @h4designs/ui
+# Nuxt Layer Base: @happydesigns/ui
 
 This project is a Nuxt Layer providing a foundational UI and content structure for Nuxt applications. It is built with Nuxt 4, Nuxt UI 4, and Nuxt Content 3.
 
 ## Project Overview
 
-- **Name:** `@h4designs/ui`
+- **Name:** `@happydesigns/ui`
 - **Purpose:** A reusable Nuxt layer for consistent UI components and content-driven pages.
 - **Main Technologies:**
   - [Nuxt 4](https://nuxt.com/docs/getting-started/introduction)
