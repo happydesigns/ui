@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  '@h4designs/ui': workspace:*
+  '@happydesigns/ui': workspace:*
 
 importers:
 
@@ -39,7 +39,7 @@ importers:
       '@antfu/ni':
         specifier: ^30.0.0
         version: 30.0.0
-      '@h4designs/nuxt-variants':
+      '@happydesigns/nuxt-variants':
         specifier: ^0.0.5
         version: 0.0.5(magicast@0.5.2)
       '@nuxt/eslint':
@@ -614,8 +614,8 @@ packages:
   '@floating-ui/vue@1.1.11':
     resolution: {integrity: sha512-HzHKCNVxnGS35r9fCHBc3+uCnjw9IWIlCPL683cGgM9Kgj2BiAl8x1mS7vtvP6F9S/e/q4O6MApwSHj8hNLGfw==}
 
-  '@h4designs/nuxt-variants@0.0.5':
-    resolution: {integrity: sha512-VBhU6BjF/XDF9FbhVlqTwYBrB7pYGkj320jIqPI2PDo9wMC5jgOey1a/rsge9xwAnsawEFdUcAteXzhV18j5mg==}
+  '@happydesigns/nuxt-variants@0.0.5':
+    resolution: {integrity: sha512-oAGFImpuXZBFiNYzvICjS5OEGy8qyTi2sHLoViqjuzo/9OwF5U5heNQjud2MRRkhPwBZYvICschqnlSiC43gYA==}
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -7017,7 +7017,7 @@ snapshots:
       - '@vue/composition-api'
       - vue
 
-  '@h4designs/nuxt-variants@0.0.5(magicast@0.5.2)':
+  '@happydesigns/nuxt-variants@0.0.5(magicast@0.5.2)':
     dependencies:
       '@nuxt/kit': 4.4.2(magicast@0.5.2)
     transitivePeerDependencies:
