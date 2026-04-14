@@ -17,6 +17,9 @@
     "nuxt.config.ts",
     "schemas"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "dev": "nuxt dev playground",
     "docs": "nuxt dev docs --extends docus",
