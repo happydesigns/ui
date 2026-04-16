@@ -1,4 +1,4 @@
-import type { ButtonProps, FooterColumn } from '@nuxt/ui'
+import type { BadgeProps, ButtonProps, FooterColumn } from '@nuxt/ui'
 
 export * from './types/config'
 
@@ -40,7 +40,7 @@ export default defineAppConfig({
           order: { field: 'date', direction: 'DESC' },
           where: [{ field: 'status', operator: '=', value: 'published' }],
         },
-        categories: {},
+        categories: {} as Record<string, BadgeProps>,
         breadcrumbs: [],
         list: {
           itemsPerPage: 12,
@@ -57,7 +57,7 @@ export default defineAppConfig({
           order: { field: 'date', direction: 'DESC' },
           where: [{ field: 'status', operator: '=', value: 'published' }],
         },
-        categories: {},
+        categories: {} as Record<string, BadgeProps>,
         breadcrumbs: [],
         list: {
           itemsPerPage: 12,

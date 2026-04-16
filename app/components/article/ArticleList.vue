@@ -1,6 +1,7 @@
 <script setup lang="ts" generic="C extends keyof PageCollections = 'article'">
 import type { PageCollections } from '@nuxt/content'
 import type { ArticleFilter } from '~/composables/useArticleList'
+import { useArticleListQuery } from '~/composables/useArticleListQuery'
 
 const props = withDefaults(defineProps<{
   /** Optional fixed category to filter by */
@@ -22,14 +23,15 @@ const props = withDefaults(defineProps<{
   status: undefined,
 })
 
-const route = useRoute()
-
 /** Resolve the configuration for this collection using the smart merger */
 const { config: collectionConfig } = useVariant(() => props.collection || 'article')
 
 const labelAll = computed(() => collectionConfig.value.list?.labelAll || 'All')
 
-const selectedCategory = ref(props.category || (route.query.category as string) || String(labelAll.value))
+const { selectedCategory, updateQuery } = useArticleListQuery({
+  labelAll,
+  fixedCategory: computed(() => props.category),
+})
 
 const categories = computed(() => {
   const cats = collectionConfig.value.categories || {}
@@ -46,26 +48,9 @@ const categories = computed(() => {
     active: selectedCategory.value === item.value,
     onSelect: () => {
       selectedCategory.value = item.value
-      updateQuery()
+      updateQuery({ resetPage: true })
     },
   }))
-})
-
-function updateQuery() {
-  const query: Record<string, any> = { ...route.query }
-  delete query.page // Omit page 1 from query
-
-  if (selectedCategory.value !== labelAll.value)
-    query.category = selectedCategory.value
-  else
-    delete query.category
-
-  navigateTo({ query })
-}
-
-// Sync state with query on back/forward navigation
-watch(() => route.query.category, (newCategory) => {
-  selectedCategory.value = (newCategory as string) || labelAll.value
 })
 </script>
 

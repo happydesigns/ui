@@ -9,7 +9,7 @@ export interface ArticleFilter {
   value?: any
 }
 
-export interface UseArticleListOptions<C extends keyof PageCollections = 'article'> {
+export interface UseArticleListOptions<C extends keyof PageCollections & ('article' | 'event') = 'article'> {
   page?: MaybeRefOrGetter<number | undefined>
   itemsPerPage?: MaybeRefOrGetter<number | undefined>
   category?: MaybeRefOrGetter<string | undefined>
@@ -28,7 +28,7 @@ export interface UseArticleListOptions<C extends keyof PageCollections = 'articl
  * Composable to fetch a paginated and filtered list of articles or any other collection.
  * Includes automatic resolution of authors and category badges.
  */
-export function useArticleList<C extends keyof PageCollections = 'article'>(options: UseArticleListOptions<C> = {}) {
+export function useArticleList<C extends keyof PageCollections & ('article' | 'event') = 'article'>(options: UseArticleListOptions<C> = {}) {
   const collection = computed(() => (toValue(options.collection) || ('article' as C)) as C)
 
   const { config } = useVariant(collection)
@@ -38,15 +38,13 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
   const category = computed(() => toValue(options.category))
   const labelAll = computed(() => toValue(options.labelAll) || config.value.list?.labelAll || 'All')
 
-  const queryDefaults = computed(() => config.value.query || {})
-
   const where = computed(() => {
     const w = toValue(options.where)
     if (w)
       return w
 
     // Fallback to config where but filter out status if handled separately
-    return queryDefaults.value.where?.filter(f => f.field !== 'status') || []
+    return config.value.query?.where?.filter(f => f.field !== 'status') || []
   })
 
   const sort = computed(() => {
@@ -54,7 +52,7 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
     if (s !== undefined)
       return s
 
-    return queryDefaults.value.order
+    return config.value.query?.order
   })
 
   const status = computed(() => {
@@ -66,7 +64,7 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
       return s
 
     // Try to find status in config where
-    const statusFilter = queryDefaults.value.where?.find(f => f.field === 'status')
+    const statusFilter = config.value.query?.where?.find(f => f.field === 'status')
     return statusFilter?.value || 'published'
   })
 
@@ -117,15 +115,9 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
       let resolvedBadge: BadgeProps | undefined
 
       if (categoryKey) {
-        const categories = config.value.categories || {}
-        if (categoryKey in categories) {
-          resolvedBadge = categories[categoryKey] as BadgeProps
-        }
-        else {
-          resolvedBadge = {
-            label: categoryKey,
-            color: 'primary',
-          }
+        resolvedBadge = config.value.categories?.[categoryKey] ?? {
+          label: categoryKey,
+          color: 'primary',
         }
       }
 
@@ -150,7 +142,5 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
       articles: resolved,
       total,
     }
-  }, {
-    keepPreviousData: true,
   })
 }

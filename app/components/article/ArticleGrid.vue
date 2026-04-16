@@ -1,4 +1,4 @@
-<script setup lang="ts" generic="C extends keyof PageCollections = 'article'">
+<script setup lang="ts" generic="C extends keyof PageCollections & ('article' | 'event') = 'article'">
 import type { PageCollections } from '@nuxt/content'
 import type { ArticleFilter } from '~/composables/useArticleList'
 
@@ -22,28 +22,19 @@ const props = withDefaults(defineProps<{
   status: undefined,
 })
 
-const route = useRoute()
-
 /** Resolve the configuration for this collection using the smart merger */
-const { config: collectionConfig } = useVariant(() => props.collection || 'article')
+const { config } = useVariant(() => props.collection || 'article')
 
-const itemsPerPage = computed(() => props.itemsPerPage || collectionConfig.value.list?.itemsPerPage || 12)
-const labelAll = computed(() => collectionConfig.value.list?.labelAll || 'All')
-const noResultsMessage = computed(() => collectionConfig.value.list?.noResultsMessage || 'No items found.')
-const noResultsIcon = computed(() => collectionConfig.value.list?.noResultsIcon)
+const itemsPerPage = computed(() => props.itemsPerPage || config.value.list?.itemsPerPage || 12)
+const labelAll = computed(() => config.value.list?.labelAll || 'All')
+const noResultsMessage = computed(() => config.value.list?.noResultsMessage || 'No items found.')
+const noResultsIcon = computed(() => config.value.list?.noResultsIcon)
 
-const page = ref(Number(route.query.page) || 1)
-const selectedCategory = ref(props.category || (route.query.category as string) || String(labelAll.value))
-const resolvedOrientation = computed(() => props.orientation || 'horizontal')
-
-// Update internal state when props change (from ArticleList or parent)
-watch(() => props.category, (newCategory) => {
-  if (newCategory) {
-    selectedCategory.value = newCategory
-  }
+const { page, selectedCategory, updateQuery } = useArticleListQuery({
+  labelAll,
+  fixedCategory: computed(() => props.category),
 })
 
-// Fetch articles using the composable
 const { data, status: fetchStatus } = await useArticleList({
   page,
   itemsPerPage,
@@ -55,25 +46,6 @@ const { data, status: fetchStatus } = await useArticleList({
   status: () => props.status,
 })
 
-// Watchers and lifecycle
-function updateQuery() {
-  const query: Record<string, any> = { ...route.query }
-  if (page.value > 1)
-    query.page = page.value
-  else
-    delete query.page
-
-  // Only update category in query if we are not in a fixed category mode
-  if (!props.category) {
-    if (selectedCategory.value !== labelAll.value)
-      query.category = selectedCategory.value
-    else
-      delete query.category
-  }
-
-  navigateTo({ query })
-}
-
 watch(page, () => {
   updateQuery()
   if (import.meta.client) {
@@ -81,17 +53,9 @@ watch(page, () => {
   }
 })
 
-// Sync state with query on back/forward navigation
-watch(() => route.query, (newQuery) => {
-  page.value = Number(newQuery.page) || 1
-  if (!props.category) {
-    selectedCategory.value = (newQuery.category as string) || labelAll.value
-  }
-})
-
 // Delayed loader to avoid flickering on fast navigations
 const showLoader = ref(false)
-let loaderTimeout: any = null
+let loaderTimeout: ReturnType<typeof setTimeout> | null = null
 
 watch(fetchStatus, (newStatus) => {
   if (newStatus === 'pending') {
@@ -100,7 +64,10 @@ watch(fetchStatus, (newStatus) => {
     }, 200)
   }
   else {
-    clearTimeout(loaderTimeout)
+    if (loaderTimeout !== null) {
+      clearTimeout(loaderTimeout)
+      loaderTimeout = null
+    }
     showLoader.value = false
   }
 }, { immediate: true })
@@ -114,9 +81,9 @@ watch(fetchStatus, (newStatus) => {
 
     <UBlogPosts
       v-else-if="data?.articles.length"
-      :orientation="resolvedOrientation"
+      :orientation="orientation || 'horizontal'"
       :ui="{
-        base: resolvedOrientation === 'horizontal' ? 'sm:grid sm:grid-cols-2 lg:grid-cols-3' : '',
+        base: (orientation || 'horizontal') === 'horizontal' ? 'sm:grid sm:grid-cols-2 lg:grid-cols-3' : '',
       }"
       :class="{ 'opacity-50 transition-opacity': fetchStatus === 'pending' }"
     >
