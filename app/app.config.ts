@@ -1,4 +1,5 @@
 import type { BadgeProps, ButtonProps, FooterColumn } from '@nuxt/ui'
+import type { QueryConfig } from './types/config'
 
 export * from './types/config'
 
@@ -39,7 +40,7 @@ export default defineAppConfig({
           fields: ['title', 'description', 'status', 'date'],
           order: { field: 'date', direction: 'DESC' },
           where: [{ field: 'status', operator: '=', value: 'published' }],
-        },
+        } as QueryConfig,
         categories: {} as Record<string, BadgeProps>,
         breadcrumbs: [],
         list: {
@@ -56,7 +57,7 @@ export default defineAppConfig({
           fields: ['title', 'description', 'status', 'date', 'dateEnd', 'location'],
           order: { field: 'date', direction: 'DESC' },
           where: [{ field: 'status', operator: '=', value: 'published' }],
-        },
+        } as QueryConfig,
         categories: {} as Record<string, BadgeProps>,
         breadcrumbs: [],
         list: {

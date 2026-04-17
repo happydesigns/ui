@@ -1,5 +1,6 @@
 <script setup lang="ts" generic="C extends keyof PageCollections ">
 import type { PageCollections } from '@nuxt/content'
+import type { QueryConfig, QueryFilter, QueryOrder } from '~/types/config'
 
 const props = withDefaults(defineProps<{
   collection: C
@@ -7,9 +8,9 @@ const props = withDefaults(defineProps<{
   prevIcon?: string
   nextIcon?: string
   fields?: string[]
-  where?: any[]
-  order?: { field: string, direction: 'ASC' | 'DESC' } | false
-  query?: { fields?: string[], where?: any[], order?: { field: string, direction: 'ASC' | 'DESC' } | false }
+  where?: QueryFilter[]
+  order?: QueryOrder | false
+  query?: QueryConfig
 }>(), {
   order: undefined,
 })
@@ -30,7 +31,7 @@ const { data: surround } = await useAsyncData(
 
     if (where && Array.isArray(where)) {
       where.forEach((filter) => {
-        query = query.where(filter.field as any, filter.operator, filter.value)
+        query = query.where(filter.field as any, filter.operator as any, filter.value)
       })
     }
 
