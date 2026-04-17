@@ -6,19 +6,8 @@ export type ActionButton = ButtonProps & {
   type?: 'github-edit' | 'report-github-issue'
 }
 
-export interface QueryFilter {
-  field: string
-  operator: SQLOperator
-  value?: unknown
-}
-
-export interface QueryOrder {
-  field: string
-  direction: 'ASC' | 'DESC'
-}
-
 export interface QueryConfig {
   fields?: string[]
-  where?: QueryFilter[]
-  order?: QueryOrder | false
+  where?: { field: string, operator: SQLOperator, value?: unknown }[]
+  order?: { field: string, direction: 'ASC' | 'DESC' } | false
 }
