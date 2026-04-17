@@ -1,24 +1,18 @@
-<script setup lang="ts" generic="C extends keyof PageCollections = 'article'">
+<script setup lang="ts" generic="C extends keyof PageCollections ">
 import type { PageCollections } from '@nuxt/content'
 
 const props = withDefaults(defineProps<{
-  collection?: C
+  collection: C
   show?: boolean
   prevIcon?: string
   nextIcon?: string
   fields?: string[]
   where?: any[]
   order?: { field: string, direction: 'ASC' | 'DESC' } | false
+  query?: { fields?: string[], where?: any[], order?: { field: string, direction: 'ASC' | 'DESC' } | false }
 }>(), {
   order: undefined,
 })
-
-const { config } = useVariant(() => props.collection || 'article')
-const vc = computed(() => config.value as any)
-
-const resolvedShow = computed(() => props.show ?? vc.value.surround?.show)
-const resolvedPrevIcon = computed(() => props.prevIcon ?? vc.value.surround?.prevIcon)
-const resolvedNextIcon = computed(() => props.nextIcon ?? vc.value.surround?.nextIcon)
 
 const route = useRoute()
 
@@ -26,7 +20,7 @@ const { data: surround } = await useAsyncData(
   `surround-${String(props.collection || 'article')}-${route.path}`,
   () => {
     const colName = (props.collection || 'article') as any
-    const qc = vc.value.query || {}
+    const qc = props.query || {}
 
     const fields = (props.fields || qc.fields || ['title', 'description', 'status']) as any
     const order = props.order !== undefined ? props.order : qc.order
@@ -50,11 +44,11 @@ const { data: surround } = await useAsyncData(
 </script>
 
 <template>
-  <div v-if="resolvedShow && surround?.length" class="mt-12">
+  <div v-if="show && surround?.some(Boolean)" class="mt-12">
     <UContentSurround
       :surround="surround"
-      :prev-icon="resolvedPrevIcon"
-      :next-icon="resolvedNextIcon"
+      :prev-icon="prevIcon"
+      :next-icon="nextIcon"
     />
   </div>
 </template>

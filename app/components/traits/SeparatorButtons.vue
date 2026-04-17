@@ -1,17 +1,14 @@
 <script setup lang="ts">
 import type { ActionButton } from '~/types/config'
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   stem?: string
   extension?: string
   buttons?: ActionButton[]
   separator?: string
-}>()
-
-const { config } = useVariant('separator')
-
-const resolvedButtons = computed(() => props.buttons ?? config.value.separator?.buttons ?? [])
-const resolvedSeparator = computed(() => props.separator ?? config.value.separator?.separator)
+}>(), {
+  buttons: () => [],
+})
 
 const appConfig = useAppConfig()
 
@@ -30,7 +27,7 @@ const reportLink = computed(() => {
 })
 
 const buttons = computed(() =>
-  resolvedButtons.value.flatMap((btn) => {
+  props.buttons.flatMap((btn) => {
     let to = btn.to
     if (btn.type === 'github-edit')
       to = editLink.value ?? undefined
@@ -44,7 +41,7 @@ const buttons = computed(() =>
 <template>
   <template v-for="(btn, index) in buttons" :key="index">
     <template v-if="index > 0">
-      {{ resolvedSeparator }}
+      {{ separator }}
     </template>
     <UButton
       variant="link"

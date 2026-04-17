@@ -91,12 +91,10 @@ const backLink = computed(() => {
             >
               <HBackButton
                 v-if="hasBackButton && backLink"
-                :to="backLink.to"
-                :label="backLink.label"
-                :icon="backLink.icon"
+                v-bind="backLink"
               />
               <div class="all:flex justify-end items-center gap-1.5 ml-auto">
-                <HCopyButton v-if="hasCopyButton" />
+                <HCopyButton v-if="hasCopyButton" v-bind="config.copyButton" />
               </div>
             </div>
 
@@ -104,11 +102,14 @@ const backLink = computed(() => {
               v-if="hasSeparator"
               :stem="page?.stem"
               :extension="page?.extension"
+              v-bind="config.separator"
             />
 
             <HSurround
               v-if="hasSurround"
               :collection="collection"
+              v-bind="config.surround"
+              :query="config.query"
             />
           </UPageBody>
 
