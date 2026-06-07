@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import type { PageCollections } from '@nuxt/content'
 
-const { collection = 'article' } = defineProps<{
+const { collection = 'article', path } = defineProps<{
   collection?: keyof PageCollections
   path?: string
 }>()
 
-const { data: page } = await usePageContent({ collection: () => collection })
+const { data: page } = await usePageContent({
+  collection: () => collection,
+  path: () => path,
+})
 </script>
 
 <template>

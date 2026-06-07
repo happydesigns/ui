@@ -1,9 +1,9 @@
-import type { Collections } from '@nuxt/content'
+import type { PageCollections } from '@nuxt/content'
 import type { AsyncData } from 'nuxt/app'
 import type { MaybeRefOrGetter } from 'vue'
 import { computed, toValue } from 'vue'
 
-interface UsePageContentOptions<C extends keyof Collections = 'page'> {
+interface UsePageContentOptions<C extends keyof PageCollections = 'page'> {
   path?: MaybeRefOrGetter<string | undefined>
   collection?: MaybeRefOrGetter<C>
 }
@@ -15,7 +15,7 @@ interface UsePageContentOptions<C extends keyof Collections = 'page'> {
  * @param options.path - Optional path to fetch. Defaults to current route path.
  * @param options.collection - Optional collection to fetch from. Defaults to 'page'.
  */
-export function usePageContent<C extends keyof Collections = 'page', B = object>(
+export function usePageContent<C extends keyof PageCollections = 'page', B = object>(
   { path, collection }: UsePageContentOptions<C> = {},
 ) {
   const route = useRoute()
@@ -23,9 +23,9 @@ export function usePageContent<C extends keyof Collections = 'page', B = object>
   const resolvedCollection = computed(() => (toValue(collection) ?? ('page' as C)) as C)
   const key = computed(() => `${String(resolvedCollection.value)}:${resolvedPath.value}`)
 
-  const handler = () => queryCollection(resolvedCollection.value as keyof Collections).path(resolvedPath.value).first()
+  const handler = () => queryCollection(resolvedCollection.value as keyof PageCollections).path(resolvedPath.value).first()
 
   return useAsyncData(key, handler, {
     watch: [resolvedPath, resolvedCollection],
-  }) as unknown as AsyncData<(Collections[C] & B) | null, Error | null>
+  }) as unknown as AsyncData<(PageCollections[C] & B) | null, Error | null>
 }

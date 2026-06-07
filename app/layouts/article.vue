@@ -1,19 +1,17 @@
-<script setup lang="ts" generic="C extends keyof PageCollections & ('article' | 'event') = 'article'">
+<script setup lang="ts" generic="C extends keyof PageCollections = 'article'">
 import type { PageCollections } from '@nuxt/content'
 
-const {
-  path,
-  collection = 'article' as C,
-} = defineProps<{
+const props = defineProps<{
   path?: string
   collection?: C
 }>()
 
 const route = useRoute()
+const collection = computed(() => props.collection ?? 'article')
 
-const { data: page } = await usePageContent<C>({
-  path: () => path,
-  collection: () => collection,
+const { data: page } = await usePageContent({
+  path: () => props.path,
+  collection: () => collection.value,
 })
 
 const { config, has } = useVariant(collection)
@@ -23,11 +21,12 @@ const hasCopyButton = has('copyButton')
 const hasSeparator = has('separator')
 const hasSurround = has('surround')
 const hasToc = has('toc')
+const tocEnabled = computed(() => !page.value || !('toc' in page.value) || page.value.toc !== false)
 
 if (!page.value) {
   throw createError({
     statusCode: 404,
-    statusMessage: `${collection} ${path || route.path} not found`,
+    statusMessage: `${collection.value} ${props.path || route.path} not found`,
     fatal: true,
   })
 }
@@ -115,7 +114,7 @@ const backLink = computed(() => {
 
           <template #right>
             <HToc
-              v-if="hasToc && page?.toc !== false"
+              v-if="hasToc && tocEnabled"
               :links="page?.body?.toc?.links"
               :title="page?.body?.toc?.title"
             />

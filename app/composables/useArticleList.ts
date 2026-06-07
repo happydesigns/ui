@@ -9,7 +9,7 @@ export interface ArticleFilter {
   value?: any
 }
 
-export interface UseArticleListOptions<C extends keyof PageCollections & ('article' | 'event') = 'article'> {
+export interface UseArticleListOptions<C extends keyof PageCollections = 'article'> {
   page?: MaybeRefOrGetter<number | undefined>
   itemsPerPage?: MaybeRefOrGetter<number | undefined>
   category?: MaybeRefOrGetter<string | undefined>
@@ -28,7 +28,7 @@ export interface UseArticleListOptions<C extends keyof PageCollections & ('artic
  * Composable to fetch a paginated and filtered list of articles or any other collection.
  * Includes automatic resolution of authors and category badges.
  */
-export function useArticleList<C extends keyof PageCollections & ('article' | 'event') = 'article'>(options: UseArticleListOptions<C> = {}) {
+export function useArticleList<C extends keyof PageCollections = 'article'>(options: UseArticleListOptions<C> = {}) {
   const collection = computed(() => (toValue(options.collection) || ('article' as C)) as C)
 
   const { config } = useVariant(collection)
