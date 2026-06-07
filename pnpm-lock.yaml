@@ -12,8 +12,8 @@ importers:
   .:
     dependencies:
       '@happydesigns/nuxt-variants':
-        specifier: ^0.0.5
-        version: 0.0.5(magicast@0.5.2)
+        specifier: ^0.0.6
+        version: 0.0.6(magicast@0.5.2)(vite@7.3.1(@types/node@25.5.2)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.46.1)(yaml@2.8.3))
       '@iconify-json/heroicons':
         specifier: ^1.2.3
         version: 1.2.3
@@ -614,8 +614,8 @@ packages:
   '@floating-ui/vue@1.1.11':
     resolution: {integrity: sha512-HzHKCNVxnGS35r9fCHBc3+uCnjw9IWIlCPL683cGgM9Kgj2BiAl8x1mS7vtvP6F9S/e/q4O6MApwSHj8hNLGfw==}
 
-  '@happydesigns/nuxt-variants@0.0.5':
-    resolution: {integrity: sha512-oAGFImpuXZBFiNYzvICjS5OEGy8qyTi2sHLoViqjuzo/9OwF5U5heNQjud2MRRkhPwBZYvICschqnlSiC43gYA==}
+  '@happydesigns/nuxt-variants@0.0.6':
+    resolution: {integrity: sha512-X6+XXseyl9Wti5AebOM0fYm0hD+DyRhDDxKnA2SiWxlpvMKzSnaTbSKZZCL1u+Q3qezkM9J+bRoARg5O8X5Aqw==}
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -7017,11 +7017,13 @@ snapshots:
       - '@vue/composition-api'
       - vue
 
-  '@happydesigns/nuxt-variants@0.0.5(magicast@0.5.2)':
+  '@happydesigns/nuxt-variants@0.0.6(magicast@0.5.2)(vite@7.3.1(@types/node@25.5.2)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.46.1)(yaml@2.8.3))':
     dependencies:
+      '@nuxt/devtools-kit': 3.2.4(magicast@0.5.2)(vite@7.3.1(@types/node@25.5.2)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.46.1)(yaml@2.8.3))
       '@nuxt/kit': 4.4.2(magicast@0.5.2)
     transitivePeerDependencies:
       - magicast
+      - vite
 
   '@humanfs/core@0.19.1': {}
 
