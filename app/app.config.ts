@@ -8,7 +8,6 @@ export default defineAppConfig({
     // UI feature variants — config overrides (extends defined in nuxt.config.ts)
     user: { config: { user: { target: '_blank' } } },
     backButton: { config: { backButton: { icon: 'i-ph-arrow-left', label: 'Back' } as Pick<ButtonProps, 'icon' | 'label' | 'to'> } },
-    dates: { config: { helloThere: 'general kenobi' } },
     copyButton: {
       config: {
         copyButton: {
@@ -35,7 +34,6 @@ export default defineAppConfig({
     // Collection variants — runtime config overrides only
     article: {
       config: {
-        youShallNot: 'pass',
         query: {
           fields: ['title', 'description', 'status', 'date'],
           order: { field: 'date', direction: 'DESC' },
