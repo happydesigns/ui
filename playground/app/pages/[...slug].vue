@@ -14,10 +14,10 @@ definePageMeta({
 })
 
 const { data: page } = await usePageContent()
+setPageLayout((page.value?.layout as string | false | undefined) || 'content')
+usePageSeo(page)
 </script>
 
 <template>
-  <NuxtLayout :name="page?.layout || 'content'">
-    <ContentRenderer v-if="page" :value="page" />
-  </NuxtLayout>
+  <ContentRenderer v-if="page" :value="page" />
 </template>

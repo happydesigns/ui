@@ -13,7 +13,5 @@ const { data: page } = await usePageContent({
 </script>
 
 <template>
-  <NuxtLayout name="article" :collection="collection">
-    <ContentRenderer v-if="page" :value="page" />
-  </NuxtLayout>
+  <ContentRenderer v-if="page" :value="page" />
 </template>

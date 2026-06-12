@@ -35,7 +35,7 @@ const { page, selectedCategory, updateQuery } = useArticleListQuery({
   fixedCategory: computed(() => props.category),
 })
 
-const { data, status: fetchStatus } = await useArticleList({
+const { data, status: fetchStatus } = useArticleList({
   page,
   itemsPerPage,
   category: selectedCategory,
@@ -44,6 +44,12 @@ const { data, status: fetchStatus } = await useArticleList({
   where: () => props.where,
   sort: () => props.sort,
   status: () => props.status,
+  lazy: true,
+})
+
+const hasArticles = computed(() => Boolean(data.value?.articles.length))
+const isInitialLoading = computed(() => {
+  return !hasArticles.value && (fetchStatus.value === 'idle' || fetchStatus.value === 'pending')
 })
 
 watch(page, () => {
@@ -75,12 +81,16 @@ watch(fetchStatus, (newStatus) => {
 
 <template>
   <div class="all:flex flex-col gap-8">
-    <div v-if="showLoader && !data?.articles.length" class="all:flex justify-center py-20">
-      <UIcon name="i-lucide-loader-circle" class="size-12 animate-spin text-muted" />
+    <div v-if="isInitialLoading" class="all:flex justify-center py-20">
+      <UIcon
+        v-if="showLoader || fetchStatus === 'idle'"
+        name="i-lucide-loader-circle"
+        class="size-12 animate-spin text-muted"
+      />
     </div>
 
     <UBlogPosts
-      v-else-if="data?.articles.length"
+      v-else-if="hasArticles"
       :orientation="orientation || 'horizontal'"
       :ui="{
         base: (orientation || 'horizontal') === 'horizontal' ? 'sm:grid sm:grid-cols-2 lg:grid-cols-3' : '',

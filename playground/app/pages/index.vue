@@ -1,9 +1,7 @@
 <template>
-  <NuxtLayout>
-    <div>
-      Hello from playground
+  <div>
+    Hello from playground
 
-      <Snippet path="/snippets/address" />
-    </div>
-  </NuxtLayout>
+    <Snippet path="/snippets/address" />
+  </div>
 </template>

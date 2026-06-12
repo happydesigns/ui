@@ -55,74 +55,66 @@ const backLink = computed(() => {
 </script>
 
 <template>
-  <div>
-    <AppHeader />
+  <UContainer v-if="page">
+    <UPageHeader
+      v-if="hasHeader && header"
+      v-bind="header"
+      :ui="{
+        headline: 'all:flex flex-col gap-y-8 items-start',
+        wrapper: 'lg:flex-row',
+      }"
+    >
+      <template #headline>
+        <UBreadcrumb
+          :ui="{ root: 'max-w-full' }"
+          :items="breadcrumbItems"
+        />
+        <HArticleHeadlineMeta :page="page" :collection="collection" />
+      </template>
+      <HArticleHeaderBody :page="page" :collection="collection">
+        <slot name="header" />
+      </HArticleHeaderBody>
+    </UPageHeader>
 
-    <UMain v-if="page">
-      <UContainer>
-        <UPageHeader
-          v-if="hasHeader && header"
-          v-bind="header"
-          :ui="{
-            headline: 'all:flex flex-col gap-y-8 items-start',
-            wrapper: 'lg:flex-row',
-          }"
+    <UPage>
+      <UPageBody>
+        <slot />
+
+        <div
+          v-if="hasBackButton || hasCopyButton"
+          class="all:flex items-center justify-between mt-12"
         >
-          <template #headline>
-            <UBreadcrumb
-              :ui="{ root: 'max-w-full' }"
-              :items="breadcrumbItems"
-            />
-            <HArticleHeadlineMeta :page="page" :collection="collection" />
-          </template>
-          <HArticleHeaderBody :page="page" :collection="collection">
-            <slot name="header" />
-          </HArticleHeaderBody>
-        </UPageHeader>
+          <HBackButton
+            v-if="hasBackButton && backLink"
+            v-bind="backLink"
+          />
+          <div class="all:flex justify-end items-center gap-1.5 ml-auto">
+            <HCopyButton v-if="hasCopyButton" v-bind="config.copyButton" />
+          </div>
+        </div>
 
-        <UPage>
-          <UPageBody>
-            <slot />
+        <HSeparator
+          v-if="hasSeparator"
+          :stem="page?.stem"
+          :extension="page?.extension"
+          v-bind="config.separator"
+        />
 
-            <div
-              v-if="hasBackButton || hasCopyButton"
-              class="all:flex items-center justify-between mt-12"
-            >
-              <HBackButton
-                v-if="hasBackButton && backLink"
-                v-bind="backLink"
-              />
-              <div class="all:flex justify-end items-center gap-1.5 ml-auto">
-                <HCopyButton v-if="hasCopyButton" v-bind="config.copyButton" />
-              </div>
-            </div>
+        <HSurround
+          v-if="hasSurround"
+          :collection="collection"
+          v-bind="config.surround"
+          :query="config.query"
+        />
+      </UPageBody>
 
-            <HSeparator
-              v-if="hasSeparator"
-              :stem="page?.stem"
-              :extension="page?.extension"
-              v-bind="config.separator"
-            />
-
-            <HSurround
-              v-if="hasSurround"
-              :collection="collection"
-              v-bind="config.surround"
-              :query="config.query"
-            />
-          </UPageBody>
-
-          <template #right>
-            <HToc
-              v-if="hasToc && tocEnabled"
-              :links="page?.body?.toc?.links"
-              :title="page?.body?.toc?.title"
-            />
-          </template>
-        </UPage>
-      </UContainer>
-    </UMain>
-
-    <AppFooter />
-  </div>
+      <template #right>
+        <HToc
+          v-if="hasToc && tocEnabled"
+          :links="page?.body?.toc?.links"
+          :title="page?.body?.toc?.title"
+        />
+      </template>
+    </UPage>
+  </UContainer>
 </template>

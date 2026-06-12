@@ -36,32 +36,24 @@ const header = computed(() => resolvePageHeader(page.value))
 </script>
 
 <template>
-  <div>
-    <AppHeader />
+  <UContainer v-if="page">
+    <UPage>
+      <UPageHeader
+        v-if="hasHeader && header"
+        v-bind="header"
+      />
 
-    <UMain v-if="page">
-      <UContainer>
-        <UPage>
-          <UPageHeader
-            v-if="hasHeader && header"
-            v-bind="header"
-          />
+      <UPageBody>
+        <slot />
+      </UPageBody>
 
-          <UPageBody>
-            <slot />
-          </UPageBody>
-
-          <template #right>
-            <UContentToc
-              v-if="renderToc && page.body?.toc?.links?.length"
-              :links="page.body.toc.links"
-              :title="page.body.toc.title || appConfig.app.toc?.title"
-            />
-          </template>
-        </UPage>
-      </UContainer>
-    </UMain>
-
-    <AppFooter />
-  </div>
+      <template #right>
+        <UContentToc
+          v-if="renderToc && page.body?.toc?.links?.length"
+          :links="page.body.toc.links"
+          :title="page.body.toc.title || appConfig.app.toc?.title"
+        />
+      </template>
+    </UPage>
+  </UContainer>
 </template>

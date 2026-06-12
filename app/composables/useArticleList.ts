@@ -22,6 +22,8 @@ export interface UseArticleListOptions<C extends keyof PageCollections = 'articl
   sort?: MaybeRefOrGetter<{ field: string, direction: 'ASC' | 'DESC' } | false | undefined>
   /** Status to filter by. Set to false to disable default status filtering. Defaults to 'published'. */
   status?: MaybeRefOrGetter<string | false | undefined>
+  /** Whether the list should load lazily during client-side navigation. Defaults to false. */
+  lazy?: MaybeRefOrGetter<boolean | undefined>
 }
 
 /**
@@ -142,5 +144,11 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
       articles: resolved,
       total,
     }
+  }, {
+    lazy: toValue(options.lazy) ?? false,
+    default: () => ({
+      articles: [],
+      total: 0,
+    }),
   })
 }
