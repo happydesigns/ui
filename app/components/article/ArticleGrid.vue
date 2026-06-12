@@ -35,7 +35,7 @@ const { page, selectedCategory, updateQuery } = useArticleListQuery({
   fixedCategory: computed(() => props.category),
 })
 
-const { data, status: fetchStatus } = useArticleList({
+const { data, status: fetchStatus } = await useArticleList({
   page,
   itemsPerPage,
   category: selectedCategory,
@@ -44,7 +44,6 @@ const { data, status: fetchStatus } = useArticleList({
   where: () => props.where,
   sort: () => props.sort,
   status: () => props.status,
-  lazy: true,
 })
 
 const hasArticles = computed(() => Boolean(data.value?.articles.length))
