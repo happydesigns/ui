@@ -1,6 +1,58 @@
 # Changelog
 
 
+## v0.14.0
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.13.5...v0.14.0)
+
+### 🚀 Enhancements
+
+- **variants:** Add nuxt-variants module with variant registry in nuxt.config ([e5cc9a1](https://github.com/happydesigns/ui/commit/e5cc9a1))
+
+### 🩹 Fixes
+
+- Remove _meta from frontmatter ([5001186](https://github.com/happydesigns/ui/commit/5001186))
+- **layouts:** Remove header! non-null assertion in content.vue ([a84a8d6](https://github.com/happydesigns/ui/commit/a84a8d6))
+- **content:** Support typed page collections ([cdea3e7](https://github.com/happydesigns/ui/commit/cdea3e7))
+- Stabilize content navigation loading ([7416117](https://github.com/happydesigns/ui/commit/7416117))
+- Disable lazy article list loading ([fe261cd](https://github.com/happydesigns/ui/commit/fe261cd))
+
+### 💅 Refactors
+
+- **schemas:** Migrate to @h4designs/nuxt-variants schema helpers ([b793aeb](https://github.com/happydesigns/ui/commit/b793aeb))
+- **composables:** Replace useCollectionConfig with useVariant ([e5d1212](https://github.com/happydesigns/ui/commit/e5d1212))
+- **components:** Migrate to useVariant API ([4a1754f](https://github.com/happydesigns/ui/commit/4a1754f))
+- **config:** Migrate app.config from content.* to variants structure ([919ea8c](https://github.com/happydesigns/ui/commit/919ea8c))
+- **types:** Comment out old trait and collection config interfaces ([6465604](https://github.com/happydesigns/ui/commit/6465604))
+- **layouts:** Migrate content.vue to useVariant API ([a090a8e](https://github.com/happydesigns/ui/commit/a090a8e))
+- **types:** Replace commented-out types with ActionButton ([62c7129](https://github.com/happydesigns/ui/commit/62c7129))
+- **traits:** Migrate CopyButton and Surround to useVariant with flat props ([9f88b1d](https://github.com/happydesigns/ui/commit/9f88b1d))
+- **traits:** Migrate Separator and SeparatorButtons to typed props ([5b90be6](https://github.com/happydesigns/ui/commit/5b90be6))
+- **traits:** Replace Authors page prop with typed authors and target ([e0d7f06](https://github.com/happydesigns/ui/commit/e0d7f06))
+- **traits:** Replace page prop with specific typed props across display traits ([010cc9a](https://github.com/happydesigns/ui/commit/010cc9a))
+- **callers:** Pass specific props to trait components ([6c5260d](https://github.com/happydesigns/ui/commit/6c5260d))
+- **utils:** Type resolvePageHeader with schema and Nuxt UI types ([6b5ade4](https://github.com/happydesigns/ui/commit/6b5ade4))
+- **layouts:** Broaden article.vue generic to keyof PageCollections & ('article' ([ 'event')](https://github.com/happydesigns/ui/commit/ 'event')))
+- **article:** Extract URL query sync into useArticleListQuery ([15a6430](https://github.com/happydesigns/ui/commit/15a6430))
+- **traits:** Remove useVariant from trait components, use plain props ([78724d9](https://github.com/happydesigns/ui/commit/78724d9))
+- **surround:** Introduce QueryConfig types for proper type safety ([3fa0895](https://github.com/happydesigns/ui/commit/3fa0895))
+- **surround:** Remove redundant standalone query props, simplify QueryConfig ([f23de52](https://github.com/happydesigns/ui/commit/f23de52))
+
+### 🏡 Chore
+
+- Migrate to nuxt-variants ([58e6b35](https://github.com/happydesigns/ui/commit/58e6b35))
+- Rename package from @h4designs/ui to @happydesigns/ui ([d85c51e](https://github.com/happydesigns/ui/commit/d85c51e))
+- Update lockfile ([c726b34](https://github.com/happydesigns/ui/commit/c726b34))
+- Set npm package to public ([d6f19eb](https://github.com/happydesigns/ui/commit/d6f19eb))
+- Remove unused variable ([18af2e7](https://github.com/happydesigns/ui/commit/18af2e7))
+- Promote nuxt variants dependency ([c3f5cee](https://github.com/happydesigns/ui/commit/c3f5cee))
+- Update nuxt variants dependency ([5b81497](https://github.com/happydesigns/ui/commit/5b81497))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+- 1df43df <Jan Fröhlich>
+
 ## v0.13.5
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.13.4...v0.13.5)
