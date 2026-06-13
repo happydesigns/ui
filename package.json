@@ -22,7 +22,9 @@
   },
   "scripts": {
     "dev": "nuxt dev playground",
-    "docs": "nuxt dev docs --extends docus",
+    "docs": "nuxt dev docs",
+    "docs:build": "nuxt generate docs",
+    "docs:build:server": "nuxt build docs",
     "prepare": "nuxt prepare && nuxt prepare playground",
     "build": "nuxt build playground",
     "preview": "nuxt preview playground",
@@ -38,7 +40,7 @@
     "@iconify-json/heroicons": "^1.2.3",
     "@iconify-json/lucide": "^1.2.101",
     "@iconify-json/simple-icons": "^1.2.76",
-    "@nuxt/content": "^3.12.0",
+    "@nuxt/content": "^3.14.0",
     "@nuxt/ui": "^4.6.1",
     "better-sqlite3": "^12.8.0",
     "nuxt-studio": "^1.5.1"
@@ -49,10 +51,12 @@
     "@nuxt/eslint": "^1.15.2",
     "changelogen": "^0.6.2",
     "cross-env": "^10.1.0",
+    "docus": "latest",
     "eslint": "^10.2.0",
     "nuxt": "^4.4.2",
     "typescript": "^6.0.2",
-    "zod": "^4.3.6"
+    "zod": "^4.3.6",
+    "zod-to-json-schema": "^3.25.2"
   },
   "resolutions": {
     "@happydesigns/ui": "workspace:*"
