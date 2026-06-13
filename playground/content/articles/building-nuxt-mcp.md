@@ -13,7 +13,7 @@ toc: true
 AI assistants are becoming an increasingly important part of the developer experience. To help them provide accurate, up-to-date information about Nuxt, we built an MCP server that exposes our documentation, blog posts, and deployment guides in a structured way. Here's how we did it with the [Nuxt MCP Toolkit](https://mcp-toolkit.nuxt.dev), and how you can build your own.
 
 ::callout{icon="i-lucide-bot"}
-Want to test the Nuxt MCP server? Jump to the [Nuxt MCP Server Documentation](/docs/4.x/guide/ai/mcp).
+Want to test the Nuxt MCP server? Jump to the [Nuxt MCP Server Documentation](https://nuxt.com/docs/4.x/guide/ai/mcp).
 ::
 
 ## What is MCP and why did we build it?
@@ -309,7 +309,7 @@ The easiest way to get started is with Cursor's one-click installation:
 ::u-button
 ---
 color: neutral
-icon: i-custom-cursor
+icon: i-lucide-mouse-pointer-click
 label: Install Nuxt MCP Server in Cursor
 to: cursor://anysphere.cursor-deeplink/mcp/install?name=nuxt&config=eyJ0eXBlIjoiaHR0cCIsInVybCI6Imh0dHBzOi8vbnV4dC5jb20vbWNwIn0%3D
 ---
@@ -317,7 +317,7 @@ to: cursor://anysphere.cursor-deeplink/mcp/install?name=nuxt&config=eyJ0eXBlIjoi
 
 ### Other AI assistants
 
-The Nuxt MCP server works with Claude Desktop, Windsurf, Visual Studio Code, ChatGPT, and many other MCP-compatible AI assistants. For complete setup instructions for all platforms, check out our [MCP documentation](/docs/4.x/guide/ai/mcp).
+The Nuxt MCP server works with Claude Desktop, Windsurf, Visual Studio Code, ChatGPT, and many other MCP-compatible AI assistants. For complete setup instructions for all platforms, check out our [MCP documentation](https://nuxt.com/docs/4.x/guide/ai/mcp).
 
 We encourage you to build MCP servers for your own applications. Whether it's documentation, API references, or domain-specific knowledge, MCP makes it easy for AI assistants to provide accurate, helpful information to your users.
 
