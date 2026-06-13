@@ -1,5 +1,9 @@
 export default defineEventHandler((event) => {
-  const name = getRouterParam(event, 'name') ?? ''
+  const name = getRouterParam(event, 'name')
+    ?? event.context.params?.name
+    ?? event.context.params?.['name.json']
+    ?? Object.values(event.context.params ?? {})[0]
+    ?? ''
   const example = getExampleSource(name)
 
   if (!example) {

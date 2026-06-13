@@ -1,5 +1,5 @@
 import type { BadgeProps, ButtonProps, FooterColumn } from '@nuxt/ui'
-import type { QueryConfig } from '../app/types/config'
+import type { QueryConfig } from '../../app/types/config'
 
 export default defineAppConfig({
   header: {

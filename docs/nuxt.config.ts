@@ -59,13 +59,10 @@ export default defineNuxtConfig({
   routeRules: {
     '/getting-started': { redirect: '/en/getting-started/use-the-layer' },
     '/concepts': { redirect: '/en/concepts/layer-model' },
-    '/concepts/layer-structure': { redirect: '/en/concepts/layer-structure' },
-    '/concepts/variants-model': { redirect: '/en/concepts/variants-model' },
     '/content': { redirect: '/en/content/collection-model' },
     '/components': { redirect: '/en/components/public-components' },
     '/composables': { redirect: '/en/composables/shared-logic' },
     '/configuration': { redirect: '/en/configuration/project-configuration' },
-    '/configuration/app-config': { redirect: '/en/configuration/app-config' },
     '/ai': { redirect: '/en/ai/agent-orientation' },
 
     '/en/getting-started': { redirect: '/en/getting-started/use-the-layer' },
