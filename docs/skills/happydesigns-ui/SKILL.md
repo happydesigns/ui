@@ -9,11 +9,11 @@ Use this skill for work involving `@happydesigns/ui`.
 
 ## Read First
 
-- `https://ui.happydesigns.de/en/getting-started`
-- `https://ui.happydesigns.de/en/concepts/layer-structure`
-- `https://ui.happydesigns.de/en/concepts/variants-model`
-- `https://ui.happydesigns.de/en/components`
-- `https://ui.happydesigns.de/en/configuration/app-config`
+- `https://ui.happydesigns.de/getting-started`
+- `https://ui.happydesigns.de/concepts/layer-structure`
+- `https://ui.happydesigns.de/concepts/variants-model`
+- `https://ui.happydesigns.de/components`
+- `https://ui.happydesigns.de/configuration/app-config`
 
 ## Working Rules
 

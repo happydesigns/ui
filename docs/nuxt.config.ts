@@ -57,6 +57,25 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
+    '/getting-started': { redirect: '/en/getting-started/introduction' },
+    '/concepts': { redirect: '/en/concepts/concept-map' },
+    '/concepts/layer-structure': { redirect: '/en/concepts/layer-structure' },
+    '/concepts/variants-model': { redirect: '/en/concepts/variants-model' },
+    '/content': { redirect: '/en/content/content-model' },
+    '/components': { redirect: '/en/components/component-model' },
+    '/composables': { redirect: '/en/composables/composable-model' },
+    '/configuration': { redirect: '/en/configuration/configuration-model' },
+    '/configuration/app-config': { redirect: '/en/configuration/app-config' },
+    '/ai': { redirect: '/en/ai/agent-model' },
+
+    '/en/getting-started': { redirect: '/en/getting-started/introduction' },
+    '/en/concepts': { redirect: '/en/concepts/concept-map' },
+    '/en/content': { redirect: '/en/content/content-model' },
+    '/en/components': { redirect: '/en/components/component-model' },
+    '/en/composables': { redirect: '/en/composables/composable-model' },
+    '/en/configuration': { redirect: '/en/configuration/configuration-model' },
+    '/en/ai': { redirect: '/en/ai/agent-model' },
+
     '/de/getting-started/**': { redirect: '/de' },
     '/de/concepts/**': { redirect: '/de' },
     '/de/content/**': { redirect: '/de' },
