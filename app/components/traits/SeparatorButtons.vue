@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ActionButton } from '~/types/config'
+import type { ActionButton } from '../../types/config'
 
 const props = withDefaults(defineProps<{
   stem?: string
@@ -28,12 +28,13 @@ const reportLink = computed(() => {
 
 const buttons = computed(() =>
   props.buttons.flatMap((btn) => {
-    let to = btn.to
-    if (btn.type === 'github-edit')
+    const { action, ...buttonProps } = btn
+    let to = buttonProps.to
+    if (action === 'github-edit')
       to = editLink.value ?? undefined
-    else if (btn.type === 'report-github-issue')
+    else if (action === 'report-github-issue')
       to = reportLink.value ?? undefined
-    return to ? [{ ...btn, to }] : []
+    return to ? [{ ...buttonProps, to }] : []
   }),
 )
 </script>

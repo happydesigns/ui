@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import type { UserProps } from '@nuxt/ui'
+
 const props = defineProps<{
   authors?: string[]
   target?: string
-  config?: VariantConfigOf<'user'>
+  config?: { user?: Partial<UserProps> }
 }>()
 
 const userProps = computed(() => ({ ...(props.config?.user ?? {}), ...(props.target ? { target: props.target } : {}) }))

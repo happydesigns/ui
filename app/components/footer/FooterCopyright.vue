@@ -5,11 +5,17 @@ const props = defineProps<{
   copyrightHomepage?: string
 }>()
 
+interface CopyrightConfig {
+  copyrightHolder?: string
+  copyrightHomepage?: string
+}
+
 const appConfig = useAppConfig()
+const copyright = appConfig.app?.meta?.copyright as CopyrightConfig | undefined
 
 const copyrightYear = props.copyrightYear ?? new Date().getFullYear()
-const copyrightHolder = props.copyrightHolder ?? appConfig.app?.meta?.copyright?.copyrightHolder ?? ''
-const copyrightHomepage = props.copyrightHomepage ?? appConfig.app?.meta?.copyright?.copyrightHomepage ?? ''
+const copyrightHolder = props.copyrightHolder ?? copyright?.copyrightHolder ?? ''
+const copyrightHomepage = props.copyrightHomepage ?? copyright?.copyrightHomepage ?? ''
 </script>
 
 <template>
