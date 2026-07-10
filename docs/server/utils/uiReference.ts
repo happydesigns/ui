@@ -158,8 +158,8 @@ function splitTopLevelFields(block: string) {
   let quote: string | null = null
 
   for (let index = 0; index < block.length; index++) {
-    const char = block[index]
-    const previous = block[index - 1]
+    const char = block.charAt(index)
+    const previous = block.charAt(index - 1)
 
     if (quote) {
       current += char
@@ -206,7 +206,7 @@ function extractComment(field: string) {
     return undefined
   }
 
-  return commentMatch[1]
+  return commentMatch[1]!
     .split('\n')
     .map(line => line.replace(/^\s*\*\s?/, '').trim())
     .filter(Boolean)
@@ -232,8 +232,8 @@ function parsePropsBlock(block: string): ComponentPropReference[] {
       }
 
       return {
-        name: match[1],
-        type: match[2].trim(),
+        name: match[1]!,
+        type: match[2]!.trim(),
         required: !cleaned.startsWith(`${match[1]}?`),
         description,
       }
@@ -319,16 +319,16 @@ export function getVariantReferences() {
   const source = readFileSync(sourcePath, 'utf-8')
   const registryIndex = source.indexOf('registry:')
   const registry = extractBlock(source, registryIndex)
-  const names = [...registry.matchAll(/^\s{6}([a-zA-Z][\w]*):\s*\{/gm)].map(match => match[1])
+  const names = [...registry.matchAll(/^\s{6}([a-zA-Z][\w]*):\s*\{/gm)].map(match => match[1]!)
   const appConfig = readFileSync(resolve(repoRoot, 'app/app.config.ts'), 'utf-8')
 
   return names.map((name, index) => {
     const start = registry.indexOf(`${name}:`)
-    const end = index + 1 < names.length ? registry.indexOf(`${names[index + 1]}:`, start) : registry.length
+    const end = index + 1 < names.length ? registry.indexOf(`${names[index + 1]!}:`, start) : registry.length
     const block = registry.slice(start, end)
     const extendsMatch = block.match(/extends:\s*\[([^\]]*)\]/)
-    const extendsList = extendsMatch?.[1]
-      .split(',')
+    const extendsList = extendsMatch?.[1]?.split(',')
+
       .map(item => item.trim().replace(/^['"]|['"]$/g, ''))
       .filter(Boolean) ?? []
 
@@ -348,16 +348,16 @@ export function getCollectionReferences() {
   const matches = [...source.matchAll(/^\s{2}([a-zA-Z][\w]*):\s*defineCollection\(\{/gm)]
 
   return matches.map((match, index) => {
-    const name = match[1]
+    const name = match[1]!
     const start = match.index ?? 0
-    const end = index + 1 < matches.length ? matches[index + 1].index ?? source.length : source.length
+    const end = index + 1 < matches.length ? matches[index + 1]!.index ?? source.length : source.length
     const block = source.slice(start, end)
     const type = block.match(/type:\s*'([^']+)'/)?.[1] ?? 'page'
     const prefix = block.match(/prefix:\s*'([^']+)'/)?.[1] ?? ''
     const include = block.match(/include:\s*'([^']+)'/)?.[1]
     const sourceValue = block.match(/source:\s*'([^']+)'/)?.[1]
-    const variants = block.match(/mergeVariantSchemas\(\[([^\]]*)\]/)?.[1]
-      .split(',')
+    const variants = block.match(/mergeVariantSchemas\(\[([^\]]*)\]/)?.[1]?.split(',')
+
       .map(item => item.trim().replace(/^['"]|['"]$/g, ''))
       .filter(Boolean) ?? []
 
