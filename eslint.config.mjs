@@ -1,5 +1,11 @@
 import antfu from '@antfu/eslint-config'
-import nuxt from './.nuxt/eslint.config.mjs'
+import { createConfigForNuxt } from '@nuxt/eslint-config'
+
+const nuxt = createConfigForNuxt({
+  features: {
+    standalone: false,
+  },
+})
 
 export default antfu(
   { ignores: ['.agents/**'] },
@@ -18,4 +24,11 @@ export default antfu(
     },
   },
   nuxt,
+  {
+    name: 'nuxt/layout/rules',
+    files: ['app/layouts/**/*.vue'],
+    rules: {
+      'vue/no-multiple-template-root': 'off',
+    },
+  },
 )
