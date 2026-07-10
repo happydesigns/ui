@@ -1,4 +1,4 @@
-/* eslint-disable e18e/prefer-array-from-map, e18e/prefer-static-regex, regexp/no-super-linear-backtracking, regexp/no-useless-character-class, regexp/prefer-w, regexp/use-ignore-case */
+/* eslint-disable regexp/no-super-linear-backtracking, regexp/no-useless-character-class, regexp/prefer-w, regexp/use-ignore-case */
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { basename, join, relative, resolve } from 'node:path'
 import process from 'node:process'

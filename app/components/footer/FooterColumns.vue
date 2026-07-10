@@ -1,7 +1,6 @@
 <script setup lang="ts" generic="T extends FooterColumnLink">
-import type { FooterColumn, FooterColumnLink, FooterColumnsProps, FooterColumnsSlots } from '@nuxt/ui'
+import type { FooterColumn, FooterColumnLink, FooterColumnsProps, FooterColumnsSlots, SlotClass } from '@nuxt/ui'
 import { useAppConfig } from '#imports'
-import { tv } from 'tailwind-variants'
 
 interface HFooterColumnProps<T extends FooterColumnLink> extends /* @vue-ignore */ FooterColumnsProps<T> {
   lgCols?: number
@@ -23,28 +22,25 @@ const rightCount = slots.right ? slots.right({}).length : 0
 const lgCount = Math.max(leftCount, centerCount, rightCount)
 const totalCount = leftCount + centerCount + rightCount
 
-const ui = tv({
-  extend: tv({
-    extend: tv({ slots: {
-      root: 'footer-cols-root all:grid grid-flow-row gap-y-12 gap-x-8',
-      left: 'footer-cols-left',
-      center: 'footer-cols-center',
-      right: 'footer-cols-right',
-    } }),
-    slots: appConfig.ui?.footerColumns?.slots || {},
-  }),
-  slots: props.ui || {},
-})()
+function withLayoutClass(base: string, override?: SlotClass): SlotClass {
+  if (typeof override === 'function')
+    return defaults => [base, override(defaults)]
+
+  return [base, override]
+}
+
+const ui = computed(() => ({
+  ...props.ui,
+  root: withLayoutClass('footer-cols-root all:grid grid-flow-row gap-y-12 gap-x-8', props.ui?.root),
+  left: withLayoutClass('footer-cols-left', props.ui?.left),
+  center: withLayoutClass('footer-cols-center', props.ui?.center),
+  right: withLayoutClass('footer-cols-right', props.ui?.right),
+}))
 </script>
 
 <template>
   <UFooterColumns
-    v-bind="props" :columns="footerColumns" :ui="{
-      root: ui.root?.() ?? '',
-      left: ui.left?.() ?? '',
-      center: ui.center?.() ?? '',
-      right: ui.right?.() ?? '',
-    }"
+    v-bind="props" :columns="footerColumns" :ui="ui"
     :style="{
       '--cols-sm': 1,
       '--cols-lg': props.lgCols ?? lgCount,
