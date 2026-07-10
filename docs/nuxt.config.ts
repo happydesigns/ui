@@ -1,3 +1,42 @@
+import { readdirSync } from 'node:fs'
+import { basename, join, relative } from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+const contentRoot = fileURLToPath(new URL('./content', import.meta.url))
+const markdownExtensionPattern = /\.md$/
+const numericPrefixPattern = /^\d+\./
+
+function collectMarkdownFiles(directory: string): string[] {
+  return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    const entryPath = join(directory, entry.name)
+
+    if (entry.isDirectory()) {
+      return collectMarkdownFiles(entryPath)
+    }
+
+    return entry.isFile() && entry.name.endsWith('.md') ? [entryPath] : []
+  })
+}
+
+function contentFileToRoute(filePath: string) {
+  const segments = relative(contentRoot, filePath)
+    .replaceAll('\\', '/')
+    .replace(markdownExtensionPattern, '')
+    .split('/')
+    .map(segment => segment.replace(numericPrefixPattern, ''))
+
+  if (segments.at(-1) === 'index') {
+    segments.pop()
+  }
+
+  return `/${segments.join('/')}`
+}
+
+// Docus crawls index pages from each locale landing page; only leaf pages need explicit routes.
+const documentationRoutes = collectMarkdownFiles(contentRoot)
+  .filter(filePath => basename(filePath).replace(numericPrefixPattern, '') !== 'index.md')
+  .map(contentFileToRoute)
+
 export default defineNuxtConfig({
   extends: ['docus'],
 
@@ -9,6 +48,13 @@ export default defineNuxtConfig({
   components: [
     { path: './app/components', pathPrefix: false },
   ],
+
+  icon: {
+    fallbackToApi: false,
+    serverBundle: {
+      collections: ['carbon', 'heroicons', 'lucide', 'simple-icons', 'vscode-icons'],
+    },
+  },
 
   i18n: {
     defaultLocale: 'en',
@@ -56,30 +102,10 @@ export default defineNuxtConfig({
     },
   },
 
-  routeRules: {
-    '/getting-started': { redirect: '/en/getting-started/use-the-layer' },
-    '/concepts': { redirect: '/en/concepts/layer-model' },
-    '/content': { redirect: '/en/content/collection-model' },
-    '/components': { redirect: '/en/components/public-components' },
-    '/composables': { redirect: '/en/composables/shared-logic' },
-    '/configuration': { redirect: '/en/configuration/project-configuration' },
-    '/ai': { redirect: '/en/ai/agent-orientation' },
-
-    '/en/getting-started': { redirect: '/en/getting-started/use-the-layer' },
-    '/en/concepts': { redirect: '/en/concepts/layer-model' },
-    '/en/content': { redirect: '/en/content/collection-model' },
-    '/en/components': { redirect: '/en/components/public-components' },
-    '/en/composables': { redirect: '/en/composables/shared-logic' },
-    '/en/configuration': { redirect: '/en/configuration/project-configuration' },
-    '/en/ai': { redirect: '/en/ai/agent-orientation' },
-
-    '/de/getting-started/**': { redirect: '/de' },
-    '/de/concepts/**': { redirect: '/de' },
-    '/de/content/**': { redirect: '/de' },
-    '/de/components/**': { redirect: '/de' },
-    '/de/composables/**': { redirect: '/de' },
-    '/de/configuration/**': { redirect: '/de' },
-    '/de/ai/**': { redirect: '/de' },
+  nitro: {
+    prerender: {
+      routes: documentationRoutes,
+    },
   },
 
   llms: {

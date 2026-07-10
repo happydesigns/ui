@@ -6,6 +6,10 @@ export default defineAppConfig({
     title: 'happydesigns/ui',
   },
 
+  navigation: {
+    sub: 'header',
+  },
+
   seo: {
     title: 'happydesigns/ui',
     description: 'Product documentation for the happydesigns Nuxt layer.',
