@@ -23,13 +23,16 @@
   "scripts": {
     "dev": "nuxt dev playground",
     "docs": "nuxt dev docs",
-    "docs:build": "nuxt generate docs",
+    "docs:build": "nuxt generate docs && node scripts/validate-docs-output.mjs",
     "docs:build:server": "nuxt build docs",
     "prepare": "nuxt prepare && nuxt prepare playground",
     "build": "nuxt build playground",
     "preview": "nuxt preview playground",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "typecheck": "nuxt typecheck && nuxt typecheck playground",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "release": "changelogen --release",
     "release:pre": "changelogen --release --prerelease",
     "release:alpha": "changelogen --release --versionSuffix alpha.0",
@@ -43,7 +46,8 @@
     "@nuxt/content": "^3.14.0",
     "@nuxt/ui": "^4.6.1",
     "better-sqlite3": "^12.8.0",
-    "nuxt-studio": "^1.5.1"
+    "nuxt-studio": "^1.5.1",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^8.0.0",
@@ -51,11 +55,12 @@
     "@nuxt/eslint": "^1.15.2",
     "changelogen": "^0.6.2",
     "cross-env": "^10.1.0",
-    "docus": "latest",
+    "docus": "5.12.1",
     "eslint": "^10.2.0",
     "nuxt": "^4.4.2",
     "typescript": "^6.0.2",
-    "zod": "^4.3.6",
+    "vitest": "^4.1.2",
+    "vue-tsc": "^3.2.6",
     "zod-to-json-schema": "^3.25.2"
   },
   "resolutions": {

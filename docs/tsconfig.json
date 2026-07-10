@@ -1,0 +1,12 @@
+{
+  "extends": "./.nuxt/tsconfig.json",
+  "exclude": [
+    "../app",
+    "../app/utils/resolveUsers.ts",
+    "../content.config.ts",
+    "../node_modules/.pnpm/docus*/**",
+    "../nuxt.config.ts",
+    "../playground",
+    "../schemas"
+  ]
+}
