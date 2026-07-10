@@ -38,6 +38,7 @@ const documentationRoutes = collectMarkdownFiles(contentRoot)
   .map(contentFileToRoute)
 
 export default defineNuxtConfig({
+  compatibilityDate: '2026-07-10',
   extends: ['docus'],
 
   modules: [
