@@ -45,10 +45,10 @@
     "@iconify-json/simple-icons": "^1.2.89",
     "@nuxt/content": "^3.15.0",
     "@nuxt/ui": "^4.9.0",
-    "@vueuse/core": "14.3.0",
+    "@vueuse/core": "^14.3.0",
     "better-sqlite3": "^12.11.1",
     "nuxt-studio": "^1.7.0",
-    "pathe": "2.0.3",
+    "pathe": "^2.0.3",
     "zod": "^4.4.3"
   },
   "devDependencies": {
