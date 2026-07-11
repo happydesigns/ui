@@ -1,6 +1,42 @@
 # Changelog
 
 
+## v0.15.0
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.14.0...v0.15.0)
+
+### 🚀 Enhancements
+
+- **docs:** Improve generated component references ([ca0a22a](https://github.com/happydesigns/ui/commit/ca0a22a))
+
+### 🩹 Fixes
+
+- Repair ui docs routing and reference data ([c26d253](https://github.com/happydesigns/ui/commit/c26d253))
+- **ui:** Harden reusable component contracts ([1b1b7b3](https://github.com/happydesigns/ui/commit/1b1b7b3))
+- **content:** Refresh surround navigation on route changes ([1ed07a6](https://github.com/happydesigns/ui/commit/1ed07a6))
+- **playground:** Highlight active navigation sections ([4e8fa58](https://github.com/happydesigns/ui/commit/4e8fa58))
+- **ci:** Install pnpm before configuring cache ([6c4d991](https://github.com/happydesigns/ui/commit/6c4d991))
+
+### 📖 Documentation
+
+- Fix playground article links ([a4537e7](https://github.com/happydesigns/ui/commit/a4537e7))
+- Add happydesigns ui docus site ([0c96efb](https://github.com/happydesigns/ui/commit/0c96efb))
+- Fix docus section routing ([3494cb5](https://github.com/happydesigns/ui/commit/3494cb5))
+- Clarify section entry pages ([6ae516e](https://github.com/happydesigns/ui/commit/6ae516e))
+- Restructure product documentation ([eaa77f9](https://github.com/happydesigns/ui/commit/eaa77f9))
+- Record UI quality reference research ([62ae0b3](https://github.com/happydesigns/ui/commit/62ae0b3))
+
+### 🏡 Chore
+
+- **tooling:** Add repository quality gates ([16b6867](https://github.com/happydesigns/ui/commit/16b6867))
+- **config:** Set app compatibility dates ([f0cd2c5](https://github.com/happydesigns/ui/commit/f0cd2c5))
+- **eslint:** Decouple config from Nuxt layer ([75b86ab](https://github.com/happydesigns/ui/commit/75b86ab))
+- Merge UI stabilization changes ([9a3f696](https://github.com/happydesigns/ui/commit/9a3f696))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.14.0
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.13.5...v0.14.0)
