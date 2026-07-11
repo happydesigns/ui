@@ -1,6 +1,6 @@
 <script setup lang="ts" generic="C extends keyof PageCollections = 'article'">
 import type { PageCollections } from '@nuxt/content'
-import type { ArticleFilter } from '~/composables/useArticleList'
+import type { ArticleFilter } from '../../composables/useArticleList'
 
 const props = withDefaults(defineProps<{
   /** Optional fixed category to filter by */

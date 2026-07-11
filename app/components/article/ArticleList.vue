@@ -1,7 +1,7 @@
 <script setup lang="ts" generic="C extends keyof PageCollections = 'article'">
 import type { PageCollections } from '@nuxt/content'
-import type { ArticleFilter } from '~/composables/useArticleList'
-import { useArticleListQuery } from '~/composables/useArticleListQuery'
+import type { ArticleFilter } from '../../composables/useArticleList'
+import { useArticleListQuery } from '../../composables/useArticleListQuery'
 
 const props = withDefaults(defineProps<{
   /** Optional fixed category to filter by */
@@ -34,7 +34,7 @@ const { selectedCategory, updateQuery } = useArticleListQuery({
 })
 
 const categories = computed(() => {
-  const cats = collectionConfig.value.categories || {}
+  const cats = (collectionConfig.value.categories || {}) as Record<string, { label?: string }>
   const items = [
     { label: String(labelAll.value), value: String(labelAll.value) },
     ...Object.keys(cats).map(key => ({

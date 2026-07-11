@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ActionButton } from '~/types/config'
+import type { ActionButton } from '../../types/config'
 
 const props = defineProps<{
   stem?: string

@@ -22,7 +22,6 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   modules: [
-    '@nuxt/eslint',
     '@happydesigns/nuxt-variants',
     '@nuxt/ui',
     '@nuxt/content',
@@ -64,13 +63,6 @@ export default defineNuxtConfig({
         extends: ['layout', 'header', 'toc'],
         config: {},
       },
-    },
-  },
-
-  eslint: {
-    config: {
-      stylistic: true,
-      standalone: false,
     },
   },
 

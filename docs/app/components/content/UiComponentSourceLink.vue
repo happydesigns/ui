@@ -7,9 +7,24 @@ const { data } = await useFetch(`/api/ui-reference/components/${props.name}.json
 </script>
 
 <template>
-  <p v-if="data?.source">
-    Source: <a :href="data.source.github" target="_blank" rel="noopener">{{ data.source.path }}</a>
-  </p>
+  <div v-if="data?.source" class="space-y-2">
+    <UButton
+      :to="data.source.github"
+      target="_blank"
+      rel="noopener"
+      icon="i-simple-icons-github"
+      color="neutral"
+      variant="outline"
+      size="sm"
+    >
+      View source
+    </UButton>
+
+    <p class="text-sm text-muted">
+      <code>{{ data.source.path }}</code>
+    </p>
+  </div>
+
   <p v-else class="text-muted">
     Source file not found.
   </p>

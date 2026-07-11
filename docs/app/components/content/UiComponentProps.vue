@@ -16,6 +16,7 @@ const rows = computed(() => {
       name: prop.name,
       type: prop.type,
       default: prop.default ?? prop.tags?.find((tag: any) => tag.name === 'defaultValue')?.text,
+      required: Boolean(prop.required),
       description: prop.description,
     }))
 })
@@ -24,26 +25,46 @@ const rows = computed(() => {
 <template>
   <div>
     <p v-if="!rows.length" class="text-muted">
-      No documented props found.
+      This component has no documented public props.
     </p>
 
-    <table v-else>
-      <thead>
-        <tr>
-          <th>Prop</th>
-          <th>Default</th>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="row in rows" :key="row.name">
-          <td><code>{{ row.name }}</code></td>
-          <td><code v-if="row.default">{{ row.default }}</code></td>
-          <td><code v-if="row.type">{{ row.type }}</code></td>
-          <td>{{ row.description }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div v-else class="not-prose my-5 overflow-x-auto rounded-md border border-muted">
+      <table class="min-w-full text-left text-sm">
+        <thead class="border-b border-muted bg-muted/30 text-muted">
+          <tr>
+            <th class="px-3 py-2 font-medium">
+              Prop
+            </th>
+            <th class="px-3 py-2 font-medium">
+              Default
+            </th>
+            <th class="px-3 py-2 font-medium">
+              Type
+            </th>
+            <th class="px-3 py-2 font-medium">
+              Description
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="row in rows" :key="row.name" class="border-b border-muted last:border-b-0">
+            <td class="px-3 py-3 align-top">
+              <code>{{ row.name }}</code>
+              <span v-if="row.required" class="ml-2 text-xs text-muted">required</span>
+            </td>
+            <td class="px-3 py-3 align-top">
+              <code v-if="row.default">{{ row.default }}</code>
+              <span v-else class="text-muted">-</span>
+            </td>
+            <td class="max-w-96 px-3 py-3 align-top">
+              <code v-if="row.type" class="whitespace-pre-wrap break-words">{{ row.type }}</code>
+            </td>
+            <td class="px-3 py-3 align-top text-muted">
+              {{ row.description || '-' }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>

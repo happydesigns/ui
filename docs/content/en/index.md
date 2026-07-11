@@ -1,8 +1,7 @@
 ---
-title: happydesigns/ui
-description: Product documentation for the happydesigns Nuxt layer, content model, components, composables, variants, and configuration.
+title: "happydesigns/ui"
+description: "Product documentation for the happydesigns Nuxt layer, content model, components, composables, variants, and configuration."
 ---
-
 <!-- eslint-disable markdown/no-missing-atx-heading-space -->
 
 ::u-page-hero
@@ -17,7 +16,7 @@ Build happydesigns websites, docs sites, and product apps on one reusable Nuxt f
   ---
   color: neutral
   size: xl
-  to: /getting-started
+  to: /en/getting-started
   trailing-icon: i-lucide-arrow-right
   variant: solid
   ---
@@ -28,11 +27,30 @@ Build happydesigns websites, docs sites, and product apps on one reusable Nuxt f
   ---
   color: neutral
   size: xl
-  to: /components
+  to: /en/components
   variant: outline
   ---
   Browse components
   :::
+::
+
+::u-page-section
+#title
+Quick start
+
+#description
+Add the layer to a Nuxt project, extend it from `nuxt.config.ts`, then prepare the generated Nuxt types.
+
+```bash [Terminal]
+pnpm add @happydesigns/ui
+pnpm exec nuxt prepare
+```
+
+```ts [nuxt.config.ts]
+export default defineNuxtConfig({
+  extends: ['@happydesigns/ui'],
+})
+```
 ::
 
 ::u-page-section
@@ -46,7 +64,7 @@ The docs explain the layer from intent to reference: install it, understand the 
   :::u-page-feature
   ---
   icon: i-lucide-rocket
-  to: /getting-started
+  to: /en/getting-started
   ---
   #title
   Use the layer
@@ -58,7 +76,7 @@ The docs explain the layer from intent to reference: install it, understand the 
   :::u-page-feature
   ---
   icon: i-lucide-layers
-  to: /concepts
+  to: /en/concepts
   ---
   #title
   Understand the model
@@ -70,7 +88,7 @@ The docs explain the layer from intent to reference: install it, understand the 
   :::u-page-feature
   ---
   icon: i-lucide-files
-  to: /content
+  to: /en/content
   ---
   #title
   Write content
@@ -82,7 +100,7 @@ The docs explain the layer from intent to reference: install it, understand the 
   :::u-page-feature
   ---
   icon: i-lucide-component
-  to: /components
+  to: /en/components
   ---
   #title
   Use components
@@ -93,8 +111,20 @@ The docs explain the layer from intent to reference: install it, understand the 
 
   :::u-page-feature
   ---
+  icon: i-lucide-braces
+  to: /en/composables
+  ---
+  #title
+  Compose custom views
+
+  #description
+  Reuse the layer's fetching, filtering, SEO, badge, and clipboard behavior in project-owned templates.
+  :::
+
+  :::u-page-feature
+  ---
   icon: i-lucide-settings-2
-  to: /configuration
+  to: /en/configuration
   ---
   #title
   Configure projects
@@ -106,7 +136,7 @@ The docs explain the layer from intent to reference: install it, understand the 
   :::u-page-feature
   ---
   icon: i-lucide-bot
-  to: /ai
+  to: /en/ai
   ---
   #title
   Work with agents
@@ -115,5 +145,3 @@ The docs explain the layer from intent to reference: install it, understand the 
   Use LLM output, MCP, and the product skill without treating generated reference data as the whole documentation.
   :::
 ::
-
-<!-- eslint-enable markdown/no-missing-atx-heading-space -->
