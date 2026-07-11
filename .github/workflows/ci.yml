@@ -18,12 +18,12 @@ jobs:
     env:
       NODE_OPTIONS: --max-old-space-size=4096
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v6
         with:
           node-version: 24
           cache: pnpm
-      - run: corepack enable
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
       - run: pnpm typecheck
