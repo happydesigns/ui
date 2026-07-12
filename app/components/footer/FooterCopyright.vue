@@ -2,6 +2,7 @@
 const props = defineProps<{
   copyrightYear?: number
   copyrightHolder?: string
+  /** Optional URL for the copyright holder. When omitted, the holder is rendered as plain text. */
   copyrightHomepage?: string
 }>()
 
@@ -26,9 +27,10 @@ const copyrightHomepage = props.copyrightHomepage ?? copyright?.copyrightHomepag
     <template v-else>
       <p class="text-muted text-sm">
         Copyright © {{ copyrightYear }}
-        <ULink :to="copyrightHomepage" target="_blank">
+        <ULink v-if="copyrightHomepage" :to="copyrightHomepage">
           {{ copyrightHolder }}
         </ULink>
+        <span v-else>{{ copyrightHolder }}</span>
       </p>
     </template>
   </div>

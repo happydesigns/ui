@@ -128,7 +128,7 @@ declare module '@nuxt/schema' {
           copyrightYear?: number
           /** The name of the copyright holder */
           copyrightHolder?: string
-          /** The homepage URL of the copyright holder */
+          /** Optional homepage URL of the copyright holder; omit it to render plain text */
           copyrightHomepage?: string
         }
         /** Social button definitions (e.g. Instagram, Facebook, GitHub) */
