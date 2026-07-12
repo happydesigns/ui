@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.15.1
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.15.0...v0.15.1)
+
+### 🚀 Enhancements
+
+- **studio:** Add reusable login button ([4c4c002](https://github.com/happydesigns/ui/commit/4c4c002))
+
+### 🩹 Fixes
+
+- **footer:** Make copyright homepage optional ([f7db86b](https://github.com/happydesigns/ui/commit/f7db86b))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.15.0
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.14.0...v0.15.0)
