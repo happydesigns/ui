@@ -67,7 +67,12 @@ export const userTrait = {
     name: z.string().optional(),
     description: z.string().optional(),
     to: z.string().optional(),
-    avatar: property(z.object({})).inherit('@nuxt/ui/components/Avatar.vue').optional(),
+    avatar: z.object({
+      src: property(z.string()).editor({ input: 'media' }).optional(),
+      alt: z.string().optional(),
+      icon: property(z.string()).editor({ input: 'icon' }).optional(),
+      text: z.string().optional(),
+    }).optional(),
     socials: z.array(z.object({
       name: z.string(),
       url: z.url(),

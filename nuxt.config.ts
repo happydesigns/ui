@@ -52,11 +52,11 @@ export default defineNuxtConfig({
       // Collection variants — extends chains defined here for graph generation
       snippet: {},
       article: {
-        extends: ['dates', 'authors', 'category', 'status', 'header', 'toc', 'surround', 'copyButton', 'separator', 'backButton', 'user'],
+        extends: ['dates', 'authors', 'category', 'status', 'header', 'toc', 'surround', 'copyButton', 'separator', 'backButton'],
         config: {},
       },
       event: {
-        extends: ['dates', 'location', 'category', 'links', 'status', 'header', 'toc', 'surround', 'copyButton', 'separator', 'backButton', 'user'],
+        extends: ['dates', 'location', 'category', 'links', 'status', 'header', 'toc', 'surround', 'copyButton', 'separator', 'backButton'],
         config: {},
       },
       page: {
