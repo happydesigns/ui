@@ -5,7 +5,7 @@ authors:
 category: Release
 date: 2025-11-05
 description: Nuxt Image v2 is out - with full TypeScript support, IPX v3, and new providers!
-status: published
+published: true
 toc: true
 ---
 

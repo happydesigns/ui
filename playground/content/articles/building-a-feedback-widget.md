@@ -6,7 +6,7 @@ authors:
 category: Article
 date: 2025-06-13
 description: A lightweight, privacy-focused widget to gather your feedback on Nuxt documentation, built with Drizzle, NuxtHub database and Motion Vue.
-status: published
+published: true
 toc: true
 ---
 

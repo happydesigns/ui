@@ -6,7 +6,7 @@ authors:
 category: Article
 date: 2025-11-13
 description: How we built the Nuxt MCP server to enable AI assistants to access our documentation through structured data and composable tools.
-status: published
+published: true
 toc: true
 ---
 

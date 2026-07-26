@@ -35,9 +35,9 @@ export default defineAppConfig({
     article: {
       config: {
         query: {
-          fields: ['title', 'description', 'status', 'date'],
+          fields: ['title', 'description', 'published', 'date'],
           order: { field: 'date', direction: 'DESC' },
-          where: [{ field: 'status', operator: '=', value: 'published' }],
+          where: [{ field: 'published', operator: '=', value: true }],
         } as QueryConfig,
         categories: {} as Record<string, BadgeProps>,
         breadcrumbs: [],
@@ -52,9 +52,9 @@ export default defineAppConfig({
     event: {
       config: {
         query: {
-          fields: ['title', 'description', 'status', 'date', 'dateEnd', 'location'],
+          fields: ['title', 'description', 'published', 'date', 'dateEnd', 'location'],
           order: { field: 'date', direction: 'DESC' },
-          where: [{ field: 'status', operator: '=', value: 'published' }],
+          where: [{ field: 'published', operator: '=', value: true }],
         } as QueryConfig,
         categories: {} as Record<string, BadgeProps>,
         breadcrumbs: [],

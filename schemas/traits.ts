@@ -20,9 +20,9 @@ export const categoryTrait = {
   }),
 }
 
-export const statusTrait = {
+export const publishedTrait = {
   schema: z.object({
-    status: z.enum(['published', 'draft', 'archived']).default('published'),
+    published: z.boolean().default(true),
   }),
 }
 
@@ -85,7 +85,7 @@ export const variantSchemas = {
   dates: datesTrait.schema,
   authors: authorsTrait.schema,
   category: categoryTrait.schema,
-  status: statusTrait.schema,
+  published: publishedTrait.schema,
   header: headerTrait.schema,
   toc: tocTrait.schema,
   links: linksTrait.schema,

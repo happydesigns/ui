@@ -13,13 +13,13 @@ const props = withDefaults(defineProps<{
   where?: ArticleFilter[]
   /** Field to sort by. Set to false to disable default sorting. */
   sort?: { field: string, direction: 'ASC' | 'DESC' } | false
-  /** Status to filter by. Set to false to disable default status filtering. */
-  status?: string | false
+  /** Whether to return only published entries. Defaults to true. */
+  publishedOnly?: boolean
   /** Optional items per page override */
   itemsPerPage?: number
 }>(), {
   sort: undefined,
-  status: undefined,
+  publishedOnly: true,
 })
 
 /** Resolve the configuration for this collection using the smart merger */
@@ -43,7 +43,7 @@ const { data, status: fetchStatus } = await useArticleList({
   collection: () => props.collection || 'article' as C,
   where: () => props.where,
   sort: () => props.sort,
-  status: () => props.status,
+  publishedOnly: () => props.publishedOnly,
 })
 
 const hasArticles = computed(() => Boolean(data.value?.articles.length))

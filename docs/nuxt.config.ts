@@ -73,7 +73,7 @@ export default defineNuxtConfig({
       dates: {},
       authors: {},
       category: {},
-      status: {},
+      published: {},
       header: {},
       toc: {},
       links: {},
@@ -89,11 +89,11 @@ export default defineNuxtConfig({
 
       snippet: {},
       article: {
-        extends: ['dates', 'authors', 'category', 'status', 'header', 'toc', 'surround', 'copyButton', 'separator', 'backButton', 'user'],
+        extends: ['dates', 'authors', 'category', 'published', 'header', 'toc', 'surround', 'copyButton', 'separator', 'backButton', 'user'],
         config: {},
       },
       event: {
-        extends: ['dates', 'location', 'category', 'links', 'status', 'header', 'toc', 'surround', 'copyButton', 'separator', 'backButton', 'user'],
+        extends: ['dates', 'location', 'category', 'links', 'published', 'header', 'toc', 'surround', 'copyButton', 'separator', 'backButton', 'user'],
         config: {},
       },
       page: {

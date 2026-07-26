@@ -7,7 +7,7 @@ authors:
 category: Release
 date: 2025-09-22
 description: Nuxt UI v4 unifies Nuxt UI and Nuxt UI Pro into one powerful, completely free library. With over 110 components, 12 templates, and a comprehensive Figma kit, all of this is available for free.
-status: published
+published: true
 toc: true
 ---
 

@@ -7,6 +7,7 @@ description: Join us for the official launch of Nuxt UI v4, featuring a deep div
 header:
   ui: {}
   links: []
+layout: article
 links:
   - label: Register
     to: https://nuxt.com/ui
@@ -17,9 +18,8 @@ links:
 location:
   name: Paris, France & Online
   url: https://maps.app.goo.gl/RT3zjtjvZXQnpEro8
-status: published
+published: true
 toc: true
-layout: article
 ---
 
 ## What to expect

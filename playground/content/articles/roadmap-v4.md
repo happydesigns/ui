@@ -5,7 +5,7 @@ authors:
 category: Release
 date: 2025-06-02
 description: We have some exciting news about the roadmap to Nuxt 4, including a new timeline and what to expect in the next few weeks.
-status: published
+published: true
 toc: true
 ---
 

@@ -21,9 +21,9 @@ const { data: surround } = await useAsyncData(
     const colName = collection.value as any
     const qc = props.query || {}
 
-    const fields = (qc.fields || ['title', 'description', 'status']) as any
+    const fields = (qc.fields || ['title', 'description', 'published']) as any
     const order = qc.order
-    const where = qc.where || [{ field: 'status', operator: '=', value: 'published' }]
+    const where = qc.where || [{ field: 'published', operator: '=', value: true }]
 
     let query = queryCollectionItemSurroundings(colName, path.value, { fields })
 

@@ -7,7 +7,7 @@ authors:
 category: Release
 date: 2025-03-12
 description: Nuxt UI v3 is out! After 1500+ commits, this major redesign brings improved accessibility, Tailwind CSS v4 support, and full Vue compatibility
-status: published
+published: true
 toc: true
 ---
 

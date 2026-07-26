@@ -1,11 +1,11 @@
 ---
 title: Datenschutzerklärung
 description: Informationen über die Datenerhebung, -verarbeitung und -schutzrichtlinien der Webseite.
-layout: content
-toc: true
 header:
   ui: {}
   links: []
+layout: content
+toc: true
 ---
 
 ## 1. Datenschutz auf einen Blick

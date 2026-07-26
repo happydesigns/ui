@@ -14,13 +14,13 @@ const props = withDefaults(defineProps<{
   where?: ArticleFilter[]
   /** Field to sort by. Set to false to disable default sorting. */
   sort?: { field: string, direction: 'ASC' | 'DESC' } | false
-  /** Status to filter by. Set to false to disable default status filtering. */
-  status?: string | false
+  /** Whether to return only published entries. Defaults to true. */
+  publishedOnly?: boolean
   /** Optional items per page override */
   itemsPerPage?: number
 }>(), {
   sort: undefined,
-  status: undefined,
+  publishedOnly: true,
 })
 
 /** Resolve the configuration for this collection using the smart merger */
@@ -69,7 +69,7 @@ const categories = computed(() => {
       :collection="props.collection"
       :where="props.where"
       :sort="props.sort"
-      :status="props.status"
+      :published-only="props.publishedOnly"
       :items-per-page="props.itemsPerPage"
     >
       <template v-for="(_, name) in $slots" #[name]="slotData">
