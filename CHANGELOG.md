@@ -1,6 +1,26 @@
 # Changelog
 
 
+## v0.16.0
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.15.1...v0.16.0)
+
+### 🚀 Enhancements
+
+- **content:** ⚠️  Replace status with published flag ([5238c20](https://github.com/happydesigns/ui/commit/5238c20))
+
+### 🩹 Fixes
+
+- **content:** Stabilize user schemas for Studio ([f3c6b3b](https://github.com/happydesigns/ui/commit/f3c6b3b))
+
+#### ⚠️ Breaking Changes
+
+- **content:** ⚠️  Replace status with published flag ([5238c20](https://github.com/happydesigns/ui/commit/5238c20))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.15.1
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.15.0...v0.15.1)
