@@ -1,10 +1,15 @@
-import type { BadgeProps, ButtonProps, FooterColumn } from '@nuxt/ui'
-import type { QueryConfig } from './types/config'
+import type { BadgeProps, ButtonProps } from '@nuxt/ui'
+import type { AppConfigInput } from 'nuxt/schema'
+import type { QueryConfig, SearchConfig } from './types/config'
 
 export * from './types/config'
 
-export default defineAppConfig({
-  variants: {
+function defineVariants<T>(variants: T): T {
+  return variants
+}
+
+const appConfig = {
+  variants: defineVariants({
     // UI feature variants — config overrides (extends defined in nuxt.config.ts)
     user: { config: { user: { target: '_blank' } } },
     backButton: { config: { backButton: { icon: 'i-ph-arrow-left', label: 'Back' } as Pick<ButtonProps, 'icon' | 'label' | 'to'> } },
@@ -66,7 +71,7 @@ export default defineAppConfig({
         },
       },
     },
-  },
+  }),
 
   app: {
     meta: {
@@ -83,6 +88,21 @@ export default defineAppConfig({
       header: [],
       footer: [],
     },
+
+    search: {
+      title: 'Search',
+      description: 'Search the site content.',
+      placeholder: 'Search content…',
+      resultLimit: 20,
+      links: [],
+      groups: [],
+      error: {
+        title: 'Search unavailable',
+        description: 'The search index could not be loaded.',
+        retryLabel: 'Try again',
+      },
+      collections: [],
+    } satisfies SearchConfig,
 
     icons: {} as Record<string, string>,
 
@@ -107,62 +127,11 @@ export default defineAppConfig({
     },
   },
 
-  ui: {
+  ui: ({
     main: {
       base: 'wrap-break-word',
     },
-    footerColumns: {
-      slots: {},
-      columns: {},
-    },
-  },
-})
-
-declare module '@nuxt/schema' {
-  interface AppConfigInput {
-    app?: {
-      [key: string]: any
-      meta?: {
-        copyright?: {
-          /** The year in which the copyright was issued */
-          copyrightYear?: number
-          /** The name of the copyright holder */
-          copyrightHolder?: string
-          /** Optional homepage URL of the copyright holder; omit it to render plain text */
-          copyrightHomepage?: string
-        }
-        /** Social button definitions (e.g. Instagram, Facebook, GitHub) */
-        socials?: Array<ButtonProps>
-        /** Configuration for GitHub repository info */
-        github?: {
-          /** The repository identifier (e.g. 'sfbiberach/schachfreunde-biberach.de') */
-          repo?: string
-          /** The branch name (e.g. 'main') */
-          branch?: string
-          /** The directory where the content is stored (e.g. 'content') */
-          dir?: string
-        }
-      }
-      /** Link collections for various UI regions (e.g. header, footer) */
-      links?: {
-        header?: Array<FooterColumn>
-        footer?: Array<FooterColumn>
-      }
-      /** Configuration for the table of contents */
-      toc?: {
-        /** The default title to be shown in the table of contents */
-        title?: string
-      }
-      /** A mapping of internal identifier strings to icon strings */
-      icons?: Record<string, string>
-      date?: {
-        /** The locale used for date formatting (e.g. 'en', 'de') */
-        locale?: string
-        /** Options for Intl.DateTimeFormat for dates */
-        options?: Intl.DateTimeFormatOptions
-        /** Options for Intl.DateTimeFormat for datetimes */
-        datetimeOptions?: Intl.DateTimeFormatOptions
-      }
-    }
-  }
+  } as unknown as AppConfigInput['ui']),
 }
+
+export default defineAppConfig(appConfig)
