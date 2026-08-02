@@ -1,7 +1,7 @@
 import type { SearchCollectionConfig } from '../app/types/config'
 import { describe, expect, it, vi } from 'vitest'
 import { createContentSearchLoader } from '../app/utils/createContentSearchLoader'
-import { applySearchCollectionConfig } from '../server/utils/contentSearch'
+import { applySearchCollectionConfig, createSearchCacheControl, getSearchCollections } from '../server/utils/contentSearch'
 
 describe('applySearchCollectionConfig', () => {
   it('applies filters and ordering in declaration order', () => {
@@ -72,5 +72,26 @@ describe('createContentSearchLoader', () => {
     expect(success).toHaveBeenCalledOnce()
     expect(navigation).toHaveBeenCalledTimes(2)
     expect(files).toHaveBeenCalledTimes(2)
+  })
+})
+
+describe('search endpoint configuration', () => {
+  it('defaults to an empty collection list', () => {
+    vi.stubGlobal('useAppConfig', () => ({ app: { search: {} } }))
+
+    expect(getSearchCollections()).toEqual([])
+
+    vi.unstubAllGlobals()
+  })
+
+  it('creates bounded shared-cache headers and supports opt-out', () => {
+    expect(createSearchCacheControl({ sharedMaxAge: 120.9, staleWhileRevalidate: 600.4 })).toBe(
+      'public, max-age=0, s-maxage=120, stale-while-revalidate=600',
+    )
+    expect(createSearchCacheControl(false)).toBe('no-store')
+    expect(createSearchCacheControl({}, true)).toBe('no-store')
+    expect(createSearchCacheControl({ sharedMaxAge: -1, staleWhileRevalidate: Number.NaN })).toBe(
+      'public, max-age=0, s-maxage=0, stale-while-revalidate=3600',
+    )
   })
 })

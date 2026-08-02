@@ -1,0 +1,8 @@
+title: Unpublished search fixture
+description: Test-only content that must never appear in generated public indexes.
+published: false
+category: Guide
+date: 2026-01-01
+authors:
+  - happydesigns
+toc: false

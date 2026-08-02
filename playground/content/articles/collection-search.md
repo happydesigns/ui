@@ -17,26 +17,30 @@ Each collection can define publication filters and ordering. Pages, articles, an
 
 ```ts [app.config.ts]
 export default defineAppConfig({
-  search: {
-    collections: [
-      { name: 'page' },
-      {
-        name: 'article',
-        where: [{ field: 'published', operator: '=', value: true }],
-        order: { field: 'date', direction: 'DESC' },
-      },
-    ],
+  app: {
+    search: {
+      collections: [
+        { name: 'page' },
+        {
+          name: 'article',
+          where: [{ field: 'published', operator: '=', value: true }],
+          order: { field: 'date', direction: 'DESC' },
+        },
+      ],
+      cache: { sharedMaxAge: 300, staleWhileRevalidate: 3600 },
+    },
   },
 })
 ```
 
 ## Load on demand
 
-`HContentSearch` fetches the index when search first opens, deduplicates concurrent requests, reuses successful data, and exposes a retry after failure.
+`HContentSearch` fetches the index when search first opens, deduplicates concurrent requests, reuses successful data, and exposes a retry after failure. Dynamic endpoints also emit shared-cache headers; development uses `no-store`, and consumers can tune or disable the policy through `app.search.cache`.
 
 ## Test drafts explicitly
 
 A generated index is public output. Validation should assert both that expected files exist and that unpublished content never appears in them.
+
 ## Follow one request lifecycle
 
 1. The first search trigger starts both public index requests.

@@ -30,6 +30,8 @@
     "docs:build:server": "nuxt build docs",
     "prepare": "nuxt prepare && nuxt prepare playground",
     "build": "nuxt build playground",
+    "generate": "nuxt generate playground && node scripts/validate-playground-output.mjs",
+    "package:check": "node scripts/validate-package.mjs",
     "preview": "nuxt preview playground",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
