@@ -6,7 +6,8 @@
 @layer components {
   :where(.h-content) p .iconify {
     display: inline-block;
-    margin-inline-end: --spacing(1);
+    /* OG metadata tools may parse this rule without Tailwind theme context. */
+    margin-inline-end: 0.25em;
     inline-size: 1em;
     block-size: 1em;
     transform: translateY(-1px);
