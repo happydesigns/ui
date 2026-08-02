@@ -2,7 +2,10 @@
 import formatDate from '../../utils/formatDate'
 
 defineProps<{
-  article: any
+  article: {
+    date?: string
+    dateEnd?: string
+  }
 }>()
 </script>
 

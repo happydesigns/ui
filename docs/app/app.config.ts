@@ -1,5 +1,5 @@
-import type { BadgeProps, ButtonProps, FooterColumn } from '@nuxt/ui'
-import type { QueryConfig } from '../../app/types/config'
+import type { BadgeProps, ButtonProps } from '@nuxt/ui'
+import type { HAppConfigInput, QueryConfig } from '../../app/types/config'
 
 export default defineAppConfig({
   header: {
@@ -140,34 +140,6 @@ export default defineAppConfig({
 
 declare module '@nuxt/schema' {
   interface AppConfigInput {
-    app?: {
-      [key: string]: any
-      meta?: {
-        copyright?: {
-          copyrightYear?: number
-          copyrightHolder?: string
-          copyrightHomepage?: string
-        }
-        socials?: Array<ButtonProps>
-        github?: {
-          repo?: string
-          branch?: string
-          dir?: string
-        }
-      }
-      links?: {
-        header?: Array<FooterColumn>
-        footer?: Array<FooterColumn>
-      }
-      toc?: {
-        title?: string
-      }
-      icons?: Record<string, string>
-      date?: {
-        locale?: string
-        options?: Intl.DateTimeFormatOptions
-        datetimeOptions?: Intl.DateTimeFormatOptions
-      }
-    }
+    app?: HAppConfigInput
   }
 }

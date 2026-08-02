@@ -1,8 +1,14 @@
 <script setup lang="ts">
 import type { PageCollections } from '@nuxt/content'
 
+interface HeaderBodyPage {
+  path?: string
+  authors?: string[]
+  links?: PageCollections['event']['links']
+}
+
 const props = defineProps<{
-  page?: any
+  page?: HeaderBodyPage
   collection?: keyof PageCollections
 }>()
 
@@ -14,7 +20,7 @@ const hasLinks = has('links')
 <template>
   <div class="mt-4 all:flex flex-wrap items-center gap-3">
     <HAuthors v-if="hasAuthors" :authors="page?.authors" />
-    <HLinks v-if="hasLinks && page?.links?.length" :links="page?.links" />
+    <HLinks v-if="hasLinks && page?.links?.length" :links="page.links" />
     <slot />
   </div>
 </template>

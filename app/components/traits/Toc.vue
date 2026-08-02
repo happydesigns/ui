@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import type { ContentTocLink } from '@nuxt/ui'
+
 defineProps<{
-  links?: any[]
+  links?: ContentTocLink[]
   title?: string
 }>()
 
