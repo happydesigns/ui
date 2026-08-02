@@ -37,12 +37,12 @@ const header = computed(() => resolvePageHeader(page.value))
 
 <template>
   <UContainer v-if="page">
-    <UPage>
-      <UPageHeader
-        v-if="hasHeader && header"
-        v-bind="header"
-      />
+    <UPageHeader
+      v-if="hasHeader && header"
+      v-bind="header"
+    />
 
+    <UPage :ui="{ root: 'lg:grid-cols-12', center: 'lg:col-span-9', right: 'lg:col-span-3' }">
       <UPageBody>
         <slot />
       </UPageBody>

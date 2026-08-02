@@ -1,5 +1,6 @@
 <script setup lang="ts" generic="C extends keyof PageCollections = 'article'">
 import type { PageCollections } from '@nuxt/content'
+import type { BreadcrumbItem } from '@nuxt/ui'
 
 const props = defineProps<{
   path?: string
@@ -35,12 +36,23 @@ usePageSeo(page)
 
 const header = computed(() => resolvePageHeader(page.value))
 
-const breadcrumbsBase = computed(() => config.value.breadcrumbs ?? [])
+const breadcrumbsBase = computed(() => (config.value.breadcrumbs ?? []) as BreadcrumbItem[])
 
 const breadcrumbItems = computed(() => {
+  const baseItems = breadcrumbsBase.value.map((item, index) => ({
+    ...item,
+    ...(index === breadcrumbsBase.value.length - 1
+      ? { ui: { ...item.ui, separator: 'hidden sm:flex' } }
+      : {}),
+  }))
+
   return [
-    ...breadcrumbsBase.value,
-    { label: page.value?.title, to: page.value?.path },
+    ...baseItems,
+    {
+      label: page.value?.title,
+      to: page.value?.path,
+      ui: { item: 'hidden sm:flex' },
+    },
   ]
 })
 
@@ -76,7 +88,7 @@ const backLink = computed(() => {
       </HArticleHeaderBody>
     </UPageHeader>
 
-    <UPage>
+    <UPage :ui="{ root: 'lg:grid-cols-12', center: 'lg:col-span-9', right: 'lg:col-span-3' }">
       <UPageBody>
         <slot />
 
