@@ -26,6 +26,7 @@ const components = computed(() => props.components)
     :value="snippet"
     :prose="props.prose"
     :components="components"
+    class="h-content"
     v-bind="$attrs"
   />
 </template>

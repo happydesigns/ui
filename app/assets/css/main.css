@@ -3,12 +3,12 @@
 
 @custom-variant all (&);
 
-@layer theme {
-  p .iconify {
+@layer components {
+  :where(.h-content) p .iconify {
     display: inline-block;
-    margin-right: --spacing(1);
-    width: 1em !important;
-    height: 1em !important;
+    margin-inline-end: --spacing(1);
+    inline-size: 1em;
+    block-size: 1em;
     transform: translateY(-1px);
   }
 }

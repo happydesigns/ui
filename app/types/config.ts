@@ -27,6 +27,13 @@ export interface SearchConfig {
   resultLimit?: number
   links?: ContentSearchLink[]
   groups?: CommandPaletteGroup[]
+  /** Shared-cache policy for dynamic search endpoints. Set to false to disable caching. */
+  cache?: false | {
+    /** CDN/proxy cache lifetime in seconds. Browser responses always revalidate. */
+    sharedMaxAge?: number
+    /** Time in seconds a shared cache may serve stale data while refreshing. */
+    staleWhileRevalidate?: number
+  }
   error?: {
     title?: string
     description?: string
@@ -35,8 +42,19 @@ export interface SearchConfig {
   /** Opt-in page collections exposed by the generated public search indexes. */
   collections?: SearchCollectionConfig[]
 }
-export interface HAppConfigInput {
-  [key: string]: any
+/**
+ * Consumer-owned app config fields can be added through declaration merging.
+ *
+ * @example
+ * declare module '@happydesigns/ui/types' {
+ *   interface HAppConfigExtensions {
+ *     contact?: { email?: string }
+ *   }
+ * }
+ */
+export interface HAppConfigExtensions {}
+
+export interface HAppConfigInput extends HAppConfigExtensions {
   meta?: {
     copyright?: {
       copyrightYear?: number

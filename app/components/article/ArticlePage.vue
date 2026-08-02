@@ -13,5 +13,5 @@ const { data: page } = await usePageContent({
 </script>
 
 <template>
-  <ContentRenderer v-if="page" :value="page" />
+  <ContentRenderer v-if="page" :value="page" class="h-content" />
 </template>

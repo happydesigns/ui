@@ -1,21 +1,43 @@
 import type { ToastProps } from '#ui/types'
 import { useClipboard as _useClipboard } from '@vueuse/core'
 
-export function useClipboard() {
-  const { copy: _copy, copied } = _useClipboard()
+type ClipboardToast = Partial<ToastProps> & { id?: string | number }
 
+export type ClipboardCopyOptions = ClipboardToast & {
+  error?: ClipboardToast
+}
+
+export function useClipboard() {
+  const { copy: copyToClipboard, copied } = _useClipboard()
   const toast = useToast()
 
-  const copy = (source: string, options?: Partial<ToastProps> & { id?: string | number }) => {
-    _copy(source)
-    if (options) {
-      // Check if toast with this ID already exists to prevent spam
-      if (options.id && toast.toasts.value.some(t => t.id === options.id)) {
-        toast.update(options.id, options)
-      }
-      else {
-        toast.add(options as any)
-      }
+  function upsertToast(options: ClipboardToast) {
+    const { id, ...toastOptions } = options
+
+    if (id !== undefined && toast.toasts.value.some(toastItem => toastItem.id === id)) {
+      toast.update(id, toastOptions)
+      return
+    }
+
+    toast.add(id === undefined ? toastOptions : { ...toastOptions, id })
+  }
+
+  const copy = async (source: string, options?: ClipboardCopyOptions): Promise<boolean> => {
+    const { error: errorToast, ...successToast } = options ?? {}
+
+    try {
+      await copyToClipboard(source)
+
+      if (Object.keys(successToast).length > 0)
+        upsertToast(successToast)
+
+      return true
+    }
+    catch {
+      if (errorToast)
+        upsertToast(errorToast)
+
+      return false
     }
   }
 

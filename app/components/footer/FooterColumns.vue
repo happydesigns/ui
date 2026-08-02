@@ -3,7 +3,9 @@ import type { FooterColumn, FooterColumnLink, FooterColumnsProps, FooterColumnsS
 import { useAppConfig } from '#imports'
 
 interface HFooterColumnProps<T extends FooterColumnLink> extends /* @vue-ignore */ FooterColumnsProps<T> {
+  /** Fixed column count from the lg breakpoint. Defaults to responsive auto-fit. */
   lgCols?: number
+  /** Fixed column count from the xl breakpoint. Defaults to responsive auto-fit. */
   xlCols?: number
 }
 
@@ -11,16 +13,14 @@ const props = defineProps<HFooterColumnProps<T>>()
 const slots = defineSlots<FooterColumnsSlots<T>>()
 const appConfig = useAppConfig()
 
-const footerColumns: FooterColumn<T>[] = props.columns
-  ?? (appConfig?.app?.links?.footer as FooterColumn<T>[] | undefined)
+const footerColumns = computed<FooterColumn<T>[]>(() => (
+  props.columns
+  ?? (appConfig.app.links.footer as FooterColumn<T>[] | undefined)
   ?? []
+))
 
-const leftCount = slots.left ? slots.left({}).length : 0
-const centerCount = footerColumns?.length ?? 0
-const rightCount = slots.right ? slots.right({}).length : 0
-
-const lgCount = Math.max(leftCount, centerCount, rightCount)
-const totalCount = leftCount + centerCount + rightCount
+const hasLeft = Boolean(slots.left)
+const hasRight = Boolean(slots.right)
 
 function withLayoutClass(base: string, override?: SlotClass): SlotClass {
   if (typeof override === 'function')
@@ -36,24 +36,24 @@ const ui = computed(() => ({
   center: withLayoutClass('footer-cols-center', props.ui?.center),
   right: withLayoutClass('footer-cols-right', props.ui?.right),
 }))
+
+const layoutStyle = computed(() => ({
+  ...(props.lgCols === undefined ? {} : { '--cols-lg': props.lgCols }),
+  ...(props.xlCols === undefined ? {} : { '--cols-xl': props.xlCols }),
+}))
 </script>
 
 <template>
   <UFooterColumns
-    v-bind="props" :columns="footerColumns" :ui="ui"
-    :style="{
-      '--cols-sm': 1,
-      '--cols-lg': props.lgCols ?? lgCount,
-      '--cols-xl': props.xlCols ?? totalCount,
-      '--span-left': leftCount,
-      '--span-center': centerCount,
-      '--span-right': rightCount,
-    }"
+    v-bind="props"
+    :columns="footerColumns"
+    :ui="ui"
+    :style="layoutStyle"
   >
-    <template v-if="leftCount > 0" #left>
+    <template v-if="hasLeft" #left>
       <slot name="left" />
     </template>
-    <template v-if="rightCount > 0" #right>
+    <template v-if="hasRight" #right>
       <slot name="right" />
     </template>
   </UFooterColumns>
@@ -62,36 +62,25 @@ const ui = computed(() => ({
 <style>
 @import "tailwindcss" source("../..");
 
-.footer-cols-left {
-  grid-column: span var(--span-left);
-}
-
-.footer-cols-center {
-  grid-column: span var(--span-center);
-}
-
-.footer-cols-right {
-  grid-column: span var(--span-right);
-}
-
 .footer-cols-left,
 .footer-cols-center,
 .footer-cols-right {
   display: contents;
 }
+
 .footer-cols-root {
-  grid-template-columns: repeat(var(--cols-sm), minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
 }
 
 @media (min-width: theme(--breakpoint-lg)) {
   .footer-cols-root {
-    grid-template-columns: repeat(var(--cols-lg), minmax(0, 1fr));
+    grid-template-columns: repeat(var(--cols-lg, auto-fit), minmax(min(100%, 12rem), 1fr));
   }
 }
 
 @media (min-width: theme(--breakpoint-xl)) {
   .footer-cols-root {
-    grid-template-columns: repeat(var(--cols-xl), minmax(0, 1fr));
+    grid-template-columns: repeat(var(--cols-xl, auto-fit), minmax(min(100%, 12rem), 1fr));
   }
 }
 

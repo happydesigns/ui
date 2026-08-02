@@ -5,5 +5,5 @@ defineProps<{
 </script>
 
 <template>
-  <span class="text-primary-500 dark:text-primary-400 font-medium">{{ category }}</span>
+  <span class="font-medium text-primary">{{ category }}</span>
 </template>

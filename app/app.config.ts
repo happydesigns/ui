@@ -1,8 +1,15 @@
+import type { AppConfigInput as NuxtUiConfigInput } from '@nuxt/schema'
 import type { BadgeProps, ButtonProps } from '@nuxt/ui'
-import type { AppConfigInput } from 'nuxt/schema'
+import type { AppConfigInput as LayerAppConfigInput } from 'nuxt/schema'
 import type { QueryConfig, SearchConfig } from './types/config'
 
 export * from './types/config'
+
+const ui = {
+  main: {
+    base: 'wrap-break-word',
+  },
+} satisfies NonNullable<NuxtUiConfigInput['ui']>
 
 export default defineAppConfig({
   variants: {
@@ -16,6 +23,8 @@ export default defineAppConfig({
           label: 'Copy URL',
           successIcon: 'i-lucide-copy-check',
           successLabel: 'Link copied to clipboard',
+          errorIcon: 'i-lucide-copy-x',
+          errorLabel: 'Link could not be copied',
         },
       },
     },
@@ -92,6 +101,10 @@ export default defineAppConfig({
       resultLimit: 20,
       links: [],
       groups: [],
+      cache: {
+        sharedMaxAge: 300,
+        staleWhileRevalidate: 3600,
+      },
       error: {
         title: 'Search unavailable',
         description: 'The search index could not be loaded.',
@@ -123,9 +136,6 @@ export default defineAppConfig({
     },
   },
 
-  ui: ({
-    main: {
-      base: 'wrap-break-word',
-    },
-  } as unknown as AppConfigInput['ui']),
+  // The object is validated above; this bridges Nuxt's generated runtime-complete layer type.
+  ui: ui as unknown as LayerAppConfigInput['ui'],
 })

@@ -1,5 +1,38 @@
+import type { AppConfigInput as NuxtUiConfigInput } from '@nuxt/schema'
 import type { ButtonProps } from '@nuxt/ui'
-import type { AppConfigInput } from 'nuxt/schema'
+import type { AppConfigInput as LayerAppConfigInput } from 'nuxt/schema'
+
+const ui = {
+  colors: {
+    primary: 'green',
+    secondary: 'blue',
+    neutral: 'slate',
+  },
+  footer: {
+    slots: {
+      top: 'border-b border-default',
+    },
+  },
+  pageHero: {
+    slots: {
+      container: 'py-14 sm:py-20 lg:py-24',
+      title: 'sm:text-5xl',
+    },
+  },
+  prose: {
+    img: {
+      slots: {
+        base: 'w-full',
+      },
+    },
+    codeTree: {
+      slots: {
+        root: 'bg-default m-0',
+        content: '[&>div>pre]:rounded-r-none',
+      },
+    },
+  },
+} satisfies NonNullable<NuxtUiConfigInput['ui']>
 
 export default defineAppConfig({
   variants: {
@@ -179,35 +212,6 @@ export default defineAppConfig({
     },
   },
 
-  ui: ({
-    colors: {
-      primary: 'green',
-      secondary: 'blue',
-      neutral: 'slate',
-    },
-    footer: {
-      slots: {
-        top: 'border-b border-default',
-      },
-    },
-    pageHero: {
-      slots: {
-        container: 'py-14 sm:py-20 lg:py-24',
-        title: 'sm:text-5xl',
-      },
-    },
-    prose: {
-      img: {
-        slots: {
-          base: 'w-full',
-        },
-      },
-      codeTree: {
-        slots: {
-          root: 'bg-default m-0',
-          content: '[&>div>pre]:rounded-r-none',
-        },
-      },
-    },
-  } as unknown as AppConfigInput['ui']),
+  // The object is validated above; this bridges Nuxt's generated runtime-complete layer type.
+  ui: ui as unknown as LayerAppConfigInput['ui'],
 })

@@ -56,7 +56,7 @@ const categories = computed(() => {
 
 <template>
   <div class="all:flex flex-col gap-8">
-    <div v-if="!props.category" class="border-b border-gray-200 dark:border-gray-800">
+    <div v-if="!props.category" class="border-b border-default">
       <UNavigationMenu
         :items="categories"
         highlight
