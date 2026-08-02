@@ -1,35 +1,36 @@
 ---
-title: Features
-description: This demo page shows how to use typed content schemas and Nuxt UI components together.
+title: Content patterns
+description: A curated content page demonstrating the shared page schema, responsive prose, table of contents, snippets, callouts, and media sequences.
 header:
-  headline: Nuxt Layer Base Demo
-  icon: i-lucide-sparkles
-  links:
-    - label: Features
-      to: "#features"
-      color: secondary
-      size: md
-  ui: {}
-  title: some titled
+  headline: Nuxt Content, composed for real websites
+  icon: i-lucide-file-stack
 layout: content
 toc: true
 ---
 
-## Hero Section
+## Content starts with a schema
 
-- Customizable title, description, icon, and links
-- Supports UI slot classes for styling
+Pages remain ordinary Markdown documents, but their front matter inherits the same typed traits as every consumer. Titles, descriptions, headers, layouts, and table-of-contents behavior are validated before they reach the interface.
 
-## Header Section
+```yaml [content/pages/example.md]
+title: A durable content page
+description: Clear metadata for readers and search.
+layout: content
+toc: true
+```
 
-- Headline, icon, and navigation links
-- All props are type-checked
+## Components stay close to their job
 
-## Links
+Generic interface primitives come directly from Nuxt UI. The layer adds `H*` components only where several websites need the same content behavior, query logic, or editorial convention.
 
-- Only valid color values: primary, secondary, neutral, error, warning, success, info
-- Size options: xs, sm, md, lg, xl
+::callout{icon="i-lucide-badge-check"}
+This page is content-owned. Its shell, search behavior, and typography come from the shared foundation.
+::
 
-## Conclusion
+## Reusable fragments
 
-Edit this file to try out different props and see live changes in your Nuxt app.
+Small editorial fragments can live in the `snippet` collection and render in Vue compositions without becoming configuration data. The live example below is authored once and loaded by path.
+
+## Media sequences
+
+`HCarousel` covers straightforward image sequences. Projects keep richer galleries local when they need captions, mixed media, or a dedicated collection.
