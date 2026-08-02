@@ -16,7 +16,7 @@ export default function formatDate(date?: string | number | Date): string {
 
   const appConfig = useAppConfig()
   const locale = appConfig.app.date?.locale || 'en'
-  const options = appConfig.app.date?.options || {
+  const options: Intl.DateTimeFormatOptions = appConfig.app.date?.options as Intl.DateTimeFormatOptions || {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
