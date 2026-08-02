@@ -94,13 +94,22 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
       finalQuery = finalQuery.order(sort.value.field as any, sort.value.direction)
     }
 
-    const articles = await finalQuery
-      .skip((page.value - 1) * itemsPerPage.value)
-      .limit(itemsPerPage.value)
-      .all() as ArticleItem[]
+    const [articles, total] = await Promise.all([
+      finalQuery
+        .skip((page.value - 1) * itemsPerPage.value)
+        .limit(itemsPerPage.value)
+        .all() as Promise<ArticleItem[]>,
+      getDataQuery().count() as Promise<number>,
+    ])
 
-    // Resolve details for each article
-    const resolved = await Promise.all(articles.map(async (article) => {
+    const userProps = config.value.user ?? {}
+    const authorsByUsername = await resolveUserMap(
+      articles.flatMap(article => article.authors ?? []),
+      userProps,
+    )
+
+    // Resolve display details without issuing additional collection queries.
+    const resolved = articles.map((article) => {
       // Resolve Category Badge directly
       const categoryKey = article.category
       let resolvedBadge: BadgeProps | undefined
@@ -112,22 +121,18 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
         }
       }
 
-      // Resolve Authors
-      let resolvedAuthors: Awaited<ReturnType<typeof resolveUsers>> = []
-      if (article.authors?.length) {
-        const userProps = config.value.user ?? {}
-        resolvedAuthors = await resolveUsers(article.authors, userProps)
-      }
+      // Preserve the author order declared in front matter.
+      const resolvedAuthors = (article.authors ?? []).flatMap((username) => {
+        const author = authorsByUsername.get(username)
+        return author ? [author] : []
+      })
 
       return {
         ...article,
         resolvedBadge,
         resolvedAuthors,
       }
-    }))
-
-    // Total count for pagination
-    const total = await getDataQuery().count() as number
+    })
 
     return {
       articles: resolved,
