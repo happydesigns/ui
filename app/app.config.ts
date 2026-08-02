@@ -4,12 +4,8 @@ import type { QueryConfig, SearchConfig } from './types/config'
 
 export * from './types/config'
 
-function defineVariants<T>(variants: T): T {
-  return variants
-}
-
-const appConfig = {
-  variants: defineVariants({
+export default defineAppConfig({
+  variants: {
     // UI feature variants — config overrides (extends defined in nuxt.config.ts)
     user: { config: { user: { target: '_blank' } } },
     backButton: { config: { backButton: { icon: 'i-ph-arrow-left', label: 'Back' } as Pick<ButtonProps, 'icon' | 'label' | 'to'> } },
@@ -71,7 +67,7 @@ const appConfig = {
         },
       },
     },
-  }),
+  },
 
   app: {
     meta: {
@@ -132,6 +128,4 @@ const appConfig = {
       base: 'wrap-break-word',
     },
   } as unknown as AppConfigInput['ui']),
-}
-
-export default defineAppConfig(appConfig)
+})
