@@ -1,13 +1,13 @@
 import type { ButtonProps } from '@nuxt/ui'
+import type { AppConfigInput } from 'nuxt/schema'
 
 export default defineAppConfig({
   variants: {
-    // Global feature-level overrides (win over nuxt.config defaults for all collections)
     copyButton: {
       config: {
         copyButton: {
-          label: 'URL kopieren',
-          successLabel: 'Link in Zwischenablage kopiert',
+          label: 'Copy URL',
+          successLabel: 'Link copied to clipboard',
         },
       },
     },
@@ -15,8 +15,8 @@ export default defineAppConfig({
       config: {
         separator: {
           buttons: [
-            { action: 'github-edit' as const, icon: 'i-lucide-pen', label: 'Artikel bearbeiten', target: '_blank' },
-            { action: 'report-github-issue' as const, icon: 'i-ph-warning-circle', label: 'Fehler melden', target: '_blank' },
+            { action: 'github-edit' as const, icon: 'i-lucide-pen', label: 'Edit this page', target: '_blank' },
+            { action: 'report-github-issue' as const, icon: 'i-lucide-circle-alert', label: 'Report an issue', target: '_blank' },
           ],
           separator: '·',
         },
@@ -25,47 +25,55 @@ export default defineAppConfig({
     surround: {
       config: {
         surround: {
-          prevLabel: 'Vorheriger',
-          nextLabel: 'Nächster',
+          prevLabel: 'Previous',
+          nextLabel: 'Next',
         },
       },
     },
-
-    // Collection-specific overrides
     article: {
       config: {
-        backButton: { label: 'Zurück zum Blog' },
+        backButton: { label: 'Back to articles' },
         breadcrumbs: [
           {
-            label: 'Blog',
+            label: 'Articles',
             to: '/articles',
-            icon: 'i-lucide:book-open',
+            icon: 'i-lucide-book-open',
           },
         ],
         categories: {
-          Release: { label: 'Release', color: 'info' },
-          Article: { label: 'Article', color: 'primary' },
+          Guide: { label: 'Guide', color: 'primary' },
+          Architecture: { label: 'Architecture', color: 'info' },
+          Release: { label: 'Release', color: 'secondary' },
         },
         list: {
-          labelAll: 'Alle',
+          itemsPerPage: 6,
+          labelAll: 'All',
+          noResultsMessage: 'No articles match this view.',
+          noResultsIcon: 'i-lucide-newspaper',
         },
       },
     },
     event: {
       config: {
-        backButton: { label: 'Zurück zur Übersicht' },
+        backButton: { label: 'Back to events' },
         categories: {
-          Workshop: { label: 'Workshop', color: 'info' },
-          Conference: { label: 'Conference', color: 'success' },
-          Meetup: { label: 'Meetup', color: 'warning' },
+          Workshop: { label: 'Example workshop', color: 'info' },
+          Session: { label: 'Example session', color: 'success' },
+          Meetup: { label: 'Example meetup', color: 'warning' },
+          Archive: { label: 'Past example', color: 'neutral' },
         },
         breadcrumbs: [
           {
             label: 'Events',
             to: '/events',
-            icon: 'i-lucide:calendar',
+            icon: 'i-lucide-calendar-days',
           },
         ],
+        list: {
+          itemsPerPage: 6,
+          noResultsMessage: 'No example events match this view.',
+          noResultsIcon: 'i-lucide-calendar-x-2',
+        },
       },
     },
   },
@@ -79,80 +87,90 @@ export default defineAppConfig({
       },
       socials: [
         {
-          icon: 'i-simple-icons-instagram',
-          color: 'neutral' as const,
-          variant: 'ghost' as const,
-          to: 'https://www.instagram.com/schachfreundeheilbronnbiberach',
-          target: '_blank',
-        },
-        {
-          icon: 'i-simple-icons-facebook',
-          color: 'neutral' as const,
-          variant: 'ghost' as const,
-          to: 'https://www.facebook.com/Schachfreunde.HN.Biberach',
-          target: '_blank',
-        },
-        {
           icon: 'i-simple-icons-github',
+          label: 'GitHub',
           color: 'neutral' as const,
           variant: 'ghost' as const,
-          to: 'https://github.com/sfbiberach',
+          to: 'https://github.com/happydesigns/ui',
+          target: '_blank',
+        },
+        {
+          icon: 'i-lucide-globe-2',
+          label: 'happydesigns',
+          color: 'neutral' as const,
+          variant: 'ghost' as const,
+          to: 'https://happydesigns.de',
           target: '_blank',
         },
       ] as ButtonProps[],
       github: {
-        repo: 'sfbiberach/schachfreunde-biberach.de',
+        repo: 'happydesigns/ui',
         branch: 'main',
         dir: 'playground/content',
       },
     },
 
     links: {
+      header: [
+        { label: 'Articles', to: '/articles' },
+        { label: 'Events', to: '/events' },
+        { label: 'Patterns', to: '/content' },
+      ],
       footer: [
         {
-          label: 'Layouts',
+          label: 'Explore',
           children: [
-            {
-              label: 'Default',
-              to: '/layouts/default',
-            },
-            {
-              label: 'Content',
-              to: '/layouts/content',
-            },
+            { label: 'Articles', to: '/articles' },
+            { label: 'Events', to: '/events' },
+            { label: 'Content patterns', to: '/content' },
           ],
         },
         {
-          label: 'Articles',
+          label: 'Patterns',
           children: [
-            {
-              label: 'Blog Overview',
-              to: '/articles',
-            },
-            {
-              label: 'Latest Release (v4.4)',
-              to: '/articles/v4-4',
-            },
+            { label: 'Default layout', to: '/layouts/default' },
+            { label: 'Content layout', to: '/layouts/content' },
+            { label: 'Article index', to: '/articles', icon: 'i-lucide-list-filter' },
           ],
         },
         {
-          label: 'Events',
+          label: 'Resources',
           children: [
-            {
-              label: 'Events Overview',
-              to: '/events',
-            },
-            {
-              label: 'Nuxt UI v4 Launch',
-              to: '/events/nuxt-ui-v4-launch',
-            },
+            { label: 'Documentation', to: 'https://ui.happydesigns.de', target: '_blank' },
+            { label: 'GitHub repository', to: 'https://github.com/happydesigns/ui', target: '_blank' },
+            { label: 'happydesigns', to: 'https://happydesigns.de', target: '_blank' },
           ],
         },
       ],
     },
 
+    search: {
+      title: 'Search',
+      description: 'Search articles, example events, and content patterns.',
+      placeholder: 'Search the playground…',
+      resultLimit: 20,
+      error: {
+        title: 'Search is temporarily unavailable',
+        description: 'The content index could not be loaded.',
+        retryLabel: 'Try again',
+      },
+      collections: [
+        { name: 'page' },
+        {
+          name: 'article',
+          where: [{ field: 'published', operator: '=', value: true }],
+          order: { field: 'date', direction: 'DESC' },
+        },
+        {
+          name: 'event',
+          where: [{ field: 'published', operator: '=', value: true }],
+          order: { field: 'date', direction: 'DESC' },
+        },
+      ],
+    },
+
     date: {
-      locale: 'de',
+      locale: 'en',
       options: {
         year: 'numeric',
         month: 'short',
@@ -161,25 +179,28 @@ export default defineAppConfig({
     },
   },
 
-  ui: {
+  ui: ({
+    colors: {
+      primary: 'green',
+      secondary: 'blue',
+      neutral: 'slate',
+    },
     footer: {
       slots: {
         top: 'border-b border-default',
       },
     },
-    footerColumns: {
-      slots: {
-      },
-    },
     pageHero: {
       slots: {
-        container: 'py-10 sm:py-20 lg:py-20',
+        container: 'py-14 sm:py-20 lg:py-24',
         title: 'sm:text-5xl',
       },
     },
     prose: {
       img: {
-        base: 'w-full',
+        slots: {
+          base: 'w-full',
+        },
       },
       codeTree: {
         slots: {
@@ -188,5 +209,5 @@ export default defineAppConfig({
         },
       },
     },
-  },
+  } as unknown as AppConfigInput['ui']),
 })
