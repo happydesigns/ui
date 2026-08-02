@@ -12,30 +12,13 @@ const header = computed(() => resolvePageHeader(page.value))
   <UPageHero
     v-if="header"
     v-bind="(header as any)"
-    orientation="horizontal"
-  >
-    <template #description>
-      {{ header.description }}
-
-      <div class="mt-4">
-        <UButton
-          to="/articles/rss.xml"
-          color="neutral"
-          external
-          icon="i-lucide-rss"
-          variant="subtle"
-          size="xs"
-          target="_blank"
-        >
-          RSS
-        </UButton>
-      </div>
-    </template>
-  </UPageHero>
+    orientation="vertical"
+    :ui="{ container: 'py-12 sm:py-16', title: 'text-4xl sm:text-6xl' }"
+  />
 
   <UContainer>
-    <UPageBody>
-      <HArticleList />
+    <UPageBody class="pb-16 sm:pb-24">
+      <HArticleList :items-per-page="6" />
     </UPageBody>
   </UContainer>
 </template>
