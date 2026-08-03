@@ -11,28 +11,27 @@ const props = defineProps<{
 }>()
 
 const route = useRoute()
-const collection = computed(() => props.collection || 'article')
+const collection = computed(() => props.collection)
 const path = computed(() => route.path)
 const key = computed(() => `surround-${String(collection.value)}-${path.value}`)
 
 const { data: surround } = await useAsyncData(
   key,
   () => {
-    const colName = collection.value as any
     const qc = props.query || {}
 
-    const fields = (qc.fields || ['title', 'description', 'published']) as any
+    const fields = (qc.fields || ['title', 'description', 'published']) as Array<keyof PageCollections[C]>
     const order = qc.order
     const where = qc.where || [{ field: 'published', operator: '=', value: true }]
 
-    let query = queryCollectionItemSurroundings(colName, path.value, { fields })
+    let query = queryCollectionItemSurroundings(collection.value, path.value, { fields })
 
     where.forEach((filter) => {
-      query = query.where(filter.field as any, filter.operator as any, filter.value)
+      query = query.where(filter.field, filter.operator, filter.value)
     })
 
     if (order) {
-      query = query.order(order.field as any, order.direction)
+      query = query.order(order.field as keyof PageCollections[C], order.direction)
     }
 
     return query

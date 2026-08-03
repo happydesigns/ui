@@ -6,7 +6,7 @@ import { computed, toValue } from 'vue'
 export interface ArticleFilter {
   field: string
   operator: SQLOperator
-  value?: any
+  value?: unknown
 }
 
 export interface UseArticleListOptions<C extends keyof PageCollections = 'article'> {
@@ -63,13 +63,10 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
   const queryKey = computed(() => `${String(collection.value)}-list-${page.value}-${itemsPerPage.value}-${category.value || 'all'}-${labelAll.value}-${JSON.stringify(where.value)}-${JSON.stringify(sort.value)}-${publishedOnly.value}`)
 
   return useAsyncData(queryKey, async () => {
-    // We cast the query to a version that includes the standard article fields
-    // This avoids 'any' while still allowing the query to work with generic collections
+    // The result keeps consumer collection fields together with the article fields used by the UI.
     type ArticleItem = Collections[C] & Collections['article']
-    type ArticleQueryBuilder = ReturnType<typeof queryCollection<'article'>>
-
     const getDataQuery = () => {
-      let query = queryCollection(collection.value) as unknown as ArticleQueryBuilder
+      let query = queryCollection(collection.value)
 
       if (publishedOnly.value) {
         query = query.where('published', '=', true)
@@ -82,7 +79,7 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
       // Apply additional filters
       if (where.value && Array.isArray(where.value)) {
         where.value.forEach((filter) => {
-          query = query.where(filter.field as any, filter.operator, filter.value)
+          query = query.where(filter.field, filter.operator, filter.value)
         })
       }
       return query
@@ -91,7 +88,7 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
     let finalQuery = getDataQuery()
 
     if (sort.value) {
-      finalQuery = finalQuery.order(sort.value.field as any, sort.value.direction)
+      finalQuery = finalQuery.order(sort.value.field as keyof Collections[C], sort.value.direction)
     }
 
     const [articles, total] = await Promise.all([

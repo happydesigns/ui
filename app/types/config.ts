@@ -1,4 +1,4 @@
-import type { SQLOperator } from '@nuxt/content'
+import type { PageCollections, SQLOperator } from '@nuxt/content'
 import type { ButtonProps, CommandPaletteGroup, ContentSearchLink, FooterColumn, NavigationMenuItem } from '@nuxt/ui'
 
 export type ActionButton = ButtonProps & {
@@ -13,7 +13,7 @@ export interface QueryConfig {
 }
 export interface SearchCollectionConfig {
   /** Page collection included in both generated search indexes. */
-  name: string
+  name: keyof PageCollections & string
   /** Filters applied before navigation and search sections are generated. */
   where?: QueryConfig['where']
   /** Optional stable ordering for generated entries. */

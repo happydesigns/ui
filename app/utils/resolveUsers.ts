@@ -8,12 +8,6 @@ interface UserRecord {
   avatar?: UserProps['avatar']
 }
 
-interface UserQuery {
-  where: (field: 'username', operator: 'IN', value: string[]) => UserQuery
-  select: (...fields: Array<keyof UserRecord>) => UserQuery
-  all: () => Promise<UserRecord[]>
-}
-
 export type ResolvedUser = Omit<UserRecord, 'username'> & Partial<UserProps>
 
 /**
@@ -38,8 +32,7 @@ export async function resolveUserMap(users: string[], extraProps: Partial<UserPr
   if (uniqueUsers.length === 0)
     return new Map<string, ResolvedUser>()
 
-  const queryUserCollection = queryCollection as unknown as (collection: 'user') => UserQuery
-  const resolved = await queryUserCollection('user')
+  const resolved = await queryCollection('user')
     .where('username', 'IN', uniqueUsers)
     .select('username', 'name', 'description', 'to', 'avatar')
     .all()
