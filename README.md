@@ -7,14 +7,25 @@ The package provides shared Nuxt setup, Nuxt UI conventions, content collection 
 ## Installation
 
 ```bash
-pnpm add @happydesigns/ui
+pnpm add @happydesigns/ui @nuxt/ui tailwindcss
 ```
 
 ```ts
 export default defineNuxtConfig({
   extends: ['@happydesigns/ui'],
+  css: ['~/assets/css/main.css'],
 })
 ```
+
+Create the application's single Tailwind entry point:
+
+```css
+@import "tailwindcss";
+@import "@nuxt/ui";
+@import "@happydesigns/ui/styles.css";
+```
+
+Do not register another stylesheet that imports Tailwind or Nuxt UI. Keeping one compilation context ensures that Nuxt UI's generated responsive and color-mode variants share the application's theme and source graph.
 
 Run Nuxt preparation after changing dependencies or layer configuration:
 

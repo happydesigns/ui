@@ -19,7 +19,7 @@ This project is a Nuxt Layer providing a foundational UI and content structure f
   - `components/`: UI components (prefixed with `H`).
   - `composables/`: Reusable logic.
   - `layouts/`: Base layouts (`default`, `content`).
-  - `assets/css/main.css`: Base styling.
+  - `assets/css/styles.css`: Shared Tailwind extension styles without framework imports.
 - `playground/`: A standalone Nuxt app that extends the layer for development and testing.
 - `content.config.ts`: Defines Nuxt Content collections (`page`, `snippet`).
 - `nuxt.config.ts`: Main layer configuration.
@@ -74,7 +74,7 @@ pnpm release
 ## Development Conventions
 
 - **Component Prefixing**: Components in the `app/components/` directory are auto-imported with the `H` prefix (e.g., `FooterButtons.vue` becomes `<HFooterButtons />`).
-- **Styling**: Uses Nuxt UI (Tailwind-based) with custom overrides in `app/assets/css/main.css`.
+- **Styling**: Consumers own the single Tailwind entry point and import the layer extensions from `app/assets/css/styles.css` into that compiler context.
 - **Config**: Extensible `app.config.ts` allows consuming apps to define socials, copyright info, and navigation links.
 - **Linting**: Strict linting rules provided by `@antfu/eslint-config` and `@nuxt/eslint`.
 
