@@ -58,33 +58,3 @@ const layoutStyle = computed(() => ({
     </template>
   </UFooterColumns>
 </template>
-
-<style>
-@import "tailwindcss" source("../..");
-
-.footer-cols-left,
-.footer-cols-center,
-.footer-cols-right {
-  display: contents;
-}
-
-.footer-cols-root {
-  grid-template-columns: minmax(0, 1fr);
-}
-
-@media (min-width: theme(--breakpoint-lg)) {
-  .footer-cols-root {
-    grid-template-columns: repeat(var(--cols-lg, auto-fit), minmax(min(100%, 12rem), 1fr));
-  }
-}
-
-@media (min-width: theme(--breakpoint-xl)) {
-  .footer-cols-root {
-    grid-template-columns: repeat(var(--cols-xl, auto-fit), minmax(min(100%, 12rem), 1fr));
-  }
-}
-
-.footer-cols-root p:last-child {
-  margin-bottom: 0;
-}
-</style>

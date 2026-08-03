@@ -1,0 +1,38 @@
+@custom-variant all (&);
+
+@layer components {
+  :where(.h-content) p .iconify {
+    display: inline-block;
+    /* OG metadata tools may parse this rule without Tailwind theme context. */
+    margin-inline-end: 0.25em;
+    inline-size: 1em;
+    block-size: 1em;
+    transform: translateY(-1px);
+  }
+}
+
+.footer-cols-left,
+.footer-cols-center,
+.footer-cols-right {
+  display: contents;
+}
+
+.footer-cols-root {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: theme(--breakpoint-lg)) {
+  .footer-cols-root {
+    grid-template-columns: repeat(var(--cols-lg, auto-fit), minmax(min(100%, 12rem), 1fr));
+  }
+}
+
+@media (min-width: theme(--breakpoint-xl)) {
+  .footer-cols-root {
+    grid-template-columns: repeat(var(--cols-xl, auto-fit), minmax(min(100%, 12rem), 1fr));
+  }
+}
+
+.footer-cols-root p:last-child {
+  margin-bottom: 0;
+}

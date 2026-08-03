@@ -73,6 +73,7 @@ function extractJsonObject(source, start) {
 const manifest = JSON.parse(extractJsonObject(output, jsonStart))
 const files = new Set(manifest.files.map(file => file.path))
 const requiredFiles = [
+  'app/assets/css/styles.css',
   'app/types/config.ts',
   'server/api/navigation.json.get.ts',
   'server/api/search.json.get.ts',

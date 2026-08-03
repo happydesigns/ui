@@ -7,6 +7,11 @@
     "build": "nuxt build",
     "generate": "nuxt generate"
   },
+  "dependencies": {
+    "@happydesigns/ui": "workspace:*",
+    "@nuxt/ui": "^4.10.0",
+    "tailwindcss": "^4.3.2"
+  },
   "devDependencies": {
     "@types/node": "^26.1.1",
     "nuxt": "4.5.1"

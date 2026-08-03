@@ -9,6 +9,7 @@
   "exports": {
     ".": "./nuxt.config.ts",
     "./schemas": "./schemas/index.ts",
+    "./styles.css": "./app/assets/css/styles.css",
     "./types": "./app/types/config.ts"
   },
   "main": "./nuxt.config.ts",
@@ -43,6 +44,9 @@
     "release:alpha": "changelogen --release --versionSuffix alpha.0",
     "release:beta": "changelogen --release --versionSuffix beta.0"
   },
+  "peerDependencies": {
+    "tailwindcss": "^4.3.2"
+  },
   "dependencies": {
     "@happydesigns/nuxt-variants": "^0.0.6",
     "@iconify-json/heroicons": "^1.2.3",
@@ -53,7 +57,6 @@
     "@vueuse/core": "^14.3.0",
     "better-sqlite3": "^12.11.1",
     "nuxt-studio": "^1.7.0",
-    "pathe": "^2.0.3",
     "zod": "^4.4.3"
   },
   "devDependencies": {
