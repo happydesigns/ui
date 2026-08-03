@@ -17,11 +17,19 @@ interface StudioSession {
   user?: StudioUser | null
 }
 
+interface StudioRuntimeConfig {
+  dev?: boolean
+  route?: string
+}
+
 const runtimeConfig = useRuntimeConfig()
 const sessionCheckCookie = useCookie<string | null>('studio-session-check')
 const sessionUser = ref<StudioUser | null | undefined>()
 
-const studio = computed(() => runtimeConfig.public.studio)
+const studio = computed<StudioRuntimeConfig>(() => {
+  const config = runtimeConfig.public.studio
+  return config && typeof config === 'object' ? config as StudioRuntimeConfig : {}
+})
 const studioRoute = computed(() => studio.value.route || '/_studio')
 
 onMounted(async () => {

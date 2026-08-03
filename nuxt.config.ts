@@ -56,7 +56,5 @@ export default defineNuxtConfig({
     },
   },
 
-  studio: {
-    dev: true,
-  },
+  studio: false,
 })
