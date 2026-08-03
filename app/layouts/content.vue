@@ -1,5 +1,6 @@
 <script setup lang="ts" generic="C extends 'page' = 'page'">
 import type { Collections } from '@nuxt/content'
+import { getPageLayoutUi } from '../internal/pageLayout'
 
 const {
   path,
@@ -31,7 +32,10 @@ if (!page.value) {
 
 usePageSeo(page)
 
-const renderToc = computed(() => hasToc.value && page.value?.toc !== false)
+const renderToc = computed(() => hasToc.value
+  && page.value?.toc !== false
+  && Boolean(page.value?.body?.toc?.links?.length))
+const pageUi = computed(() => getPageLayoutUi(renderToc.value))
 const header = computed(() => resolvePageHeader(page.value))
 </script>
 
@@ -42,16 +46,16 @@ const header = computed(() => resolvePageHeader(page.value))
       v-bind="header"
     />
 
-    <UPage :ui="{ root: 'lg:grid-cols-12', center: 'lg:col-span-9', right: 'lg:col-span-3' }">
+    <UPage :ui="pageUi">
       <UPageBody>
         <slot />
       </UPageBody>
 
       <template #right>
         <UContentToc
-          v-if="renderToc && page.body?.toc?.links?.length"
-          :links="page.body.toc.links"
-          :title="page.body.toc.title || appConfig.app.toc?.title"
+          v-if="renderToc"
+          :links="page.body?.toc?.links"
+          :title="page.body?.toc?.title || appConfig.app.toc?.title"
         />
       </template>
     </UPage>

@@ -1,6 +1,7 @@
 <script setup lang="ts" generic="C extends keyof PageCollections = 'article'">
 import type { PageCollections } from '@nuxt/content'
 import type { BreadcrumbItem } from '@nuxt/ui'
+import { getPageLayoutUi } from '../internal/pageLayout'
 
 const props = defineProps<{
   path?: string
@@ -23,6 +24,10 @@ const hasSeparator = has('separator')
 const hasSurround = has('surround')
 const hasToc = has('toc')
 const tocEnabled = computed(() => !page.value || !('toc' in page.value) || page.value.toc !== false)
+const renderToc = computed(() => hasToc.value
+  && tocEnabled.value
+  && Boolean(page.value?.body?.toc?.links?.length))
+const pageUi = computed(() => getPageLayoutUi(renderToc.value))
 
 if (!page.value) {
   throw createError({
@@ -88,7 +93,7 @@ const backLink = computed(() => {
       </HArticleHeaderBody>
     </UPageHeader>
 
-    <UPage :ui="{ root: 'lg:grid-cols-12', center: 'lg:col-span-9', right: 'lg:col-span-3' }">
+    <UPage :ui="pageUi">
       <UPageBody>
         <slot />
 
@@ -122,7 +127,7 @@ const backLink = computed(() => {
 
       <template #right>
         <HToc
-          v-if="hasToc && tocEnabled"
+          v-if="renderToc"
           :links="page?.body?.toc?.links"
           :title="page?.body?.toc?.title"
         />
