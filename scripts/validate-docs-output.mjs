@@ -65,6 +65,15 @@ const landingHtml = await readRoute('')
 if (!landingHtml.includes('href="/getting-started"'))
   throw new Error('The landing page does not link to /getting-started.')
 
+if (!landingHtml.includes('Build content-driven Nuxt sites on a shared foundation.'))
+  throw new Error('The custom landing hero was not rendered.')
+
+if (!landingHtml.includes('A shared Nuxt foundation, built for project-owned brands.'))
+  throw new Error('The custom documentation footer was not rendered.')
+
+if (landingHtml.includes('<DocsLandingHero') || landingHtml.includes('<UPageCta'))
+  throw new Error('A landing-page component was emitted as an unresolved custom element.')
+
 if (landingHtml.includes('Deutsch') || landingHtml.includes('href="/de'))
   throw new Error('Unsupported German localization is still exposed.')
 

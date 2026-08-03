@@ -1,45 +1,63 @@
 ---
 title: "happydesigns/ui"
-description: "Product documentation for the happydesigns Nuxt layer, content model, components, composables, variants, and configuration."
+description: "A production-ready Nuxt foundation for content-driven websites with project-owned brands."
 ---
 <!-- eslint-disable markdown/no-missing-atx-heading-space -->
 
-::u-page-hero
-#title
-happydesigns/ui
+::docs-landing-hero
+::
 
-#description
-Build happydesigns websites, docs sites, and product apps on one reusable Nuxt foundation.
+::u-page-section
+---
+headline: Clear ownership
+title: One layer for the shared foundation
+description: Build on consistent technical decisions without forcing different websites into the same visual identity.
+---
+#features
+  :::u-page-feature
+  ---
+  icon: i-lucide-panels-top-left
+  to: /concepts/app-shell-and-layouts
+  ---
+  #title
+  App shell and navigation
 
-#links
-  :::u-button
-  ---
-  color: neutral
-  size: xl
-  to: /getting-started
-  trailing-icon: i-lucide-arrow-right
-  variant: solid
-  ---
-  Get started
+  #description
+  Start with accessible layouts, shared active states, responsive navigation, and composable header and footer primitives.
   :::
 
-  :::u-button
+  :::u-page-feature
   ---
-  color: neutral
-  size: xl
-  to: /components
-  variant: outline
+  icon: i-lucide-files
+  to: /concepts/content-collections
   ---
-  Browse components
+  #title
+  Typed content and variants
+
+  #description
+  Model pages, articles, events, snippets, and users once, then extend their presentation through typed variants.
+  :::
+
+  :::u-page-feature
+  ---
+  icon: i-lucide-search
+  to: /configuration/content-search
+  ---
+  #title
+  Search and editorial workflows
+
+  #description
+  Configure published collections declaratively and keep loading, caching, errors, retry, and indexing consistent.
   :::
 ::
 
 ::u-page-section
-#title
-Quick start
-
-#description
-Add the layer to a Nuxt project, extend it from `nuxt.config.ts`, then prepare the generated Nuxt types.
+---
+headline: Quick start
+title: Extend the layer. Keep building your app.
+description: Install the package, extend it from your Nuxt configuration, and prepare the generated types.
+orientation: horizontal
+---
 
 ```bash [Terminal]
 pnpm add @happydesigns/ui
@@ -51,15 +69,23 @@ export default defineNuxtConfig({
   extends: ['@happydesigns/ui'],
 })
 ```
+
+#links
+  :::u-button
+  ---
+  label: Read the installation guide
+  to: /getting-started/installation
+  trailing-icon: i-lucide-arrow-right
+  ---
+  :::
 ::
 
 ::u-page-section
-#title
-Start with what you need to change
-
-#description
-The docs explain the layer from intent to reference: install it, understand the model, use its content conventions, then check generated API data when you need exact props and slots.
-
+---
+headline: Documentation
+title: Find the right level of detail
+description: Start with intent and architecture, then move into content conventions, components, composables, and exact project configuration.
+---
 #features
   :::u-page-feature
   ---
@@ -67,34 +93,34 @@ The docs explain the layer from intent to reference: install it, understand the 
   to: /getting-started
   ---
   #title
-  Use the layer
+  Get started
 
   #description
-  Install `@happydesigns/ui`, extend it from a Nuxt project, and check the setup requirements.
+  Install the layer, understand project boundaries, and use the setup checklist before writing application code.
   :::
 
   :::u-page-feature
   ---
-  icon: i-lucide-layers
+  icon: i-lucide-layers-3
   to: /concepts
   ---
   #title
-  Understand the model
+  Understand the architecture
 
   #description
-  Learn how the layer combines layouts, content collections, variants, app config, and brand-neutral defaults.
+  Learn how the layer combines Nuxt, Nuxt UI, Nuxt Content, variants, app config, and project-owned composition.
   :::
 
   :::u-page-feature
   ---
-  icon: i-lucide-files
+  icon: i-lucide-file-braces
   to: /content
   ---
   #title
-  Write content
+  Model content
 
   #description
-  Use the page, article, event, snippet, and user collections with the frontmatter patterns the components expect.
+  Use the shared collections and frontmatter patterns without duplicating schemas in each consumer.
   :::
 
   :::u-page-feature
@@ -103,10 +129,10 @@ The docs explain the layer from intent to reference: install it, understand the 
   to: /components
   ---
   #title
-  Use components
+  Compose components
 
   #description
-  Read human guidance first, then use generated prop and slot tables from the source components.
+  Combine focused public components and traits while keeping concrete pages in the application that owns them.
   :::
 
   :::u-page-feature
@@ -115,10 +141,10 @@ The docs explain the layer from intent to reference: install it, understand the 
   to: /composables
   ---
   #title
-  Compose custom views
+  Reuse behavior
 
   #description
-  Reuse the layer's fetching, filtering, SEO, badge, and clipboard behavior in project-owned templates.
+  Share fetching, filtering, navigation, SEO, clipboard, and badge behavior in custom project views.
   :::
 
   :::u-page-feature
@@ -127,21 +153,28 @@ The docs explain the layer from intent to reference: install it, understand the 
   to: /configuration
   ---
   #title
-  Configure projects
+  Configure a project
 
   #description
-  Set app config, variant defaults, footer links, GitHub links, date formats, and collection query defaults.
+  Set variant defaults, links, dates, source metadata, collection queries, and search through typed app config.
   :::
+::
 
-  :::u-page-feature
-  ---
-  icon: i-lucide-bot
-  to: /ai
-  ---
-  #title
-  Work with agents
-
-  #description
-  Use LLM output, MCP, and the product skill without treating generated reference data as the whole documentation.
-  :::
+::u-page-c-t-a
+---
+title: Start with the foundation. Keep the brand yours.
+description: Use the installation guide for a new project or inspect the source to understand every shared decision.
+links:
+  - label: Get started
+    to: /getting-started
+    color: primary
+    variant: solid
+    trailingIcon: i-lucide-arrow-right
+  - label: View on GitHub
+    to: https://github.com/happydesigns/ui
+    target: _blank
+    color: neutral
+    variant: outline
+    icon: i-simple-icons-github
+---
 ::
