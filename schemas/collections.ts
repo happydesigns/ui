@@ -1,5 +1,6 @@
 import { mergeVariantSchemas } from '@happydesigns/nuxt-variants/schemas'
 import { defineCollection } from '@nuxt/content'
+import { articleCollectionIndexes, userCollectionIndexes } from './indexes'
 import { variantSchemas } from './traits'
 
 export const collections = {
@@ -18,6 +19,7 @@ export const collections = {
       prefix: '/articles',
     },
     schema: mergeVariantSchemas(['article'], variantSchemas),
+    indexes: articleCollectionIndexes,
   }),
 
   event: defineCollection({
@@ -27,6 +29,7 @@ export const collections = {
       prefix: '/events',
     },
     schema: mergeVariantSchemas(['event'], variantSchemas),
+    indexes: articleCollectionIndexes,
   }),
 
   page: defineCollection({
@@ -42,5 +45,6 @@ export const collections = {
     type: 'data',
     source: 'users/**/*.{md,yaml}',
     schema: mergeVariantSchemas(['user'], variantSchemas),
+    indexes: userCollectionIndexes,
   }),
 }
