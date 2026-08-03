@@ -1,6 +1,62 @@
 # Changelog
 
 
+## v0.17.0
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.16.0...v0.17.0)
+
+### 🚀 Enhancements
+
+- **search:** Generalize the sf content search ([7e01c14](https://github.com/happydesigns/ui/commit/7e01c14))
+- **navigation:** Generalize sf active link handling ([fe32095](https://github.com/happydesigns/ui/commit/fe32095))
+- **playground:** Compose a branded app shell ([21d75e2](https://github.com/happydesigns/ui/commit/21d75e2))
+- **playground:** Build the editorial showcase pages ([b3cb3ca](https://github.com/happydesigns/ui/commit/b3cb3ca))
+- **search:** Validate generated public indexes ([9b9ce1c](https://github.com/happydesigns/ui/commit/9b9ce1c))
+- **docs:** Redesign the documentation landing page ([32add14](https://github.com/happydesigns/ui/commit/32add14))
+
+### 🔥 Performance
+
+- **content:** Batch article author resolution ([08ea5ec](https://github.com/happydesigns/ui/commit/08ea5ec))
+- **content:** Index shared collection queries ([d712616](https://github.com/happydesigns/ui/commit/d712616))
+
+### 🩹 Fixes
+
+- **content:** Expose reusable snippet and carousel components ([54201d6](https://github.com/happydesigns/ui/commit/54201d6))
+- **layout:** Refine responsive content page structure ([72783ef](https://github.com/happydesigns/ui/commit/72783ef))
+- **types:** Normalize configured date format options ([149a345](https://github.com/happydesigns/ui/commit/149a345))
+- **css:** Keep shared icon spacing extractor-safe ([d647773](https://github.com/happydesigns/ui/commit/d647773))
+- **css:** Preserve runtime display variants in consumers ([88b7f57](https://github.com/happydesigns/ui/commit/88b7f57))
+- **css:** Unify Tailwind compilation in consumers ([c63a240](https://github.com/happydesigns/ui/commit/c63a240))
+- **layout:** Reclaim width without table of contents ([ec8b0fe](https://github.com/happydesigns/ui/commit/ec8b0fe))
+- **content:** Align reactive data with Nuxt patterns ([cf174c4](https://github.com/happydesigns/ui/commit/cf174c4))
+- **studio:** Require explicit consumer configuration ([448ce2f](https://github.com/happydesigns/ui/commit/448ce2f))
+- **docs:** Use single-language root routes ([ac684d0](https://github.com/happydesigns/ui/commit/ac684d0))
+- **docs:** Harden the Docus app shell ([7291d5e](https://github.com/happydesigns/ui/commit/7291d5e))
+
+### 💅 Refactors
+
+- **config:** Use native nuxt-variants inference ([f203b75](https://github.com/happydesigns/ui/commit/f203b75))
+- **types:** Tighten public content contracts ([6795a23](https://github.com/happydesigns/ui/commit/6795a23))
+- **core:** Harden shared config and UI behavior ([dda9b63](https://github.com/happydesigns/ui/commit/dda9b63))
+- **core:** Make the root app shell consumer-safe ([20341fc](https://github.com/happydesigns/ui/commit/20341fc))
+- **types:** Preserve Nuxt Content query safety ([6d1bca9](https://github.com/happydesigns/ui/commit/6d1bca9))
+
+### 📖 Documentation
+
+- **css:** Document the single-entry setup ([af05bb5](https://github.com/happydesigns/ui/commit/af05bb5))
+
+### 🏡 Chore
+
+- **release:** Prepare 0.17 beta on the updated Nuxt stack ([dcfdc4d](https://github.com/happydesigns/ui/commit/dcfdc4d))
+
+### ✅ Tests
+
+- **package:** Validate a packed consumer app ([b85eb0a](https://github.com/happydesigns/ui/commit/b85eb0a))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.16.0
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.15.1...v0.16.0)
