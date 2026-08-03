@@ -1,8 +1,14 @@
 # @happydesigns/ui
 
+[![npm version](https://img.shields.io/npm/v/%40happydesigns%2Fui?logo=npm)](https://www.npmjs.com/package/@happydesigns/ui)
+[![npm downloads](https://img.shields.io/npm/dm/%40happydesigns%2Fui?logo=npm)](https://www.npmjs.com/package/@happydesigns/ui)
+[![CI](https://github.com/happydesigns/ui/actions/workflows/ci.yml/badge.svg)](https://github.com/happydesigns/ui/actions/workflows/ci.yml)
+
 Reusable Nuxt layer for happydesigns websites, docs sites, and product apps.
 
 The package provides shared Nuxt setup, Nuxt UI conventions, content collection schemas, public `H*` components, composables, variants, and app config conventions. Projects extend the layer and keep project-specific routes, content, branding, and deployment settings in the project that owns them.
+
+[npm](https://www.npmjs.com/package/@happydesigns/ui) · [npmx](https://npmx.dev/package/@happydesigns/ui) · [GitHub](https://github.com/happydesigns/ui)
 
 ## Installation
 
