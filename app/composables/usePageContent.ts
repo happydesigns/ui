@@ -25,7 +25,5 @@ export function usePageContent<C extends keyof PageCollections = 'page', B = obj
 
   const handler = () => queryCollection(resolvedCollection.value as keyof PageCollections).path(resolvedPath.value).first()
 
-  return useAsyncData(key, handler, {
-    watch: [resolvedPath, resolvedCollection],
-  }) as unknown as AsyncData<(PageCollections[C] & B) | null, Error | null>
+  return useAsyncData(key, handler) as unknown as AsyncData<(PageCollections[C] & B) | null, Error | null>
 }

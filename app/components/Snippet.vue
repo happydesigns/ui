@@ -10,10 +10,13 @@ const props = withDefaults(defineProps<{
   components: undefined,
 })
 
+const path = computed(() => props.path)
+const key = computed(() => `snippet-${path.value}`)
+
 const { data: snippet } = await useAsyncData(
-  `snippet-${props.path}`,
+  key,
   () => queryCollection('snippet')
-    .path(props.path)
+    .path(path.value)
     .first(),
 )
 
