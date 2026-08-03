@@ -70,8 +70,7 @@
     "nuxt": "4.5.1",
     "typescript": "^6.0.3",
     "vitest": "^4.1.10",
-    "vue-tsc": "^3.3.7",
-    "zod-to-json-schema": "^3.25.2"
+    "vue-tsc": "^3.3.7"
   },
   "resolutions": {
     "@happydesigns/ui": "workspace:*"
