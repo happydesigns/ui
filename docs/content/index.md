@@ -16,7 +16,7 @@ Build happydesigns websites, docs sites, and product apps on one reusable Nuxt f
   ---
   color: neutral
   size: xl
-  to: /en/getting-started
+  to: /getting-started
   trailing-icon: i-lucide-arrow-right
   variant: solid
   ---
@@ -27,7 +27,7 @@ Build happydesigns websites, docs sites, and product apps on one reusable Nuxt f
   ---
   color: neutral
   size: xl
-  to: /en/components
+  to: /components
   variant: outline
   ---
   Browse components
@@ -64,7 +64,7 @@ The docs explain the layer from intent to reference: install it, understand the 
   :::u-page-feature
   ---
   icon: i-lucide-rocket
-  to: /en/getting-started
+  to: /getting-started
   ---
   #title
   Use the layer
@@ -76,7 +76,7 @@ The docs explain the layer from intent to reference: install it, understand the 
   :::u-page-feature
   ---
   icon: i-lucide-layers
-  to: /en/concepts
+  to: /concepts
   ---
   #title
   Understand the model
@@ -88,7 +88,7 @@ The docs explain the layer from intent to reference: install it, understand the 
   :::u-page-feature
   ---
   icon: i-lucide-files
-  to: /en/content
+  to: /content
   ---
   #title
   Write content
@@ -100,7 +100,7 @@ The docs explain the layer from intent to reference: install it, understand the 
   :::u-page-feature
   ---
   icon: i-lucide-component
-  to: /en/components
+  to: /components
   ---
   #title
   Use components
@@ -112,7 +112,7 @@ The docs explain the layer from intent to reference: install it, understand the 
   :::u-page-feature
   ---
   icon: i-lucide-braces
-  to: /en/composables
+  to: /composables
   ---
   #title
   Compose custom views
@@ -124,7 +124,7 @@ The docs explain the layer from intent to reference: install it, understand the 
   :::u-page-feature
   ---
   icon: i-lucide-settings-2
-  to: /en/configuration
+  to: /configuration
   ---
   #title
   Configure projects
@@ -136,7 +136,7 @@ The docs explain the layer from intent to reference: install it, understand the 
   :::u-page-feature
   ---
   icon: i-lucide-bot
-  to: /en/ai
+  to: /ai
   ---
   #title
   Work with agents

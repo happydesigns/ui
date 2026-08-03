@@ -1,4 +1,4 @@
-import { readFile } from 'node:fs/promises'
+import { access, readFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -6,14 +6,15 @@ const rootDir = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const publicDir = resolve(rootDir, 'docs/.output/public')
 
 const routes = [
-  'en/getting-started',
-  'en/concepts',
-  'en/content',
-  'en/components',
-  'en/composables',
-  'en/configuration',
-  'en/ai',
-  'en/getting-started/installation',
+  '',
+  'getting-started',
+  'concepts',
+  'content',
+  'components',
+  'composables',
+  'configuration',
+  'ai',
+  'getting-started/installation',
 ]
 
 async function readRoute(route) {
@@ -57,6 +58,23 @@ for (const route of routes) {
 
   if (text.length < 40)
     throw new Error(`Generated documentation route has an empty main section: /${route}`)
+}
+
+const landingHtml = await readRoute('')
+
+if (!landingHtml.includes('href="/getting-started"'))
+  throw new Error('The landing page does not link to /getting-started.')
+
+if (landingHtml.includes('Deutsch') || landingHtml.includes('href="/de'))
+  throw new Error('Unsupported German localization is still exposed.')
+
+try {
+  await access(resolve(publicDir, 'en', 'index.html'))
+  throw new Error('Legacy /en output is still generated.')
+}
+catch (error) {
+  if (error.code !== 'ENOENT')
+    throw error
 }
 
 console.log(`Validated ${routes.length} generated documentation routes.`)

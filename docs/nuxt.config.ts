@@ -1,5 +1,5 @@
 import { readdirSync } from 'node:fs'
-import { basename, join, relative } from 'node:path'
+import { join, relative } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const contentRoot = fileURLToPath(new URL('./content', import.meta.url))
@@ -32,9 +32,10 @@ function contentFileToRoute(filePath: string) {
   return `/${segments.join('/')}`
 }
 
-// Docus crawls index pages from each locale landing page; only leaf pages need explicit routes.
+// Explicitly prerender every documentation page. Section index pages are real CTA and
+// navigation targets, so relying on crawler discovery would make their output fragile.
 const documentationRoutes = collectMarkdownFiles(contentRoot)
-  .filter(filePath => basename(filePath).replace(numericPrefixPattern, '') !== 'index.md')
+  .filter(filePath => filePath !== join(contentRoot, 'index.md'))
   .map(contentFileToRoute)
 
 export default defineNuxtConfig({
@@ -42,7 +43,6 @@ export default defineNuxtConfig({
   extends: ['docus'],
 
   modules: [
-    '@nuxtjs/i18n',
     '@happydesigns/nuxt-variants',
   ],
 
@@ -55,17 +55,6 @@ export default defineNuxtConfig({
     serverBundle: {
       collections: ['carbon', 'heroicons', 'lucide', 'simple-icons', 'vscode-icons'],
     },
-  },
-
-  i18n: {
-    defaultLocale: 'en',
-    locales: [{
-      code: 'en',
-      name: 'English',
-    }, {
-      code: 'de',
-      name: 'Deutsch',
-    }],
   },
 
   variants: {
