@@ -3,6 +3,7 @@ import { join, relative } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const contentRoot = fileURLToPath(new URL('./content', import.meta.url))
+const componentRoot = fileURLToPath(new URL('./app/components', import.meta.url))
 const markdownExtensionPattern = /\.md$/
 const numericPrefixPattern = /^\d+\./
 
@@ -47,8 +48,17 @@ export default defineNuxtConfig({
   ],
 
   components: [
-    { path: './app/components', pathPrefix: false },
+    {
+      path: componentRoot,
+      pathPrefix: false,
+      priority: 20,
+    },
   ],
+
+  site: {
+    name: 'happydesigns/ui',
+    url: 'https://ui.happydesigns.de',
+  },
 
   icon: {
     fallbackToApi: false,
