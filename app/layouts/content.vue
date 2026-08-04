@@ -1,6 +1,5 @@
 <script setup lang="ts" generic="C extends 'page' = 'page'">
 import type { Collections } from '@nuxt/content'
-import { getPageLayoutUi } from '../internal/pageLayout'
 
 const {
   path,
@@ -35,13 +34,12 @@ usePageSeo(page)
 const renderToc = computed(() => hasToc.value
   && page.value?.toc !== false
   && Boolean(page.value?.body?.toc?.links?.length))
-const pageUi = computed(() => getPageLayoutUi(renderToc.value))
 const header = computed(() => resolvePageHeader(page.value))
 </script>
 
 <template>
   <UContainer v-if="page">
-    <UPage :ui="pageUi">
+    <UPage>
       <UPageHeader
         v-if="hasHeader && header"
         v-bind="header"

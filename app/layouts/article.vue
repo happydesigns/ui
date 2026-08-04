@@ -1,7 +1,6 @@
 <script setup lang="ts" generic="C extends keyof PageCollections = 'article'">
 import type { PageCollections } from '@nuxt/content'
 import type { BreadcrumbItem } from '@nuxt/ui'
-import { getPageLayoutUi } from '../internal/pageLayout'
 
 const props = defineProps<{
   path?: string
@@ -27,7 +26,6 @@ const tocEnabled = computed(() => !page.value || !('toc' in page.value) || page.
 const renderToc = computed(() => hasToc.value
   && tocEnabled.value
   && Boolean(page.value?.body?.toc?.links?.length))
-const pageUi = computed(() => getPageLayoutUi(renderToc.value))
 
 if (!page.value) {
   throw createError({
@@ -93,7 +91,7 @@ const backLink = computed(() => {
       </HArticleHeaderBody>
     </UPageHeader>
 
-    <UPage :ui="pageUi">
+    <UPage>
       <UPageBody>
         <slot />
 
