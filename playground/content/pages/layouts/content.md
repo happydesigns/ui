@@ -31,7 +31,7 @@ The table of contents moves out of the way when the viewport cannot support it a
 
 ## A useful default
 
-Consumers can use this layout unchanged for straightforward pages or compose the same helpers into a project-specific layout when the information architecture requires more.
+Consumers can use this layout unchanged for long-form pages. Listings, galleries, forms, maps, and other interface-led routes use the full-container `page` layout instead.
 ## Compose it directly
 
 ```vue [pages/guide.vue]

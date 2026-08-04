@@ -162,6 +162,7 @@ export default defineAppConfig({
           label: 'Patterns',
           children: [
             { label: 'Default layout', to: '/layouts/default' },
+            { label: 'Page layout', to: '/layouts/page' },
             { label: 'Content layout', to: '/layouts/content' },
             { label: 'Article index', to: '/articles', icon: 'i-lucide-list-filter' },
           ],

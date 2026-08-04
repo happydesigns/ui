@@ -31,7 +31,7 @@ const principles = [
       description="Use the default layout when the route owns its composition. The layer supplies the durable boundaries; the page decides what happens between them."
       orientation="vertical"
       :links="[
-        { label: 'See the content layout', to: '/layouts/content', trailingIcon: 'i-lucide-arrow-right' },
+        { label: 'See the page layout', to: '/layouts/page', trailingIcon: 'i-lucide-arrow-right' },
         { label: 'Back to patterns', to: '/content', color: 'neutral', variant: 'subtle' },
       ]"
       :ui="{ container: 'max-w-5xl py-14 sm:py-20' }"
