@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.17.1
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.17.0...v0.17.1)
+
+### 🩹 Fixes
+
+- **layout:** Align content header with table of contents ([ddd62dd](https://github.com/happydesigns/ui/commit/ddd62dd))
+
+### 📖 Documentation
+
+- **package:** Improve package discoverability ([55bbd2f](https://github.com/happydesigns/ui/commit/55bbd2f))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.17.0
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.16.0...v0.17.0)
