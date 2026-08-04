@@ -5,5 +5,4 @@ header:
   headline: Layout pattern
   icon: i-lucide-layout-template
 layout: page
-toc: false
 ---

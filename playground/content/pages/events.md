@@ -5,5 +5,4 @@ header:
   headline: A production-shaped content pattern
   icon: i-lucide-calendar-days
 layout: content
-toc: false
 ---

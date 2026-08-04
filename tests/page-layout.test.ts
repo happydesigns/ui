@@ -21,6 +21,16 @@ describe('page layout', () => {
     expect(pageLayout).toContain('<UPage>')
     expect(pageLayout).not.toContain('#right')
   })
+  it('allows routes to override the variant resolved by shared layouts', () => {
+    expect(pageLayout).toContain('typeof route.meta.variant === \'string\'')
+    expect(pageLayout).toContain('typeof route.meta.layout === \'string\'')
+    expect(pageLayout).toContain('useVariant(variant)')
+    expect(pageLayout).not.toContain('has(\'toc\')')
+    expect(contentLayout).toContain('typeof route.meta.variant === \'string\'')
+    expect(contentLayout).toContain('typeof route.meta.layout === \'string\'')
+    expect(contentLayout).toContain('useVariant(variant)')
+    expect(contentLayout).toContain('has(\'toc\')')
+  })
 
   it('selects declared page layouts and keeps content as the fallback', () => {
     expect(catchAllPage).toContain('setPageLayout(page.value?.layout ?? \'content\')')

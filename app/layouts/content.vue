@@ -17,7 +17,18 @@ const { data: page } = await usePageContent<C, Collections['page']>({
   collection: () => collection,
 })
 
-const { has } = useVariant(collection)
+const variant = computed(() => {
+  if (typeof route.meta.variant === 'string' && route.meta.variant) {
+    return route.meta.variant
+  }
+
+  if (typeof route.meta.layout === 'string' && route.meta.layout) {
+    return route.meta.layout
+  }
+
+  return collection
+})
+const { has } = useVariant(variant)
 const hasHeader = has('header')
 const hasToc = has('toc')
 
@@ -32,7 +43,6 @@ if (!page.value) {
 usePageSeo(page)
 
 const renderToc = computed(() => hasToc.value
-  && page.value?.toc !== false
   && Boolean(page.value?.body?.toc?.links?.length))
 const header = computed(() => resolvePageHeader(page.value))
 </script>

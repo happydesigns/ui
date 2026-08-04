@@ -50,7 +50,11 @@ export default defineNuxtConfig({
         config: {},
       },
       page: {
-        extends: ['layout', 'header', 'toc'],
+        extends: ['layout', 'header'],
+        config: {},
+      },
+      content: {
+        extends: ['page', 'toc'],
         config: {},
       },
     },

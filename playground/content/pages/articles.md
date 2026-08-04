@@ -5,5 +5,4 @@ header:
   headline: Writing from the foundation
   icon: i-lucide-newspaper
 layout: content
-toc: false
 ---

@@ -5,7 +5,6 @@ header:
   headline: Nuxt Content, composed for real websites
   icon: i-lucide-file-stack
 layout: content
-toc: true
 ---
 
 ## Content starts with a schema
@@ -16,7 +15,6 @@ Pages remain ordinary Markdown documents, but their front matter inherits the sa
 title: A durable content page
 description: Clear metadata for readers and search.
 layout: content
-toc: true
 ```
 
 ## Components stay close to their job

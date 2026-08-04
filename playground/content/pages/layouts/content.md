@@ -10,7 +10,6 @@ header:
       color: neutral
       variant: subtle
 layout: content
-toc: true
 ---
 
 ## Designed for reading

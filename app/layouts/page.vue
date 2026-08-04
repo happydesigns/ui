@@ -16,7 +16,18 @@ const { data: page } = await usePageContent<C, Collections['page']>({
   collection: () => collection,
 })
 
-const { has } = useVariant(collection)
+const variant = computed(() => {
+  if (typeof route.meta.variant === 'string' && route.meta.variant) {
+    return route.meta.variant
+  }
+
+  if (typeof route.meta.layout === 'string' && route.meta.layout) {
+    return route.meta.layout
+  }
+
+  return collection
+})
+const { has } = useVariant(variant)
 const hasHeader = has('header')
 
 if (!page.value) {
