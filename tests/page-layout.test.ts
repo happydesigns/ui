@@ -21,6 +21,12 @@ describe('page layout', () => {
     expect(pageLayout).toContain('<UPage>')
     expect(pageLayout).not.toContain('#right')
   })
+  it('accepts any Nuxt Content page collection while preserving the shared page contract', () => {
+    expect(pageLayout).toContain('C extends keyof PageCollections = \'page\'')
+    expect(contentLayout).toContain('C extends keyof PageCollections = \'page\'')
+    expect(pageLayout).toContain('usePageContent<C, Collections[\'page\']>')
+    expect(contentLayout).toContain('usePageContent<C, Collections[\'page\']>')
+  })
   it('allows routes to override the variant resolved by shared layouts', () => {
     expect(pageLayout).toContain('typeof route.meta.variant === \'string\'')
     expect(pageLayout).toContain('typeof route.meta.layout === \'string\'')

@@ -1,5 +1,5 @@
-<script setup lang="ts" generic="C extends 'page' = 'page'">
-import type { Collections } from '@nuxt/content'
+<script setup lang="ts" generic="C extends keyof PageCollections = 'page'">
+import type { Collections, PageCollections } from '@nuxt/content'
 
 const {
   path,
