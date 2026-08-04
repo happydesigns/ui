@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.17.2
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.17.1...v0.17.2)
+
+### 🩹 Fixes
+
+- **layout:** Restore Nuxt UI page proportions ([9a953b9](https://github.com/happydesigns/ui/commit/9a953b9))
+
+### ❤️ Contributors
+
+- Jan Fröhlich <jan.froehlich.janf@gmail.com>
+
 ## v0.17.1
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.17.0...v0.17.1)
