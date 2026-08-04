@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v0.17.5
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.17.4...v0.17.5)
+
+### 🩹 Fixes
+
+- **content:** Restore flexible page collections ([0b1d05a](https://github.com/happydesigns/ui/commit/0b1d05a))
+- **content:** Respect explicit toc state ([5026490](https://github.com/happydesigns/ui/commit/5026490))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.17.4
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.17.3...v0.17.4)
