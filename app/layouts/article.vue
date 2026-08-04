@@ -23,9 +23,7 @@ const hasSeparator = has('separator')
 const hasSurround = has('surround')
 const hasToc = has('toc')
 const tocEnabled = computed(() => !page.value || !('toc' in page.value) || page.value.toc !== false)
-const renderToc = computed(() => hasToc.value
-  && tocEnabled.value
-  && Boolean(page.value?.body?.toc?.links?.length))
+const showTocSidebar = computed(() => hasToc.value && tocEnabled.value)
 
 if (!page.value) {
   throw createError({
@@ -123,9 +121,8 @@ const backLink = computed(() => {
         />
       </UPageBody>
 
-      <template #right>
+      <template v-if="showTocSidebar" #right>
         <HToc
-          v-if="renderToc"
           :links="page?.body?.toc?.links"
           :title="page?.body?.toc?.title"
         />

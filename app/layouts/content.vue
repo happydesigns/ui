@@ -43,9 +43,7 @@ if (!page.value) {
 usePageSeo(page)
 
 const tocEnabled = computed(() => !page.value || !('toc' in page.value) || page.value.toc !== false)
-const renderToc = computed(() => hasToc.value
-  && tocEnabled.value
-  && Boolean(page.value?.body?.toc?.links?.length))
+const showTocSidebar = computed(() => hasToc.value && tocEnabled.value)
 const header = computed(() => resolvePageHeader(page.value))
 </script>
 
@@ -61,9 +59,8 @@ const header = computed(() => resolvePageHeader(page.value))
         <slot />
       </UPageBody>
 
-      <template #right>
+      <template v-if="showTocSidebar" #right>
         <UContentToc
-          v-if="renderToc"
           :links="page.body?.toc?.links"
           :title="page.body?.toc?.title || appConfig.app.toc?.title"
         />

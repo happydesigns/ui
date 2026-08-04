@@ -10,8 +10,12 @@ describe('page layout', () => {
   it('uses the Nuxt UI page grid without custom column proportions', () => {
     expect(contentLayout).toContain('<UPage>')
     expect(articleLayout).toContain('<UPage>')
-    expect(contentLayout).toContain('<template #right>')
-    expect(articleLayout).toContain('<template #right>')
+    expect(contentLayout).toContain('<template v-if="showTocSidebar" #right>')
+    expect(articleLayout).toContain('<template v-if="showTocSidebar" #right>')
+    expect(contentLayout).toContain('hasToc.value && tocEnabled.value')
+    expect(articleLayout).toContain('hasToc.value && tocEnabled.value')
+    expect(contentLayout).not.toContain('body?.toc?.links?.length')
+    expect(articleLayout).not.toContain('body?.toc?.links?.length')
   })
 
   it('provides a full-width content-backed page layout without an editorial grid', () => {
