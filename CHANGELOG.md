@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.17.4
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.17.3...v0.17.4)
+
+### 🩹 Fixes
+
+- **content:** Separate page and content variant traits ([e3a0d19](https://github.com/happydesigns/ui/commit/e3a0d19))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.17.3
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.17.2...v0.17.3)
