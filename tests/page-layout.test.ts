@@ -3,6 +3,8 @@ import { describe, expect, it } from 'vitest'
 
 const contentLayout = readFileSync(new URL('../app/layouts/content.vue', import.meta.url), 'utf8')
 const articleLayout = readFileSync(new URL('../app/layouts/article.vue', import.meta.url), 'utf8')
+const pageLayout = readFileSync(new URL('../app/layouts/page.vue', import.meta.url), 'utf8')
+const catchAllPage = readFileSync(new URL('../playground/app/pages/[...slug].vue', import.meta.url), 'utf8')
 
 describe('page layout', () => {
   it('uses the Nuxt UI page grid without custom column proportions', () => {
@@ -10,6 +12,18 @@ describe('page layout', () => {
     expect(articleLayout).toContain('<UPage>')
     expect(contentLayout).toContain('<template #right>')
     expect(articleLayout).toContain('<template #right>')
+  })
+
+  it('provides a full-width content-backed page layout without an editorial grid', () => {
+    expect(pageLayout).toContain('<UContainer v-if="page">')
+    expect(pageLayout).toContain('<UPageHeader')
+    expect(pageLayout).toContain('<UPageBody>')
+    expect(pageLayout).toContain('<UPage>')
+    expect(pageLayout).not.toContain('#right')
+  })
+
+  it('selects declared page layouts and keeps content as the fallback', () => {
+    expect(catchAllPage).toContain('setPageLayout(page.value?.layout ?? \'content\')')
   })
 
   it('keeps a content header in the same page grid as its table of contents', () => {

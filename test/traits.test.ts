@@ -24,3 +24,13 @@ describe('userTrait', () => {
     })).toThrow()
   })
 })
+
+describe('layoutTrait', () => {
+  it.each(['default', 'page', 'content'])('accepts the %s layout', (layout) => {
+    expect(variantSchemas.layout.parse({ layout })).toEqual({ layout })
+  })
+
+  it('rejects unknown layouts', () => {
+    expect(() => variantSchemas.layout.parse({ layout: 'wide' })).toThrow()
+  })
+})

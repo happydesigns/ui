@@ -14,7 +14,7 @@ definePageMeta({
 })
 
 const { data: page } = await usePageContent()
-setPageLayout(page.value?.layout === 'default' ? 'default' : 'content')
+setPageLayout(page.value?.layout ?? 'content')
 usePageSeo(page)
 </script>
 
