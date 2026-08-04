@@ -41,12 +41,12 @@ const header = computed(() => resolvePageHeader(page.value))
 
 <template>
   <UContainer v-if="page">
-    <UPageHeader
-      v-if="hasHeader && header"
-      v-bind="header"
-    />
-
     <UPage :ui="pageUi">
+      <UPageHeader
+        v-if="hasHeader && header"
+        v-bind="header"
+      />
+
       <UPageBody>
         <slot />
       </UPageBody>
