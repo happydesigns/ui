@@ -36,6 +36,7 @@ describe('page layout', () => {
     expect(contentLayout).toContain('typeof route.meta.layout === \'string\'')
     expect(contentLayout).toContain('useVariant(variant)')
     expect(contentLayout).toContain('has(\'toc\')')
+    expect(contentLayout).toContain('page.value.toc !== false')
   })
 
   it('selects declared page layouts and keeps content as the fallback', () => {

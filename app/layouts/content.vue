@@ -42,7 +42,9 @@ if (!page.value) {
 
 usePageSeo(page)
 
+const tocEnabled = computed(() => !page.value || !('toc' in page.value) || page.value.toc !== false)
 const renderToc = computed(() => hasToc.value
+  && tocEnabled.value
   && Boolean(page.value?.body?.toc?.links?.length))
 const header = computed(() => resolvePageHeader(page.value))
 </script>
