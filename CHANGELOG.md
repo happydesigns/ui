@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.17.3
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.17.2...v0.17.3)
+
+### 🚀 Enhancements
+
+- **layout:** Add content-backed page layout ([8c7e218](https://github.com/happydesigns/ui/commit/8c7e218))
+
+### 📖 Documentation
+
+- **playground:** Showcase shared page layouts ([2d33da3](https://github.com/happydesigns/ui/commit/2d33da3))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.17.2
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.17.1...v0.17.2)
