@@ -1,6 +1,34 @@
 # Changelog
 
 
+## v0.19.0
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.18.0...v0.19.0)
+
+### 🩹 Fixes
+
+- **types:** Preserve flexible collection contracts ([ec887af](https://github.com/happydesigns/ui/commit/ec887af))
+
+### 💅 Refactors
+
+- **content:** ⚠️  Make collections consumer-owned ([528a18d](https://github.com/happydesigns/ui/commit/528a18d))
+
+### 📖 Documentation
+
+- **content:** Explain consumer-owned collections ([f9cc246](https://github.com/happydesigns/ui/commit/f9cc246))
+
+### ✅ Tests
+
+- **content:** Validate arbitrary consumer collections ([1744539](https://github.com/happydesigns/ui/commit/1744539))
+
+#### ⚠️ Breaking Changes
+
+- **content:** ⚠️  Make collections consumer-owned ([528a18d](https://github.com/happydesigns/ui/commit/528a18d))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.18.0
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.17.5...v0.18.0)
