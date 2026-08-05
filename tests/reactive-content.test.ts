@@ -22,7 +22,8 @@ describe('reactive content integration', () => {
     const source = readFileSync('app/components/Snippet.vue', 'utf8')
 
     expect(source).toContain('const path = computed(() => props.path)')
-    expect(source).toMatch(/const key = computed\(\(\) => `snippet-\$\{path\.value\}`\)/)
+    expect(source).toMatch(/props\.collection.*path\.value/)
     expect(source).toContain('.path(path.value)')
+    expect(source).toContain('collection?: string')
   })
 })

@@ -6,6 +6,8 @@ const articleLayout = readFileSync(new URL('../app/layouts/article.vue', import.
 const catchAllPage = readFileSync(new URL('../playground/app/pages/[...slug].vue', import.meta.url), 'utf8')
 const nuxtConfig = readFileSync(new URL('../nuxt.config.ts', import.meta.url), 'utf8')
 const collectionSchemas = readFileSync(new URL('../schemas/collections.ts', import.meta.url), 'utf8')
+const playgroundCollections = readFileSync(new URL('../playground/content.config.ts', import.meta.url), 'utf8')
+const layerContentConfig = new URL('../content.config.ts', import.meta.url)
 const traitSchemas = readFileSync(new URL('../schemas/traits.ts', import.meta.url), 'utf8')
 const obsoletePageLayout = new URL('../app/layouts/page.vue', import.meta.url)
 
@@ -36,8 +38,17 @@ describe('content page layout', () => {
   })
 
   it('accepts any Nuxt Content page collection', () => {
-    expect(contentLayout).toContain('C extends keyof PageCollections = \'page\'')
-    expect(contentLayout).toContain('usePageContent<C, Collections[\'page\']>')
+    expect(contentLayout).toContain('C extends string = \'page\'')
+    expect(contentLayout).toContain('usePageContent<C>')
+  })
+
+  it('keeps collection sources and names in the consuming application', () => {
+    expect(existsSync(layerContentConfig)).toBe(false)
+    expect(collectionSchemas).toContain('export const collectionSchemas')
+    expect(collectionSchemas).not.toContain('defineCollection(')
+    expect(collectionSchemas).not.toContain('source:')
+    expect(playgroundCollections).toContain('defineContentConfig({')
+    expect(playgroundCollections).toContain('schema: collectionSchemas.content')
   })
 
   it('allows routes to override the variant resolved by the shared layout', () => {

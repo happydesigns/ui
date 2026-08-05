@@ -87,4 +87,7 @@ for (const file of requiredFiles) {
     throw new Error(`Required public package file is missing: ${file}`)
 }
 
+if (files.has('content.config.ts'))
+  throw new Error('The layer must not publish an active Nuxt Content collection configuration.')
+
 console.log(`Validated ${files.size} files in ${manifest.filename}.`)

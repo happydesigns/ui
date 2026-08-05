@@ -37,9 +37,10 @@ describe('resolveUsers', () => {
     const queryCollection = vi.fn(() => query)
     vi.stubGlobal('queryCollection', queryCollection)
 
-    const authors = await resolveUsers(['first', 'second', 'first', 'missing'], { target: '_blank' })
+    const authors = await resolveUsers(['first', 'second', 'first', 'missing'], { target: '_blank' }, 'people')
 
     expect(queryCollection).toHaveBeenCalledOnce()
+    expect(queryCollection).toHaveBeenCalledWith('people')
     expect(query.where).toHaveBeenCalledWith('username', 'IN', ['first', 'second', 'missing'])
     expect(authors).toEqual([
       { name: 'First author', target: '_blank' },

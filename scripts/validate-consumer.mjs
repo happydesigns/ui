@@ -111,11 +111,24 @@ try {
   },
 })
 `)
-  await write('content.config.ts', `import { defineContentConfig } from '@nuxt/content'
-import { collections } from '@happydesigns/ui/schemas'
+  await write('content.config.ts', `import { collectionSchemas } from '@happydesigns/ui/schemas'
+import { defineCollection, defineContentConfig } from '@nuxt/content'
 
 export default defineContentConfig({
-  collections,
+  collections: {
+    fragment: defineCollection({
+      type: 'page',
+      source: {
+        include: 'snippets/**/*.md',
+        prefix: '/snippets',
+      },
+    }),
+    sitePage: defineCollection({
+      type: 'page',
+      source: 'pages/**/*.md',
+      schema: collectionSchemas.content,
+    }),
+  },
 })
 `)
   await write('app.config.ts', `import type { SearchConfig } from '@happydesigns/ui/types'
@@ -135,7 +148,7 @@ export default defineAppConfig({
   await write('app/pages/index.vue', `<template>
   <div>
     <h1>Packed consumer fixture</h1>
-    <HSnippet path="/snippets/packed" />
+    <HSnippet collection="fragment" path="/snippets/packed" />
     <HFooterColumns :columns="[]" :lg-cols="2" />
   </div>
 </template>
