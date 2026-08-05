@@ -39,6 +39,32 @@ Run Nuxt preparation after changing dependencies or layer configuration:
 pnpm exec nuxt prepare
 ```
 
+## Content collections
+
+The layer exports reusable schema profiles, but it does not register collection names, sources, or route prefixes for an application. Define those locally in the consumer's `content.config.ts`:
+
+```ts
+import { collectionSchemas } from '@happydesigns/ui/schemas'
+import { defineCollection, defineContentConfig } from '@nuxt/content'
+
+export default defineContentConfig({
+  collections: {
+    news: defineCollection({
+      type: 'page',
+      source: 'news/**/*.md',
+      schema: collectionSchemas.article,
+    }),
+    legal: defineCollection({
+      type: 'page',
+      source: 'legal/**/*.md',
+      schema: collectionSchemas.content,
+    }),
+  },
+})
+```
+
+This keeps the shared field model convenient while leaving collection names, file structure, routing, indexes, and additional project schemas under application control.
+
 ## Development
 
 ```bash

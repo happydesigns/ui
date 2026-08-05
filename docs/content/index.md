@@ -120,7 +120,7 @@ description: Start with intent and architecture, then move into content conventi
   Model content
 
   #description
-  Use the shared collections and frontmatter patterns without duplicating schemas in each consumer.
+  Compose project-owned collections from shared schema profiles without duplicating frontmatter contracts.
   :::
 
   :::u-page-feature

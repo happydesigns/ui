@@ -21,21 +21,13 @@ This project is a Nuxt Layer providing a foundational UI and content structure f
   - `layouts/`: Base layouts (`default`, `content`).
   - `assets/css/styles.css`: Shared Tailwind extension styles without framework imports.
 - `playground/`: A standalone Nuxt app that extends the layer for development and testing.
-- `content.config.ts`: Defines Nuxt Content collections (`page`, `snippet`).
+- `schemas/`: Exports source-agnostic Nuxt Content schema profiles and index recommendations.
 - `nuxt.config.ts`: Main layer configuration.
 - `app.config.ts`: Application-level configuration for theming and metadata.
 
 ## Content Collections
 
-Defined in `content.config.ts`:
-
-1.  **`page`**:
-    - **Source**: `pages/**/*.{md,yaml}`
-    - **Layouts**: `default`, `content`
-    - **Features**: TOC enabled by default, supports `PageHeader` schema.
-2.  **`snippet`**:
-    - **Source**: `snippets/**/*.{md,yaml}`
-    - **Type**: `page` (used for reusable content fragments).
+The layer does not register consumer collections. The playground owns its content.config.ts and demonstrates how applications compose exported schema profiles with their own names and sources.
 
 ## Building and Running
 
@@ -82,5 +74,5 @@ pnpm release
 
 - `nuxt.config.ts`: Layer-specific module and component configuration.
 - `app/app.config.ts`: Type-safe configuration for UI elements and metadata.
-- `content.config.ts`: Content schema and collection definitions.
+- `schemas/`: Reusable content schema profiles and traits.
 - `playground/nuxt.config.ts`: Configuration for the development playground.

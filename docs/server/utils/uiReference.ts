@@ -345,28 +345,13 @@ export function getVariantReferences() {
 export function getCollectionReferences() {
   const sourcePath = resolve(repoRoot, 'schemas/collections.ts')
   const source = readFileSync(sourcePath, 'utf-8')
-  const matches = [...source.matchAll(/^\s{2}([a-zA-Z][\w]*):\s*defineCollection\(\{/gm)]
+  const matches = [...source.matchAll(/^\s{2}([a-zA-Z][\w]*):\s*mergeVariantSchemas\(\[([^\]]*)\]/gm)]
 
-  return matches.map((match, index) => {
-    const name = match[1]!
-    const start = match.index ?? 0
-    const end = index + 1 < matches.length ? matches[index + 1]!.index ?? source.length : source.length
-    const block = source.slice(start, end)
-    const type = block.match(/type:\s*'([^']+)'/)?.[1] ?? 'page'
-    const prefix = block.match(/prefix:\s*'([^']+)'/)?.[1] ?? ''
-    const include = block.match(/include:\s*'([^']+)'/)?.[1]
-    const sourceValue = block.match(/source:\s*'([^']+)'/)?.[1]
-    const variants = block.match(/mergeVariantSchemas\(\[([^\]]*)\]/)?.[1]?.split(',')
-
+  return matches.map(match => ({
+    name: match[1]!,
+    variants: match[2]!
+      .split(',')
       .map(item => item.trim().replace(/^['"]|['"]$/g, ''))
-      .filter(Boolean) ?? []
-
-    return {
-      name,
-      type,
-      source: include ?? sourceValue ?? '',
-      prefix,
-      variants,
-    }
-  })
+      .filter(Boolean),
+  }))
 }
