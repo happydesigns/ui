@@ -26,11 +26,11 @@ describe('userTrait', () => {
 })
 
 describe('layoutTrait', () => {
-  it.each(['default', 'page', 'content'])('accepts the %s layout', (layout) => {
+  it.each(['default', 'content'])('accepts the %s layout', (layout) => {
     expect(variantSchemas.layout.parse({ layout })).toEqual({ layout })
   })
 
-  it('rejects unknown layouts', () => {
-    expect(() => variantSchemas.layout.parse({ layout: 'wide' })).toThrow()
+  it.each(['page', 'wide'])('rejects the unsupported %s layout', (layout) => {
+    expect(() => variantSchemas.layout.parse({ layout })).toThrow()
   })
 })

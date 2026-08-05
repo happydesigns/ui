@@ -38,7 +38,7 @@ export const collections = {
       include: 'pages/**/*.{md,yaml}',
       prefix: '/',
     },
-    schema: mergeVariantSchemas(['page'], variantSchemas),
+    schema: mergeVariantSchemas(['content'], variantSchemas),
   }),
 
   user: defineCollection({

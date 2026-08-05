@@ -1,15 +1,23 @@
-import { readFileSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 
 const contentLayout = readFileSync(new URL('../app/layouts/content.vue', import.meta.url), 'utf8')
 const articleLayout = readFileSync(new URL('../app/layouts/article.vue', import.meta.url), 'utf8')
-const pageLayout = readFileSync(new URL('../app/layouts/page.vue', import.meta.url), 'utf8')
 const catchAllPage = readFileSync(new URL('../playground/app/pages/[...slug].vue', import.meta.url), 'utf8')
+const nuxtConfig = readFileSync(new URL('../nuxt.config.ts', import.meta.url), 'utf8')
+const collectionSchemas = readFileSync(new URL('../schemas/collections.ts', import.meta.url), 'utf8')
+const traitSchemas = readFileSync(new URL('../schemas/traits.ts', import.meta.url), 'utf8')
+const obsoletePageLayout = new URL('../app/layouts/page.vue', import.meta.url)
 
-describe('page layout', () => {
-  it('uses the Nuxt UI page grid without custom column proportions', () => {
+describe('content page layout', () => {
+  it('uses one shared Nuxt UI page grid for content-backed pages', () => {
     expect(contentLayout).toContain('<UPage>')
-    expect(articleLayout).toContain('<UPage>')
+    expect(contentLayout).toContain('<UPageHeader')
+    expect(contentLayout).toContain('<UPageBody>')
+    expect(existsSync(obsoletePageLayout)).toBe(false)
+  })
+
+  it('lets toc control the right column independently of generated headings', () => {
     expect(contentLayout).toContain('<template v-if="showTocSidebar" #right>')
     expect(articleLayout).toContain('<template v-if="showTocSidebar" #right>')
     expect(contentLayout).toContain('hasToc.value && tocEnabled.value')
@@ -18,24 +26,21 @@ describe('page layout', () => {
     expect(articleLayout).not.toContain('body?.toc?.links?.length')
   })
 
-  it('provides a full-width content-backed page layout without an editorial grid', () => {
-    expect(pageLayout).toContain('<UContainer v-if="page">')
-    expect(pageLayout).toContain('<UPageHeader')
-    expect(pageLayout).toContain('<UPageBody>')
-    expect(pageLayout).toContain('<UPage>')
-    expect(pageLayout).not.toContain('#right')
+  it('uses content as the single schema contract for content-backed pages', () => {
+    expect(nuxtConfig).toContain('content: {\n        extends: [\'layout\', \'header\', \'toc\']')
+    expect(nuxtConfig).not.toContain('page: {')
+    expect(collectionSchemas).toContain('mergeVariantSchemas([\'content\'], variantSchemas)')
+    expect(collectionSchemas).not.toContain('mergeVariantSchemas([\'page\'], variantSchemas)')
+    expect(traitSchemas).toContain('layout: z.enum([\'default\', \'content\'])')
+    expect(traitSchemas).not.toContain('\'page\', \'content\'')
   })
-  it('accepts any Nuxt Content page collection while preserving the shared page contract', () => {
-    expect(pageLayout).toContain('C extends keyof PageCollections = \'page\'')
+
+  it('accepts any Nuxt Content page collection', () => {
     expect(contentLayout).toContain('C extends keyof PageCollections = \'page\'')
-    expect(pageLayout).toContain('usePageContent<C, Collections[\'page\']>')
     expect(contentLayout).toContain('usePageContent<C, Collections[\'page\']>')
   })
-  it('allows routes to override the variant resolved by shared layouts', () => {
-    expect(pageLayout).toContain('typeof route.meta.variant === \'string\'')
-    expect(pageLayout).toContain('typeof route.meta.layout === \'string\'')
-    expect(pageLayout).toContain('useVariant(variant)')
-    expect(pageLayout).not.toContain('has(\'toc\')')
+
+  it('allows routes to override the variant resolved by the shared layout', () => {
     expect(contentLayout).toContain('typeof route.meta.variant === \'string\'')
     expect(contentLayout).toContain('typeof route.meta.layout === \'string\'')
     expect(contentLayout).toContain('useVariant(variant)')
@@ -43,7 +48,7 @@ describe('page layout', () => {
     expect(contentLayout).toContain('page.value.toc !== false')
   })
 
-  it('selects declared page layouts and keeps content as the fallback', () => {
+  it('uses content as the catch-all layout fallback', () => {
     expect(catchAllPage).toContain('setPageLayout(page.value?.layout ?? \'content\')')
   })
 

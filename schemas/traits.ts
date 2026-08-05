@@ -57,7 +57,7 @@ export const locationTrait = {
 
 export const layoutTrait = {
   schema: z.object({
-    layout: z.enum(['default', 'page', 'content']).optional(),
+    layout: z.enum(['default', 'content']).optional(),
   }),
 }
 

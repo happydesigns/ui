@@ -95,7 +95,7 @@ export default defineNuxtConfig({
         extends: ['dates', 'location', 'category', 'links', 'published', 'header', 'toc', 'surround', 'copyButton', 'separator', 'backButton', 'user'],
         config: {},
       },
-      page: {
+      content: {
         extends: ['layout', 'header', 'toc'],
         config: {},
       },
