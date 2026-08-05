@@ -1,6 +1,7 @@
-<script setup lang="ts" generic="C extends string">
+<script setup lang="ts" generic="C extends PageCollectionName">
 import type { PageCollections } from '@nuxt/content'
 import type { QueryConfig } from '../../types/config'
+import type { PageCollectionName } from '../../types/content'
 
 type PageField = Extract<keyof PageCollections[keyof PageCollections], string>
 

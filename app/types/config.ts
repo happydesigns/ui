@@ -1,5 +1,8 @@
 import type { SQLOperator } from '@nuxt/content'
 import type { ButtonProps, CommandPaletteGroup, ContentSearchLink, FooterColumn, NavigationMenuItem } from '@nuxt/ui'
+import type { CollectionName, PageCollectionName } from './content'
+
+export type { CollectionName, ContentLink, PageCollectionName } from './content'
 
 export type ActionButton = ButtonProps & {
   /** Built-in type for a dynamic GitHub link (URL resolved from app.meta.github) */
@@ -13,7 +16,7 @@ export interface QueryConfig {
 }
 export interface SearchCollectionConfig {
   /** Page collection included in both generated search indexes. */
-  name: string
+  name: PageCollectionName
   /** Filters applied before navigation and search sections are generated. */
   where?: QueryConfig['where']
   /** Optional stable ordering for generated entries. */
@@ -73,7 +76,7 @@ export interface HAppConfigInput extends HAppConfigExtensions {
     footer?: FooterColumn[]
   }
   search?: SearchConfig
-  content?: { userCollection?: string }
+  content?: { userCollection?: CollectionName }
   toc?: { title?: string }
   icons?: Record<string, string>
   date?: {

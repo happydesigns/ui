@@ -1,6 +1,7 @@
 import type { CollectionQueryBuilder, Collections, PageCollectionItemBase, PageCollections, SQLOperator } from '@nuxt/content'
 import type { BadgeProps } from '@nuxt/ui'
 import type { MaybeRefOrGetter } from 'vue'
+import type { PageCollectionName } from '../types/content'
 import { computed, toValue } from 'vue'
 
 export interface ArticleFilter {
@@ -9,7 +10,7 @@ export interface ArticleFilter {
   value?: unknown
 }
 
-export interface UseArticleListOptions<C extends string = 'article'> {
+export interface UseArticleListOptions<C extends PageCollectionName = 'article'> {
   page?: MaybeRefOrGetter<number | undefined>
   itemsPerPage?: MaybeRefOrGetter<number | undefined>
   category?: MaybeRefOrGetter<string | undefined>
@@ -30,7 +31,7 @@ export interface UseArticleListOptions<C extends string = 'article'> {
  * Composable to fetch a paginated and filtered list of articles or any other collection.
  * Includes automatic resolution of authors and category badges.
  */
-export function useArticleList<C extends string = 'article'>(options: UseArticleListOptions<C> = {}) {
+export function useArticleList<C extends PageCollectionName = 'article'>(options: UseArticleListOptions<C> = {}) {
   const collection = computed(() => (toValue(options.collection) || ('article' as C)) as C)
 
   const { config } = useVariant(collection)
@@ -65,7 +66,8 @@ export function useArticleList<C extends string = 'article'>(options: UseArticle
 
   return useAsyncData(queryKey, async () => {
     // The result keeps consumer collection fields together with the article fields used by the UI.
-    type ConsumerItem = C extends keyof PageCollections ? PageCollections[C] : PageCollectionItemBase
+    type ConsumerItem = PageCollectionItemBase
+      & (C extends keyof PageCollections ? PageCollections[C] : object)
     type ArticleItem = ConsumerItem & {
       authors?: string[]
       category?: string

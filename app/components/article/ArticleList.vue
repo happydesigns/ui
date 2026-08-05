@@ -1,5 +1,6 @@
-<script setup lang="ts" generic="C extends string = 'article'">
+<script setup lang="ts" generic="C extends PageCollectionName = 'article'">
 import type { ArticleFilter } from '../../composables/useArticleList'
+import type { PageCollectionName } from '../../types/content'
 import { useArticleListQuery } from '../../composables/useArticleListQuery'
 
 const props = withDefaults(defineProps<{

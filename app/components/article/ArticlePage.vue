@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import type { PageCollectionName } from '../../types/content'
+
 const { collection = 'article', path } = defineProps<{
-  collection?: string
+  collection?: PageCollectionName
   path?: string
 }>()
 

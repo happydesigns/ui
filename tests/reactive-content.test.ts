@@ -18,12 +18,24 @@ describe('reactive content integration', () => {
     expect(source).not.toContain('watch:')
   })
 
+  it('keeps content links aligned with Nuxt UI instead of exposing unknown', () => {
+    const links = readFileSync('app/components/traits/Links.vue', 'utf8')
+    const headerBody = readFileSync('app/components/article/ArticleHeaderBody.vue', 'utf8')
+    const contentTypes = readFileSync('app/types/content.ts', 'utf8')
+
+    expect(contentTypes).toContain('export type ContentLink = ButtonProps')
+    expect(links).toContain('links?: ContentLink[]')
+    expect(headerBody).toContain('links?: ContentLink[]')
+    expect(links).not.toContain('unknown[]')
+    expect(headerBody).not.toContain('unknown[]')
+  })
+
   it('derives snippet fetching from the current path prop', () => {
     const source = readFileSync('app/components/Snippet.vue', 'utf8')
 
     expect(source).toContain('const path = computed(() => props.path)')
     expect(source).toMatch(/props\.collection.*path\.value/)
     expect(source).toContain('.path(path.value)')
-    expect(source).toContain('collection?: string')
+    expect(source).toContain('collection?: PageCollectionName')
   })
 })

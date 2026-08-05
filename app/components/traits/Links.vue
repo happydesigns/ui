@@ -1,17 +1,14 @@
 <script setup lang="ts">
-import type { ButtonProps } from '@nuxt/ui'
+import type { ContentLink } from '../../types/content'
 
-const props = defineProps<{
-  links?: unknown[]
+defineProps<{
+  links?: ContentLink[]
 }>()
-
-// Nuxt Content preserves the inherited schema shape but widens a few DOM props to unknown.
-const buttonLinks = computed(() => props.links as ButtonProps[] | undefined)
 </script>
 
 <template>
   <UButton
-    v-for="(link, index) in buttonLinks"
+    v-for="(link, index) in links"
     :key="index"
     variant="subtle"
     size="sm"

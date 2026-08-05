@@ -1,4 +1,6 @@
-<script setup lang="ts" generic="C extends string = 'page'">
+<script setup lang="ts" generic="C extends PageCollectionName = 'page'">
+import type { PageCollectionName } from '../types/content'
+
 const {
   path,
   collection = 'page' as C,

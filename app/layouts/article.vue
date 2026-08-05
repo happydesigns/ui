@@ -1,5 +1,6 @@
-<script setup lang="ts" generic="C extends string = 'article'">
+<script setup lang="ts" generic="C extends PageCollectionName = 'article'">
 import type { BreadcrumbItem } from '@nuxt/ui'
+import type { PageCollectionName } from '../types/content'
 
 const props = defineProps<{
   path?: string

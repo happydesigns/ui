@@ -38,7 +38,7 @@ describe('content page layout', () => {
   })
 
   it('accepts any Nuxt Content page collection', () => {
-    expect(contentLayout).toContain('C extends string = \'page\'')
+    expect(contentLayout).toContain('C extends PageCollectionName = \'page\'')
     expect(contentLayout).toContain('usePageContent<C>')
   })
 

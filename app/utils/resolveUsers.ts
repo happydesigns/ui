@@ -1,5 +1,6 @@
 import type { CollectionItemBase, CollectionQueryBuilder, Collections } from '@nuxt/content'
 import type { UserProps } from '@nuxt/ui'
+import type { CollectionName } from '../types/content'
 
 interface UserRecord extends CollectionItemBase {
   username: string
@@ -25,7 +26,7 @@ export function toUserProps<T extends { username: string }>(
 export async function resolveUserMap(
   users: string[],
   extraProps: Partial<UserProps> = {},
-  collection = 'user',
+  collection: CollectionName = 'user',
 ) {
   const uniqueUsers = [...new Set(users)]
 
@@ -47,7 +48,7 @@ export async function resolveUserMap(
 export default async function resolveUsers(
   users: string | string[],
   extraProps: Partial<UserProps> = {},
-  collection = 'user',
+  collection: CollectionName = 'user',
 ) {
   const userList = Array.isArray(users) ? users : [users]
   const resolved = await resolveUserMap(userList, extraProps, collection)

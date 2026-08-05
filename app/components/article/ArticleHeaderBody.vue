@@ -1,13 +1,15 @@
 <script setup lang="ts">
+import type { ContentLink, PageCollectionName } from '../../types/content'
+
 interface HeaderBodyPage {
   path?: string
   authors?: string[]
-  links?: unknown[]
+  links?: ContentLink[]
 }
 
 const props = defineProps<{
   page?: HeaderBodyPage
-  collection?: string
+  collection?: PageCollectionName
 }>()
 
 const { has } = useVariant(() => props.collection || 'article')

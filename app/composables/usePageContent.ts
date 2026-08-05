@@ -1,13 +1,13 @@
 import type { PageCollectionItemBase, PageCollections } from '@nuxt/content'
 import type { AsyncData } from 'nuxt/app'
 import type { MaybeRefOrGetter } from 'vue'
+import type { PageCollectionName } from '../types/content'
 import { computed, toValue } from 'vue'
 
-type PageForCollection<C extends string> = C extends keyof PageCollections
-  ? PageCollections[C]
-  : PageCollectionItemBase
+type PageForCollection<C extends PageCollectionName> = PageCollectionItemBase
+  & (C extends keyof PageCollections ? PageCollections[C] : object)
 
-interface UsePageContentOptions<C extends string = 'page'> {
+interface UsePageContentOptions<C extends PageCollectionName = 'page'> {
   path?: MaybeRefOrGetter<string | undefined>
   collection?: MaybeRefOrGetter<C>
 }
@@ -16,7 +16,7 @@ interface UsePageContentOptions<C extends string = 'page'> {
  * Fetches a page without requiring the layer to own its collection definition.
  * Known consumer collection names retain their generated Nuxt Content type.
  */
-export function usePageContent<C extends string = 'page', B extends object = object>(
+export function usePageContent<C extends PageCollectionName = 'page', B extends object = object>(
   { path, collection }: UsePageContentOptions<C> = {},
 ) {
   const route = useRoute()

@@ -145,10 +145,18 @@ export default defineAppConfig({
 @import "@nuxt/ui";
 @import "@happydesigns/ui/styles.css";
 `)
-  await write('app/pages/index.vue', `<template>
+  await write('app/pages/index.vue', `<script setup lang="ts">
+import type { ContentLink, PageCollectionName } from '@happydesigns/ui/types'
+
+const fragmentCollection: PageCollectionName = 'fragment'
+const links: ContentLink[] = [{ label: 'Typed content link', to: '/' }]
+</script>
+
+<template>
   <div>
     <h1>Packed consumer fixture</h1>
-    <HSnippet collection="fragment" path="/snippets/packed" />
+    <HSnippet :collection="fragmentCollection" path="/snippets/packed" />
+    <HLinks :links="links" />
     <HFooterColumns :columns="[]" :lg-cols="2" />
   </div>
 </template>

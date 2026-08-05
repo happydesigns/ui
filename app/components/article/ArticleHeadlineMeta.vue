@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { PageCollectionName } from '../../types/content'
+
 interface HeadlineMetaPage {
   path?: string
   category?: string
@@ -12,7 +14,7 @@ interface HeadlineMetaPage {
 
 const props = defineProps<{
   page?: HeadlineMetaPage
-  collection?: string
+  collection?: PageCollectionName
 }>()
 
 const { has } = useVariant(() => props.collection || 'article')
