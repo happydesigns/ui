@@ -1,7 +1,7 @@
 {
   "name": "@happydesigns/ui",
   "type": "module",
-  "version": "0.17.5",
+  "version": "0.18.0",
   "private": false,
   "packageManager": "pnpm@11.11.0",
   "description": "A reusable Nuxt foundation for content-driven happydesigns websites and applications.",

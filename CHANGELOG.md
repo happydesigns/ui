@@ -1,6 +1,30 @@
 # Changelog
 
 
+## v0.18.0
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.17.5...v0.18.0)
+
+### 🩹 Fixes
+
+- **layout:** Let toc control sidebar visibility ([2e0fd3f](https://github.com/happydesigns/ui/commit/2e0fd3f))
+
+### 💅 Refactors
+
+- **content:** ⚠️  Unify content page contract ([969348f](https://github.com/happydesigns/ui/commit/969348f))
+
+### 📖 Documentation
+
+- **playground:** Demonstrate content layout modes ([139d170](https://github.com/happydesigns/ui/commit/139d170))
+
+#### ⚠️ Breaking Changes
+
+- **content:** ⚠️  Unify content page contract ([969348f](https://github.com/happydesigns/ui/commit/969348f))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.17.5
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.17.4...v0.17.5)
