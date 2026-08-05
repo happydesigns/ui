@@ -1,6 +1,6 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: 'page',
+  layout: 'content',
 })
 
 const patterns = [
@@ -26,7 +26,7 @@ const patterns = [
   <div class="space-y-10">
     <div class="max-w-3xl">
       <p class="text-lg leading-8 text-muted">
-        Use this layout when metadata and SEO come from Nuxt Content while the route owns a wider, interface-led composition. It keeps the shared header contract without imposing a prose column or table of contents.
+        Set `toc: false` when metadata and SEO come from Nuxt Content while the route owns a wider, interface-led composition. The shared content layout then keeps the header contract without reserving a table-of-contents column.
       </p>
     </div>
 
@@ -41,7 +41,7 @@ const patterns = [
 
     <UPageCard
       title="Choose structure by responsibility"
-      description="Use the content layout for long-form reading and the page layout for freely composed application or media content. Both resolve the same typed page metadata."
+      description="One content layout covers both reading and interface-led pages. The explicit `toc` value controls whether the right column belongs to the page."
       icon="i-lucide-git-compare-arrows"
       orientation="horizontal"
       to="/layouts/content"

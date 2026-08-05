@@ -10,6 +10,7 @@ header:
       color: neutral
       variant: subtle
 layout: content
+toc: true
 ---
 
 ## Designed for reading
@@ -30,7 +31,7 @@ The table of contents moves out of the way when the viewport cannot support it a
 
 ## A useful default
 
-Consumers can use this layout unchanged for long-form pages. Listings, galleries, forms, maps, and other interface-led routes use the full-container `page` layout instead.
+Consumers use the same layout for every content-backed page. Listings, galleries, forms, maps, and other interface-led routes set `toc: false` to use the full container.
 ## Compose it directly
 
 ```vue [pages/guide.vue]
@@ -42,5 +43,5 @@ Consumers can use this layout unchanged for long-form pages. Listings, galleries
 ```
 
 ::callout{icon="i-lucide-panel-right"}
-The table of contents follows the document on small screens and becomes a wider reading rail on desktop.
+The table of contents is part of the page contract when `toc` is enabled and disappears completely when it is disabled.
 ::
