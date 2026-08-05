@@ -1,6 +1,4 @@
-<script setup lang="ts" generic="C extends keyof PageCollections = 'page'">
-import type { Collections, PageCollections } from '@nuxt/content'
-
+<script setup lang="ts" generic="C extends string = 'page'">
 const {
   path,
   collection = 'page' as C,
@@ -12,7 +10,7 @@ const {
 const appConfig = useAppConfig()
 const route = useRoute()
 
-const { data: page } = await usePageContent<C, Collections['page']>({
+const { data: page } = await usePageContent<C>({
   path: () => path,
   collection: () => collection,
 })

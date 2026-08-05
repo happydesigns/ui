@@ -7,9 +7,10 @@ const props = defineProps<{
   config?: { user?: Partial<UserProps> }
 }>()
 
+const appConfig = useAppConfig()
 const userProps = computed(() => ({ ...(props.config?.user ?? {}), ...(props.target ? { target: props.target } : {}) }))
 
-const resolvedAuthors = await resolveUsers(props.authors || [], userProps.value)
+const resolvedAuthors = await resolveUsers(props.authors || [], userProps.value, appConfig.app.content.userCollection)
 </script>
 
 <template>

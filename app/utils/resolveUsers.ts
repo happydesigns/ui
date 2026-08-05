@@ -1,6 +1,7 @@
+import type { CollectionItemBase, CollectionQueryBuilder, Collections } from '@nuxt/content'
 import type { UserProps } from '@nuxt/ui'
 
-interface UserRecord {
+interface UserRecord extends CollectionItemBase {
   username: string
   name?: UserProps['name']
   description?: UserProps['description']
@@ -10,9 +11,7 @@ interface UserRecord {
 
 export type ResolvedUser = Omit<UserRecord, 'username'> & Partial<UserProps>
 
-/**
- * Removes the internal collection lookup key before passing a profile to Nuxt UI.
- */
+/** Removes the internal lookup key before passing a profile to Nuxt UI. */
 export function toUserProps<T extends { username: string }>(
   user: T,
   extraProps: Partial<UserProps> = {},
@@ -22,17 +21,19 @@ export function toUserProps<T extends { username: string }>(
   return { ...profile, ...extraProps }
 }
 
-/**
- * Fetches user details once and keeps the lookup key available for callers
- * that need to associate a profile with several content entries.
- */
-export async function resolveUserMap(users: string[], extraProps: Partial<UserProps> = {}) {
+/** Fetches user details from the consumer-configured collection. */
+export async function resolveUserMap(
+  users: string[],
+  extraProps: Partial<UserProps> = {},
+  collection = 'user',
+) {
   const uniqueUsers = [...new Set(users)]
 
   if (uniqueUsers.length === 0)
     return new Map<string, ResolvedUser>()
 
-  const resolved = await queryCollection('user')
+  const query = queryCollection(collection as keyof Collections) as unknown as CollectionQueryBuilder<UserRecord>
+  const resolved = await query
     .where('username', 'IN', uniqueUsers)
     .select('username', 'name', 'description', 'to', 'avatar')
     .all()
@@ -41,16 +42,15 @@ export async function resolveUserMap(users: string[], extraProps: Partial<UserPr
 }
 
 /**
- * Fetches user details from the Nuxt Content user collection.
- *
- * The returned profiles follow the requested username order. Unknown users are omitted.
- *
- * @param users - A single username or an array of usernames
- * @returns A promise resolving to the selected user profiles
+ * Fetches user details in the requested username order. Unknown users are omitted.
  */
-export default async function resolveUsers(users: string | string[], extraProps: Partial<UserProps> = {}) {
+export default async function resolveUsers(
+  users: string | string[],
+  extraProps: Partial<UserProps> = {},
+  collection = 'user',
+) {
   const userList = Array.isArray(users) ? users : [users]
-  const resolved = await resolveUserMap(userList, extraProps)
+  const resolved = await resolveUserMap(userList, extraProps, collection)
 
   return userList.flatMap((username) => {
     const user = resolved.get(username)

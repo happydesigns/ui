@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import type { PageCollections } from '@nuxt/content'
-
 interface HeadlineMetaPage {
   path?: string
   category?: string
@@ -14,7 +12,7 @@ interface HeadlineMetaPage {
 
 const props = defineProps<{
   page?: HeadlineMetaPage
-  collection?: keyof PageCollections
+  collection?: string
 }>()
 
 const { has } = useVariant(() => props.collection || 'article')

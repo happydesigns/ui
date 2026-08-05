@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import type { PageCollections } from '@nuxt/content'
-
 const { collection = 'article', path } = defineProps<{
-  collection?: keyof PageCollections
+  collection?: string
   path?: string
 }>()
 

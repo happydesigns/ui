@@ -32,7 +32,6 @@
   "main": "./nuxt.config.ts",
   "files": [
     "app",
-    "content.config.ts",
     "nuxt.config.ts",
     "schemas",
     "server",

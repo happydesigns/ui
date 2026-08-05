@@ -94,6 +94,10 @@ export default defineAppConfig({
       footer: [],
     },
 
+    content: {
+      userCollection: 'user',
+    },
+
     search: {
       title: 'Search',
       description: 'Search the site content.',

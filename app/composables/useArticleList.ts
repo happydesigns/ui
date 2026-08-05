@@ -1,4 +1,4 @@
-import type { Collections, PageCollections, SQLOperator } from '@nuxt/content'
+import type { CollectionQueryBuilder, Collections, PageCollectionItemBase, PageCollections, SQLOperator } from '@nuxt/content'
 import type { BadgeProps } from '@nuxt/ui'
 import type { MaybeRefOrGetter } from 'vue'
 import { computed, toValue } from 'vue'
@@ -9,7 +9,7 @@ export interface ArticleFilter {
   value?: unknown
 }
 
-export interface UseArticleListOptions<C extends keyof PageCollections = 'article'> {
+export interface UseArticleListOptions<C extends string = 'article'> {
   page?: MaybeRefOrGetter<number | undefined>
   itemsPerPage?: MaybeRefOrGetter<number | undefined>
   category?: MaybeRefOrGetter<string | undefined>
@@ -30,10 +30,11 @@ export interface UseArticleListOptions<C extends keyof PageCollections = 'articl
  * Composable to fetch a paginated and filtered list of articles or any other collection.
  * Includes automatic resolution of authors and category badges.
  */
-export function useArticleList<C extends keyof PageCollections = 'article'>(options: UseArticleListOptions<C> = {}) {
+export function useArticleList<C extends string = 'article'>(options: UseArticleListOptions<C> = {}) {
   const collection = computed(() => (toValue(options.collection) || ('article' as C)) as C)
 
   const { config } = useVariant(collection)
+  const appConfig = useAppConfig()
 
   const page = computed(() => toValue(options.page) || 1)
   const itemsPerPage = computed(() => toValue(options.itemsPerPage) || config.value.list?.itemsPerPage || 12)
@@ -64,22 +65,29 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
 
   return useAsyncData(queryKey, async () => {
     // The result keeps consumer collection fields together with the article fields used by the UI.
-    type ArticleItem = Collections[C] & Collections['article']
+    type ConsumerItem = C extends keyof PageCollections ? PageCollections[C] : PageCollectionItemBase
+    type ArticleItem = ConsumerItem & {
+      authors?: string[]
+      category?: string
+      date?: string
+      dateEnd?: string
+      published?: boolean
+    }
     const getDataQuery = () => {
-      let query = queryCollection(collection.value)
+      let query = queryCollection(collection.value as keyof Collections) as unknown as CollectionQueryBuilder<ArticleItem>
 
       if (publishedOnly.value) {
-        query = query.where('published', '=', true)
+        query = query.where('published' as Extract<keyof ArticleItem, string>, '=', true)
       }
 
       if (category.value && category.value !== labelAll.value) {
-        query = query.where('category', '=', category.value)
+        query = query.where('category' as Extract<keyof ArticleItem, string>, '=', category.value)
       }
 
       // Apply additional filters
       if (where.value && Array.isArray(where.value)) {
         where.value.forEach((filter) => {
-          query = query.where(filter.field, filter.operator, filter.value)
+          query = query.where(filter.field as Extract<keyof ArticleItem, string>, filter.operator, filter.value)
         })
       }
       return query
@@ -88,7 +96,7 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
     let finalQuery = getDataQuery()
 
     if (sort.value) {
-      finalQuery = finalQuery.order(sort.value.field as keyof Collections[C], sort.value.direction)
+      finalQuery = finalQuery.order(sort.value.field as Extract<keyof ArticleItem, string>, sort.value.direction)
     }
 
     const [articles, total] = await Promise.all([
@@ -103,6 +111,7 @@ export function useArticleList<C extends keyof PageCollections = 'article'>(opti
     const authorsByUsername = await resolveUserMap(
       articles.flatMap(article => article.authors ?? []),
       userProps,
+      appConfig.app.content.userCollection,
     )
 
     // Resolve display details without issuing additional collection queries.

@@ -1,4 +1,4 @@
-import type { PageCollections, SQLOperator } from '@nuxt/content'
+import type { SQLOperator } from '@nuxt/content'
 import type { ButtonProps, CommandPaletteGroup, ContentSearchLink, FooterColumn, NavigationMenuItem } from '@nuxt/ui'
 
 export type ActionButton = ButtonProps & {
@@ -13,7 +13,7 @@ export interface QueryConfig {
 }
 export interface SearchCollectionConfig {
   /** Page collection included in both generated search indexes. */
-  name: keyof PageCollections & string
+  name: string
   /** Filters applied before navigation and search sections are generated. */
   where?: QueryConfig['where']
   /** Optional stable ordering for generated entries. */
@@ -73,6 +73,7 @@ export interface HAppConfigInput extends HAppConfigExtensions {
     footer?: FooterColumn[]
   }
   search?: SearchConfig
+  content?: { userCollection?: string }
   toc?: { title?: string }
   icons?: Record<string, string>
   date?: {
@@ -85,6 +86,7 @@ export interface HAppConfig extends HAppConfigInput {
   meta: NonNullable<HAppConfigInput['meta']>
   links: NonNullable<HAppConfigInput['links']>
   search: SearchConfig
+  content: NonNullable<HAppConfigInput['content']>
   toc: NonNullable<HAppConfigInput['toc']>
   icons: Record<string, string>
   date: NonNullable<HAppConfigInput['date']>

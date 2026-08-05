@@ -62,6 +62,6 @@ export function getSearchCollections(): SearchCollectionConfig[] {
   return (useAppConfig().app?.search?.collections ?? []) as SearchCollectionConfig[]
 }
 
-export function asPageCollection(name: keyof PageCollections): keyof PageCollections {
-  return name
+export function asPageCollection(name: string): keyof PageCollections {
+  return name as keyof PageCollections
 }

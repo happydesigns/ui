@@ -1,15 +1,13 @@
 <script setup lang="ts">
-import type { PageCollections } from '@nuxt/content'
-
 interface HeaderBodyPage {
   path?: string
   authors?: string[]
-  links?: PageCollections['event']['links']
+  links?: unknown[]
 }
 
 const props = defineProps<{
   page?: HeaderBodyPage
-  collection?: keyof PageCollections
+  collection?: string
 }>()
 
 const { has } = useVariant(() => props.collection || 'article')

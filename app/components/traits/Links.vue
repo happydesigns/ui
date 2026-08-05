@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import type { PageCollections } from '@nuxt/content'
 import type { ButtonProps } from '@nuxt/ui'
 
 const props = defineProps<{
-  links?: PageCollections['event']['links']
+  links?: unknown[]
 }>()
 
 // Nuxt Content preserves the inherited schema shape but widens a few DOM props to unknown.
