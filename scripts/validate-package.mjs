@@ -73,9 +73,13 @@ function extractJsonObject(source, start) {
 const manifest = JSON.parse(extractJsonObject(output, jsonStart))
 const files = new Set(manifest.files.map(file => file.path))
 const requiredFiles = [
+  'app/components/ContentPage.vue',
+  'app/components/SiteHeader.vue',
   'app/layouts/content.vue',
   'app/assets/css/styles.css',
   'app/types/config.ts',
+  'app/utils/isContentPageRoute.ts',
+  'schemas/primitives.ts',
   'server/api/navigation.json.get.ts',
   'server/api/search.json.get.ts',
   'server/utils/contentSearch.ts',

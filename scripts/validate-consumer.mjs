@@ -106,13 +106,18 @@ try {
   css: ['~/assets/css/main.css'],
   nitro: {
     prerender: {
-      routes: ['/api/navigation.json', '/api/search.json'],
+      autoSubfolderIndex: false,
+      routes: ['/packed', '/supplied', '/api/navigation.json', '/api/search.json'],
     },
   },
 })
 `)
-  await write('content.config.ts', `import { collectionSchemas } from '@happydesigns/ui/schemas'
+  await write('content.config.ts', `import { collectionSchemas, contentImageSchema, createPageSectionSchema } from '@happydesigns/ui/schemas'
 import { defineCollection, defineContentConfig } from '@nuxt/content'
+
+const landingSchema = createPageSectionSchema({
+  image: contentImageSchema.optional(),
+})
 
 export default defineContentConfig({
   collections: {
@@ -125,8 +130,13 @@ export default defineContentConfig({
     }),
     sitePage: defineCollection({
       type: 'page',
-      source: 'pages/**/*.md',
-      schema: collectionSchemas.content,
+      source: {
+        include: 'pages/**/*.md',
+        prefix: '/',
+      },
+      schema: collectionSchemas.content.extend({
+        landing: landingSchema.optional(),
+      }),
     }),
   },
 })
@@ -154,6 +164,11 @@ const links: ContentLink[] = [{ label: 'Typed content link', to: '/' }]
 
 <template>
   <div>
+    <HSiteHeader :items="[{ label: 'Home', to: '/' }]">
+      <template #title>
+        Packed consumer
+      </template>
+    </HSiteHeader>
     <h1>Packed consumer fixture</h1>
     <HSnippet :collection="fragmentCollection" path="/snippets/packed" />
     <HLinks :links="links" />
@@ -161,10 +176,42 @@ const links: ContentLink[] = [{ label: 'Typed content link', to: '/' }]
   </div>
 </template>
 `)
+  await write('app/pages/[...slug].vue', `<script setup lang="ts">
+definePageMeta({
+  validate: isContentPageRoute,
+})
+</script>
+
+<template>
+  <HContentPage collection="sitePage" />
+</template>
+`)
+  await write('app/pages/supplied.vue', `<script setup lang="ts">
+const { data: page } = await usePageContent({
+  collection: 'sitePage',
+  path: '/packed',
+})
+</script>
+
+<template>
+  <HContentPage
+    :page="page"
+    collection="sitePage"
+    path="/does-not-exist"
+  />
+</template>
+`)
   await write('content/snippets/packed.md', `---
 title: Packed snippet
 ---
 Rendered through the installed package.
+`)
+  await write('content/pages/packed.md', `---
+title: Packed content page
+description: Rendered through HContentPage.
+toc: false
+---
+Rendered through the shared content page.
 `)
 
   const installedPackageDir = join(fixtureDir, 'node_modules/@happydesigns/ui')
@@ -183,8 +230,12 @@ Rendered through the installed package.
   const html = await readFile(join(publicDir, 'index.html'), 'utf8')
   const renderedPage = html.includes('Packed consumer fixture')
   const renderedSnippet = html.includes('Rendered through the installed package.')
-  if (!renderedPage || !renderedSnippet)
-    throw new Error(`Packed consumer render mismatch (page: ${renderedPage}, snippet: ${renderedSnippet}).`)
+  const contentHtml = await readFile(join(publicDir, 'packed.html'), 'utf8')
+  const renderedContentPage = contentHtml.includes('Rendered through the shared content page.')
+  const suppliedHtml = await readFile(join(publicDir, 'supplied.html'), 'utf8')
+  const reusedContentPage = suppliedHtml.includes('Rendered through the shared content page.')
+  if (!renderedPage || !renderedSnippet || !renderedContentPage || !reusedContentPage)
+    throw new Error(`Packed consumer render mismatch (page: ${renderedPage}, snippet: ${renderedSnippet}, content page: ${renderedContentPage}, supplied page: ${reusedContentPage}).`)
 
   for (const endpoint of ['navigation', 'search']) {
     const contents = await readFile(join(publicDir, `api/${endpoint}.json`), 'utf8')
