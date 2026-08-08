@@ -36,9 +36,7 @@ Consumers use the same layout for every content-backed page. Listings, galleries
 
 ```vue [pages/guide.vue]
 <template>
-  <HArticlePage collection="page" path="/guide">
-    <ContentRenderer :value="page" />
-  </HArticlePage>
+  <HContentPage collection="page" path="/guide" />
 </template>
 ```
 

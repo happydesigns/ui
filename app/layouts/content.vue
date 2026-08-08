@@ -1,21 +1,27 @@
 <script setup lang="ts" generic="C extends PageCollectionName = 'page'">
+import type { PageCollectionItemBase } from '@nuxt/content'
 import type { PageCollectionName } from '../types/content'
 
 const {
   path,
   collection = 'page' as C,
+  page: suppliedPage,
 } = defineProps<{
   path?: string
   collection?: C
+  page?: PageCollectionItemBase | null
 }>()
 
 const appConfig = useAppConfig()
 const route = useRoute()
 
-const { data: page } = await usePageContent<C>({
-  path: () => path,
-  collection: () => collection,
-})
+const fetched = suppliedPage === undefined
+  ? await usePageContent<C>({
+      path: () => path,
+      collection: () => collection,
+    })
+  : undefined
+const page = computed(() => suppliedPage === undefined ? fetched?.data.value : suppliedPage)
 
 const variant = computed(() => {
   if (typeof route.meta.variant === 'string' && route.meta.variant) {
@@ -26,7 +32,7 @@ const variant = computed(() => {
     return route.meta.layout
   }
 
-  return collection
+  return collection as string
 })
 const { has } = useVariant(variant)
 const hasHeader = has('header')

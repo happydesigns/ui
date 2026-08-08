@@ -69,8 +69,9 @@ describe('content page layout', () => {
     expect(contentLayout).toContain('page.value.toc !== false')
   })
 
-  it('uses content as the catch-all layout fallback', () => {
-    expect(catchAllPage).toContain('setPageLayout(page.value?.layout ?? \'content\')')
+  it('renders catch-all routes through the shared content page', () => {
+    expect(catchAllPage).toContain('validate: isContentPageRoute')
+    expect(catchAllPage).toContain('<HContentPage />')
   })
 
   it('keeps a content header in the same page grid as its table of contents', () => {

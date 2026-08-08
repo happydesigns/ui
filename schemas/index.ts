@@ -1,4 +1,5 @@
 export * from './collections'
 export * from './indexes'
+export * from './primitives'
 export * from './traits'
 export * from './variants'
