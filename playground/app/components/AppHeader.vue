@@ -1,22 +1,16 @@
 <script setup lang="ts">
 const route = useRoute()
-const colorMode = useColorMode()
 const { headerLinks } = useHeaderLinks()
 
 const links = computed(() => headerLinks.value.map(link => ({
   ...link,
   ...(link.to === '/content' && route.path.startsWith('/layouts/') ? { active: true } : {}),
 })))
-
-const colorModeLabel = computed(() => colorMode.value === 'dark' ? 'Switch to light mode' : 'Switch to dark mode')
-
-function toggleColorMode() {
-  colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
-}
 </script>
 
 <template>
-  <UHeader
+  <HSiteHeader
+    :items="links"
     to="/"
     title="happydesigns/ui"
     :menu="{
@@ -24,6 +18,7 @@ function toggleColorMode() {
       description: 'Explore the playground and its production patterns.',
     }"
     :ui="{ container: 'max-w-7xl', center: 'playground-header-center' }"
+    :mobile-navigation="{ class: '-mx-2.5' }"
   >
     <template #title>
       <span class="group flex items-center gap-2.5" aria-label="happydesigns/ui home">
@@ -36,20 +31,12 @@ function toggleColorMode() {
       </span>
     </template>
 
-    <UNavigationMenu :items="links" />
-
     <template #right>
       <UContentSearchButton />
-      <UButton
+      <UColorModeButton
         color="neutral"
         variant="ghost"
-        square
-        :aria-label="colorModeLabel"
-        @click="toggleColorMode"
-      >
-        <UIcon v-if="colorMode.value === 'dark'" name="i-lucide-sun" class="size-5" aria-hidden="true" />
-        <UIcon v-else name="i-lucide-moon" class="size-5" aria-hidden="true" />
-      </UButton>
+      />
       <UButton
         to="https://github.com/happydesigns/ui"
         target="_blank"
@@ -69,9 +56,7 @@ function toggleColorMode() {
       />
     </template>
 
-    <template #body>
-      <UNavigationMenu :items="links" orientation="vertical" class="-mx-2.5" />
-
+    <template #body-after>
       <div class="mt-6 grid grid-cols-2 gap-3 border-t border-default pt-6">
         <UButton
           to="https://ui.happydesigns.de"
@@ -91,7 +76,7 @@ function toggleColorMode() {
         />
       </div>
     </template>
-  </UHeader>
+  </HSiteHeader>
 
   <LazyHContentSearch />
 </template>
