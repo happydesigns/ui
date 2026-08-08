@@ -16,15 +16,17 @@ Content collections often share most of their behavior while differing in a few 
 Dates, authors, categories, publication state, table of contents, and location are independent traits. A collection variant composes the traits it needs and receives their inferred schema.
 
 ```ts [content.config.ts]
+import { collectionSchemas } from '@happydesigns/ui/schemas'
+
 article: defineCollection({
   type: 'page',
-  schema: mergeVariantSchemas(['article'], variantSchemas),
+  schema: collectionSchemas.article,
 })
 ```
 
 ## Keep runtime behavior aligned
 
-The same variant graph resolves list configuration, category badges, queries, detail-page actions, and surrounding navigation. Schema and presentation no longer evolve in separate copies.
+The layer derives its collection schemas and runtime configuration from the same explicit variant registry. Consumers use the resulting public schemas, so presentation and validation no longer evolve in separate copies.
 
 ## Extend instead of replacing
 

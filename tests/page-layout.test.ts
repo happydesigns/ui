@@ -1,5 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
+import { collectionSchemas as publicCollectionSchemas } from '../schemas/collections'
+import { variantRegistry as publicVariantRegistry } from '../schemas/variants'
 
 const contentLayout = readFileSync(new URL('../app/layouts/content.vue', import.meta.url), 'utf8')
 const articleLayout = readFileSync(new URL('../app/layouts/article.vue', import.meta.url), 'utf8')
@@ -28,10 +30,18 @@ describe('content page layout', () => {
     expect(articleLayout).not.toContain('body?.toc?.links?.length')
   })
 
-  it('uses content as the single schema contract for content-backed pages', () => {
-    expect(nuxtConfig).toContain('content: {\n        extends: [\'layout\', \'header\', \'toc\']')
+  it('uses content as the single schema contract for content-backed pages', async () => {
+    const validContent = await publicCollectionSchemas.content['~standard'].validate({ layout: 'content', toc: false })
+    const invalidContent = await publicCollectionSchemas.content['~standard'].validate({ layout: 'unknown' })
+    const article = await publicCollectionSchemas.article['~standard'].validate({})
+
+    expect(publicVariantRegistry.content.extends).toEqual(['layout', 'header', 'toc'])
+    expect(validContent.issues).toBeUndefined()
+    expect(invalidContent.issues).toBeDefined()
+    expect(article).toMatchObject({ value: { published: true } })
     expect(nuxtConfig).not.toContain('page: {')
-    expect(collectionSchemas).toContain('mergeVariantSchemas([\'content\'], variantSchemas)')
+    expect(collectionSchemas).toContain('createVariantSchemaResolver(variantRegistry, variantSchemas)')
+    expect(collectionSchemas).toContain('resolveVariantSchema([\'content\'])')
     expect(collectionSchemas).not.toContain('mergeVariantSchemas([\'page\'], variantSchemas)')
     expect(traitSchemas).toContain('layout: z.enum([\'default\', \'content\'])')
     expect(traitSchemas).not.toContain('\'page\', \'content\'')

@@ -1,5 +1,8 @@
-import { mergeVariantSchemas } from '@happydesigns/nuxt-variants/schemas'
+import { createVariantSchemaResolver } from '@happydesigns/nuxt-variants/schemas'
 import { variantSchemas } from './traits'
+import { variantRegistry } from './variants'
+
+const resolveVariantSchema = createVariantSchemaResolver(variantRegistry, variantSchemas)
 
 /**
  * Source-agnostic schemas for consumer-owned Nuxt Content collections.
@@ -8,8 +11,8 @@ import { variantSchemas } from './traits'
  * intentionally remain in the consuming application's `content.config.ts`.
  */
 export const collectionSchemas = {
-  content: mergeVariantSchemas(['content'], variantSchemas),
-  article: mergeVariantSchemas(['article'], variantSchemas),
-  event: mergeVariantSchemas(['event'], variantSchemas),
-  user: mergeVariantSchemas(['user'], variantSchemas),
+  content: resolveVariantSchema(['content']),
+  article: resolveVariantSchema(['article']),
+  event: resolveVariantSchema(['event']),
+  user: resolveVariantSchema(['user']),
 }
