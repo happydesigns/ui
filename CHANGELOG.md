@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.19.1
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.19.0...v0.19.1)
+
+### 💅 Refactors
+
+- **schemas:** Adopt bound variant resolver ([b4d24fc](https://github.com/happydesigns/ui/commit/b4d24fc))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.19.0
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.18.0...v0.19.0)
