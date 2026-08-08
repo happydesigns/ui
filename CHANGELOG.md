@@ -1,6 +1,27 @@
 # Changelog
 
 
+## v0.19.2
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.19.1...v0.19.2)
+
+### 🚀 Enhancements
+
+- **content:** Add shared content page renderer ([4710d42](https://github.com/happydesigns/ui/commit/4710d42))
+- **shell:** Add reusable site header ([0527c71](https://github.com/happydesigns/ui/commit/0527c71))
+
+### 📖 Documentation
+
+- **shell:** Add header navigation group ([1554dbf](https://github.com/happydesigns/ui/commit/1554dbf))
+
+### ✅ Tests
+
+- **package:** Verify shared page and shell APIs ([07355db](https://github.com/happydesigns/ui/commit/07355db))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.19.1
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.19.0...v0.19.1)
