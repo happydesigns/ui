@@ -62,10 +62,11 @@
     "release:beta": "changelogen --release --versionSuffix beta.0"
   },
   "peerDependencies": {
-    "tailwindcss": "^4.3.2"
+    "tailwindcss": "^4.3.2",
+    "vue": "^3.5.41"
   },
   "dependencies": {
-    "@happydesigns/nuxt-variants": "^0.1.1",
+    "@happydesigns/nuxt-variants": "^0.2.0",
     "@iconify-json/heroicons": "^1.2.3",
     "@iconify-json/lucide": "^1.2.116",
     "@iconify-json/simple-icons": "^1.2.89",
