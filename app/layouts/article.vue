@@ -9,6 +9,7 @@ const props = defineProps<{
 
 const route = useRoute()
 const collection = computed(() => props.collection ?? 'article')
+const surroundCollection = computed<PageCollectionName>(() => collection.value)
 
 const { data: page } = await usePageContent({
   path: () => props.path,
@@ -39,23 +40,10 @@ const header = computed(() => resolvePageHeader(page.value))
 
 const breadcrumbsBase = computed(() => (config.value.breadcrumbs ?? []) as BreadcrumbItem[])
 
-const breadcrumbItems = computed(() => {
-  const baseItems = breadcrumbsBase.value.map((item, index) => ({
-    ...item,
-    ...(index === breadcrumbsBase.value.length - 1
-      ? { ui: { ...item.ui, separator: 'hidden sm:flex' } }
-      : {}),
-  }))
-
-  return [
-    ...baseItems,
-    {
-      label: page.value?.title,
-      to: page.value?.path,
-      ui: { item: 'hidden sm:flex' },
-    },
-  ]
-})
+const currentBreadcrumb = computed<BreadcrumbItem>(() => ({
+  label: page.value?.title,
+  to: page.value?.path,
+}))
 
 const backLink = computed(() => {
   const lastBreadcrumb = breadcrumbsBase.value.at(-1)
@@ -78,9 +66,9 @@ const backLink = computed(() => {
       }"
     >
       <template #headline>
-        <UBreadcrumb
-          :ui="{ root: 'max-w-full' }"
-          :items="breadcrumbItems"
+        <HBreadcrumbs
+          :items="breadcrumbsBase"
+          :current="currentBreadcrumb"
         />
         <HArticleHeadlineMeta :page="page" :collection="collection" />
       </template>
@@ -115,7 +103,7 @@ const backLink = computed(() => {
 
         <HSurround
           v-if="hasSurround"
-          :collection="collection"
+          :collection="surroundCollection"
           v-bind="config.surround"
           :query="config.query"
         />
