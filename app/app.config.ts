@@ -1,6 +1,5 @@
-import type { AppConfigInput as NuxtUiConfigInput } from '@nuxt/schema'
+import type { AppConfigInput } from '@nuxt/schema'
 import type { BadgeProps, ButtonProps } from '@nuxt/ui'
-import type { AppConfigInput as LayerAppConfigInput } from 'nuxt/schema'
 import type { QueryConfig, SearchConfig } from './types/config'
 
 export * from './types/config'
@@ -9,11 +8,10 @@ const ui = {
   main: {
     base: 'wrap-break-word',
   },
-} satisfies NonNullable<NuxtUiConfigInput['ui']>
+} satisfies NonNullable<AppConfigInput['ui']>
 
 export default defineAppConfig({
   variants: {
-    // UI feature variants — config overrides (extends defined in nuxt.config.ts)
     user: { config: { user: { target: '_blank' } } },
     backButton: { config: { backButton: { icon: 'i-ph-arrow-left', label: 'Back' } as Pick<ButtonProps, 'icon' | 'label' | 'to'> } },
     copyButton: {
@@ -40,8 +38,6 @@ export default defineAppConfig({
         },
       },
     },
-
-    // Collection variants — runtime config overrides only
     article: {
       config: {
         query: {
@@ -140,6 +136,5 @@ export default defineAppConfig({
     },
   },
 
-  // The object is validated above; this bridges Nuxt's generated runtime-complete layer type.
-  ui: ui as unknown as LayerAppConfigInput['ui'],
+  ui,
 })

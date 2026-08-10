@@ -1,10 +1,12 @@
+import { defineVariantRegistry } from '@happydesigns/nuxt-variants/schemas'
+
 /**
  * Public variant registry shared by the Nuxt module and schema composition.
  *
  * Keeping the registry in one place guarantees that runtime inheritance and
  * Nuxt Content schemas are derived from the same explicit variant graph.
  */
-export const variantRegistry = {
+export const variantRegistry = defineVariantRegistry({
   // Data features — schema only, no config
   dates: {},
   authors: {},
@@ -17,7 +19,7 @@ export const variantRegistry = {
   layout: {},
   separatorButtons: {},
 
-  // UI features — config defined in app.config.ts
+  // UI features — values are supplied through app.config.ts.
   user: {},
   backButton: {},
   copyButton: {},
@@ -38,4 +40,4 @@ export const variantRegistry = {
     extends: ['layout', 'header', 'toc'],
     config: {},
   },
-}
+})

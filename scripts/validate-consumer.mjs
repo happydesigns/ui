@@ -149,6 +149,28 @@ export default defineAppConfig({
       collections: [],
     } satisfies SearchConfig,
   },
+  fixture: {
+    label: 'Typed consumer config',
+  },
+  variants: {
+    content: {
+      config: {
+        ownerSettings: {
+          label: 'Typed app-config-only variant value',
+        },
+      },
+    },
+  },
+  ui: {
+    colors: {
+      primary: 'green',
+    },
+    pageHero: {
+      slots: {
+        title: 'text-balance',
+      },
+    },
+  },
 })
 `)
   await write('app/assets/css/main.css', `@import "tailwindcss";
@@ -157,9 +179,16 @@ export default defineAppConfig({
 `)
   await write('app/pages/index.vue', `<script setup lang="ts">
 import type { ContentLink, PageCollectionName } from '@happydesigns/ui/types'
+import type { VariantConfigOf } from '#nuxt-variants'
 
 const fragmentCollection: PageCollectionName = 'fragment'
 const links: ContentLink[] = [{ label: 'Typed content link', to: '/' }]
+type FixtureConfig = ReturnType<typeof useAppConfig>['fixture']
+const fixtureLabel: FixtureConfig['label'] = 'Typed consumer config'
+type ContentVariantConfig = VariantConfigOf<'content'>
+const ownerSettingsLabel: ContentVariantConfig['ownerSettings']['label'] = 'Typed app-config-only variant value'
+void fixtureLabel
+void ownerSettingsLabel
 </script>
 
 <template>
