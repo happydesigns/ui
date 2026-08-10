@@ -1,8 +1,20 @@
 import { defineCollection, defineContentConfig } from '@nuxt/content'
+import { z } from 'zod'
 import { articleCollectionIndexes, collectionSchemas, userCollectionIndexes } from '../schemas'
 
 export default defineContentConfig({
   collections: {
+    settings: defineCollection({
+      type: 'data',
+      source: 'settings/*.yaml',
+      schema: z.object({
+        copyButton: z.object({
+          label: z.string().min(1),
+          successLabel: z.string().min(1),
+        }),
+      }),
+    }),
+
     snippet: defineCollection({
       type: 'page',
       source: {

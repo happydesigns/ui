@@ -1,0 +1,3 @@
+copyButton:
+  label: Copy page URL
+  successLabel: Link copied to clipboard

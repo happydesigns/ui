@@ -21,6 +21,10 @@ async function readJson(relativePath) {
   }
 }
 
+async function readText(relativePath) {
+  return readFile(resolve(publicDir, relativePath), 'utf8')
+}
+
 function flattenNavigation(entries) {
   return entries.flatMap(entry => [entry, ...flattenNavigation(entry.children ?? [])])
 }
@@ -52,5 +56,10 @@ if (navigationPaths.has(unpublishedPath))
 
 if ([...searchIds].some(id => id === unpublishedPath || id.startsWith(`${unpublishedPath}#`)))
   throw new Error(`Unpublished content leaked into search.json: ${unpublishedPath}`)
+
+const articleHtml = await readText('articles/production-ready-foundation/index.html')
+
+if (!articleHtml.includes('Copy page URL'))
+  throw new Error('The owner-editable Content settings were not applied during SSR.')
 
 console.log(`Validated ${navigationPaths.size} navigation entries and ${search.length} search sections.`)

@@ -36,14 +36,6 @@ const ui = {
 
 export default defineAppConfig({
   variants: {
-    copyButton: {
-      config: {
-        copyButton: {
-          label: 'Copy URL',
-          successLabel: 'Link copied to clipboard',
-        },
-      },
-    },
     separator: {
       config: {
         separator: {
