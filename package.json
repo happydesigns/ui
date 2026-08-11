@@ -37,6 +37,9 @@
     "server",
     "shared"
   ],
+  "engines": {
+    "node": "^22.19.0 || ^24.11.0 || >=26.0.0"
+  },
   "publishConfig": {
     "access": "public"
   },
