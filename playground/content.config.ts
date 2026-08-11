@@ -6,7 +6,7 @@ export default defineContentConfig({
   collections: {
     settings: defineCollection({
       type: 'data',
-      source: 'settings/*.yaml',
+      source: 'settings/site.yaml',
       schema: z.object({
         copyButton: z.object({
           label: z.string().min(1),
