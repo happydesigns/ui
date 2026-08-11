@@ -1,6 +1,31 @@
 # Changelog
 
 
+## v0.19.3
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.19.2...v0.19.3)
+
+### 🚀 Enhancements
+
+- **navigation:** Add shared responsive breadcrumbs ([1bf829c](https://github.com/happydesigns/ui/commit/1bf829c))
+- **config:** Support content-managed owner settings ([76630f9](https://github.com/happydesigns/ui/commit/76630f9))
+
+### 🩹 Fixes
+
+- **playground:** Define settings as a singleton ([10c3c36](https://github.com/happydesigns/ui/commit/10c3c36))
+
+### 💅 Refactors
+
+- **config:** Use generated variant app config types ([d12907c](https://github.com/happydesigns/ui/commit/d12907c))
+
+### 🏡 Chore
+
+- Declare supported Node versions ([a1a63e7](https://github.com/happydesigns/ui/commit/a1a63e7))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.19.2
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.19.1...v0.19.2)
