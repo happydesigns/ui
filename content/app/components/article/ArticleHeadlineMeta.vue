@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { PageCollectionName } from '../../types/content'
+import type { PageCollectionName } from '../../../../app/types/content'
 
 interface HeadlineMetaPage {
   path?: string

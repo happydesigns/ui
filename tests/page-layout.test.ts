@@ -3,8 +3,8 @@ import { describe, expect, it } from 'vitest'
 import { collectionSchemas as publicCollectionSchemas } from '../schemas/collections'
 import { variantRegistry as publicVariantRegistry } from '../schemas/variants'
 
-const contentLayout = readFileSync(new URL('../app/layouts/content.vue', import.meta.url), 'utf8')
-const articleLayout = readFileSync(new URL('../app/layouts/article.vue', import.meta.url), 'utf8')
+const contentLayout = readFileSync(new URL('../content/app/layouts/content.vue', import.meta.url), 'utf8')
+const articleLayout = readFileSync(new URL('../content/app/layouts/article.vue', import.meta.url), 'utf8')
 const catchAllPage = readFileSync(new URL('../playground/app/pages/[...slug].vue', import.meta.url), 'utf8')
 const nuxtConfig = readFileSync(new URL('../nuxt.config.ts', import.meta.url), 'utf8')
 const collectionSchemas = readFileSync(new URL('../schemas/collections.ts', import.meta.url), 'utf8')

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PageCollections } from '@nuxt/content'
 import type { Component } from 'vue'
-import type { PageCollectionName } from '../types/content'
+import type { PageCollectionName } from '../../../app/types/content'
 
 const props = withDefaults(defineProps<{
   path: string

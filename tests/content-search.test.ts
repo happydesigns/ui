@@ -1,7 +1,7 @@
 import type { SearchCollectionConfig } from '../app/types/config'
 import { describe, expect, it, vi } from 'vitest'
 import { createContentSearchLoader } from '../app/utils/createContentSearchLoader'
-import { applySearchCollectionConfig, createSearchCacheControl, getSearchCollections } from '../server/utils/contentSearch'
+import { applySearchCollectionConfig, createSearchCacheControl, getSearchCollections } from '../content/server/utils/contentSearch'
 
 describe('applySearchCollectionConfig', () => {
   it('applies filters and ordering in declaration order', () => {

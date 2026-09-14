@@ -27,11 +27,13 @@
     ".": "./nuxt.config.ts",
     "./schemas": "./schemas/index.ts",
     "./styles.css": "./app/assets/css/styles.css",
-    "./types": "./app/types/config.ts"
+    "./types": "./app/types/config.ts",
+    "./content": "./content/nuxt.config.ts"
   },
   "main": "./nuxt.config.ts",
   "files": [
     "app",
+    "content",
     "nuxt.config.ts",
     "schemas",
     "server",

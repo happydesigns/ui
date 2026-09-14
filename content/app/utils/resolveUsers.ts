@@ -1,6 +1,6 @@
 import type { CollectionItemBase, CollectionQueryBuilder, Collections } from '@nuxt/content'
 import type { UserProps } from '@nuxt/ui'
-import type { CollectionName } from '../types/content'
+import type { CollectionName } from '../../../app/types/content'
 
 interface UserRecord extends CollectionItemBase {
   username: string

@@ -1,7 +1,7 @@
 import type { CollectionQueryBuilder, Collections, PageCollectionItemBase, PageCollections, SQLOperator } from '@nuxt/content'
 import type { BadgeProps } from '@nuxt/ui'
 import type { MaybeRefOrGetter } from 'vue'
-import type { PageCollectionName } from '../types/content'
+import type { PageCollectionName } from '../../../app/types/content'
 import { computed, toValue } from 'vue'
 
 export interface ArticleFilter {

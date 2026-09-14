@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ContentLink, PageCollectionName } from '../../types/content'
+import type { ContentLink, PageCollectionName } from '../../../../app/types/content'
 
 interface HeaderBodyPage {
   path?: string

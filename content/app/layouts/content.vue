@@ -1,6 +1,6 @@
 <script setup lang="ts" generic="C extends PageCollectionName = 'page'">
 import type { PageCollectionItemBase } from '@nuxt/content'
-import type { PageCollectionName } from '../types/content'
+import type { PageCollectionName } from '../../../app/types/content'
 
 const {
   path,

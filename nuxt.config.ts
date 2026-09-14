@@ -16,13 +16,10 @@ export default defineNuxtConfig({
   modules: [
     '@happydesigns/nuxt-variants',
     '@nuxt/ui',
-    '@nuxt/content',
-    'nuxt-studio',
   ],
 
   variants: {
     registry: variantRegistry,
   },
 
-  studio: false,
 })
