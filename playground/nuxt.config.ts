@@ -4,7 +4,19 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
   nitro: {
     prerender: {
-      routes: ['/api/navigation.json', '/api/search.json'],
+      crawlLinks: true,
+      failOnError: true,
+      routes: [
+        '/',
+        '/articles',
+        '/events',
+        '/content',
+        '/layouts/default',
+        '/layouts/content',
+        '/layouts/content-without-toc',
+        '/api/navigation.json',
+        '/api/search.json',
+      ],
     },
   },
   studio: {
