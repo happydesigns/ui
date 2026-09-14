@@ -1,6 +1,26 @@
 # Changelog
 
 
+## v0.20.0
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.19.3...v0.20.0)
+
+### 💅 Refactors
+
+- ⚠️  Make Nuxt Content an optional UI layer ([a7142bf](https://github.com/happydesigns/ui/commit/a7142bf))
+
+### 🎨 Styles
+
+- Fix import and package file ordering ([0f439f3](https://github.com/happydesigns/ui/commit/0f439f3))
+
+#### ⚠️ Breaking Changes
+
+- ⚠️  Make Nuxt Content an optional UI layer ([a7142bf](https://github.com/happydesigns/ui/commit/a7142bf))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.19.3
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.19.2...v0.19.3)
