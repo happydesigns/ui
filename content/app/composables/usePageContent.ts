@@ -1,7 +1,7 @@
 import type { PageCollectionItemBase, PageCollections } from '@nuxt/content'
 import type { AsyncData } from 'nuxt/app'
 import type { MaybeRefOrGetter } from 'vue'
-import type { PageCollectionName } from '../types/content'
+import type { PageCollectionName } from '../../../app/types/content'
 import { computed, toValue } from 'vue'
 
 type PageForCollection<C extends PageCollectionName> = PageCollectionItemBase

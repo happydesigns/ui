@@ -12,7 +12,7 @@ describe('reactive content integration', () => {
   })
 
   it('uses a reactive async-data key without a redundant watch', () => {
-    const source = readFileSync('app/composables/usePageContent.ts', 'utf8')
+    const source = readFileSync('content/app/composables/usePageContent.ts', 'utf8')
 
     expect(source).toContain('const key = computed(')
     expect(source).not.toContain('watch:')
@@ -20,7 +20,7 @@ describe('reactive content integration', () => {
 
   it('keeps content links aligned with Nuxt UI instead of exposing unknown', () => {
     const links = readFileSync('app/components/traits/Links.vue', 'utf8')
-    const headerBody = readFileSync('app/components/article/ArticleHeaderBody.vue', 'utf8')
+    const headerBody = readFileSync('content/app/components/article/ArticleHeaderBody.vue', 'utf8')
     const contentTypes = readFileSync('app/types/content.ts', 'utf8')
 
     expect(contentTypes).toContain('export type ContentLink = ButtonProps')
@@ -31,7 +31,7 @@ describe('reactive content integration', () => {
   })
 
   it('derives snippet fetching from the current path prop', () => {
-    const source = readFileSync('app/components/Snippet.vue', 'utf8')
+    const source = readFileSync('content/app/components/Snippet.vue', 'utf8')
 
     expect(source).toContain('const path = computed(() => props.path)')
     expect(source).toMatch(/props\.collection.*path\.value/)

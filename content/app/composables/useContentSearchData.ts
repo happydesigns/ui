@@ -1,6 +1,6 @@
 import type { ContentNavigationItem } from '@nuxt/content'
 import type { ContentSearchFile } from '@nuxt/ui'
-import { createContentSearchLoader } from '../utils/createContentSearchLoader'
+import { createContentSearchLoader } from '../../../app/utils/createContentSearchLoader'
 
 export interface ContentSearchDataLoaders {
   navigation?: () => Promise<ContentNavigationItem[]>

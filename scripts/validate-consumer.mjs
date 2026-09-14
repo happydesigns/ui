@@ -102,7 +102,7 @@ try {
   await write('package.json', `${JSON.stringify(packageJson, null, 2)}\n`)
   await write('nuxt.config.ts', `export default defineNuxtConfig({
   compatibilityDate: '2026-07-10',
-  extends: ['@happydesigns/ui'],
+  extends: ['@happydesigns/ui/content'],
   css: ['~/assets/css/main.css'],
   nitro: {
     prerender: {
@@ -246,6 +246,29 @@ Rendered through the shared content page.
   const installedPackageDir = join(fixtureDir, 'node_modules/@happydesigns/ui')
   await mkdir(installedPackageDir, { recursive: true })
   unpackTarball(tarballPath, installedPackageDir)
+
+  await write('base/nuxt.config.ts', `export default defineNuxtConfig({
+  compatibilityDate: '2026-07-10',
+  extends: ['@happydesigns/ui'],
+  css: ['~/assets/css/main.css'],
+})
+`)
+  await write('base/app/app.vue', `<template>
+  <UApp><HSiteHeader :items="[]" /><h1>Base layer consumer</h1></UApp>
+</template>
+`)
+  await write('base/app/assets/css/main.css', `@import "tailwindcss";
+@import "@nuxt/ui";
+@import "@happydesigns/ui/styles.css";
+`)
+  const baseDir = join(fixtureDir, 'base')
+  runPnpm(['exec', 'nuxt', 'generate', baseDir], rootDir)
+  const baseFiles = await readdir(join(baseDir, '.nuxt'))
+  if (baseFiles.includes('content') || baseFiles.includes('mdc-highlighter.mjs'))
+    throw new Error('The base layer must not initialize Nuxt Content or its highlighter.')
+  const baseHtml = await readFile(join(baseDir, '.output/public/index.html'), 'utf8')
+  if (!baseHtml.includes('Base layer consumer'))
+    throw new Error('The base layer did not render independently of Nuxt Content.')
 
   const prepareOutput = runPnpm(['exec', 'nuxt', 'prepare', fixtureDir], rootDir)
   const typecheckOutput = runPnpm(['exec', 'nuxt', 'typecheck', fixtureDir], rootDir)

@@ -1,6 +1,6 @@
 <script setup lang="ts" generic="C extends PageCollectionName = 'article'">
 import type { BreadcrumbItem } from '@nuxt/ui'
-import type { PageCollectionName } from '../types/content'
+import type { PageCollectionName } from '../../../app/types/content'
 
 const props = defineProps<{
   path?: string

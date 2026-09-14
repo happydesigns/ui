@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import resolveUsers, { resolveUserMap, toUserProps } from '../app/utils/resolveUsers'
+import resolveUsers, { resolveUserMap, toUserProps } from '../content/app/utils/resolveUsers'
 
 afterEach(() => {
   vi.unstubAllGlobals()

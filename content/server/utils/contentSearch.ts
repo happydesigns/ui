@@ -1,7 +1,7 @@
 import type { PageCollections, SQLOperator } from '@nuxt/content'
 import type { H3Event } from 'h3'
-import type { SearchCollectionConfig, SearchConfig } from '../../app/types/config'
-import type { PageCollectionName } from '../../app/types/content'
+import type { SearchCollectionConfig, SearchConfig } from '../../../app/types/config'
+import type { PageCollectionName } from '../../../app/types/content'
 
 interface ConfigurableSearchQuery {
   where: (field: string, operator: SQLOperator, value?: unknown) => unknown

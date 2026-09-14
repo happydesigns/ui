@@ -27,7 +27,8 @@
     ".": "./nuxt.config.ts",
     "./schemas": "./schemas/index.ts",
     "./styles.css": "./app/assets/css/styles.css",
-    "./types": "./app/types/config.ts"
+    "./types": "./app/types/config.ts",
+    "./content": "./content/nuxt.config.ts"
   },
   "main": "./nuxt.config.ts",
   "files": [
@@ -35,7 +36,8 @@
     "nuxt.config.ts",
     "schemas",
     "server",
-    "shared"
+    "shared",
+    "content"
   ],
   "engines": {
     "node": "^22.19.0 || ^24.11.0 || >=26.0.0"

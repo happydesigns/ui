@@ -41,6 +41,23 @@ pnpm exec nuxt prepare
 
 ## Content collections
 
+Applications using Nuxt Content extend `@happydesigns/ui/content` instead of
+`@happydesigns/ui`. This optional layer includes article/content layouts,
+`HContentPage`, `HSnippet`, content search, author lookup, navigation endpoints,
+and Nuxt Studio (disabled unless configured by the application).
+
+```ts
+export default defineNuxtConfig({
+  extends: ['@happydesigns/ui/content'],
+})
+```
+
+**Migration from 0.19.x:** change the layer entry point above if your application
+uses these features. The base entry point now registers only Nuxt UI and variants;
+Comark applications can keep it without initializing Nuxt Content or Studio.
+The dependencies remain installed for the optional layer, but are not activated
+by the base layer.
+
 The layer exports reusable schema profiles, but it does not register collection names, sources, or route prefixes for an application. Define those locally in the consumer's `content.config.ts`:
 
 ```ts
