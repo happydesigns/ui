@@ -33,11 +33,11 @@
   "main": "./nuxt.config.ts",
   "files": [
     "app",
+    "content",
     "nuxt.config.ts",
     "schemas",
     "server",
-    "shared",
-    "content"
+    "shared"
   ],
   "engines": {
     "node": "^22.19.0 || ^24.11.0 || >=26.0.0"

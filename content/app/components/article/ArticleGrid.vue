@@ -1,6 +1,6 @@
 <script setup lang="ts" generic="C extends PageCollectionName = 'article'">
-import type { ArticleFilter } from '../../composables/useArticleList'
 import type { PageCollectionName } from '../../../../app/types/content'
+import type { ArticleFilter } from '../../composables/useArticleList'
 
 const props = withDefaults(defineProps<{
   /** Optional fixed category to filter by */
