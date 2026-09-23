@@ -39,6 +39,10 @@ Run Nuxt preparation after changing dependencies or layer configuration:
 pnpm exec nuxt prepare
 ```
 
+## Maintenance page
+
+For a branded temporary notice, use `HMaintenancePage` with title, description, actions and optional logo/tools/footer slots. Activation, routing and HTTP status stay application-owned. See [Maintenance page](docs/content/6.configuration/9.maintenance.md).
+
 ## Content collections
 
 Applications using Nuxt Content extend `@happydesigns/ui/content` instead of
