@@ -127,6 +127,8 @@ pnpm docs:build
 
 `pnpm docs:build` generates a static Docus build in `docs/.output/public`. Use `pnpm docs:build:server` only when the deployment target needs a server-capable Docus build for live MCP support.
 
+`pnpm docs:typecheck:server` checks the documentation application's own server sources using Nuxt's generated server configuration. `pnpm docs:build` also validates the generated reference API responses, including dynamic component and example routes.
+
 The docs explain how to use the layer, content model, components, composables, variants, and configuration. Component props, slots, examples, variants, and collection tables are generated from the package source where possible.
 
 ## Package Scope

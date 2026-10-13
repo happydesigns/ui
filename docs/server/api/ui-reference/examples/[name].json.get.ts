@@ -1,3 +1,6 @@
+import { createError, defineEventHandler, getRouterParam } from 'nuxt/server'
+import { getExampleSource } from '../../../utils/uiReference'
+
 export default defineEventHandler((event) => {
   const name = getRouterParam(event, 'name')
     ?? event.context.params?.name
@@ -17,8 +20,8 @@ export default defineEventHandler((event) => {
     }
 
     throw createError({
-      statusCode: 404,
-      statusMessage: 'Example not found',
+      status: 404,
+      statusText: 'Example not found',
     })
   }
 

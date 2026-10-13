@@ -2,6 +2,7 @@ import type { PageCollections, SQLOperator } from '@nuxt/content'
 import type { H3Event } from 'h3'
 import type { SearchCollectionConfig, SearchConfig } from '../../../app/types/config'
 import type { PageCollectionName } from '../../../app/types/content'
+import { setResponseHeader } from 'h3'
 
 interface ConfigurableSearchQuery {
   where: (field: string, operator: SQLOperator, value?: unknown) => unknown

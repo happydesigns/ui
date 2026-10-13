@@ -86,4 +86,30 @@ catch (error) {
     throw error
 }
 
-console.log(`Validated ${routes.length} generated documentation routes.`)
+async function readReference(route) {
+  const contents = await readFile(resolve(publicDir, `api/ui-reference/${route}.json`), 'utf8')
+  if (contents.charCodeAt(0) === 0xFEFF)
+    throw new Error(`Generated reference ${route} contains a UTF-8 BOM.`)
+
+  return JSON.parse(contents)
+}
+
+const component = await readReference('components/HFooterColumns')
+if (component.name !== 'HFooterColumns' || !component.meta?.props.some(prop => prop.name === 'lgCols')
+  || component.source?.path !== 'app/components/footer/FooterColumns.vue') {
+  throw new Error('The component reference endpoint did not resolve its dynamic route parameter.')
+}
+
+const example = await readReference('examples/FooterColumnsBasic')
+if (example.name !== 'FooterColumnsBasic' || !example.code.includes('<HFooterColumns')
+  || example.source?.path !== 'docs/app/components/content/examples/FooterColumnsBasic.vue') {
+  throw new Error('The example reference endpoint did not resolve its dynamic route parameter.')
+}
+
+for (const key of ['collections', 'variants']) {
+  const reference = await readReference(key)
+  if (!Array.isArray(reference[key]))
+    throw new Error(`The ${key} reference endpoint did not return its expected collection.`)
+}
+
+console.log(`Validated ${routes.length} generated documentation routes and 4 reference endpoints.`)

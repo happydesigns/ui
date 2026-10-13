@@ -1,7 +1,12 @@
 import type { SearchCollectionConfig } from '../app/types/config'
-import { describe, expect, it, vi } from 'vitest'
+import { createApp, defineEventHandler, toWebHandler } from 'h3'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { createContentSearchLoader } from '../app/utils/createContentSearchLoader'
-import { applySearchCollectionConfig, createSearchCacheControl, getSearchCollections } from '../content/server/utils/contentSearch'
+import { applySearchCollectionConfig, createSearchCacheControl, getSearchCollections, setSearchCacheHeaders } from '../content/server/utils/contentSearch'
+
+afterEach(() => {
+  vi.unstubAllGlobals()
+})
 
 describe('applySearchCollectionConfig', () => {
   it('applies filters and ordering in declaration order', () => {
@@ -76,6 +81,21 @@ describe('createContentSearchLoader', () => {
 })
 
 describe('search endpoint configuration', () => {
+  it.each([
+    [{ sharedMaxAge: 120, staleWhileRevalidate: 600 }, 'public, max-age=0, s-maxage=120, stale-while-revalidate=600'],
+    [false, 'no-store'],
+  ])('sets the configured response header through an h3 request (%j)', async (cache, expected) => {
+    vi.stubGlobal('useAppConfig', () => ({ app: { search: { cache } } }))
+    const app = createApp().use('/search', defineEventHandler((event) => {
+      setSearchCacheHeaders(event)
+      return getSearchCollections()
+    }))
+    const response = await toWebHandler(app)(new Request('http://localhost/search'))
+
+    expect(response.headers.get('cache-control')).toBe(expected)
+    expect(await response.json()).toEqual([])
+  })
+
   it('defaults to an empty collection list', () => {
     vi.stubGlobal('useAppConfig', () => ({ app: { search: {} } }))
 

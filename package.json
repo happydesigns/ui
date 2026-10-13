@@ -50,6 +50,7 @@
     "docs": "nuxt dev docs",
     "docs:build": "nuxt generate docs && node scripts/validate-docs-output.mjs",
     "docs:build:server": "nuxt build docs",
+    "docs:typecheck:server": "nuxt prepare docs && tsc --noEmit --project docs/tsconfig.server.json",
     "prepare": "nuxt prepare && nuxt prepare playground",
     "build": "nuxt build playground && node scripts/validate-playground-output.mjs",
     "generate": "nuxt generate playground && node scripts/validate-playground-output.mjs",

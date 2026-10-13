@@ -1,3 +1,6 @@
+import { defineEventHandler, getRouterParam } from 'nuxt/server'
+import { getComponentReference, getComponentSource, normalizeComponentName } from '../../../utils/uiReference'
+
 export default defineEventHandler((event) => {
   const rawName = getRouterParam(event, 'name')
     ?? event.context.params?.name

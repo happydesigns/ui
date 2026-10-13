@@ -1,4 +1,5 @@
 import { queryCollectionSearchSections } from '@nuxt/content/server'
+import { defineEventHandler } from 'h3'
 
 export default defineEventHandler(async (event) => {
   setSearchCacheHeaders(event)
