@@ -43,6 +43,13 @@ pnpm exec nuxt prepare
 
 For a branded temporary notice, use `HMaintenancePage` with title, description, actions and optional logo/tools/footer slots. Activation, routing and HTTP status stay application-owned. See [Maintenance page](docs/content/6.configuration/9.maintenance.md).
 
+## Site search
+
+Render `<HSiteSearch />` once in the app shell and use `<UContentSearchButton />`
+to open it. Configure navigation shortcuts with `app.search.links` and
+`app.search.groups`. The base-layer search does not load content indexes or
+activate Nuxt Content or Studio. See [Search](docs/content/6.configuration/8.content-search.md).
+
 ## Content collections
 
 Applications using Nuxt Content extend `@happydesigns/ui/content` instead of

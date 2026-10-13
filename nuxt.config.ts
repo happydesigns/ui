@@ -18,6 +18,10 @@ export default defineNuxtConfig({
     '@nuxt/ui',
   ],
 
+  ui: {
+    content: true,
+  },
+
   variants: {
     registry: variantRegistry,
   },

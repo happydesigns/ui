@@ -202,6 +202,8 @@ void ownerSettingsLabel
     <HSnippet :collection="fragmentCollection" path="/snippets/packed" />
     <HLinks :links="links" />
     <HFooterColumns :columns="[]" :lg-cols="2" />
+    <UContentSearchButton />
+    <HContentSearch />
   </div>
 </template>
 `)
@@ -254,21 +256,44 @@ Rendered through the shared content page.
 })
 `)
   await write('base/app/app.vue', `<template>
-  <UApp><HSiteHeader :items="[]" /><h1>Base layer consumer</h1></UApp>
+  <UApp>
+    <HSiteHeader :items="[]" />
+    <UContentSearchButton label="Search pages" />
+    <NuxtPage />
+    <HSiteSearch />
+  </UApp>
 </template>
 `)
+  await write('base/app/app.config.ts', `export default defineAppConfig({
+  app: {
+    search: {
+      title: 'Find a page',
+      links: [{ label: 'Datenschutz', to: '/privacy' }],
+      groups: [{ id: 'pages', items: [{ label: 'Contact', to: '/contact' }] }],
+    },
+  },
+})
+`)
+  await write('base/app/pages/index.vue', '<template><h1>Base layer consumer</h1></template>')
+  await write('base/app/pages/privacy.vue', '<template><h1>Privacy page</h1></template>')
+  await write('base/app/pages/contact.vue', '<template><h1>Contact page</h1></template>')
   await write('base/app/assets/css/main.css', `@import "tailwindcss";
 @import "@nuxt/ui";
 @import "@happydesigns/ui/styles.css";
 `)
   const baseDir = join(fixtureDir, 'base')
-  runPnpm(['exec', 'nuxt', 'generate', baseDir], rootDir)
+  runPnpm(['exec', 'nuxt', 'typecheck', baseDir], rootDir)
+  const baseOutput = runPnpm(['exec', 'nuxt', 'generate', baseDir], rootDir)
+  if (/Failed to resolve component|Unknown custom element/i.test(baseOutput))
+    throw new Error('The packed base consumer reported an unresolved Vue component.')
   const baseFiles = await readdir(join(baseDir, '.nuxt'))
   if (baseFiles.includes('content') || baseFiles.includes('mdc-highlighter.mjs'))
     throw new Error('The base layer must not initialize Nuxt Content or its highlighter.')
   const baseHtml = await readFile(join(baseDir, '.output/public/index.html'), 'utf8')
   if (!baseHtml.includes('Base layer consumer'))
     throw new Error('The base layer did not render independently of Nuxt Content.')
+  if (!baseHtml.includes('aria-label="Search pages"') || /<HSiteSearch|<UContentSearchButton/i.test(baseHtml))
+    throw new Error('The packed base consumer did not resolve its native search components.')
 
   const prepareOutput = runPnpm(['exec', 'nuxt', 'prepare', fixtureDir], rootDir)
   const typecheckOutput = runPnpm(['exec', 'nuxt', 'typecheck', fixtureDir], rootDir)

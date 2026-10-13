@@ -4,14 +4,11 @@ import type { CommandPaletteGroup } from '@nuxt/ui'
 const appConfig = useAppConfig()
 const { open } = useContentSearch()
 const search = computed(() => appConfig.app.search)
-const searchTerm = ref('')
 const { navigation, files, status, error, load } = useContentSearchData()
 
 const groups = computed<CommandPaletteGroup[]>(() => {
-  const configuredGroups = search.value.groups ?? []
-
   if (!error.value) {
-    return configuredGroups
+    return []
   }
 
   return [
@@ -28,7 +25,6 @@ const groups = computed<CommandPaletteGroup[]>(() => {
         },
       ],
     },
-    ...configuredGroups,
   ]
 })
 
@@ -44,16 +40,10 @@ watch(open, (isOpen) => {
 </script>
 
 <template>
-  <UContentSearch
-    v-model:search-term="searchTerm"
-    :title="search.title"
-    :description="search.description"
-    :placeholder="search.placeholder"
-    :links="search.links"
+  <HSiteSearch
     :groups="groups"
     :files="files"
     :navigation="navigation"
     :loading="status === 'pending'"
-    :fuse="{ resultLimit: search.resultLimit }"
   />
 </template>

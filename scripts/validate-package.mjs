@@ -73,6 +73,8 @@ function extractJsonObject(source, start) {
 const manifest = JSON.parse(extractJsonObject(output, jsonStart))
 const files = new Set(manifest.files.map(file => file.path))
 const requiredFiles = [
+  'app/components/search/SiteSearch.client.vue',
+  'content/app/components/search/ContentSearch.client.vue',
   'content/app/components/ContentPage.vue',
   'app/components/SiteHeader.vue',
   'content/app/layouts/content.vue',
