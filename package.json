@@ -61,10 +61,12 @@
     "typecheck": "nuxt typecheck && nuxt typecheck playground",
     "test": "vitest run",
     "test:watch": "vitest",
-    "release": "changelogen --release",
-    "release:pre": "changelogen --release --prerelease",
-    "release:alpha": "changelogen --release --versionSuffix alpha.0",
-    "release:beta": "changelogen --release --versionSuffix beta.0"
+    "release:preview": "changelogen --no-output",
+    "release:check": "node scripts/github-release.mjs --check",
+    "release": "changelogen --release --no-github --clean",
+    "release:pre": "changelogen --release --prerelease --no-github --clean",
+    "release:alpha": "changelogen --release --versionSuffix alpha.0 --no-github --clean",
+    "release:beta": "changelogen --release --versionSuffix beta.0 --no-github --clean"
   },
   "peerDependencies": {
     "tailwindcss": "^4.3.2",

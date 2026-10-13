@@ -104,6 +104,16 @@ pnpm build
 
 `pnpm dev` starts the playground app. `pnpm build` builds the playground.
 
+## Releases
+
+Use Conventional Commits and run `pnpm release:preview` to review the proposed version and changelog without changing files. From a clean worktree, `pnpm release` prepares the version, `CHANGELOG.md`, release commit and annotated tag locally. It does not push or publish to GitHub or npm. While on v0, compatible changes increment patch; breaking changes increment minor. Prerelease preparation uses `pnpm release:pre`, `pnpm release:alpha` or `pnpm release:beta`.
+
+Review the generated release, then push the branch and tag with `git push --follow-tags` only when authorized. Tag CI checks version, release commit and changelog consistency and runs the existing validation pipeline before automatically publishing the GitHub release. Release notes come only from that version's `CHANGELOG.md` section, parsed by Changelogen. Prereleases are not marked Latest; stable versions use GitHub's version-based Latest selection. No additional package archive or checksum is uploaded.
+
+npm publication remains a separate, authorized `pnpm publish` step; use `pnpm publish --tag next` for prereleases. GitHub CI uses its temporary repository token and requires no npm credentials. Neither the GitHub release nor npm publication deploys consumer applications.
+
+If tag CI fails, fix the cause and rerun it where possible. Never move a published tag or rerun version preparation to retry delivery. Already published GitHub releases are left unchanged; an existing draft for the same tag is published with the verified changelog. If a release's source needs correction, prepare a new version.
+
 ## Product Docs
 
 The product docs live in `docs/` and are built with Docus.
