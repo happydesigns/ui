@@ -1,6 +1,23 @@
 # Changelog
 
 
+## v0.20.1
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.20.0...v0.20.1)
+
+### 🚀 Enhancements
+
+- **ui:** Add branded maintenance page with subtle background ([d6a638e](https://github.com/happydesigns/ui/commit/d6a638e))
+- **search:** Decouple site navigation from content indexes ([9cceb96](https://github.com/happydesigns/ui/commit/9cceb96))
+
+### 🤖 CI
+
+- Consolidate playground build and prerender checks ([63a20f5](https://github.com/happydesigns/ui/commit/63a20f5))
+
+### ❤️ Contributors
+
+- Jan Fröhlich <jan.froehlich.janf@gmail.com>
+
 ## v0.20.0
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.19.3...v0.20.0)
