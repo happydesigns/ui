@@ -1,14 +1,48 @@
 minimumReleaseAgeExclude:
-  - nuxt@4.5.1
-  - '@nuxt/kit@4.5.1'
-  - '@nuxt/nitro-server@4.5.1'
-  - '@nuxt/schema@4.5.1'
-  - '@nuxt/vite-builder@4.5.1'
+  - nuxt@4.6.1
+  - '@nuxt/kit@4.6.1'
+  - '@nuxt/nitro-server@4.6.1'
+  - '@nuxt/schema@4.6.1'
+  - '@nuxt/vite-builder@4.6.1'
   - '@happydesigns/nuxt-variants@0.2.0'
 
 shellEmulator: true
 
 trustPolicy: no-downgrade
+# Reviewed, owner-approved versions: npm provenance and tarball hashes match
+# the official CSS build repositories after their publishing-process change.
+trustPolicyExclude:
+  - browserslist@4.29.3
+  - cssnano-preset-default@9.8.0
+  - cssnano-utils@9.0.0
+  - cssnano@9.8.0
+  - postcss-calc@11.2.3
+  - postcss-colormin@9.0.8
+  - postcss-convert-values@9.1.0
+  - postcss-discard-comments@9.0.8
+  - postcss-discard-duplicates@9.0.7
+  - postcss-discard-empty@9.0.8
+  - postcss-discard-overridden@9.0.6
+  - postcss-merge-longhand@9.4.0
+  - postcss-merge-rules@9.1.5
+  - postcss-minify-font-values@9.0.9
+  - postcss-minify-gradients@9.0.8
+  - postcss-minify-params@9.1.0
+  - postcss-minify-selectors@9.0.8
+  - postcss-normalize-charset@9.0.6
+  - postcss-normalize-display-values@9.0.7
+  - postcss-normalize-positions@9.0.8
+  - postcss-normalize-repeat-style@9.0.7
+  - postcss-normalize-string@9.0.7
+  - postcss-normalize-timing-functions@9.0.7
+  - postcss-normalize-unicode@9.1.1
+  - postcss-normalize-url@10.0.0
+  - postcss-normalize-whitespace@9.0.8
+  - postcss-ordered-values@9.0.9
+  - postcss-reduce-initial@9.0.7
+  - postcss-reduce-transforms@9.0.6
+  - postcss-unique-selectors@9.0.6
+  - stylehacks@9.0.8
 packages:
   - ./
   - playground

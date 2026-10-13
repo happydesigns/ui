@@ -104,6 +104,8 @@ pnpm build
 
 `pnpm dev` starts the playground app. `pnpm build` builds the playground.
 
+Use a Node release supported by the pinned Nuxt development dependency. Development and CI use the Nuxt version declared in `package.json`; the packed-consumer check follows that same version. The published layer's `engines` describe consumer requirements, not every tool in this checkout.
+
 ## Releases
 
 Use Conventional Commits and run `pnpm release:preview` to review the proposed version and changelog without changing files. From a clean worktree, `pnpm release` prepares the version, `CHANGELOG.md`, release commit and annotated tag locally. It does not push or publish to GitHub or npm. While on v0, compatible changes increment patch; breaking changes increment minor. Prerelease preparation uses `pnpm release:pre`, `pnpm release:alpha` or `pnpm release:beta`.

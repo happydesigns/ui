@@ -42,7 +42,7 @@ const capabilities = [
       <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-medium text-primary">
         <span>@happydesigns/ui</span>
         <span aria-hidden="true" class="text-dimmed">·</span>
-        <span>Nuxt 4.5.1</span>
+        <span>Nuxt 4</span>
         <span aria-hidden="true" class="text-dimmed">·</span>
         <span>Nuxt UI 4.10</span>
       </div>

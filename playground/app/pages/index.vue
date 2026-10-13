@@ -8,7 +8,7 @@ const { data: latestData } = await useArticleList({ itemsPerPage: 3 })
 const latestArticles = computed(() => latestData.value.articles)
 
 const technologies = [
-  { label: 'Nuxt 4.5.1', icon: 'i-simple-icons-nuxtdotjs' },
+  { label: 'Nuxt 4', icon: 'i-simple-icons-nuxtdotjs' },
   { label: 'Nuxt UI 4.10', icon: 'i-lucide-panels-top-left' },
   { label: 'Nuxt Content 3.15', icon: 'i-lucide-files' },
   { label: 'nuxt-variants', icon: 'i-lucide-git-branch' },
@@ -39,7 +39,7 @@ const foundations = [
 <template>
   <div class="overflow-hidden">
     <UPageHero
-      headline="@happydesigns/ui · Nuxt 4.5.1 · Nuxt UI 4.10"
+      headline="@happydesigns/ui · Nuxt 4 · Nuxt UI 4.10"
       title="A production-ready foundation for content-driven Nuxt websites."
       description="Start with a coherent app shell, typed content, configurable variants, and editorial workflows. Keep the product-specific experience exactly where it belongs: in your app."
       orientation="horizontal"

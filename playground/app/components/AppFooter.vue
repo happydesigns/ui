@@ -22,7 +22,7 @@ const footerButtons = appConfig.app.meta.socials
                 A reusable Nuxt layer for content-driven websites that keeps the shared foundation strong and the final brand local.
               </p>
               <div class="flex flex-wrap gap-2 text-xs text-toned">
-                <span class="rounded-full border border-default px-2.5 py-1">Nuxt 4.5.1</span>
+                <span class="rounded-full border border-default px-2.5 py-1">Nuxt 4</span>
                 <span class="rounded-full border border-default px-2.5 py-1">Nuxt UI 4.10</span>
                 <span class="rounded-full border border-default px-2.5 py-1">Nuxt Content 3.15</span>
               </div>

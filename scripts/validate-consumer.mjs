@@ -83,6 +83,7 @@ try {
     throw new Error(`Expected one packed tarball, found ${packedFiles.length}.`)
 
   const tarballPath = join(packDir, packedFiles[0])
+  const workspacePackage = JSON.parse(await readFile(join(rootDir, 'package.json'), 'utf8'))
   const packageJson = {
     name: 'happydesigns-ui-packed-consumer',
     private: true,
@@ -90,7 +91,7 @@ try {
     dependencies: {
       '@happydesigns/ui': `file:${tarballPath.replaceAll('\\', '/')}`,
       '@nuxt/ui': '4.10.0',
-      'nuxt': '4.5.1',
+      'nuxt': workspacePackage.devDependencies.nuxt,
       'tailwindcss': '4.3.2',
     },
     devDependencies: {
@@ -102,6 +103,7 @@ try {
   await write('package.json', `${JSON.stringify(packageJson, null, 2)}\n`)
   await write('nuxt.config.ts', `export default defineNuxtConfig({
   compatibilityDate: '2026-07-10',
+  workspaceDir: ${JSON.stringify(fixtureDir)},
   extends: ['@happydesigns/ui/content'],
   css: ['~/assets/css/main.css'],
   nitro: {
@@ -251,6 +253,7 @@ Rendered through the shared content page.
 
   await write('base/nuxt.config.ts', `export default defineNuxtConfig({
   compatibilityDate: '2026-07-10',
+  workspaceDir: ${JSON.stringify(join(fixtureDir, 'base'))},
   extends: ['@happydesigns/ui'],
   css: ['~/assets/css/main.css'],
 })
@@ -330,6 +333,6 @@ Rendered through the shared content page.
   console.log(`Validated packed consumer from ${basename(tarballPath)}.`)
 }
 finally {
-  if (basename(tempRoot).startsWith('.tmp-consumer-'))
+  if (dirname(tempRoot) === rootDir && basename(tempRoot).startsWith('.tmp-consumer-'))
     await rm(tempRoot, { recursive: true, force: true })
 }
