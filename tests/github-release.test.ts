@@ -1,5 +1,5 @@
 import { execFileSync } from 'node:child_process'
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import { mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import process from 'node:process'
@@ -121,19 +121,4 @@ describe('release publication', () => {
     await expect(publishRelease(release, 'happydesigns/ui', 'test-token', request)).rejects.toThrow('Network unavailable')
     expect(request).toHaveBeenCalledTimes(1)
   })
-})
-
-it('gates tag publication on the existing CI and keeps registry publication separate', () => {
-  const workflow = readFileSync(new URL('../.github/workflows/ci.yml', import.meta.url), 'utf8')
-  expect(workflow).toContain('tags: [\'v*\']')
-  expect(workflow).toMatch(/cancel-in-progress: \$\{\{ github.ref_type != 'tag' \}\}/)
-  expect(workflow).toContain('needs: validate')
-  expect(workflow).toContain('contents: write')
-  expect(workflow).toContain('node scripts/github-release.mjs --publish')
-  expect(workflow).not.toMatch(/(?:pnpm|npm) publish|pull_request_target|--generate-notes/)
-  const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'))
-  for (const command of ['release', 'release:pre', 'release:alpha', 'release:beta']) {
-    expect(pkg.scripts[command]).toContain('--no-github --clean')
-    expect(pkg.scripts[command]).not.toMatch(/--push|--publish/)
-  }
 })

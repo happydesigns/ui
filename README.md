@@ -104,6 +104,10 @@ pnpm build
 
 `pnpm dev` starts the playground app. `pnpm build` builds the playground.
 
+`pnpm consumer:check` installs the packed package in a temporary workspace outside this repository, then typechecks and renders base and Content consumers. It needs registry access; the fixtures use their own dependencies and TypeScript configuration rather than the source checkout's installation.
+
+Tests focus on public behavior: schema validation, routing, search loading and recovery, author resolution, and release safety. Build checks cover rendered content, unpublished search exclusions, and documentation endpoints. Avoid assertions on source-code spelling, internal component structure, or documentation copy; package integration is checked by the installed consumer rather than a separate file inventory.
+
 Use a Node release supported by the pinned Nuxt development dependency. Development and CI use the Nuxt version declared in `package.json`; the packed-consumer check follows that same version. The published layer's `engines` describe consumer requirements, not every tool in this checkout.
 
 ## Releases

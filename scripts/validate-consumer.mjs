@@ -1,16 +1,19 @@
 import { spawnSync } from 'node:child_process'
 import { mkdir, mkdtemp, readdir, readFile, rm, writeFile } from 'node:fs/promises'
+import { tmpdir } from 'node:os'
 import { basename, dirname, join, resolve } from 'node:path'
 import process from 'node:process'
 import { fileURLToPath } from 'node:url'
 
 const rootDir = resolve(dirname(fileURLToPath(import.meta.url)), '..')
-const tempRoot = await mkdtemp(join(rootDir, '.tmp-consumer-'))
+const temporaryDirectory = resolve(tmpdir())
+const tempRoot = await mkdtemp(join(temporaryDirectory, 'happydesigns-ui-consumer-'))
 const fixtureDir = join(tempRoot, 'consumer')
 const packDir = join(tempRoot, 'package')
 const isWindows = process.platform === 'win32'
 
 function runPnpm(args, cwd) {
+  console.log(`[${basename(cwd)}] pnpm ${args.join(' ')}`)
   const command = isWindows ? (process.env.ComSpec ?? 'cmd.exe') : 'pnpm'
   const commandArgs = isWindows
     ? ['/d', '/s', '/c', `pnpm.cmd ${args.map(argument => /\s/.test(argument) ? `"${argument.replaceAll('"', '""')}"` : argument).join(' ')}`]
@@ -23,6 +26,7 @@ function runPnpm(args, cwd) {
       CI: '1',
       FORCE_COLOR: '0',
       NO_COLOR: '1',
+      NODE_PATH: '',
     },
   })
 
@@ -36,21 +40,6 @@ function runPnpm(args, cwd) {
   }
 
   return output
-}
-
-function unpackTarball(tarballPath, destination) {
-  const result = spawnSync('tar', ['-xzf', tarballPath, '-C', destination, '--strip-components=1'], {
-    cwd: rootDir,
-    encoding: 'utf8',
-  })
-
-  if (result.error)
-    throw new Error('Could not start tar while unpacking the package.', { cause: result.error })
-
-  if (result.status !== 0) {
-    process.stderr.write(`${result.stdout ?? ''}\n${result.stderr ?? ''}`)
-    throw new Error(`Package extraction failed with exit code ${result.status}`)
-  }
 }
 
 async function write(relativePath, contents) {
@@ -88,19 +77,28 @@ try {
     name: 'happydesigns-ui-packed-consumer',
     private: true,
     type: 'module',
+    packageManager: workspacePackage.packageManager,
     dependencies: {
       '@happydesigns/ui': `file:${tarballPath.replaceAll('\\', '/')}`,
-      '@nuxt/ui': '4.10.0',
+      '@nuxt/content': workspacePackage.dependencies['@nuxt/content'],
+      '@nuxt/ui': workspacePackage.dependencies['@nuxt/ui'],
       'nuxt': workspacePackage.devDependencies.nuxt,
-      'tailwindcss': '4.3.2',
+      'tailwindcss': workspacePackage.peerDependencies.tailwindcss,
+      'vue': workspacePackage.peerDependencies.vue,
+      'vue-router': workspacePackage.devDependencies['vue-router'],
     },
     devDependencies: {
-      'typescript': '6.0.3',
-      'vue-tsc': '3.3.7',
+      'typescript': workspacePackage.devDependencies.typescript,
+      'vue-tsc': workspacePackage.devDependencies['vue-tsc'],
     },
   }
 
   await write('package.json', `${JSON.stringify(packageJson, null, 2)}\n`)
+  // Preserve the reviewed install policy, but never join the source workspace.
+  const installPolicy = await readFile(join(rootDir, 'pnpm-workspace.yaml'), 'utf8')
+  await write('pnpm-workspace.yaml', installPolicy.replace(/packages:\r?\n(?:[ \t][^\r\n]*\r?\n)+/, 'packages:\n  - .\n  - base\n'))
+  await write('tsconfig.json', JSON.stringify({ extends: './.nuxt/tsconfig.json', exclude: ['base'] }))
+  await write('base/tsconfig.json', JSON.stringify({ extends: './.nuxt/tsconfig.json' }))
   await write('nuxt.config.ts', `export default defineNuxtConfig({
   compatibilityDate: '2026-07-10',
   workspaceDir: ${JSON.stringify(fixtureDir)},
@@ -143,7 +141,7 @@ export default defineContentConfig({
   },
 })
 `)
-  await write('app.config.ts', `import type { SearchConfig } from '@happydesigns/ui/types'
+  await write('app/app.config.ts', `import type { SearchConfig } from '@happydesigns/ui/types'
 
 export default defineAppConfig({
   app: {
@@ -188,7 +186,7 @@ const links: ContentLink[] = [{ label: 'Typed content link', to: '/' }]
 type FixtureConfig = ReturnType<typeof useAppConfig>['fixture']
 const fixtureLabel: FixtureConfig['label'] = 'Typed consumer config'
 type ContentVariantConfig = VariantConfigOf<'content'>
-const ownerSettingsLabel: ContentVariantConfig['ownerSettings']['label'] = 'Typed app-config-only variant value'
+const ownerSettingsLabel: NonNullable<ContentVariantConfig['ownerSettings']>['label'] = 'Typed app-config-only variant value'
 void fixtureLabel
 void ownerSettingsLabel
 </script>
@@ -247,10 +245,8 @@ toc: false
 Rendered through the shared content page.
 `)
 
-  const installedPackageDir = join(fixtureDir, 'node_modules/@happydesigns/ui')
-  await mkdir(installedPackageDir, { recursive: true })
-  unpackTarball(tarballPath, installedPackageDir)
-
+  const { '@nuxt/content': _content, ...baseDependencies } = packageJson.dependencies
+  await write('base/package.json', `${JSON.stringify({ ...packageJson, name: 'happydesigns-ui-base-consumer', dependencies: baseDependencies }, null, 2)}\n`)
   await write('base/nuxt.config.ts', `export default defineNuxtConfig({
   compatibilityDate: '2026-07-10',
   workspaceDir: ${JSON.stringify(join(fixtureDir, 'base'))},
@@ -285,8 +281,12 @@ Rendered through the shared content page.
 @import "@happydesigns/ui/styles.css";
 `)
   const baseDir = join(fixtureDir, 'base')
-  runPnpm(['exec', 'nuxt', 'typecheck', baseDir], rootDir)
-  const baseOutput = runPnpm(['exec', 'nuxt', 'generate', baseDir], rootDir)
+  console.log('Installing the packed layer in an isolated temporary workspace…')
+  runPnpm(['install', '--no-frozen-lockfile'], fixtureDir)
+  const prepareOutput = runPnpm(['exec', 'nuxt', 'prepare'], fixtureDir)
+  runPnpm(['exec', 'nuxt', 'prepare'], baseDir)
+  runPnpm(['exec', 'nuxt', 'typecheck'], baseDir)
+  const baseOutput = runPnpm(['exec', 'nuxt', 'generate'], baseDir)
   if (/Failed to resolve component|Unknown custom element/i.test(baseOutput))
     throw new Error('The packed base consumer reported an unresolved Vue component.')
   const baseFiles = await readdir(join(baseDir, '.nuxt'))
@@ -298,9 +298,8 @@ Rendered through the shared content page.
   if (!baseHtml.includes('aria-label="Search pages"') || /<HSiteSearch|<UContentSearchButton/i.test(baseHtml))
     throw new Error('The packed base consumer did not resolve its native search components.')
 
-  const prepareOutput = runPnpm(['exec', 'nuxt', 'prepare', fixtureDir], rootDir)
-  const typecheckOutput = runPnpm(['exec', 'nuxt', 'typecheck', fixtureDir], rootDir)
-  const generateOutput = runPnpm(['exec', 'nuxt', 'generate', fixtureDir], rootDir)
+  const typecheckOutput = runPnpm(['exec', 'nuxt', 'typecheck'], fixtureDir)
+  const generateOutput = runPnpm(['exec', 'nuxt', 'generate'], fixtureDir)
   const output = `${prepareOutput}\n${typecheckOutput}\n${generateOutput}`
 
   if (/Failed to resolve component|Unknown custom element/i.test(output))
@@ -333,6 +332,6 @@ Rendered through the shared content page.
   console.log(`Validated packed consumer from ${basename(tarballPath)}.`)
 }
 finally {
-  if (dirname(tempRoot) === rootDir && basename(tempRoot).startsWith('.tmp-consumer-'))
+  if (dirname(tempRoot) === temporaryDirectory && basename(tempRoot).startsWith('happydesigns-ui-consumer-'))
     await rm(tempRoot, { recursive: true, force: true })
 }

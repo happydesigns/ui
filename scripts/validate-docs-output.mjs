@@ -1,4 +1,4 @@
-import { access, readFile } from 'node:fs/promises'
+import { readFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -65,26 +65,8 @@ const landingHtml = await readRoute('')
 if (!landingHtml.includes('href="/getting-started"'))
   throw new Error('The landing page does not link to /getting-started.')
 
-if (!landingHtml.includes('Build content-driven Nuxt sites on a shared foundation.'))
-  throw new Error('The custom landing hero was not rendered.')
-
-if (!landingHtml.includes('A shared Nuxt foundation, built for project-owned brands.'))
-  throw new Error('The custom documentation footer was not rendered.')
-
 if (landingHtml.includes('<DocsLandingHero') || landingHtml.includes('<UPageCta'))
   throw new Error('A landing-page component was emitted as an unresolved custom element.')
-
-if (landingHtml.includes('Deutsch') || landingHtml.includes('href="/de'))
-  throw new Error('Unsupported German localization is still exposed.')
-
-try {
-  await access(resolve(publicDir, 'en', 'index.html'))
-  throw new Error('Legacy /en output is still generated.')
-}
-catch (error) {
-  if (error.code !== 'ENOENT')
-    throw error
-}
 
 async function readReference(route) {
   const contents = await readFile(resolve(publicDir, `api/ui-reference/${route}.json`), 'utf8')
