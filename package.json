@@ -71,32 +71,35 @@
   },
   "peerDependencies": {
     "tailwindcss": "^4.3.2",
-    "vue": "^3.5.41"
+    "vue": "^3.5.41",
+    "vue-router": "^4.6.0 || ^5.0.0"
   },
   "dependencies": {
     "@happydesigns/nuxt-variants": "^0.2.0",
     "@iconify-json/heroicons": "^1.2.3",
-    "@iconify-json/lucide": "^1.2.116",
-    "@iconify-json/simple-icons": "^1.2.89",
-    "@nuxt/content": "^3.15.0",
-    "@nuxt/ui": "^4.10.0",
+    "@iconify-json/lucide": "^1.2.152",
+    "@iconify-json/simple-icons": "^1.2.101",
+    "@nuxt/content": "^3.16.2",
+    "@nuxt/ui": "^4.12.0",
     "@vueuse/core": "^14.3.0",
     "better-sqlite3": "^12.11.1",
     "h3": "^1.15.11",
-    "nuxt-studio": "^1.7.0",
-    "zod": "^4.4.3"
+    "nuxt-studio": "^1.8.0",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^9.1.0",
-    "@antfu/ni": "^30.2.0",
-    "@nuxt/eslint-config": "^1.16.0",
+    "@antfu/ni": "^30.6.0",
+    "@nuxt/eslint-config": "^1.17.0",
+    "@takumi-rs/core": "1.8.7",
     "changelogen": "^0.6.2",
     "cross-env": "^10.1.0",
     "docus": "5.12.3",
-    "eslint": "^10.6.0",
-    "nuxt": "4.6.1",
+    "eslint": "^10.14.0",
+    "nuxt": "4.6.4",
     "typescript": "^6.0.3",
     "vitest": "^4.1.10",
+    "vue-router": "5.4.0",
     "vue-tsc": "^3.3.7"
   },
   "resolutions": {

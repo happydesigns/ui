@@ -104,6 +104,7 @@ export default defineNuxtConfig({
 
   nitro: {
     prerender: {
+      failOnError: true,
       routes: [
         ...documentationRoutes,
         '/api/ui-reference/components/HFooterColumns.json',

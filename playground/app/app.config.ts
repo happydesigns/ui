@@ -1,12 +1,8 @@
-import type { AppConfigInput as NuxtUiConfigInput } from '@nuxt/schema'
-import type { ButtonProps } from '@nuxt/ui'
-import type { AppConfigInput as LayerAppConfigInput } from 'nuxt/schema'
-
 const ui = {
   colors: {
-    primary: 'green',
-    secondary: 'blue',
-    neutral: 'slate',
+    primary: 'green' as const,
+    secondary: 'blue' as const,
+    neutral: 'slate' as const,
   },
   footer: {
     slots: {
@@ -32,9 +28,9 @@ const ui = {
       },
     },
   },
-} satisfies NonNullable<NuxtUiConfigInput['ui']>
+}
 
-export default defineAppConfig({
+const appConfig = {
   variants: {
     separator: {
       config: {
@@ -127,7 +123,7 @@ export default defineAppConfig({
           to: 'https://happydesigns.de',
           target: '_blank',
         },
-      ] as ButtonProps[],
+      ],
       github: {
         repo: 'happydesigns/ui',
         branch: 'main',
@@ -184,13 +180,13 @@ export default defineAppConfig({
         { name: 'page' },
         {
           name: 'article',
-          where: [{ field: 'published', operator: '=', value: true }],
-          order: { field: 'date', direction: 'DESC' },
+          where: [{ field: 'published', operator: '=' as const, value: true }],
+          order: { field: 'date', direction: 'DESC' as const },
         },
         {
           name: 'event',
-          where: [{ field: 'published', operator: '=', value: true }],
-          order: { field: 'date', direction: 'DESC' },
+          where: [{ field: 'published', operator: '=' as const, value: true }],
+          order: { field: 'date', direction: 'DESC' as const },
         },
       ],
     },
@@ -198,13 +194,15 @@ export default defineAppConfig({
     date: {
       locale: 'en',
       options: {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
+        year: 'numeric' as const,
+        month: 'short' as const,
+        day: 'numeric' as const,
       },
     },
   },
 
-  // The object is validated above; this bridges Nuxt's generated runtime-complete layer type.
-  ui: ui as unknown as LayerAppConfigInput['ui'],
-})
+  ui,
+}
+
+const config: typeof appConfig = defineAppConfig(appConfig)
+export default config

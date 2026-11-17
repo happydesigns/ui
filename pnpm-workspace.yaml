@@ -48,6 +48,8 @@ packages:
   - playground
 
 overrides:
+  # Docus stays pinned; this OG patch uses Nuxt's current island-hash implementation.
+  docus@5.12.3>nuxt-og-image: 6.10.4
   semver@6: 6.3.0
 
 allowBuilds:
