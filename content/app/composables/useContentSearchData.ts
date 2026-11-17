@@ -1,5 +1,6 @@
 import type { ContentNavigationItem } from '@nuxt/content'
 import type { ContentSearchFile } from '@nuxt/ui'
+import { $fetch } from '#imports'
 import { createContentSearchLoader } from '../../../app/utils/createContentSearchLoader'
 
 export interface ContentSearchDataLoaders {
