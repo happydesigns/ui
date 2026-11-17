@@ -78,12 +78,12 @@
     "@iconify-json/heroicons": "^1.2.3",
     "@iconify-json/lucide": "^1.2.152",
     "@iconify-json/simple-icons": "^1.2.101",
-    "@nuxt/content": "^3.16.2",
-    "@nuxt/ui": "^4.12.0",
+    "@nuxt/content": "^3.17.0",
+    "@nuxt/ui": "^4.12.2",
     "@vueuse/core": "^14.3.0",
     "better-sqlite3": "^12.11.1",
     "h3": "^1.15.11",
-    "nuxt-studio": "^1.8.0",
+    "nuxt-studio": "^1.8.2",
     "zod": "^4.6.7"
   },
   "devDependencies": {
