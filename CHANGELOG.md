@@ -1,6 +1,32 @@
 # Changelog
 
 
+## v0.20.2
+
+[compare changes](https://github.com/happydesigns/ui/compare/v0.20.1...v0.20.2)
+
+### 🩹 Fixes
+
+- **content:** Use typed Nuxt fetch for search data ([c6dbe3b](https://github.com/happydesigns/ui/commit/c6dbe3b))
+- **build:** Align Nuxt dependencies and restore OG rendering ([573461f](https://github.com/happydesigns/ui/commit/573461f))
+- **deps:** Update Nuxt UI, Content and Studio ([f49467d](https://github.com/happydesigns/ui/commit/f49467d))
+
+### 💅 Refactors
+
+- **server:** Adopt portable Nuxt docs handlers ([e1b3778](https://github.com/happydesigns/ui/commit/e1b3778))
+
+### ✅ Tests
+
+- Isolate packed consumers and focus on public behavior ([861ef01](https://github.com/happydesigns/ui/commit/861ef01))
+
+### 🤖 CI
+
+- **release:** Publish verified GitHub releases from version tags ([04094d6](https://github.com/happydesigns/ui/commit/04094d6))
+
+### ❤️ Contributors
+
+- Jan Fröhlich ([@janfrl](https://github.com/janfrl))
+
 ## v0.20.1
 
 [compare changes](https://github.com/happydesigns/ui/compare/v0.20.0...v0.20.1)
