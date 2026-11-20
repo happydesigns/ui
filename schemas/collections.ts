@@ -1,4 +1,4 @@
-import { createVariantSchemaResolver } from '@happydesigns/nuxt-variants/schemas'
+import { createVariantSchemaResolver } from '@happydesigns/config-variants/schemas'
 import { variantSchemas } from './traits'
 import { variantRegistry } from './variants'
 

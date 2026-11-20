@@ -4,12 +4,12 @@ minimumReleaseAgeExclude:
   - '@nuxt/nitro-server@4.6.1'
   - '@nuxt/schema@4.6.1'
   - '@nuxt/vite-builder@4.6.1'
-  - '@happydesigns/nuxt-variants@0.2.0'
   # Owner-approved Content 3.17.0 and the fresh minimum versions it requires.
   - '@nuxt/content@3.17.0'
   - '@nuxtjs/mdc@0.23.4'
   - isomorphic-git@1.44.16
   - minimatch@11.0.9
+  - '@happydesigns/config-variants@0.3.0'
 
 shellEmulator: true
 

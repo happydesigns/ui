@@ -14,7 +14,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   modules: [
-    '@happydesigns/nuxt-variants',
+    '@happydesigns/config-variants',
     '@nuxt/ui',
   ],
 

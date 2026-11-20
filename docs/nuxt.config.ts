@@ -44,7 +44,7 @@ export default defineNuxtConfig({
   extends: ['docus'],
 
   modules: [
-    '@happydesigns/nuxt-variants',
+    '@happydesigns/config-variants',
   ],
 
   components: [
