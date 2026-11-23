@@ -1,17 +1,4 @@
-minimumReleaseAgeExclude:
-  - nuxt@4.6.1
-  - '@nuxt/kit@4.6.1'
-  - '@nuxt/nitro-server@4.6.1'
-  - '@nuxt/schema@4.6.1'
-  - '@nuxt/vite-builder@4.6.1'
-  # Owner-approved Content 3.17.0 and the fresh minimum versions it requires.
-  - '@nuxt/content@3.17.0'
-  - '@nuxtjs/mdc@0.23.4'
-  - isomorphic-git@1.44.16
-  - minimatch@11.0.9
-  - '@happydesigns/config-variants@0.3.0'
-
-shellEmulator: true
+minimumReleaseAgeExcludePrune: true
 
 trustPolicy: no-downgrade
 # Reviewed, owner-approved versions: npm provenance and tarball hashes match
@@ -48,14 +35,15 @@ trustPolicyExclude:
   - postcss-reduce-transforms@9.0.6
   - postcss-unique-selectors@9.0.6
   - stylehacks@9.0.8
+
+shellEmulator: true
+
 packages:
   - ./
   - playground
 
 overrides:
-  # Docus stays pinned; this OG patch uses Nuxt's current island-hash implementation.
-  docus@5.12.3>nuxt-og-image: 6.10.4
-  semver@6: 6.3.0
+  semver@6: 6.3.2
 
 allowBuilds:
   '@parcel/watcher': true
