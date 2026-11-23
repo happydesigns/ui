@@ -1,5 +1,6 @@
 <script setup lang="ts" generic="C extends PageCollectionName = 'article'">
 import type { BreadcrumbItem } from '@nuxt/ui'
+import type { ArticleLayoutOptions, ArticleView } from '../../../app/types/article'
 import type { PageCollectionName } from '../../../app/types/content'
 import { resolveArticleQuery } from '../utils/resolveArticleQuery'
 
@@ -27,7 +28,6 @@ const hasSeparator = has('separator')
 const hasSurround = has('surround')
 const hasToc = has('toc')
 const tocEnabled = computed(() => !page.value || !('toc' in page.value) || page.value.toc !== false)
-const showTocSidebar = computed(() => hasToc.value && tocEnabled.value)
 
 if (!page.value) {
   throw createError({
@@ -39,7 +39,21 @@ if (!page.value) {
 
 usePageSeo(page)
 
-const header = computed(() => resolvePageHeader(page.value))
+const article = computed<ArticleView | undefined>(() => {
+  const document = page.value
+  if (!document)
+    return undefined
+
+  return {
+    title: document.title,
+    description: document.description,
+    header: resolvePageHeader(document) ?? undefined,
+  }
+})
+const options = computed<ArticleLayoutOptions>(() => ({
+  showHeader: hasHeader.value,
+  showToc: hasToc.value && tocEnabled.value,
+}))
 
 const breadcrumbsBase = computed(() => (config.value.breadcrumbs ?? []) as BreadcrumbItem[])
 
@@ -59,65 +73,46 @@ const backLink = computed(() => {
 </script>
 
 <template>
-  <UContainer v-if="page">
-    <UPageHeader
-      v-if="hasHeader && header"
-      v-bind="header"
-      :ui="{
-        headline: 'all:flex flex-col gap-y-8 items-start',
-        wrapper: 'lg:flex-row',
-      }"
-    >
-      <template #headline>
-        <HBreadcrumbs
-          :items="breadcrumbsBase"
-          :current="currentBreadcrumb"
-        />
-        <HArticleHeadlineMeta :page="page" :collection="collection" />
-      </template>
+  <HArticleLayout v-if="page && article" :article="article" :options="options">
+    <template #metadata>
+      <HBreadcrumbs :items="breadcrumbsBase" :current="currentBreadcrumb" />
+      <HArticleHeadlineMeta :page="page" :collection="collection" />
+    </template>
+
+    <template #header>
       <HArticleHeaderBody :page="page" :collection="collection">
         <slot name="header" />
       </HArticleHeaderBody>
-    </UPageHeader>
+    </template>
 
-    <UPage>
-      <UPageBody>
-        <slot />
+    <slot />
 
-        <div
-          v-if="hasBackButton || hasCopyButton"
-          class="all:flex items-center justify-between mt-12"
-        >
-          <HBackButton
-            v-if="hasBackButton && backLink"
-            v-bind="backLink"
-          />
-          <div class="all:flex justify-end items-center gap-1.5 ml-auto">
-            <HCopyButton v-if="hasCopyButton" v-bind="config.copyButton" />
-          </div>
+    <template #actions>
+      <div v-if="hasBackButton || hasCopyButton" class="all:flex items-center justify-between mt-12">
+        <HBackButton v-if="hasBackButton && backLink" v-bind="backLink" />
+        <div class="all:flex justify-end items-center gap-1.5 ml-auto">
+          <HCopyButton v-if="hasCopyButton" v-bind="config.copyButton" />
         </div>
+      </div>
+    </template>
 
-        <HSeparator
-          v-if="hasSeparator"
-          :stem="page?.stem"
-          :extension="page?.extension"
-          v-bind="config.separator"
-        />
+    <template #footer>
+      <HSeparator
+        v-if="hasSeparator"
+        :stem="page.stem"
+        :extension="page.extension"
+        v-bind="config.separator"
+      />
+      <HSurround
+        v-if="hasSurround"
+        :collection="surroundCollection"
+        v-bind="config.surround"
+        :query="surroundQuery"
+      />
+    </template>
 
-        <HSurround
-          v-if="hasSurround"
-          :collection="surroundCollection"
-          v-bind="config.surround"
-          :query="surroundQuery"
-        />
-      </UPageBody>
-
-      <template v-if="showTocSidebar" #right>
-        <HToc
-          :links="page?.body?.toc?.links"
-          :title="page?.body?.toc?.title"
-        />
-      </template>
-    </UPage>
-  </UContainer>
+    <template #toc>
+      <HToc :links="page.body?.toc?.links" :title="page.body?.toc?.title" />
+    </template>
+  </HArticleLayout>
 </template>

@@ -152,6 +152,8 @@ export default defineContentConfig({
 
 export default defineAppConfig({
   app: {
+    articleLayout: { showHeader: false, showToc: false, copyUrl: { label: 'Base copy label' } },
+    toc: { title: 'Collection article contents' },
     search: {
       collections: [],
     } satisfies SearchConfig,
@@ -160,6 +162,7 @@ export default defineAppConfig({
     label: 'Typed consumer config',
   },
   variants: {
+    copyButton: { config: { copyButton: { label: 'Copy collection article' } } },
     article: {
       config: {
         categories: {
@@ -283,15 +286,25 @@ definePageMeta({
 title: First consumer article
 category: Club
 date: 2026-01-01
+toc: true
 ---
 Rendered by the named article layout.
+
+## First consumer details
+
+Body text for the table of contents.
 `)
   await write('content/articles/second.md', `---
 title: Second consumer article
 category: Club
 date: 2026-02-01
+toc: false
 ---
 The adjacent article.
+
+## Second consumer details
+
+This heading stays in the body when the table of contents is disabled.
 `)
   await write('content/snippets/packed.md', `---
 title: Packed snippet
@@ -507,8 +520,15 @@ definePageMeta({ layout: false })
   if (firstIndex === -1 || secondIndex <= firstIndex || !articlesHtml.includes('Consumer category') || !articlesHtml.includes('tracking-wide'))
     throw new Error('Article sorting or category badge overrides were not applied in the packed Content consumer.')
   const firstArticleHtml = await readFile(join(publicDir, 'articles/first.html'), 'utf8')
-  if (!firstArticleHtml.includes('Rendered by the named article layout.') || !firstArticleHtml.includes('href="/articles/second"'))
-    throw new Error('The named article layout did not render its article and configured adjacent link.')
+  for (const text of ['First consumer article', 'Rendered by the named article layout.', 'Copy collection article', 'Collection article contents', 'href="/articles/second"']) {
+    if (!firstArticleHtml.includes(text))
+      throw new Error(`The named article layout did not render: ${text}`)
+  }
+  if (firstArticleHtml.includes('Base copy label'))
+    throw new Error('The named article layout rendered the base copy action instead of its collection action.')
+  const secondArticleHtml = await readFile(join(publicDir, 'articles/second.html'), 'utf8')
+  if (!secondArticleHtml.includes('Second consumer details') || secondArticleHtml.includes('Collection article contents'))
+    throw new Error('The named article layout did not honor the document TOC setting.')
 
   for (const endpoint of ['navigation', 'search']) {
     const contents = await readFile(join(publicDir, `api/${endpoint}.json`), 'utf8')
