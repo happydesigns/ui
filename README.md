@@ -1,8 +1,11 @@
 # @happydesigns/ui
 
-[![npm version](https://img.shields.io/npm/v/%40happydesigns%2Fui?logo=npm)](https://www.npmjs.com/package/@happydesigns/ui)
-[![npm downloads](https://img.shields.io/npm/dm/%40happydesigns%2Fui?logo=npm)](https://www.npmjs.com/package/@happydesigns/ui)
-[![CI](https://github.com/happydesigns/ui/actions/workflows/ci.yml/badge.svg)](https://github.com/happydesigns/ui/actions/workflows/ci.yml)
+<p>
+  <a href="https://npmx.dev/package/@happydesigns/ui"><img src="https://img.shields.io/npm/v/@happydesigns/ui.svg?style=flat&amp;colorA=18181B&amp;colorB=F28564" alt="npm version"></a>
+  <a href="https://npmx.dev/package/@happydesigns/ui"><img src="https://img.shields.io/npm/dm/@happydesigns/ui.svg?style=flat&amp;colorA=18181B&amp;colorB=F28564" alt="npm downloads per month"></a>
+  <a href="https://github.com/happydesigns/ui/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/happydesigns/ui/ci.yml?branch=main&amp;style=flat&amp;label=CI&amp;colorA=18181B" alt="CI status on main"></a>
+  <a href="docs/content/1.getting-started/2.installation.md"><img src="https://img.shields.io/badge/Nuxt-18181B?style=flat&amp;logo=nuxt" alt="Nuxt installation guide"></a>
+</p>
 
 Build Nuxt sites and apps with shared UI components, navigation, and article layouts. Each app owns its routes, branding, and content. Add the Content layer when you need Nuxt Content collections, queries, and Studio.
 
