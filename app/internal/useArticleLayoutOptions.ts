@@ -10,11 +10,12 @@ const copyUrlDefaults = {
   errorIcon: 'i-lucide-copy-x',
 } satisfies ArticleCopyOptions
 
-type ResolvedArticleLayoutOptions = Required<Omit<ArticleLayoutOptions, 'copyUrl'>> & {
+type ResolvedArticleLayoutOptions = Required<Omit<ArticleLayoutOptions, 'copyUrl' | 'tocTitle'>> & {
   copyUrl: ArticleCopyOptions | false
+  tocTitle: string | undefined
 }
 
-export function resolveArticleLayoutOptions(tocTitle: string, layers: readonly (ArticleLayoutOptions | undefined)[]) {
+export function resolveArticleLayoutOptions(tocTitle: string | undefined, layers: readonly (ArticleLayoutOptions | undefined)[]) {
   let settings: ResolvedArticleLayoutOptions = {
     showHeader: true,
     showToc: true,
@@ -46,7 +47,7 @@ export function resolveArticleLayoutOptions(tocTitle: string, layers: readonly (
 export function useArticleLayoutOptions(props: Pick<ArticleLayoutProps, 'article' | 'defaults' | 'options'>) {
   const appConfig = useAppConfig()
 
-  return computed(() => resolveArticleLayoutOptions(appConfig.app.toc.title, [
+  return computed(() => resolveArticleLayoutOptions(appConfig.app.toc?.title, [
     appConfig.app.articleLayout,
     ...(props.defaults ?? []),
     { showToc: props.article.toc },

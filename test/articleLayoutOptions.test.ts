@@ -26,6 +26,7 @@ describe('article layout options', () => {
       tocTitle: 'Global TOC',
     })
     expect(resolveArticleLayoutOptions('Global TOC', [...layers, { showToc: true }]).showToc).toBe(true)
+    expect(resolveArticleLayoutOptions(undefined, []).tocTitle).toBeUndefined()
   })
 
   it('inherits individual Copy URL settings when the action stays enabled', () => {
