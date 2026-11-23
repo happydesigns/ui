@@ -1,5 +1,5 @@
 /**
- * Resolves a category badge reactively using the global application configuration.
+ * Resolves a category badge reactively using the selected collection variant.
  *
  * @param category - The reactive category string to resolve.
  * @param collection - The collection to resolve categories for. Defaults to 'article'.

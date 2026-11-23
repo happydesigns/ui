@@ -53,6 +53,8 @@ export default defineNuxtConfig({
 
 Define collection names and sources in your app's `content.config.ts`. Reuse schema profiles from `@happydesigns/ui/schemas` and enable Studio in your app when editors need it. [Content setup and examples](docs/content/1.getting-started/2.installation.md#content-collections)
 
+The Content layer loads the variant presets and defaults used by the existing Nuxt Content layouts and lists. Apps extending the base layer can configure the article layout components directly through `app.config.ts` and props.
+
 ## More guides
 
 - [Site search](docs/content/6.configuration/8.content-search.md) covers app-owned navigation and optional collection indexes.

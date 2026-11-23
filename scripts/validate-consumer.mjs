@@ -208,6 +208,7 @@ type FixtureConfig = ReturnType<typeof useAppConfig>['fixture']
 const fixtureLabel: FixtureConfig['label'] = 'Typed consumer config'
 type ContentVariantConfig = VariantConfigOf<'content'>
 const ownerSettingsLabel: NonNullable<ContentVariantConfig['ownerSettings']>['label'] = 'Typed app-config-only variant value'
+const consumerCategory = useCategoryBadge('Club', 'article')
 void fixtureLabel
 void ownerSettingsLabel
 </script>
@@ -220,6 +221,7 @@ void ownerSettingsLabel
       </template>
     </HSiteHeader>
     <h1>Packed consumer fixture</h1>
+    <p data-test="consumer-badge">{{ consumerCategory.label }}</p>
     <HSnippet :collection="fragmentCollection" path="/snippets/packed" />
     <HLinks :links="links" />
     <HFooterColumns :columns="[]" :lg-cols="2" />
@@ -342,6 +344,9 @@ Rendered through the shared content page.
   await write('base/app/pages/index.vue', `<script setup lang="ts">
 import type { ArticleLayoutProps } from '@happydesigns/ui/types'
 
+if (Object.hasOwn(useAppConfig(), 'variants'))
+  throw new Error('The base layer registered Content variant defaults.')
+
 const articleProps = {
   article: {
     title: 'Base layer consumer',
@@ -394,6 +399,11 @@ const articleProps = {
   const baseFiles = await readdir(join(baseDir, '.nuxt'))
   if (baseFiles.includes('content') || baseFiles.includes('mdc-highlighter.mjs'))
     throw new Error('The base layer must not initialize Nuxt Content or its highlighter.')
+  if (baseFiles.includes('variants-runtime.mjs') || baseFiles.includes('variants-graph.mjs'))
+    throw new Error('The base layer must not initialize Config Variants.')
+  const baseImports = await readFile(join(baseDir, '.nuxt/imports.d.ts'), 'utf8')
+  if (/\buse(?:Variant|CategoryBadge)\b/.test(baseImports))
+    throw new Error('The base layer registered Content variant composables.')
   const baseHtml = await readFile(join(baseDir, '.output/public/index.html'), 'utf8')
   if (!baseHtml.includes('Base layer consumer'))
     throw new Error('The base layer did not render independently of Nuxt Content.')
@@ -418,6 +428,8 @@ const articleProps = {
 
   const publicDir = join(fixtureDir, '.output/public')
   const html = await readFile(join(publicDir, 'index.html'), 'utf8')
+  if (!html.includes('data-test="consumer-badge">Consumer category</p>'))
+    throw new Error('The Content consumer did not expose its configured category badge composable.')
   const renderedPage = html.includes('Packed consumer fixture')
   const renderedSnippet = html.includes('Rendered through the installed package.')
   const contentHtml = await readFile(join(publicDir, 'packed.html'), 'utf8')

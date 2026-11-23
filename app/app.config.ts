@@ -1,6 +1,5 @@
 import type { AppConfigInput } from '@nuxt/schema'
 import type { ArticleLayoutDefaults, BlogArticleLayoutOptions, SearchConfig } from './types/config'
-import { contentVariantDefaults } from '../content/variant-defaults'
 
 export * from './types/config'
 
@@ -15,8 +14,6 @@ const articleLayout: ArticleLayoutDefaults = {}
 const blogArticleLayout: BlogArticleLayoutOptions = {}
 
 export default defineAppConfig({
-  variants: contentVariantDefaults,
-
   app: {
     meta: {
       copyright: {},
