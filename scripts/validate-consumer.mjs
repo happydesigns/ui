@@ -265,6 +265,13 @@ Rendered through the shared content page.
 `)
   await write('base/app/app.config.ts', `export default defineAppConfig({
   app: {
+    articleLayout: {
+      copyUrl: { label: 'Copy packed article URL' },
+      tocTitle: 'Packed article contents',
+    },
+    blogArticleLayout: {
+      categories: { News: { label: 'Packed category badge', color: 'primary' } },
+    },
     search: {
       title: 'Find a page',
       links: [{ label: 'Datenschutz', to: '/privacy' }],
@@ -273,9 +280,44 @@ Rendered through the shared content page.
   },
 })
 `)
-  await write('base/app/pages/index.vue', '<template><h1>Base layer consumer</h1></template>')
-  await write('base/app/pages/privacy.vue', '<template><h1>Privacy page</h1></template>')
-  await write('base/app/pages/contact.vue', '<template><h1>Contact page</h1></template>')
+  await write('base/app/pages/index.vue', `<script setup lang="ts">
+import type { ArticleLayoutProps } from '@happydesigns/ui/types'
+
+const articleProps = {
+  article: {
+    title: 'Base layer consumer',
+    contents: [{ id: 'packed-section', depth: 2, text: 'Packed section' }],
+  },
+  section: { label: 'Articles', to: '/' },
+  back: { label: 'Back to privacy', to: '/privacy' },
+  navigation: { next: { label: 'Next packed article', to: '/contact' } },
+  options: {
+    footerLinks: [{ label: 'Packed source link', to: '/contact#source' }],
+  },
+} satisfies ArticleLayoutProps
+</script>
+
+<template>
+  <HBlogArticleLayout v-bind="articleProps" :details="{ category: 'News', authors: [{ name: 'Fixture author' }] }">
+    <h2 id="packed-section">Body from the consuming app</h2>
+  </HBlogArticleLayout>
+</template>
+`)
+  await write('base/app/pages/privacy.vue', `<template>
+  <HArticleLayout :article="{ title: 'Privacy page', toc: true }" :options="{ copyUrl: false }" />
+</template>
+`)
+  await write('base/app/pages/contact.vue', `<template>
+  <HBlogArticleLayout :article="{ title: 'Contact page', toc: false }" :options="{ showToc: true }">
+    <template #toc>
+      <nav aria-label="Custom contents">
+        <a href="#source">Source</a>
+      </nav>
+    </template>
+    <p id="source">Contact page source</p>
+  </HBlogArticleLayout>
+</template>
+`)
   await write('base/app/assets/css/main.css', `@import "tailwindcss";
 @import "@nuxt/ui";
 @import "@happydesigns/ui/styles.css";
@@ -295,8 +337,18 @@ Rendered through the shared content page.
   const baseHtml = await readFile(join(baseDir, '.output/public/index.html'), 'utf8')
   if (!baseHtml.includes('Base layer consumer'))
     throw new Error('The base layer did not render independently of Nuxt Content.')
+  for (const text of ['Body from the consuming app', 'href="#packed-section"', 'Packed article contents', 'Copy packed article URL', 'Packed category badge', 'Fixture author', 'Back to privacy', 'href="/contact#source"', 'Next packed article']) {
+    if (!baseHtml.includes(text))
+      throw new Error(`The packed article layout did not render: ${text}`)
+  }
   if (!baseHtml.includes('aria-label="Search pages"') || /<HSiteSearch|<UContentSearchButton/i.test(baseHtml))
     throw new Error('The packed base consumer did not resolve its native search components.')
+  const privacyHtml = await readFile(join(baseDir, '.output/public/privacy/index.html'), 'utf8')
+  if (privacyHtml.includes('Packed article contents') || privacyHtml.includes('Copy packed article URL'))
+    throw new Error('The packed article layout rendered an empty TOC or a disabled action.')
+  const contactHtml = await readFile(join(baseDir, '.output/public/contact/index.html'), 'utf8')
+  if (!contactHtml.includes('aria-label="Custom contents"'))
+    throw new Error('The packed blog layout did not forward a TOC slot with a local override.')
 
   const typecheckOutput = runPnpm(['exec', 'nuxt', 'typecheck'], fixtureDir)
   const generateOutput = runPnpm(['exec', 'nuxt', 'generate'], fixtureDir)

@@ -152,6 +152,7 @@ const appConfig = {
             { label: 'Default layout', to: '/layouts/default' },
             { label: 'Content without TOC', to: '/layouts/content-without-toc' },
             { label: 'Content layout', to: '/layouts/content' },
+            { label: 'Portable article', to: '/layouts/portable-article' },
             { label: 'Article index', to: '/articles', icon: 'i-lucide-list-filter' },
           ],
         },

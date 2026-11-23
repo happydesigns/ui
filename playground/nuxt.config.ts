@@ -14,6 +14,7 @@ export default defineNuxtConfig({
         '/layouts/default',
         '/layouts/content',
         '/layouts/content-without-toc',
+        '/layouts/portable-article',
         '/api/navigation.json',
         '/api/search.json',
       ],
