@@ -1,6 +1,4 @@
-import { computed } from 'vue'
-
-type OptionsLayer<T> = { readonly [K in keyof T]?: T[K] | null | undefined }
+export type LayoutOptionsLayer<T> = { readonly [K in keyof T]?: T[K] | null | undefined }
 
 function isPlainObject(value: unknown): value is Record<string, unknown> {
   if (value === null || typeof value !== 'object' || Array.isArray(value))
@@ -29,7 +27,7 @@ function applyOptions(target: Map<string, unknown>, source: object) {
 
 export function resolveLayoutOptions<T extends object>(
   defaults: T,
-  layers: NoInfer<readonly (OptionsLayer<T> | undefined)[]>,
+  layers: NoInfer<readonly (LayoutOptionsLayer<T> | undefined)[]>,
 ): T {
   const options = new Map<string, unknown>(Object.entries(defaults))
 
@@ -40,11 +38,4 @@ export function resolveLayoutOptions<T extends object>(
   }
 
   return Object.fromEntries(options) as T
-}
-
-export function useLayoutOptions<T extends object>(
-  defaults: T,
-  getLayers: NoInfer<() => readonly (OptionsLayer<T> | undefined)[]>,
-) {
-  return computed(() => resolveLayoutOptions(defaults, getLayers()))
 }

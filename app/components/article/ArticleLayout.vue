@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { ContentSurroundLink } from '@nuxt/ui'
 import type { ArticleCopyOptions, ArticleLayoutOptions, ArticleLayoutProps, ArticleLayoutSlots, ArticleLink } from '../../types/article'
-import { useLayoutOptions } from '../../internal/useLayoutOptions'
+import { useLayoutOptions } from '../../composables/useLayoutOptions'
 
 const props = defineProps<ArticleLayoutProps>()
 defineSlots<ArticleLayoutSlots>()

@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { reactive } from 'vue'
-import { resolveLayoutOptions, useLayoutOptions } from '../app/internal/useLayoutOptions'
+import { useLayoutOptions } from '../app/composables/useLayoutOptions'
+import { resolveLayoutOptions } from '../app/internal/resolveLayoutOptions'
 
 interface LayoutOptions {
   showHeader: boolean

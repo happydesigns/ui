@@ -334,6 +334,9 @@ Rendered through the shared content page.
       defaults: { tocTitle: 'Packed blog contents', copyUrl: { icon: 'i-lucide-copy' } },
       categories: { News: { label: 'Packed category badge', color: 'primary' } },
     },
+    layouts: {
+      tournamentArticle: { backLabel: 'Back to tournaments', reportsTitle: 'Packed tournament reports' },
+    },
     search: {
       title: 'Find a page',
       links: [{ label: 'Datenschutz', to: '/privacy' }],
@@ -387,6 +390,46 @@ const articleProps = {
   </HBlogArticleLayout>
 </template>
 `)
+  await write('base/app/layouts/tournament-article.vue', `<script setup lang="ts">
+import type { ArticleView } from '@happydesigns/ui/types'
+
+interface TournamentOptions {
+  backLabel: string
+  reportsTitle: string
+}
+
+const props = defineProps<{ article: ArticleView, tournamentOptions?: Partial<TournamentOptions> }>()
+const defaults: TournamentOptions = { backLabel: 'Overview', reportsTitle: 'Reports' }
+const appConfig = useAppConfig()
+const settings = useLayoutOptions(defaults, () => [appConfig.app.layouts.tournamentArticle, props.tournamentOptions])
+</script>
+
+<template>
+  <HArticleLayout :article="article" :back="{ label: settings.backLabel, to: '/' }">
+    <slot />
+    <section v-if="$slots.reports">
+      <h2>{{ settings.reportsTitle }}</h2>
+      <slot name="reports" />
+    </section>
+  </HArticleLayout>
+</template>
+`)
+  await write('base/app/pages/tournament.vue', `<script setup lang="ts">
+definePageMeta({ layout: false })
+</script>
+
+<template>
+  <NuxtLayout
+    name="tournament-article"
+    :article="{ title: 'Packed tournament' }"
+    :tournament-options="{ backLabel: 'Back to this tournament' }"
+  >
+    <template #reports>
+      <p>Report from the consumer</p>
+    </template>
+  </NuxtLayout>
+</template>
+`)
   await write('base/app/assets/css/main.css', `@import "tailwindcss";
 @import "@nuxt/ui";
 @import "@happydesigns/ui/styles.css";
@@ -409,6 +452,8 @@ const articleProps = {
   const baseImports = await readFile(join(baseDir, '.nuxt/imports.d.ts'), 'utf8')
   if (/\buse(?:Variant|CategoryBadge)\b/.test(baseImports))
     throw new Error('The base layer registered Content variant composables.')
+  if (!/\buseLayoutOptions\b/.test(baseImports) || /\bresolveLayoutOptions\b/.test(baseImports))
+    throw new Error('The base layer must auto-import the layout composable and keep its resolver internal.')
   const baseHtml = await readFile(join(baseDir, '.output/public/index.html'), 'utf8')
   if (!baseHtml.includes('Base layer consumer'))
     throw new Error('The base layer did not render independently of Nuxt Content.')
@@ -426,6 +471,9 @@ const articleProps = {
     throw new Error('The packed blog layout did not forward a TOC slot with a local override.')
   if (!contactHtml.includes('Copy URL') || contactHtml.includes('Copy packed article URL'))
     throw new Error('Re-enabling Copy URL after a reset did not restore the built-in label.')
+  const tournamentHtml = await readFile(join(baseDir, '.output/public/tournament/index.html'), 'utf8')
+  if (!tournamentHtml.includes('>Packed tournament reports</h2>') || !tournamentHtml.includes('Back to this tournament'))
+    throw new Error('The consumer tournament layout did not render its App Config heading and page-specific back label.')
 
   const generateOutput = runPnpm(['exec', 'nuxt', 'generate'], fixtureDir)
   const output = `${prepareOutput}\n${typecheckOutput}\n${generateOutput}`
