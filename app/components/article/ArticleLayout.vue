@@ -1,13 +1,39 @@
 <script setup lang="ts">
 import type { ContentSurroundLink } from '@nuxt/ui'
-import type { ArticleLayoutProps, ArticleLayoutSlots, ArticleLink } from '../../types/article'
-import { useArticleLayoutOptions } from '../../internal/useArticleLayoutOptions'
+import type { ArticleCopyOptions, ArticleLayoutOptions, ArticleLayoutProps, ArticleLayoutSlots, ArticleLink } from '../../types/article'
+import { useLayoutOptions } from '../../internal/useLayoutOptions'
 
 const props = defineProps<ArticleLayoutProps>()
 defineSlots<ArticleLayoutSlots>()
 
+const articleDefaults: Required<Omit<ArticleLayoutOptions, 'tocTitle'>> & Pick<ArticleLayoutOptions, 'tocTitle'> = {
+  showHeader: true,
+  showToc: true,
+  showAdjacentArticles: true,
+  adjacentLabel: 'Adjacent articles',
+  copyUrl: false,
+  footerLinks: [],
+  footerSeparator: '·',
+}
+
+const copyUrlDefaults = {
+  label: 'Copy URL',
+  icon: 'i-lucide-link',
+  successLabel: 'Link copied to clipboard',
+  successIcon: 'i-lucide-copy-check',
+  errorLabel: 'Link could not be copied',
+  errorIcon: 'i-lucide-copy-x',
+} satisfies ArticleCopyOptions
+
 const route = useRoute()
-const settings = useArticleLayoutOptions(props)
+const appConfig = useAppConfig()
+const settings = useLayoutOptions(articleDefaults, () => [
+  { tocTitle: appConfig.app.toc?.title },
+  appConfig.app.articleLayout,
+  ...(props.defaults ?? []),
+  { showToc: props.article.toc },
+  props.options,
+])
 const path = computed(() => props.path ?? route.path)
 const breadcrumbs = computed(() => props.breadcrumbs ?? (props.section ? [props.section] : []))
 
@@ -62,7 +88,7 @@ const surround = computed(() => {
         <slot name="actions">
           <div v-if="back || settings.copyUrl" class="all:flex flex-wrap items-center justify-between gap-2 mt-12">
             <HBackButton v-if="back" icon="i-lucide-arrow-left" v-bind="back" />
-            <HCopyButton v-if="settings.copyUrl" class="ml-auto" v-bind="settings.copyUrl" :path="path" />
+            <HCopyButton v-if="settings.copyUrl" class="ml-auto" v-bind="{ ...copyUrlDefaults, ...settings.copyUrl }" :path="path" />
           </div>
         </slot>
 

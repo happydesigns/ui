@@ -373,7 +373,11 @@ const articleProps = {
 </template>
 `)
   await write('base/app/pages/contact.vue', `<template>
-  <HBlogArticleLayout :article="{ title: 'Contact page', toc: false }" :options="{ showToc: true }">
+  <HBlogArticleLayout
+    :article="{ title: 'Contact page', toc: false }"
+    :defaults="[{ copyUrl: false }]"
+    :options="{ showToc: true, copyUrl: {} }"
+  >
     <template #toc>
       <nav aria-label="Custom contents">
         <a href="#source">Source</a>
@@ -420,6 +424,8 @@ const articleProps = {
   const contactHtml = await readFile(join(baseDir, '.output/public/contact/index.html'), 'utf8')
   if (!contactHtml.includes('aria-label="Custom contents"'))
     throw new Error('The packed blog layout did not forward a TOC slot with a local override.')
+  if (!contactHtml.includes('Copy URL') || contactHtml.includes('Copy packed article URL'))
+    throw new Error('Re-enabling Copy URL after a reset did not restore the built-in label.')
 
   const generateOutput = runPnpm(['exec', 'nuxt', 'generate'], fixtureDir)
   const output = `${prepareOutput}\n${typecheckOutput}\n${generateOutput}`
