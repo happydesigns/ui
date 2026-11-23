@@ -1,4 +1,5 @@
 import { createVariantSchemaResolver } from '@happydesigns/config-variants/schemas'
+import { collectionSchemaProfiles } from './collection-profiles'
 import { variantSchemas } from './traits'
 import { variantRegistry } from './variants'
 
@@ -11,8 +12,8 @@ const resolveVariantSchema = createVariantSchemaResolver(variantRegistry, varian
  * intentionally remain in the consuming application's `content.config.ts`.
  */
 export const collectionSchemas = {
-  content: resolveVariantSchema(['content']),
-  article: resolveVariantSchema(['article']),
-  event: resolveVariantSchema(['event']),
-  user: resolveVariantSchema(['user']),
+  content: resolveVariantSchema(collectionSchemaProfiles.content),
+  article: resolveVariantSchema(collectionSchemaProfiles.article),
+  event: resolveVariantSchema(collectionSchemaProfiles.event),
+  user: resolveVariantSchema(collectionSchemaProfiles.user),
 }

@@ -1,8 +1,9 @@
-/* eslint-disable regexp/no-super-linear-backtracking, regexp/no-useless-character-class, regexp/prefer-w, regexp/use-ignore-case */
+/* eslint-disable regexp/no-super-linear-backtracking, regexp/use-ignore-case */
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { basename, join, relative, resolve } from 'node:path'
 import process from 'node:process'
 import { contentVariantDefaults } from '../../../content/variant-defaults'
+import { collectionSchemaProfiles } from '../../../schemas/collection-profiles'
 import { variantRegistry } from '../../../schemas/variants'
 
 export interface SourceReference {
@@ -25,7 +26,7 @@ export interface ComponentSlotReference {
 }
 
 const repoRoot = resolve(process.env.HAPPYDESIGNS_UI_ROOT ?? process.env.INIT_CWD ?? process.cwd())
-const componentRoot = resolve(repoRoot, 'app/components')
+const componentRoots = ['app/components', 'content/app/components'].map(path => resolve(repoRoot, path))
 const exampleRoot = resolve(repoRoot, 'docs/app/components/content/examples')
 const githubBase = 'https://github.com/happydesigns/ui/blob/main'
 
@@ -77,8 +78,8 @@ export function getComponentSource(name: string): SourceReference | null {
 
 function getComponentFile(name: string) {
   const normalized = normalizeComponentName(name).replace(/^H/, '')
-  return walkFiles(componentRoot, '.vue')
-    .find(path => basename(path, '.vue') === normalized)
+  return componentRoots.flatMap(root => walkFiles(root, '.vue'))
+    .find(path => basename(path, '.vue').replace(/\.(?:client|server|global)$/, '') === normalized)
 }
 
 function readComponentSource(name: string) {
@@ -309,15 +310,5 @@ export function getVariantReferences() {
 }
 
 export function getCollectionReferences() {
-  const sourcePath = resolve(repoRoot, 'schemas/collections.ts')
-  const source = readFileSync(sourcePath, 'utf-8')
-  const matches = [...source.matchAll(/^\s{2}([a-zA-Z][\w]*):\s*mergeVariantSchemas\(\[([^\]]*)\]/gm)]
-
-  return matches.map(match => ({
-    name: match[1]!,
-    variants: match[2]!
-      .split(',')
-      .map(item => item.trim().replace(/^['"]|['"]$/g, ''))
-      .filter(Boolean),
-  }))
+  return Object.entries(collectionSchemaProfiles).map(([name, variants]) => ({ name, variants }))
 }

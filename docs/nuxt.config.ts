@@ -68,8 +68,6 @@ export default defineNuxtConfig({
       failOnError: true,
       routes: [
         ...documentationRoutes,
-        '/api/ui-reference/components/HFooterColumns.json',
-        '/api/ui-reference/examples/FooterColumnsBasic.json',
         '/api/ui-reference/collections.json',
         '/api/ui-reference/variants.json',
       ],

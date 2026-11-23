@@ -82,15 +82,28 @@ if (component.name !== 'HFooterColumns' || !component.meta?.props.some(prop => p
   throw new Error('The component reference endpoint did not resolve its dynamic route parameter.')
 }
 
-const example = await readReference('examples/FooterColumnsBasic')
+const contentComponent = await readReference('components/HArticlePage')
+if (!contentComponent.meta?.props.some(prop => prop.name === 'collection')
+  || contentComponent.source?.path !== 'content/app/components/article/ArticlePage.vue') {
+  throw new Error('The component reference did not resolve a component from the Content layer.')
+}
+
+const studioComponent = await readReference('components/HStudioLoginButton')
+if (studioComponent.source?.path !== 'content/app/components/studio/StudioLoginButton.client.vue') {
+  throw new Error('The component reference did not resolve the client-only Studio component.')
+}
+
+const example = await readReference('examples/footer-columns-basic')
 if (example.name !== 'FooterColumnsBasic' || !example.code.includes('<HFooterColumns')
   || example.source?.path !== 'docs/app/components/content/examples/FooterColumnsBasic.vue') {
   throw new Error('The example reference endpoint did not resolve its dynamic route parameter.')
 }
 
 const collections = await readReference('collections')
-if (!Array.isArray(collections.collections))
-  throw new TypeError('The collections reference endpoint did not return its expected collection.')
+for (const name of ['content', 'article', 'event', 'user']) {
+  if (!collections.collections?.some(profile => profile.name === name && profile.variants.includes(name)))
+    throw new Error(`The collections reference is missing the ${name} schema profile.`)
+}
 
 const variants = await readReference('variants')
 const article = variants.variants?.find(variant => variant.name === 'article')
@@ -99,4 +112,4 @@ if (!article?.extends.includes('authors') || !event?.extends.includes('location'
   throw new Error('The variants reference must include article and event with their inherited features and defaults.')
 }
 
-console.log(`Validated ${routes.length} generated documentation routes and 4 reference endpoints.`)
+console.log(`Validated ${routes.length} generated documentation routes and 6 reference endpoints.`)

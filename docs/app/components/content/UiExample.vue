@@ -8,7 +8,9 @@ const props = withDefaults(defineProps<{
   source: true,
 })
 
-const { data, error } = await useFetch(`/api/ui-reference/examples/${props.name}.json`)
+const path = `/api/ui-reference/examples/${props.name}.json`
+prerenderRoutes(path)
+const { data, error } = await useFetch(path, { responseType: 'json' })
 </script>
 
 <template>
