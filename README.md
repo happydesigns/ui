@@ -4,11 +4,9 @@
 [![npm downloads](https://img.shields.io/npm/dm/%40happydesigns%2Fui?logo=npm)](https://www.npmjs.com/package/@happydesigns/ui)
 [![CI](https://github.com/happydesigns/ui/actions/workflows/ci.yml/badge.svg)](https://github.com/happydesigns/ui/actions/workflows/ci.yml)
 
-Reusable Nuxt layer for happydesigns websites, docs sites, and product apps.
+Build Nuxt sites and apps with shared UI components, navigation, and article layouts. Each app owns its routes, branding, and content. Add the Content layer when you need Nuxt Content collections, queries, and Studio.
 
-The package provides shared Nuxt setup, Nuxt UI conventions, content collection schemas, public `H*` components, composables, variants, and app config conventions. Projects extend the layer and keep project-specific routes, content, branding, and deployment settings in the project that owns them.
-
-[npm](https://www.npmjs.com/package/@happydesigns/ui) · [npmx](https://npmx.dev/package/@happydesigns/ui) · [GitHub](https://github.com/happydesigns/ui)
+[Documentation](https://ui.happydesigns.de) · [npm](https://www.npmjs.com/package/@happydesigns/ui) · [npmx](https://npmx.dev/package/@happydesigns/ui)
 
 ## Installation
 
@@ -39,23 +37,13 @@ Run Nuxt preparation after changing dependencies or layer configuration:
 pnpm exec nuxt prepare
 ```
 
-## Maintenance page
+## Article and blog layouts
 
-For a branded temporary notice, use `HMaintenancePage` with title, description, actions and optional logo/tools/footer slots. Activation, routing and HTTP status stay application-owned. See [Maintenance page](docs/content/6.configuration/9.maintenance.md).
-
-## Site search
-
-Render `<HSiteSearch />` once in the app shell and use `<UContentSearchButton />`
-to open it. Configure navigation shortcuts with `app.search.links` and
-`app.search.groups`. The base-layer search does not load content indexes or
-activate Nuxt Content or Studio. See [Search](docs/content/6.configuration/8.content-search.md).
+Use `HArticleLayout` for a shared header, body, table of contents, and adjacent links. `HBlogArticleLayout` uses the same frame and adds dates, category, and authors. Pass typed data and render the body in a slot. Both components work with content the app loads from Comark, Nuxt Content, or any other source. Use either component directly or wrap it in an app-owned named layout. [Article layout guide](docs/content/4.components/1.article/7.portable-article-layouts.md)
 
 ## Content collections
 
-Applications using Nuxt Content extend `@happydesigns/ui/content` instead of
-`@happydesigns/ui`. This optional layer includes article/content layouts,
-`HContentPage`, `HSnippet`, content search, author lookup, navigation endpoints,
-and Nuxt Studio (disabled unless configured by the application).
+Use `@happydesigns/ui/content` to add the named `article` and `content` layouts, collection queries, snippets, content search, and Studio integration. It includes the base layer.
 
 ```ts
 export default defineNuxtConfig({
@@ -63,35 +51,13 @@ export default defineNuxtConfig({
 })
 ```
 
-**Migration from 0.19.x:** change the layer entry point above if your application
-uses these features. The base entry point now registers only Nuxt UI and variants;
-Comark applications can keep it without initializing Nuxt Content or Studio.
-The dependencies remain installed for the optional layer, but are not activated
-by the base layer.
+Define collection names and sources in your app's `content.config.ts`. Reuse schema profiles from `@happydesigns/ui/schemas` and enable Studio in your app when editors need it. [Content setup and examples](docs/content/1.getting-started/2.installation.md#content-collections)
 
-The layer exports reusable schema profiles, but it does not register collection names, sources, or route prefixes for an application. Define those locally in the consumer's `content.config.ts`:
+## More guides
 
-```ts
-import { collectionSchemas } from '@happydesigns/ui/schemas'
-import { defineCollection, defineContentConfig } from '@nuxt/content'
-
-export default defineContentConfig({
-  collections: {
-    news: defineCollection({
-      type: 'page',
-      source: 'news/**/*.md',
-      schema: collectionSchemas.article,
-    }),
-    legal: defineCollection({
-      type: 'page',
-      source: 'legal/**/*.md',
-      schema: collectionSchemas.content,
-    }),
-  },
-})
-```
-
-This keeps the shared field model convenient while leaving collection names, file structure, routing, indexes, and additional project schemas under application control.
+- [Site search](docs/content/6.configuration/8.content-search.md) covers app-owned navigation and optional collection indexes.
+- [Maintenance page](docs/content/6.configuration/9.maintenance.md) shows how to render a temporary notice while the app owns routing and status.
+- [Upgrade notes](docs/content/1.getting-started/5.upgrade-notes.md) cover changes to the layer entry point and article rendering.
 
 ## Development
 

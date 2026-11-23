@@ -1,6 +1,5 @@
 <script setup lang="ts">
-// Nuxt UI 4.10 does not provide the header modal title and description messages.
-// Keep the accessible labels explicit until they are available in the bundled locale.
+// Label the documentation navigation dialog for assistive technology.
 const appConfig = useAppConfig()
 const { forced: forcedColorMode } = useDocusColorMode()
 
