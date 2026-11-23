@@ -221,7 +221,7 @@ void ownerSettingsLabel
       </template>
     </HSiteHeader>
     <h1>Packed consumer fixture</h1>
-    <p data-test="consumer-badge">{{ consumerCategory.label }}</p>
+    <p data-test="consumer-badge">{{ consumerCategory?.label }}</p>
     <HSnippet :collection="fragmentCollection" path="/snippets/packed" />
     <HLinks :links="links" />
     <HFooterColumns :columns="[]" :lg-cols="2" />
