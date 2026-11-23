@@ -104,10 +104,12 @@ try {
   workspaceDir: ${JSON.stringify(fixtureDir)},
   extends: ['@happydesigns/ui/content'],
   css: ['~/assets/css/main.css'],
+  ui: { theme: { colors: ['primary', 'secondary', 'info', 'success', 'warning', 'error', 'club'] } },
+  variants: { registry: { team: { extends: 'event' } } },
   nitro: {
     prerender: {
       autoSubfolderIndex: false,
-      routes: ['/packed', '/supplied', '/api/navigation.json', '/api/search.json'],
+      routes: ['/packed', '/supplied', '/articles', '/articles/first', '/api/navigation.json', '/api/search.json'],
     },
   },
 })
@@ -121,6 +123,11 @@ const landingSchema = createPageSectionSchema({
 
 export default defineContentConfig({
   collections: {
+    article: defineCollection({
+      type: 'page',
+      source: 'articles/**/*.md',
+      schema: collectionSchemas.article,
+    }),
     fragment: defineCollection({
       type: 'page',
       source: {
@@ -153,6 +160,19 @@ export default defineAppConfig({
     label: 'Typed consumer config',
   },
   variants: {
+    article: {
+      config: {
+        categories: {
+          Club: {
+            label: 'Consumer category',
+            color: 'club',
+            ui: { base: { 'tracking-wide': true } },
+          },
+        },
+        query: { order: { field: 'date', direction: 'ASC' as const } },
+      },
+    },
+    team: { config: { list: { labelAll: 'All teams' } } },
     content: {
       config: {
         ownerSettings: {
@@ -164,6 +184,7 @@ export default defineAppConfig({
   ui: {
     colors: {
       primary: 'green',
+      club: 'blue',
     },
     pageHero: {
       slots: {
@@ -231,6 +252,44 @@ const { data: page } = await usePageContent({
     path="/does-not-exist"
   />
 </template>
+`)
+  await write('app/pages/articles/index.vue', `<script setup lang="ts">
+const { data } = await useArticleList({ collection: 'article' })
+</script>
+
+<template>
+  <ul>
+    <li v-for="article in data.articles" :key="article.path">
+      {{ article.title }}
+      <UBadge v-bind="article.resolvedBadge" />
+    </li>
+  </ul>
+</template>
+`)
+  await write('app/pages/articles/[slug].vue', `<script setup lang="ts">
+definePageMeta({
+  layout: 'article',
+  layoutProps: { collection: 'article' },
+})
+</script>
+
+<template>
+  <HArticlePage collection="article" />
+</template>
+`)
+  await write('content/articles/first.md', `---
+title: First consumer article
+category: Club
+date: 2026-01-01
+---
+Rendered by the named article layout.
+`)
+  await write('content/articles/second.md', `---
+title: Second consumer article
+category: Club
+date: 2026-02-01
+---
+The adjacent article.
 `)
   await write('content/snippets/packed.md', `---
 title: Packed snippet
@@ -327,6 +386,7 @@ const articleProps = {
   runPnpm(['install', '--no-frozen-lockfile'], fixtureDir)
   const prepareOutput = runPnpm(['exec', 'nuxt', 'prepare'], fixtureDir)
   runPnpm(['exec', 'nuxt', 'prepare'], baseDir)
+  const typecheckOutput = runPnpm(['exec', 'nuxt', 'typecheck'], fixtureDir)
   runPnpm(['exec', 'nuxt', 'typecheck'], baseDir)
   const baseOutput = runPnpm(['exec', 'nuxt', 'generate'], baseDir)
   if (/Failed to resolve component|Unknown custom element/i.test(baseOutput))
@@ -350,7 +410,6 @@ const articleProps = {
   if (!contactHtml.includes('aria-label="Custom contents"'))
     throw new Error('The packed blog layout did not forward a TOC slot with a local override.')
 
-  const typecheckOutput = runPnpm(['exec', 'nuxt', 'typecheck'], fixtureDir)
   const generateOutput = runPnpm(['exec', 'nuxt', 'generate'], fixtureDir)
   const output = `${prepareOutput}\n${typecheckOutput}\n${generateOutput}`
 
@@ -367,6 +426,15 @@ const articleProps = {
   const reusedContentPage = suppliedHtml.includes('Rendered through the shared content page.')
   if (!renderedPage || !renderedSnippet || !renderedContentPage || !reusedContentPage)
     throw new Error(`Packed consumer render mismatch (page: ${renderedPage}, snippet: ${renderedSnippet}, content page: ${renderedContentPage}, supplied page: ${reusedContentPage}).`)
+
+  const articlesHtml = await readFile(join(publicDir, 'articles.html'), 'utf8')
+  const firstIndex = articlesHtml.indexOf('First consumer article')
+  const secondIndex = articlesHtml.indexOf('Second consumer article')
+  if (firstIndex === -1 || secondIndex <= firstIndex || !articlesHtml.includes('Consumer category') || !articlesHtml.includes('tracking-wide'))
+    throw new Error('Article sorting or category badge overrides were not applied in the packed Content consumer.')
+  const firstArticleHtml = await readFile(join(publicDir, 'articles/first.html'), 'utf8')
+  if (!firstArticleHtml.includes('Rendered by the named article layout.') || !firstArticleHtml.includes('href="/articles/second"'))
+    throw new Error('The named article layout did not render its article and configured adjacent link.')
 
   for (const endpoint of ['navigation', 'search']) {
     const contents = await readFile(join(publicDir, `api/${endpoint}.json`), 'utf8')

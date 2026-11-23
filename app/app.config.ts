@@ -1,6 +1,6 @@
 import type { AppConfigInput } from '@nuxt/schema'
 import type { BadgeProps, ButtonProps } from '@nuxt/ui'
-import type { QueryConfig, SearchConfig } from './types/config'
+import type { ArticleLayoutDefaults, BlogArticleLayoutOptions, QueryConfig, SearchConfig } from './types/config'
 
 export * from './types/config'
 
@@ -9,6 +9,10 @@ const ui = {
     base: 'wrap-break-word',
   },
 } satisfies NonNullable<AppConfigInput['ui']>
+
+// Keep these keys in Nuxt's inferred app config even when consumers omit them.
+const articleLayout: ArticleLayoutDefaults = {}
+const blogArticleLayout: BlogArticleLayoutOptions = {}
 
 export default defineAppConfig({
   variants: {
@@ -118,6 +122,9 @@ export default defineAppConfig({
     toc: {
       title: '',
     },
+
+    articleLayout,
+    blogArticleLayout,
 
     date: {
       locale: 'en',

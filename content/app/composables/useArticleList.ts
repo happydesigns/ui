@@ -3,6 +3,7 @@ import type { BadgeProps } from '@nuxt/ui'
 import type { MaybeRefOrGetter } from 'vue'
 import type { PageCollectionName } from '../../../app/types/content'
 import { computed, toValue } from 'vue'
+import { resolveArticleQuery } from '../utils/resolveArticleQuery'
 
 export interface ArticleFilter {
   field: string
@@ -35,6 +36,7 @@ export function useArticleList<C extends PageCollectionName = 'article'>(options
   const collection = computed(() => (toValue(options.collection) || ('article' as C)) as C)
 
   const { config } = useVariant(collection)
+  const queryConfig = computed(() => resolveArticleQuery(config.value.query))
   const appConfig = useAppConfig()
 
   const page = computed(() => toValue(options.page) || 1)
@@ -48,7 +50,7 @@ export function useArticleList<C extends PageCollectionName = 'article'>(options
       return w
 
     // Fallback to config where but filter out publication if handled separately
-    return config.value.query?.where?.filter(f => f.field !== 'published') || []
+    return queryConfig.value?.where?.filter(f => f.field !== 'published') || []
   })
 
   const sort = computed(() => {
@@ -56,7 +58,7 @@ export function useArticleList<C extends PageCollectionName = 'article'>(options
     if (s !== undefined)
       return s
 
-    return config.value.query?.order
+    return queryConfig.value?.order
   })
 
   const publishedOnly = computed(() => toValue(options.publishedOnly) ?? true)
@@ -123,7 +125,10 @@ export function useArticleList<C extends PageCollectionName = 'article'>(options
       let resolvedBadge: BadgeProps | undefined
 
       if (categoryKey) {
-        resolvedBadge = config.value.categories?.[categoryKey] ?? {
+        // The generated variant union widens nested UI slot classes to partial objects.
+        // The stored badge is passed through unchanged, including consumer theme overrides.
+        const configuredBadge = config.value.categories?.[categoryKey] as BadgeProps | undefined
+        resolvedBadge = configuredBadge ?? {
           label: categoryKey,
           color: 'primary',
         }

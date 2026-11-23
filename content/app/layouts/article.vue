@@ -1,6 +1,7 @@
 <script setup lang="ts" generic="C extends PageCollectionName = 'article'">
 import type { BreadcrumbItem } from '@nuxt/ui'
 import type { PageCollectionName } from '../../../app/types/content'
+import { resolveArticleQuery } from '../utils/resolveArticleQuery'
 
 const props = defineProps<{
   path?: string
@@ -17,6 +18,8 @@ const { data: page } = await usePageContent({
 })
 
 const { config, has } = useVariant(collection)
+const surroundQuery = computed(() => resolveArticleQuery(config.value.query))
+
 const hasHeader = has('header')
 const hasBackButton = has('backButton')
 const hasCopyButton = has('copyButton')
@@ -105,7 +108,7 @@ const backLink = computed(() => {
           v-if="hasSurround"
           :collection="surroundCollection"
           v-bind="config.surround"
-          :query="config.query"
+          :query="surroundQuery"
         />
       </UPageBody>
 
