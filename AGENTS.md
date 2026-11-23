@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Start with the [README](README.md) for package scope, local development, verification, and releases.
+Start with the [README](README.md) for package scope and [Contributing](CONTRIBUTING.md) for local development, verification, and releases.
 
 ## Repository documentation
 
@@ -8,7 +8,3 @@ Start with the [README](README.md) for package scope, local development, verific
 - Use the [installation guide](docs/content/1.getting-started/2.installation.md) for consumer setup and package entry points.
 - Keep usage guides in `docs/content/` and update the relevant page when public behavior changes. Use source files for implementation details and `package.json` for dependency ranges.
 - Keep temporary plans and research notes in issues, pull requests, or the task workspace.
-
-## Verification
-
-Use `pnpm consumer:check` when changing package entry points, Nuxt layer registration, or generated types. Use `pnpm docs:build` when changing documentation routes or generated references. See the README for the other development checks.
