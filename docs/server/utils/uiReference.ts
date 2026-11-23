@@ -2,6 +2,8 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { basename, join, relative, resolve } from 'node:path'
 import process from 'node:process'
+import { contentVariantDefaults } from '../../../content/variant-defaults'
+import { variantRegistry } from '../../../schemas/variants'
 
 export interface SourceReference {
   path: string
@@ -291,53 +293,17 @@ export function getExampleSource(name: string) {
   }
 }
 
-function extractBlock(source: string, startIndex: number) {
-  const openIndex = source.indexOf('{', startIndex)
-  if (openIndex === -1) {
-    return ''
-  }
-
-  let depth = 0
-  for (let index = openIndex; index < source.length; index++) {
-    const char = source[index]
-    if (char === '{') {
-      depth++
-    }
-    if (char === '}') {
-      depth--
-      if (depth === 0) {
-        return source.slice(openIndex, index + 1)
-      }
-    }
-  }
-
-  return ''
-}
-
 export function getVariantReferences() {
-  const sourcePath = resolve(repoRoot, 'nuxt.config.ts')
-  const source = readFileSync(sourcePath, 'utf-8')
-  const registryIndex = source.indexOf('registry:')
-  const registry = extractBlock(source, registryIndex)
-  const names = [...registry.matchAll(/^\s{6}([a-zA-Z][\w]*):\s*\{/gm)].map(match => match[1]!)
-  const appConfig = readFileSync(resolve(repoRoot, 'app/app.config.ts'), 'utf-8')
-
-  return names.map((name, index) => {
-    const start = registry.indexOf(`${name}:`)
-    const end = index + 1 < names.length ? registry.indexOf(`${names[index + 1]!}:`, start) : registry.length
-    const block = registry.slice(start, end)
-    const extendsMatch = block.match(/extends:\s*\[([^\]]*)\]/)
-    const extendsList = extendsMatch?.[1]?.split(',')
-
-      .map(item => item.trim().replace(/^['"]|['"]$/g, ''))
-      .filter(Boolean) ?? []
+  return Object.entries(variantRegistry).map(([name, entry]) => {
+    const parents = 'extends' in entry ? entry.extends : []
+    const hasRuntimeConfig = Object.hasOwn(contentVariantDefaults, name)
 
     return {
       name,
-      kind: extendsList.length ? 'collection' : appConfig.includes(`${name}: { config`) ? 'configured feature' : 'schema feature',
-      extends: extendsList,
-      hasRuntimeConfig: appConfig.includes(`${name}: {`) && appConfig.includes('config'),
-      source: 'nuxt.config.ts',
+      kind: parents.length ? 'collection' : hasRuntimeConfig ? 'configured feature' : 'schema feature',
+      extends: parents,
+      hasRuntimeConfig,
+      source: 'schemas/variants.ts',
     }
   })
 }

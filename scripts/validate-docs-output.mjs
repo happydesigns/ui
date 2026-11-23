@@ -88,10 +88,15 @@ if (example.name !== 'FooterColumnsBasic' || !example.code.includes('<HFooterCol
   throw new Error('The example reference endpoint did not resolve its dynamic route parameter.')
 }
 
-for (const key of ['collections', 'variants']) {
-  const reference = await readReference(key)
-  if (!Array.isArray(reference[key]))
-    throw new Error(`The ${key} reference endpoint did not return its expected collection.`)
+const collections = await readReference('collections')
+if (!Array.isArray(collections.collections))
+  throw new TypeError('The collections reference endpoint did not return its expected collection.')
+
+const variants = await readReference('variants')
+const article = variants.variants?.find(variant => variant.name === 'article')
+const event = variants.variants?.find(variant => variant.name === 'event')
+if (!article?.extends.includes('authors') || !event?.extends.includes('location') || !event.hasRuntimeConfig) {
+  throw new Error('The variants reference must include article and event with their inherited features and defaults.')
 }
 
 console.log(`Validated ${routes.length} generated documentation routes and 4 reference endpoints.`)

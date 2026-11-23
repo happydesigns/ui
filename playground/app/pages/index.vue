@@ -13,7 +13,6 @@ const technologies = [
   { label: 'Nuxt 4', icon: 'i-simple-icons-nuxtdotjs' },
   { label: 'Nuxt UI', icon: 'i-lucide-panels-top-left' },
   { label: 'Nuxt Content', icon: 'i-lucide-files' },
-  { label: 'Config Variants', icon: 'i-lucide-git-branch' },
 ]
 
 const documentationLinks: ButtonProps[] = [

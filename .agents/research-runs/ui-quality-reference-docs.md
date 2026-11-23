@@ -26,7 +26,7 @@ Empfehlung: Erst einen kleinen `ui-reference-quality-spike` mit zwei Komponenten
 Relevante bestehende Struktur:
 
 - Root Package: `@happydesigns/ui`, Nuxt Layer mit `app/`, `schemas/`, `content.config.ts`, `nuxt.config.ts`.
-- Docs: `docs/` erweitert `docus`, nutzt `@nuxtjs/i18n`, `@happydesigns/nuxt-variants` und eigene MDC-Komponenten.
+- Docs: `docs/` erweitert `docus` und nutzt eigene MDC-Komponenten.
 - Referenz-Utilities: `docs/server/utils/uiReference.ts` erzeugt aktuell Props, Slots, Source-Links, Beispiele, Varianten und Collections aus Repo-Dateien.
 - Docs-Komponenten: `UiComponentProps.vue`, `UiComponentSlots.vue`, `UiComponentSourceLink.vue`, `UiExample.vue`, `UiVariantTable.vue`, `UiCollectionTable.vue`.
 - Beispielseiten: Komponentenseiten nutzen bereits das Muster Usage -> API -> Source.

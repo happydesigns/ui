@@ -15,7 +15,7 @@ This is **example content**, not a real scheduled event. It exists to exercise t
 ## Session outline
 
 - Separate shared traits from collection-specific fields
-- Compose schemas with `nuxt-variants`
+- Compose schemas from shared content features
 - Configure badges and queries in app config
 - Verify generated output and unpublished content
 
