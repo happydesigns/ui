@@ -390,18 +390,25 @@ const articleProps = {
   </HBlogArticleLayout>
 </template>
 `)
-  await write('base/app/layouts/tournament-article.vue', `<script setup lang="ts">
-import type { ArticleView } from '@happydesigns/ui/types'
-
-interface TournamentOptions {
+  await write('base/app/types/tournament-options.ts', `export interface TournamentOptions {
   backLabel: string
   reportsTitle: string
 }
 
+declare module '@happydesigns/ui/types' {
+  interface HAppConfigExtensions {
+    layouts?: { tournamentArticle?: Partial<TournamentOptions> }
+  }
+}
+`)
+  await write('base/app/layouts/tournament-article.vue', `<script setup lang="ts">
+import type { ArticleView } from '@happydesigns/ui/types'
+import type { TournamentOptions } from '~/types/tournament-options'
+
 const props = defineProps<{ article: ArticleView, tournamentOptions?: Partial<TournamentOptions> }>()
 const defaults: TournamentOptions = { backLabel: 'Overview', reportsTitle: 'Reports' }
 const appConfig = useAppConfig()
-const settings = useLayoutOptions(defaults, () => [appConfig.app.layouts.tournamentArticle, props.tournamentOptions])
+const settings = useLayoutOptions(defaults, () => [appConfig.app.layouts?.tournamentArticle, props.tournamentOptions])
 </script>
 
 <template>
