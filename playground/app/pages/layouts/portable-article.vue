@@ -20,8 +20,6 @@ const preview = {
     },
   },
   options: {
-    tocTitle: 'On this page',
-    copyUrl: {},
     footerLinks: [
       { label: 'View source', icon: 'i-lucide-code-xml', to: 'https://github.com/happydesigns/ui', target: '_blank' },
       { label: 'Report an issue', icon: 'i-lucide-circle-alert', to: 'https://github.com/happydesigns/ui/issues', target: '_blank' },

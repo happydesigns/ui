@@ -56,6 +56,8 @@ export interface ArticleLayoutProps {
   breadcrumbs?: BreadcrumbItem[]
   back?: Pick<ButtonProps, 'to' | 'icon' | 'label'>
   navigation?: ArticleNavigation
+  /** Defaults from composing layouts, ordered from general to specific. */
+  defaults?: readonly ArticleLayoutDefaults[]
   options?: ArticleLayoutOptions
 }
 
@@ -87,6 +89,7 @@ export interface BlogArticleCategoryDefaults {
 }
 
 export interface BlogArticleLayoutOptions {
+  defaults?: ArticleLayoutDefaults
   categories?: Record<string, BlogArticleCategoryDefaults>
 }
 

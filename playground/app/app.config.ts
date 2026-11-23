@@ -100,6 +100,12 @@ const appConfig = {
   },
 
   app: {
+    articleLayout: {
+      copyUrl: {},
+    },
+    blogArticleLayout: {
+      defaults: { tocTitle: 'In this post' },
+    },
     meta: {
       copyright: {
         copyrightYear: new Date().getFullYear(),

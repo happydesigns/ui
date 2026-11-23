@@ -5,6 +5,10 @@ const props = defineProps<BlogArticleLayoutProps>()
 defineSlots<ArticleLayoutSlots>()
 
 const appConfig = useAppConfig()
+const layoutDefaults = computed(() => [
+  appConfig.app.blogArticleLayout?.defaults ?? {},
+  ...(props.defaults ?? []),
+])
 const category = computed(() => {
   const label = props.details?.category
   return props.category ?? (label
@@ -21,6 +25,7 @@ const category = computed(() => {
     :breadcrumbs="breadcrumbs"
     :back="back"
     :navigation="navigation"
+    :defaults="layoutDefaults"
     :options="options"
   >
     <template v-if="category || details?.date || $slots.metadata" #metadata>

@@ -331,6 +331,7 @@ Rendered through the shared content page.
       tocTitle: 'Packed article contents',
     },
     blogArticleLayout: {
+      defaults: { tocTitle: 'Packed blog contents', copyUrl: { icon: 'i-lucide-copy' } },
       categories: { News: { label: 'Packed category badge', color: 'primary' } },
     },
     search: {
@@ -407,7 +408,7 @@ const articleProps = {
   const baseHtml = await readFile(join(baseDir, '.output/public/index.html'), 'utf8')
   if (!baseHtml.includes('Base layer consumer'))
     throw new Error('The base layer did not render independently of Nuxt Content.')
-  for (const text of ['Body from the consuming app', 'href="#packed-section"', 'Packed article contents', 'Copy packed article URL', 'Packed category badge', 'Fixture author', 'Back to privacy', 'href="/contact#source"', 'Next packed article']) {
+  for (const text of ['Body from the consuming app', 'href="#packed-section"', 'Packed blog contents', 'Copy packed article URL', 'Packed category badge', 'Fixture author', 'Back to privacy', 'href="/contact#source"', 'Next packed article']) {
     if (!baseHtml.includes(text))
       throw new Error(`The packed article layout did not render: ${text}`)
   }
