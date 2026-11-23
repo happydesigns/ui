@@ -3,7 +3,6 @@
 <p>
   <a href="https://npmx.dev/package/@happydesigns/ui"><img src="https://img.shields.io/npm/v/@happydesigns/ui.svg?style=flat&amp;colorA=18181B&amp;colorB=F28564" alt="npm version"></a>
   <a href="https://npmx.dev/package/@happydesigns/ui"><img src="https://img.shields.io/npm/dm/@happydesigns/ui.svg?style=flat&amp;colorA=18181B&amp;colorB=F28564" alt="npm downloads per month"></a>
-  <a href="https://github.com/happydesigns/ui/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/happydesigns/ui/ci.yml?branch=main&amp;style=flat&amp;label=CI&amp;colorA=18181B" alt="CI status on main"></a>
   <a href="docs/content/1.getting-started/2.installation.md"><img src="https://img.shields.io/badge/Nuxt-18181B?style=flat&amp;logo=nuxt" alt="Nuxt installation guide"></a>
 </p>
 
