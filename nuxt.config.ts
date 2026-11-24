@@ -1,5 +1,3 @@
-import { variantRegistry } from './schemas/variants'
-
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
 
@@ -13,17 +11,10 @@ export default defineNuxtConfig({
 
   devtools: { enabled: true },
 
-  modules: [
-    '@happydesigns/nuxt-variants',
-    '@nuxt/ui',
-  ],
+  modules: ['@nuxt/ui'],
 
   ui: {
     content: true,
-  },
-
-  variants: {
-    registry: variantRegistry,
   },
 
 })

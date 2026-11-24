@@ -1,7 +1,9 @@
 import type { SQLOperator } from '@nuxt/content'
 import type { ButtonProps, CommandPaletteGroup, ContentSearchLink, FooterColumn, NavigationMenuItem } from '@nuxt/ui'
+import type { ArticleLayoutDefaults, BlogArticleLayoutOptions } from './article'
 import type { CollectionName, PageCollectionName } from './content'
 
+export type * from './article'
 export type { CollectionName, ContentLink, PageCollectionName } from './content'
 
 export type ActionButton = ButtonProps & {
@@ -78,6 +80,8 @@ export interface HAppConfigInput extends HAppConfigExtensions {
   search?: SearchConfig
   content?: { userCollection?: CollectionName }
   toc?: { title?: string }
+  articleLayout?: ArticleLayoutDefaults
+  blogArticleLayout?: BlogArticleLayoutOptions
   icons?: Record<string, string>
   date?: {
     locale?: string

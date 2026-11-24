@@ -1,4 +1,4 @@
-import { defineVariantRegistry } from '@happydesigns/nuxt-variants/schemas'
+import { defineVariantRegistry } from '@happydesigns/config-variants/schemas'
 
 /**
  * Public variant registry shared by the Nuxt module and schema composition.

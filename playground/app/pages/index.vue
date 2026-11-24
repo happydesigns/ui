@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { ButtonProps } from '@nuxt/ui'
+
 useSeoMeta({
   title: 'happydesigns/ui — A production-ready Nuxt foundation',
   description: 'A reusable Nuxt layer for content-driven websites, with typed content, configurable variants, navigation, search, and editorial workflows already wired.',
@@ -9,9 +11,13 @@ const latestArticles = computed(() => latestData.value.articles)
 
 const technologies = [
   { label: 'Nuxt 4', icon: 'i-simple-icons-nuxtdotjs' },
-  { label: 'Nuxt UI 4.10', icon: 'i-lucide-panels-top-left' },
-  { label: 'Nuxt Content 3.15', icon: 'i-lucide-files' },
-  { label: 'nuxt-variants', icon: 'i-lucide-git-branch' },
+  { label: 'Nuxt UI', icon: 'i-lucide-panels-top-left' },
+  { label: 'Nuxt Content', icon: 'i-lucide-files' },
+]
+
+const documentationLinks: ButtonProps[] = [
+  { label: 'Read the documentation', to: 'https://ui.happydesigns.de', target: '_blank', trailingIcon: 'i-lucide-arrow-up-right' },
+  { label: 'View on GitHub', to: 'https://github.com/happydesigns/ui', target: '_blank', color: 'neutral', variant: 'ghost', icon: 'i-simple-icons-github' },
 ]
 
 const foundations = [
@@ -39,7 +45,7 @@ const foundations = [
 <template>
   <div class="overflow-hidden">
     <UPageHero
-      headline="@happydesigns/ui · Nuxt 4 · Nuxt UI 4.10"
+      headline="@happydesigns/ui · Nuxt 4 · Nuxt UI"
       title="A production-ready foundation for content-driven Nuxt websites."
       description="Start with a coherent app shell, typed content, configurable variants, and editorial workflows. Keep the product-specific experience exactly where it belongs: in your app."
       orientation="horizontal"
@@ -288,10 +294,7 @@ const foundations = [
         title="Start with the foundation. Keep the brand yours."
         description="Use the layer for the conventions that should stay consistent, then compose the experience your project actually needs."
         variant="subtle"
-        :links="[
-          { label: 'Read the documentation', to: 'https://ui.happydesigns.de', target: '_blank', trailingIcon: 'i-lucide-arrow-up-right' },
-          { label: 'View on GitHub', to: 'https://github.com/happydesigns/ui', target: '_blank', color: 'neutral', variant: 'ghost', icon: 'i-simple-icons-github' },
-        ]"
+        :links="documentationLinks"
       />
     </UContainer>
   </div>

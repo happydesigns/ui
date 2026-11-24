@@ -43,10 +43,6 @@ export default defineNuxtConfig({
   compatibilityDate: '2026-07-10',
   extends: ['docus'],
 
-  modules: [
-    '@happydesigns/nuxt-variants',
-  ],
-
   components: [
     {
       path: componentRoot,
@@ -67,48 +63,11 @@ export default defineNuxtConfig({
     },
   },
 
-  variants: {
-    registry: {
-      dates: {},
-      authors: {},
-      category: {},
-      published: {},
-      header: {},
-      toc: {},
-      links: {},
-      location: {},
-      layout: {},
-      separatorButtons: {},
-
-      user: {},
-      backButton: {},
-      copyButton: {},
-      separator: {},
-      surround: {},
-
-      snippet: {},
-      article: {
-        extends: ['dates', 'authors', 'category', 'published', 'header', 'toc', 'surround', 'copyButton', 'separator', 'backButton', 'user'],
-        config: {},
-      },
-      event: {
-        extends: ['dates', 'location', 'category', 'links', 'published', 'header', 'toc', 'surround', 'copyButton', 'separator', 'backButton', 'user'],
-        config: {},
-      },
-      content: {
-        extends: ['layout', 'header', 'toc'],
-        config: {},
-      },
-    },
-  },
-
   nitro: {
     prerender: {
       failOnError: true,
       routes: [
         ...documentationRoutes,
-        '/api/ui-reference/components/HFooterColumns.json',
-        '/api/ui-reference/examples/FooterColumnsBasic.json',
         '/api/ui-reference/collections.json',
         '/api/ui-reference/variants.json',
       ],

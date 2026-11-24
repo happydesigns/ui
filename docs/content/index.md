@@ -32,10 +32,10 @@ description: Build on consistent technical decisions without forcing different w
   to: /concepts/content-collections
   ---
   #title
-  Typed content and variants
+  Content collections
 
   #description
-  Model pages, articles, events, snippets, and users once, then extend their presentation through typed variants.
+  Reuse schemas for pages, articles, and events. Enable the Content layer for collection queries and editing in Nuxt Studio.
   :::
 
   :::u-page-feature
@@ -55,19 +55,25 @@ description: Build on consistent technical decisions without forcing different w
 ---
 headline: Quick start
 title: Extend the layer. Keep building your app.
-description: Install the package, extend it from your Nuxt configuration, and prepare the generated types.
+description: Install the layer and add its styles to the application's Tailwind entry point.
 orientation: horizontal
 ---
 
 ```bash [Terminal]
-pnpm add @happydesigns/ui
-pnpm exec nuxt prepare
+pnpm add @happydesigns/ui @nuxt/ui tailwindcss
 ```
 
 ```ts [nuxt.config.ts]
 export default defineNuxtConfig({
   extends: ['@happydesigns/ui'],
+  css: ['~/assets/css/main.css'],
 })
+```
+
+```css [app/assets/css/main.css]
+@import "tailwindcss";
+@import "@nuxt/ui";
+@import "@happydesigns/ui/styles.css";
 ```
 
 #links
@@ -108,7 +114,7 @@ description: Start with intent and architecture, then move into content conventi
   Understand the architecture
 
   #description
-  Learn how the layer combines Nuxt, Nuxt UI, Nuxt Content, variants, app config, and project-owned composition.
+  See how the shared UI, optional Content layer, and app-owned layouts fit together.
   :::
 
   :::u-page-feature

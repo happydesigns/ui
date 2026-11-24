@@ -43,7 +43,7 @@ onMounted(async () => {
   }
 
   try {
-    const session = await $fetch('/__nuxt_studio/auth/session') as StudioSession
+    const session = await $fetch<StudioSession, '/__nuxt_studio/auth/session'>('/__nuxt_studio/auth/session')
     sessionUser.value = session.user ?? null
   }
   catch {

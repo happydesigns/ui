@@ -44,7 +44,7 @@ const capabilities = [
         <span aria-hidden="true" class="text-dimmed">·</span>
         <span>Nuxt 4</span>
         <span aria-hidden="true" class="text-dimmed">·</span>
-        <span>Nuxt UI 4.10</span>
+        <span>Nuxt UI</span>
       </div>
     </template>
 

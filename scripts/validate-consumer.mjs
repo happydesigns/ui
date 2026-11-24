@@ -104,10 +104,12 @@ try {
   workspaceDir: ${JSON.stringify(fixtureDir)},
   extends: ['@happydesigns/ui/content'],
   css: ['~/assets/css/main.css'],
+  ui: { theme: { colors: ['primary', 'secondary', 'info', 'success', 'warning', 'error', 'club'] } },
+  variants: { registry: { team: { extends: 'event' } } },
   nitro: {
     prerender: {
       autoSubfolderIndex: false,
-      routes: ['/packed', '/supplied', '/api/navigation.json', '/api/search.json'],
+      routes: ['/packed', '/supplied', '/articles', '/articles/first', '/api/navigation.json', '/api/search.json'],
     },
   },
 })
@@ -121,6 +123,11 @@ const landingSchema = createPageSectionSchema({
 
 export default defineContentConfig({
   collections: {
+    article: defineCollection({
+      type: 'page',
+      source: 'articles/**/*.md',
+      schema: collectionSchemas.article,
+    }),
     fragment: defineCollection({
       type: 'page',
       source: {
@@ -145,6 +152,8 @@ export default defineContentConfig({
 
 export default defineAppConfig({
   app: {
+    articleLayout: { showHeader: false, showToc: false, copyUrl: { label: 'Base copy label' } },
+    toc: { title: 'Collection article contents' },
     search: {
       collections: [],
     } satisfies SearchConfig,
@@ -153,6 +162,20 @@ export default defineAppConfig({
     label: 'Typed consumer config',
   },
   variants: {
+    copyButton: { config: { copyButton: { label: 'Copy collection article' } } },
+    article: {
+      config: {
+        categories: {
+          Club: {
+            label: 'Consumer category',
+            color: 'club',
+            ui: { base: { 'tracking-wide': true } },
+          },
+        },
+        query: { order: { field: 'date', direction: 'ASC' as const } },
+      },
+    },
+    team: { config: { list: { labelAll: 'All teams' } } },
     content: {
       config: {
         ownerSettings: {
@@ -164,6 +187,7 @@ export default defineAppConfig({
   ui: {
     colors: {
       primary: 'green',
+      club: 'blue',
     },
     pageHero: {
       slots: {
@@ -187,6 +211,7 @@ type FixtureConfig = ReturnType<typeof useAppConfig>['fixture']
 const fixtureLabel: FixtureConfig['label'] = 'Typed consumer config'
 type ContentVariantConfig = VariantConfigOf<'content'>
 const ownerSettingsLabel: NonNullable<ContentVariantConfig['ownerSettings']>['label'] = 'Typed app-config-only variant value'
+const consumerCategory = useCategoryBadge('Club', 'article')
 void fixtureLabel
 void ownerSettingsLabel
 </script>
@@ -199,6 +224,7 @@ void ownerSettingsLabel
       </template>
     </HSiteHeader>
     <h1>Packed consumer fixture</h1>
+    <p data-test="consumer-badge">{{ consumerCategory?.label }}</p>
     <HSnippet :collection="fragmentCollection" path="/snippets/packed" />
     <HLinks :links="links" />
     <HFooterColumns :columns="[]" :lg-cols="2" />
@@ -231,6 +257,54 @@ const { data: page } = await usePageContent({
     path="/does-not-exist"
   />
 </template>
+`)
+  await write('app/pages/articles/index.vue', `<script setup lang="ts">
+const { data } = await useArticleList({ collection: 'article' })
+</script>
+
+<template>
+  <ul>
+    <li v-for="article in data.articles" :key="article.path">
+      {{ article.title }}
+      <UBadge v-bind="article.resolvedBadge" />
+    </li>
+  </ul>
+</template>
+`)
+  await write('app/pages/articles/[slug].vue', `<script setup lang="ts">
+definePageMeta({
+  layout: 'article',
+  layoutProps: { collection: 'article' },
+})
+</script>
+
+<template>
+  <HArticlePage collection="article" />
+</template>
+`)
+  await write('content/articles/first.md', `---
+title: First consumer article
+category: Club
+date: 2026-01-01
+toc: true
+---
+Rendered by the named article layout.
+
+## First consumer details
+
+Body text for the table of contents.
+`)
+  await write('content/articles/second.md', `---
+title: Second consumer article
+category: Club
+date: 2026-02-01
+toc: false
+---
+The adjacent article.
+
+## Second consumer details
+
+This heading stays in the body when the table of contents is disabled.
 `)
   await write('content/snippets/packed.md', `---
 title: Packed snippet
@@ -265,6 +339,17 @@ Rendered through the shared content page.
 `)
   await write('base/app/app.config.ts', `export default defineAppConfig({
   app: {
+    articleLayout: {
+      copyUrl: { label: 'Copy packed article URL' },
+      tocTitle: 'Packed article contents',
+    },
+    blogArticleLayout: {
+      defaults: { tocTitle: 'Packed blog contents', copyUrl: { icon: 'i-lucide-copy' } },
+      categories: { News: { label: 'Packed category badge', color: 'primary' } },
+    },
+    layouts: {
+      tournamentArticle: { backLabel: 'Back to tournaments', reportsTitle: 'Packed tournament reports' },
+    },
     search: {
       title: 'Find a page',
       links: [{ label: 'Datenschutz', to: '/privacy' }],
@@ -273,9 +358,98 @@ Rendered through the shared content page.
   },
 })
 `)
-  await write('base/app/pages/index.vue', '<template><h1>Base layer consumer</h1></template>')
-  await write('base/app/pages/privacy.vue', '<template><h1>Privacy page</h1></template>')
-  await write('base/app/pages/contact.vue', '<template><h1>Contact page</h1></template>')
+  await write('base/app/pages/index.vue', `<script setup lang="ts">
+import type { ArticleLayoutProps } from '@happydesigns/ui/types'
+
+if (Object.hasOwn(useAppConfig(), 'variants'))
+  throw new Error('The base layer registered Content variant defaults.')
+
+const articleProps = {
+  article: {
+    title: 'Base layer consumer',
+    contents: [{ id: 'packed-section', depth: 2, text: 'Packed section' }],
+  },
+  section: { label: 'Articles', to: '/' },
+  back: { label: 'Back to privacy', to: '/privacy' },
+  navigation: { next: { label: 'Next packed article', to: '/contact' } },
+  options: {
+    footerLinks: [{ label: 'Packed source link', to: '/contact#source' }],
+  },
+} satisfies ArticleLayoutProps
+</script>
+
+<template>
+  <HBlogArticleLayout v-bind="articleProps" :details="{ category: 'News', authors: [{ name: 'Fixture author' }] }">
+    <h2 id="packed-section">Body from the consuming app</h2>
+  </HBlogArticleLayout>
+</template>
+`)
+  await write('base/app/pages/privacy.vue', `<template>
+  <HArticleLayout :article="{ title: 'Privacy page', toc: true }" :options="{ copyUrl: false }" />
+</template>
+`)
+  await write('base/app/pages/contact.vue', `<template>
+  <HBlogArticleLayout
+    :article="{ title: 'Contact page', toc: false }"
+    :defaults="[{ copyUrl: false }]"
+    :options="{ showToc: true, copyUrl: {} }"
+  >
+    <template #toc>
+      <nav aria-label="Custom contents">
+        <a href="#source">Source</a>
+      </nav>
+    </template>
+    <p id="source">Contact page source</p>
+  </HBlogArticleLayout>
+</template>
+`)
+  await write('base/app/types/tournament-options.ts', `export interface TournamentOptions {
+  backLabel: string
+  reportsTitle: string
+}
+
+declare module '@happydesigns/ui/types' {
+  interface HAppConfigExtensions {
+    layouts?: { tournamentArticle?: Partial<TournamentOptions> }
+  }
+}
+`)
+  await write('base/app/layouts/tournament-article.vue', `<script setup lang="ts">
+import type { ArticleView } from '@happydesigns/ui/types'
+import type { TournamentOptions } from '~/types/tournament-options'
+
+const props = defineProps<{ article: ArticleView, tournamentOptions?: Partial<TournamentOptions> }>()
+const defaults: TournamentOptions = { backLabel: 'Overview', reportsTitle: 'Reports' }
+const appConfig = useAppConfig()
+const settings = useLayoutOptions(defaults, () => [appConfig.app.layouts?.tournamentArticle, props.tournamentOptions])
+</script>
+
+<template>
+  <HArticleLayout :article="article" :back="{ label: settings.backLabel, to: '/' }">
+    <slot />
+    <section v-if="$slots.reports">
+      <h2>{{ settings.reportsTitle }}</h2>
+      <slot name="reports" />
+    </section>
+  </HArticleLayout>
+</template>
+`)
+  await write('base/app/pages/tournament.vue', `<script setup lang="ts">
+definePageMeta({ layout: false })
+</script>
+
+<template>
+  <NuxtLayout
+    name="tournament-article"
+    :article="{ title: 'Packed tournament' }"
+    :tournament-options="{ backLabel: 'Back to this tournament' }"
+  >
+    <template #reports>
+      <p>Report from the consumer</p>
+    </template>
+  </NuxtLayout>
+</template>
+`)
   await write('base/app/assets/css/main.css', `@import "tailwindcss";
 @import "@nuxt/ui";
 @import "@happydesigns/ui/styles.css";
@@ -285,6 +459,7 @@ Rendered through the shared content page.
   runPnpm(['install', '--no-frozen-lockfile'], fixtureDir)
   const prepareOutput = runPnpm(['exec', 'nuxt', 'prepare'], fixtureDir)
   runPnpm(['exec', 'nuxt', 'prepare'], baseDir)
+  const typecheckOutput = runPnpm(['exec', 'nuxt', 'typecheck'], fixtureDir)
   runPnpm(['exec', 'nuxt', 'typecheck'], baseDir)
   const baseOutput = runPnpm(['exec', 'nuxt', 'generate'], baseDir)
   if (/Failed to resolve component|Unknown custom element/i.test(baseOutput))
@@ -292,13 +467,34 @@ Rendered through the shared content page.
   const baseFiles = await readdir(join(baseDir, '.nuxt'))
   if (baseFiles.includes('content') || baseFiles.includes('mdc-highlighter.mjs'))
     throw new Error('The base layer must not initialize Nuxt Content or its highlighter.')
+  if (baseFiles.includes('variants-runtime.mjs') || baseFiles.includes('variants-graph.mjs'))
+    throw new Error('The base layer must not initialize Config Variants.')
+  const baseImports = await readFile(join(baseDir, '.nuxt/imports.d.ts'), 'utf8')
+  if (/\buse(?:Variant|CategoryBadge)\b/.test(baseImports))
+    throw new Error('The base layer registered Content variant composables.')
+  if (!/\buseLayoutOptions\b/.test(baseImports) || /\bresolveLayoutOptions\b/.test(baseImports))
+    throw new Error('The base layer must auto-import the layout composable and keep its resolver internal.')
   const baseHtml = await readFile(join(baseDir, '.output/public/index.html'), 'utf8')
   if (!baseHtml.includes('Base layer consumer'))
     throw new Error('The base layer did not render independently of Nuxt Content.')
+  for (const text of ['Body from the consuming app', 'href="#packed-section"', 'Packed blog contents', 'Copy packed article URL', 'Packed category badge', 'Fixture author', 'Back to privacy', 'href="/contact#source"', 'Next packed article']) {
+    if (!baseHtml.includes(text))
+      throw new Error(`The packed article layout did not render: ${text}`)
+  }
   if (!baseHtml.includes('aria-label="Search pages"') || /<HSiteSearch|<UContentSearchButton/i.test(baseHtml))
     throw new Error('The packed base consumer did not resolve its native search components.')
+  const privacyHtml = await readFile(join(baseDir, '.output/public/privacy/index.html'), 'utf8')
+  if (privacyHtml.includes('Packed article contents') || privacyHtml.includes('Copy packed article URL'))
+    throw new Error('The packed article layout rendered an empty TOC or a disabled action.')
+  const contactHtml = await readFile(join(baseDir, '.output/public/contact/index.html'), 'utf8')
+  if (!contactHtml.includes('aria-label="Custom contents"'))
+    throw new Error('The packed blog layout did not forward a TOC slot with a local override.')
+  if (!contactHtml.includes('Copy URL') || contactHtml.includes('Copy packed article URL'))
+    throw new Error('Re-enabling Copy URL after a reset did not restore the built-in label.')
+  const tournamentHtml = await readFile(join(baseDir, '.output/public/tournament/index.html'), 'utf8')
+  if (!tournamentHtml.includes('>Packed tournament reports</h2>') || !tournamentHtml.includes('Back to this tournament'))
+    throw new Error('The consumer tournament layout did not render its App Config heading and page-specific back label.')
 
-  const typecheckOutput = runPnpm(['exec', 'nuxt', 'typecheck'], fixtureDir)
   const generateOutput = runPnpm(['exec', 'nuxt', 'generate'], fixtureDir)
   const output = `${prepareOutput}\n${typecheckOutput}\n${generateOutput}`
 
@@ -307,6 +503,8 @@ Rendered through the shared content page.
 
   const publicDir = join(fixtureDir, '.output/public')
   const html = await readFile(join(publicDir, 'index.html'), 'utf8')
+  if (!html.includes('data-test="consumer-badge">Consumer category</p>'))
+    throw new Error('The Content consumer did not expose its configured category badge composable.')
   const renderedPage = html.includes('Packed consumer fixture')
   const renderedSnippet = html.includes('Rendered through the installed package.')
   const contentHtml = await readFile(join(publicDir, 'packed.html'), 'utf8')
@@ -315,6 +513,22 @@ Rendered through the shared content page.
   const reusedContentPage = suppliedHtml.includes('Rendered through the shared content page.')
   if (!renderedPage || !renderedSnippet || !renderedContentPage || !reusedContentPage)
     throw new Error(`Packed consumer render mismatch (page: ${renderedPage}, snippet: ${renderedSnippet}, content page: ${renderedContentPage}, supplied page: ${reusedContentPage}).`)
+
+  const articlesHtml = await readFile(join(publicDir, 'articles.html'), 'utf8')
+  const firstIndex = articlesHtml.indexOf('First consumer article')
+  const secondIndex = articlesHtml.indexOf('Second consumer article')
+  if (firstIndex === -1 || secondIndex <= firstIndex || !articlesHtml.includes('Consumer category') || !articlesHtml.includes('tracking-wide'))
+    throw new Error('Article sorting or category badge overrides were not applied in the packed Content consumer.')
+  const firstArticleHtml = await readFile(join(publicDir, 'articles/first.html'), 'utf8')
+  for (const text of ['First consumer article', 'Rendered by the named article layout.', 'Copy collection article', 'Collection article contents', 'href="/articles/second"']) {
+    if (!firstArticleHtml.includes(text))
+      throw new Error(`The named article layout did not render: ${text}`)
+  }
+  if (firstArticleHtml.includes('Base copy label'))
+    throw new Error('The named article layout rendered the base copy action instead of its collection action.')
+  const secondArticleHtml = await readFile(join(publicDir, 'articles/second.html'), 'utf8')
+  if (!secondArticleHtml.includes('Second consumer details') || secondArticleHtml.includes('Collection article contents'))
+    throw new Error('The named article layout did not honor the document TOC setting.')
 
   for (const endpoint of ['navigation', 'search']) {
     const contents = await readFile(join(publicDir, `api/${endpoint}.json`), 'utf8')
